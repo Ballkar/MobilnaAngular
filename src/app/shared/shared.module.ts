@@ -9,14 +9,20 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
-
-
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
 const materialComponents = [
   CommonModule,
   MatCardModule,
   MatInputModule,
   MatCheckboxModule,
-  MatButtonModule
+  MatButtonModule,
+  MatSidenavModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatMenuModule,
 ];
 
 

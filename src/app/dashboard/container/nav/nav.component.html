@@ -1,0 +1,35 @@
+<mat-toolbar color="primary" class="navBarContainer">
+  <div class="brandContainer">
+    <button mat-icon-button (click)="sidebarService.toggle()" >
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <a class="navbarBrand" routerLink="/">
+      <img src="assets/logo.png" class="logo" alt="homepage">
+    </a>
+  </div>
+
+
+
+  <div class="iconsContainer">
+
+    <button mat-icon-button (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+    <!-- <mat-menu #profile="matMenu" class="profileMenu">
+      <div class="accountInformation" (click)="prevent($event)">
+        <span class="name">{{user.name}}</span>
+        <span class="email">{{user.email}}</span>
+      </div>
+      <button mat-menu-item [routerLink]="['/', 'dashboard', 'connections']">
+        <mat-icon>folder_open</mat-icon> Connections
+      </button>
+      <button mat-menu-item (click)="openPasswordChange()">
+        <mat-icon>edit</mat-icon> Change password
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon> Sign Out
+      </button>
+    </mat-menu> -->
+  </div>
+</mat-toolbar>

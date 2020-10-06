@@ -1,0 +1,10 @@
+@import './../../../styles/mixins.scss';
+
+.container{
+  position: relative;
+  padding: 15px;
+  height: calc(100vh - 64px);
+  @include tablet{
+    height: calc(100vh - 56px);
+  }
+}

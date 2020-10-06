@@ -1,1 +1,16 @@
-<p>container works!</p>
+<div class="mainContainer">
+  <app-nav></app-nav>
+
+  <mat-sidenav-container>
+
+    <mat-sidenav mode="side" [opened]="opened" [mode]="isMobile ? 'over' : 'side'">
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="container">
+        <router-outlet #o="outlet"></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
