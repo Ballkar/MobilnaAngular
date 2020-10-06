@@ -1,0 +1,21 @@
+<form id="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="title">Witaj!</div>
+
+    <mat-form-field>
+      <input matInput placeholder="Email" required [formControl]="email">
+      <mat-error *ngIf="email.errors && email.errors['invalidCredentials']">
+        {{email.errors['invalidCredentials']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="password" placeholder="Hasło" required [formControl]="password">
+    </mat-form-field>
+
+    <!-- <div class="row">
+      <div class="forgotPassword">Forgot password?</div>
+    </div> -->
+
+    <button mat-raised-button color="primary" type="submit" id="submit">Zaloguj się</button>
+    <!-- <div class="text">Don't have an account? <span class="highlighted" routerLink="/auth/register">Register</span></div> -->
+</form>

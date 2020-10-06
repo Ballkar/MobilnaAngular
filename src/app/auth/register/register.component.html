@@ -1,0 +1,38 @@
+<form id="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="title">Register to App!</div>
+    <mat-form-field>
+      <input matInput placeholder="Email" required [formControl]="email">
+      <mat-error *ngIf="email.errors && email.errors['serverError']">
+        {{email.errors['serverError']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Name" required [formControl]="name">
+      <mat-error *ngIf="name.errors && name.errors['serverError']">
+        {{name.errors['serverError']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password" required [formControl]="password">
+      <mat-error *ngIf="password.errors && password.errors['serverError']">
+        {{password.errors['serverError']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="password" placeholder="Repeat password" required [formControl]="password_confirmation">
+      <mat-error *ngIf="password_confirmation.errors && password_confirmation.errors['serverError']">
+        {{password_confirmation.errors['serverError']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-checkbox color="primary" [formControl]="regs" required>
+      I accept the terms and conditions
+    </mat-checkbox>
+
+    <button mat-raised-button color="primary" type="submit" id="submit">Register</button>
+
+    <div class="text">You have an account? <span class="highlighted" routerLink="/">Login</span></div>
+</form>
