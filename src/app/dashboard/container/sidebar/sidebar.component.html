@@ -4,8 +4,8 @@
 
   <div class="content">
     <mat-nav-list>
-      <mat-list-item routerLinkActive="selected">
-        <a class="link"  routerLink="/dashboard" [routerLinkActive]="'active'">
+      <mat-list-item [routerLinkActive]="'active'" [routerLink]="['/', 'dashboard', 'home']">
+        <a class="link">
           <mat-icon class="icon">home</mat-icon>
           Start
         </a>
