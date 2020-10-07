@@ -6,6 +6,7 @@ import { ContainerComponent } from './container/container.component';
 import { SharedModule } from '../shared/shared.module';
 import { NavComponent } from './container/nav/nav.component';
 import { SidebarComponent } from './container/sidebar/sidebar.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { SidebarComponent } from './container/sidebar/sidebar.component';
     ContainerComponent,
     NavComponent,
     SidebarComponent,
+    HomepageComponent,
   ],
   imports: [
     CommonModule,

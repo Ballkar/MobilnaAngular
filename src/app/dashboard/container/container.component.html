@@ -9,7 +9,11 @@
 
     <mat-sidenav-content>
       <div class="container">
-        <router-outlet #o="outlet"></router-outlet>
+        <mat-card>
+          <mat-card-content class="column">
+            <router-outlet #o="outlet"></router-outlet>
+          </mat-card-content>
+        </mat-card>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
