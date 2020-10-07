@@ -1,6 +1,17 @@
 <mat-card-title>Lista modułów</mat-card-title>
 
+<div class="cubesContainer">
 
-<div [routerLink]="['/', 'dashboard', 'customer']">customer</div>
-<div [routerLink]="['/', 'dashboard', 'phone']">phone</div>
-<div [routerLink]="['/', 'dashboard', 'orders']">orders</div>
+  <div class="moduleCube" [routerLink]="['/', 'dashboard', 'customer']">
+    <mat-icon>assignment_ind</mat-icon>
+    <div class="title">Klientki</div>
+  </div>
+  <div class="moduleCube" [routerLink]="['/', 'dashboard', 'phone']">
+    <mat-icon>phonelink_setup</mat-icon>
+    <div class="title">Telefony</div>
+  </div>
+  <div class="moduleCube" [routerLink]="['/', 'dashboard', 'orders']">
+    <mat-icon>work</mat-icon>
+    <div class="title">wizyty</div>
+  </div>
+</div>

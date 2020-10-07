@@ -1,0 +1,30 @@
+.cubesContainer{
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+
+  .moduleCube{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    font-size: 25px;
+    border: 1px solid gray;
+    height: 150px;
+    width: 150px;
+    cursor: pointer;
+
+    mat-icon{
+      $size: 35px;
+      margin-bottom: 10px;
+      height: $size;
+      width: $size;
+      font-size: $size;
+    }
+
+    .title{
+
+    }
+  }
+}
