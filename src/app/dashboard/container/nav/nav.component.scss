@@ -7,6 +7,10 @@
   .brandContainer{
     display: flex;
 
+    .menuHamburger{
+      margin-right: 10px;
+    }
+
     .navbarBrand{
       display: flex;
       align-items: center;

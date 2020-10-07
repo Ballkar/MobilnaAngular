@@ -1,0 +1,20 @@
+
+.container{
+  width: 260px;
+  height: 100%;
+  color: rgba(0,0,0,.87);;
+  // padding: 10px 20px;
+}
+
+.link{
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  mat-icon{
+    margin-right: 5px;
+  }
+
+  &.active {
+    color: #02bec9;
+  }
+}

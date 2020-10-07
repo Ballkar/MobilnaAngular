@@ -1,5 +1,7 @@
-import { HostListener } from '@angular/core';
+import { HostListener, OnDestroy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { SidebarService } from '../services/sidebar.service';
 
 @Component({
@@ -7,11 +9,11 @@ import { SidebarService } from '../services/sidebar.service';
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss']
 })
-export class ContainerComponent implements OnInit {
-
-  opened: boolean;
+export class ContainerComponent implements OnInit, OnDestroy {
   isMobile: boolean;
   mobileWidth = 667;
+  opened: boolean;
+  sub: Subscription;
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -20,14 +22,16 @@ export class ContainerComponent implements OnInit {
   constructor(
     private sideBarService: SidebarService,
   ) {
-
     this.isMobile = window.innerWidth < this.mobileWidth ? true : false;
+    this.opened = this.isMobile ? false : true;
+    this.sideBarService.open = this.opened;
   }
 
   ngOnInit() {
-    this.sideBarService.opened$.subscribe(opened => this.opened = opened);
-    const initOpened = this.isMobile ? false : true;
-    this.sideBarService.opened$.next(initOpened);
+    this.sub = this.sideBarService.opened$.subscribe(res => this.opened = res);
   }
 
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
 }
