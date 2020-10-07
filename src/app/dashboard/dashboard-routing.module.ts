@@ -14,8 +14,8 @@ const routes: Routes = [
         component: HomepageComponent,
       },
       {
-        path: 'phone',
-        loadChildren : () => import('./phone/phone.module').then(m => m.PhoneModule),
+        path: 'message',
+        loadChildren : () => import('./message/message.module').then(m => m.MessageModule),
       },
       {
         path: 'customer',

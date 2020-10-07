@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { CustomersRoutingModule } from './customers-routing.module';
+import { MessageRoutingModule } from './message-routing.module';
 import { AddComponent } from './add/add.component';
 import { ListComponent } from './list/list.component';
 import { EditComponent } from './edit/edit.component';
@@ -11,7 +11,7 @@ import { EditComponent } from './edit/edit.component';
   declarations: [AddComponent, ListComponent, EditComponent],
   imports: [
     CommonModule,
-    CustomersRoutingModule
+    MessageRoutingModule
   ]
 })
-export class CustomersModule { }
+export class MessageModule { }
