@@ -16,6 +16,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDialogModule} from '@angular/material/dialog';
 
 const materialComponents = [
   CommonModule,
@@ -30,6 +31,7 @@ const materialComponents = [
   MatListModule,
   MatPaginatorModule,
   MatProgressSpinnerModule,
+  MatDialogModule,
 ];
 
 
@@ -51,6 +53,8 @@ const materialComponents = [
     HttpClientModule,
     ReactiveFormsModule,
     materialComponents,
+  ],
+  entryComponents: [
   ]
 })
 export class SharedModule { }

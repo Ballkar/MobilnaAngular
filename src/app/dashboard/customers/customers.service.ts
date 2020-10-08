@@ -14,7 +14,8 @@ export class CustomersService {
   ) { }
 
   getCustomers(pagination: PaginationEvent): Observable<CustomerModel[]> {
-    return this.http.get<CustomerModel[]>(`${environment.apiUrl}/customers?_page=${pagination.pageIndex}&_limit=${pagination.pageSize}`);
+    const {pageIndex, pageSize} = pagination;
+    return this.http.get<CustomerModel[]>(`${environment.apiUrl}/customers?_page=${pageIndex + 1}&_limit=${pageSize}`);
   }
 
   getCustomer(id: number): Observable<CustomerModel> {

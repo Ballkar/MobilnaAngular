@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { debounceTime, delay, tap } from 'rxjs/operators';
+import { debounceTime, delay, filter, tap } from 'rxjs/operators';
+import { AddCustomerPopupComponent } from 'src/app/dashboard/customers/add-customer-popup/add-customer-popup.component';
 import { CustomerModel } from '../customer.model';
 import { CustomersService } from '../customers.service';
 
@@ -12,16 +14,18 @@ import { CustomersService } from '../customers.service';
 })
 export class ListComponent implements OnInit {
   searchCtrl: FormControl = new FormControl();
-  pagination: PaginationEvent = {
+  initPagination: PaginationEvent = {
     length: 5,
     pageIndex: 0,
     pageSize: 3,
     previousPageIndex: null
   };
+  pagination: PaginationEvent;
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   customers$: Observable<CustomerModel[]>;
   constructor(
     private customerService: CustomersService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -31,9 +35,11 @@ export class ListComponent implements OnInit {
     ).subscribe(console.log);
   }
 
-  getCustomers() {
+  getCustomers(pagination?: PaginationEvent) {
     this.isLoading$.next(true);
-    this.customers$ = this.customerService.getCustomers(this.pagination).pipe(
+    pagination = pagination ? pagination : this.initPagination;
+    this.pagination = pagination;
+    this.customers$ = this.customerService.getCustomers(pagination).pipe(
       tap(() => this.isLoading$.next(false)),
     );
   }
@@ -55,11 +61,13 @@ export class ListComponent implements OnInit {
   }
 
   add() {
-
+    const ref = this.dialog.open(AddCustomerPopupComponent, {});
+    ref.afterClosed().pipe(
+      filter((customer: CustomerModel) => !!customer)
+    ).subscribe(() => this.getCustomers());
   }
 
   changePage(event: PaginationEvent) {
-    this.pagination = event;
-    this.getCustomers();
+    this.getCustomers(event);
   }
 }
