@@ -13,8 +13,8 @@ export class CustomersService {
     private http: HttpClient,
   ) { }
 
-  getCustomers(): Observable<CustomerModel> {
-    return this.http.get<CustomerModel>(`${environment.apiUrl}/customers`);
+  getCustomers(pagination: PaginationEvent): Observable<CustomerModel[]> {
+    return this.http.get<CustomerModel[]>(`${environment.apiUrl}/customers?_page=${pagination.pageIndex}&_limit=${pagination.pageSize}`);
   }
 
   getCustomer(id: number): Observable<CustomerModel> {

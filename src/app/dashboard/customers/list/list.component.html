@@ -1,22 +1,43 @@
 <div class="container">
-  <div class="title"></div>
+  <mat-card-title class="mainTitle">Lista Klientek</mat-card-title>
 
-  <mat-action-list class="customers" *ngIf="(customers$|async) as customers">
+  <mat-form-field class="searchInput">
+    <mat-label>Wyszukaj klientkę</mat-label>
+    <input matInput placeholder="Imie lub nazwisko" [formControl]="searchCtrl">
+  </mat-form-field>
 
-    <div class="customer" *ngFor="let customer of customers">
+  <mat-spinner *ngIf="isLoading$|async"></mat-spinner>
+  <ng-container *ngIf="(customers$|async) as customers">
 
-      <button mat-icon-button class="editBtn" (click)="edit(customer)">
-        <mat-icon class="active">edit</mat-icon>
-      </button>
-      <button mat-icon-button color="warn" class="editBtn" (click)="remove(customer)">
-        <mat-icon class="active">remove</mat-icon>
-      </button>
+    <mat-action-list class="customers">
 
-      <button class="name" mat-list-item (click)="select(customer)">{{customer.name}}</button>
-    </div>
-  </mat-action-list>
+      <div class="customer" *ngFor="let customer of customers">
+
+        <!-- <button mat-icon-button class="editBtn" (click)="edit(customer)">
+          <mat-icon class="active">edit</mat-icon>
+        </button> -->
+
+        <button mat-icon-button class="editBtn" (click)="initChat(customer)">
+          <mat-icon class="active">chat</mat-icon>
+        </button>
+
+        <button class="name" mat-list-item (click)="select(customer)">{{customer.name}} {{customer.surname}}</button>
+      </div>
+
+    </mat-action-list>
+
+    <mat-paginator
+      [length]="pagination.length"
+      [pageSize]="pagination.pageSize"
+      [pageSizeOptions]="[2, 5, 10]"
+      [pageIndex]="pagination.pageIndex"
+      (page)="changePage($event)">
+    </mat-paginator>
+  </ng-container>
 </div>
 
+<button mat-raised-button color="primary" class="addBtn" (click)="add()">Dodaj klientke</button>
+
 <ng-template #empty>
-  <mat-spinner></mat-spinner>
+  <mat-spinner ></mat-spinner>
 </ng-template>

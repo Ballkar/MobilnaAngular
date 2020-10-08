@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 const materialComponents = [
   CommonModule,
@@ -27,6 +28,7 @@ const materialComponents = [
   MatIconModule,
   MatMenuModule,
   MatListModule,
+  MatPaginatorModule,
   MatProgressSpinnerModule,
 ];
 
