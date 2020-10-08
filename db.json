@@ -1,0 +1,86 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "name": "Justyna",
+      "surname": "Kowalska",
+      "phone": "515314231",
+      "info": "fajna babka"
+    },
+    {
+      "id": 2,
+      "name": "Julia",
+      "surname": "Bodziony",
+      "phone": "515314231",
+      "info": "fajna babka"
+    },
+    {
+      "id": 3,
+      "name": "Zosia",
+      "surname": "Kowalska",
+      "phone": "515314231",
+      "info": "fajna babka"
+    },
+    {
+      "id": 4,
+      "name": "Paulina",
+      "surname": "Nowak",
+      "phone": "515314231",
+      "info": "fajna babka"
+    },
+    {
+      "id": 5,
+      "name": "Jowita",
+      "surname": "Kowalska",
+      "phone": "515314231",
+      "info": "asdsadasdasd"
+    }
+  ],
+  "messageSchemas": [
+    {
+      "id": 1,
+      "name": "Powitanie",
+      "text": "Cześć chciałam powitać Cię w swoim salonie!!"
+    },
+    {
+      "id": 2,
+      "name": "Pożegnanie",
+      "text": "Spierdalaj! nie chce Cię znać"
+    },
+    {
+      "id": 3,
+      "name": "Taka sobie wiadomość",
+      "text": "Wiadomość testowa"
+    }
+  ],
+  "messages": [
+    {
+      "id": 1,
+      "customerId": 1,
+      "name": "Powitanie",
+      "date": "2008-11-11 12:10:32",
+      "text": "Cześć chciałam powitać Cię w swoim salonie!!"
+    },
+    {
+      "id": 2,
+      "customerId": 1,
+      "name": "Pożegnanie",
+      "date": "2008-11-11 13:10:32",
+      "text": "Spierdalaj nie chce Cię znać"
+    },
+    {
+      "id": 3,
+      "customerId": 2,
+      "name": "Powitanie",
+      "date": "2008-11-13 12:10:32",
+      "text": "Cześć chciałam powitać Cię w swoim salonie!!"
+    },
+    {
+      "id": 3,
+      "customerId": 3,
+      "name": "Powitanie",
+      "date": "2008-11-12 12:10:32",
+      "text": "Cześć chciałam powitać Cię w swoim salonie!!"
+    }
+  ]
+}

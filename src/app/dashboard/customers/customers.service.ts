@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { CustomerModel } from './customer.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,4 +12,20 @@ export class CustomersService {
   constructor(
     private http: HttpClient,
   ) { }
+
+  getCustomers(): Observable<CustomerModel> {
+    return this.http.get<CustomerModel>(`${environment.apiUrl}/customers`);
+  }
+
+  getCustomer(id: number): Observable<CustomerModel> {
+    return this.http.get<CustomerModel>(`${environment.apiUrl}/customers/${id}`);
+  }
+
+  saveCustomer(Customer: CustomerModel): Observable<CustomerModel> {
+    return this.http.post<CustomerModel>(`${environment.apiUrl}/customers`, Customer);
+  }
+
+  deleteCustomer(id: number): Observable<CustomerModel> {
+    return this.http.delete<CustomerModel>(`${environment.apiUrl}/customers/${id}`);
+  }
 }
