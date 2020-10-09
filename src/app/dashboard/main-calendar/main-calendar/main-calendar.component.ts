@@ -10,11 +10,11 @@ import * as moment from 'moment';
 
 registerLocaleData(localePL);
 @Component({
-  selector: 'app-display',
-  templateUrl: './display.component.html',
-  styleUrls: ['./display.component.scss']
+  selector: 'app-main-calendar',
+  templateUrl: './main-calendar.component.html',
+  styleUrls: ['./main-calendar.component.scss']
 })
-export class DisplayComponent implements OnInit, OnDestroy {
+export class MainCalendarComponent implements OnInit, OnDestroy {
   view: CalendarView = CalendarView.Week;
   viewDate: Date = new Date();
   daysInWeek: number;

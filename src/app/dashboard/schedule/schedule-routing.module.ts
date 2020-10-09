@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DisplayComponent } from './display/display.component';
+import { WorkComponent } from './work/work.component';
 
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: DisplayComponent,
+    component: WorkComponent,
   }
 ];
 
@@ -15,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CalendarsRoutingModule { }
+export class ScheduleRoutingModule { }
