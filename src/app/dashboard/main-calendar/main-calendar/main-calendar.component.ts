@@ -1,81 +1,50 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Input, OnDestroy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, DAYS_OF_WEEK } from 'angular-calendar';
+import { CalendarEvent, CalendarEventTimesChangedEvent } from 'angular-calendar';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { registerLocaleData } from '@angular/common';
-import localePL from '@angular/common/locales/pl';
 import * as moment from 'moment';
+import { BaseConfigInterface, MainCalendarService } from '../main-calendar.service';
+import { EventModel } from '../event.model';
 
-registerLocaleData(localePL);
 @Component({
   selector: 'app-main-calendar',
   templateUrl: './main-calendar.component.html',
   styleUrls: ['./main-calendar.component.scss']
 })
 export class MainCalendarComponent implements OnInit, OnDestroy {
-  view: CalendarView = CalendarView.Week;
-  viewDate: Date = new Date();
-  daysInWeek: number;
-  locale = 'pl';
-  private destroy$ = new Subject();
-  dayStartHour = 8;
-  dayStartMinute = 0;
-  hourSegments = 4;
-  dayEndHour = 19;
-  dayEndMinute = 0;
-  precision = 'minutes';
-  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
-
-  colors: any = {
-    client: {
-      primary: '#1e90ff',
-      secondary: '#D1E8FF',
-    },
-  };
   private dateFormat = 'YYYY-M-D H:m:s';
-  events: CalendarEvent<{id: number}>[] = [
-    {
-      start: moment('2020-10-9 10:00:00', this.dateFormat).toDate(),
-      end: moment('2020-10-9 10:00:00', this.dateFormat).add(90, 'minutes').toDate(),
-      title: 'Klientka',
-      color: this.colors.client,
+  private destroy$ = new Subject();
+  daysInWeek: number;
+  configData: BaseConfigInterface = this.calendarService.baseConfig;
+  events: CalendarEvent<{id: number}>[];
+
+  @Input() set eventsData(data: EventModel<{id: number}>[]) {
+    this.events = data.map(el => ({
+      start: moment(el.start, this.dateFormat).toDate(),
+      end: moment(el.stop, this.dateFormat).toDate(),
+      title: el.title,
+      meta: el.data,
+      color: el.state,
       resizable: {
         beforeStart: true,
         afterEnd: true,
       },
       draggable: true,
-      meta: {id: 0}
-    },
-  ];
+    }));
+  }
   constructor(
+    private calendarService: MainCalendarService,
     private breakpointObserver: BreakpointObserver,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
   ) { }
 
   ngOnInit() {
-    const CALENDAR_RESPONSIVE = {
-      small: {
-        breakpoint: '(max-width: 576px)',
-        daysInWeek: 2,
-      },
-      medium: {
-        breakpoint: '(max-width: 768px)',
-        daysInWeek: 3,
-      },
-      large: {
-        breakpoint: '(max-width: 960px)',
-        daysInWeek: 5,
-      },
-    };
-    this.breakpointObserver
-      .observe(
-        Object.values(CALENDAR_RESPONSIVE).map(({ breakpoint }) => breakpoint)
-      )
+    this.breakpointObserver.observe(Object.values(this.calendarService.responsives).map(({ breakpoint }) => breakpoint))
       .pipe(takeUntil(this.destroy$))
       .subscribe((state: BreakpointState) => {
-        const foundBreakpoint = Object.values(CALENDAR_RESPONSIVE).find(
+        const foundBreakpoint = Object.values(this.calendarService.responsives).find(
           ({ breakpoint }) => !!state.breakpoints[breakpoint]
         );
         if (foundBreakpoint) {

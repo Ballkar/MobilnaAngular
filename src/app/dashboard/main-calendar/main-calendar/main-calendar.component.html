@@ -3,16 +3,16 @@
 
   <div class="calendar">
     <mwl-calendar-week-view
-      [viewDate]="viewDate"
-      [daysInWeek]="daysInWeek"
-      [locale]="locale"
-      [precision]="precision"
-      [hourSegments]="hourSegments"
-      [dayStartHour]="dayStartHour"
-      [dayStartMinute]="dayStartMinute"
-      [dayEndHour]="dayEndHour"
-      [dayEndMinute]="dayEndMinute"
+      [viewDate]="configData.actualDate"
+      [locale]="configData.locale"
+      [precision]="configData.precision"
+      [hourSegments]="configData.hourSegments"
+      [dayStartHour]="configData.dayStartHour"
+      [dayStartMinute]="configData.dayStartMinute"
+      [dayEndHour]="configData.dayEndHour"
+      [dayEndMinute]="configData.dayEndMinute"
 
+      [daysInWeek]="daysInWeek"
 
 
       [events]="events"

@@ -5,17 +5,22 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CalendarDateFormatter, CalendarModule, CalendarNativeDateFormatter, DateAdapter, DateFormatterParams } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/moment';
 import * as moment from 'moment';
+import { registerLocaleData } from '@angular/common';
+import localePL from '@angular/common/locales/pl';
+
+
+registerLocaleData(localePL);
 
 export function momentAdapterFactory() {
   return adapterFactory(moment);
 }
 
 class CustomDateFormatter extends CalendarNativeDateFormatter {
-  public dayViewHour({date, locale}: DateFormatterParams): string {
+  dayViewHour({date, locale}: DateFormatterParams): string {
     return new Intl.DateTimeFormat(locale, {hour: 'numeric'}).format(date);
   }
-
 }
+
 @NgModule({
   declarations: [
     MainCalendarComponent,
