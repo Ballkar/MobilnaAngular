@@ -6,6 +6,7 @@ import { debounceTime, delay, filter, tap } from 'rxjs/operators';
 import { AddCustomerPopupComponent } from 'src/app/dashboard/customers/add-customer-popup/add-customer-popup.component';
 import { CustomerModel } from '../customer.model';
 import { CustomersService } from '../customers.service';
+import { EditCustomerPopupComponent } from '../edit-customer-popup/edit-customer-popup.component';
 
 @Component({
   selector: 'app-list',
@@ -53,7 +54,10 @@ export class ListComponent implements OnInit {
   }
 
   edit(customer: CustomerModel) {
-
+    const ref = this.dialog.open(EditCustomerPopupComponent, {data: customer});
+    ref.afterClosed().pipe(
+      filter((customerEditted: CustomerModel) => !!customerEditted)
+    ).subscribe(() => this.getCustomers());
   }
 
   remove(customer: CustomerModel) {

@@ -7,6 +7,7 @@ import { ListComponent } from './list/list.component';
 import { EditComponent } from './edit/edit.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AddCustomerPopupComponent } from './add-customer-popup/add-customer-popup.component';
+import { EditCustomerPopupComponent } from './edit-customer-popup/edit-customer-popup.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { AddCustomerPopupComponent } from './add-customer-popup/add-customer-pop
     ListComponent,
     EditComponent,
     AddCustomerPopupComponent,
+    EditCustomerPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { AddCustomerPopupComponent } from './add-customer-popup/add-customer-pop
   ],
   entryComponents: [
     AddCustomerPopupComponent,
+    EditCustomerPopupComponent,
   ]
 })
 export class CustomersModule { }

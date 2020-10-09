@@ -22,8 +22,12 @@ export class CustomersService {
     return this.http.get<CustomerModel>(`${environment.apiUrl}/customers/${id}`);
   }
 
-  saveCustomer(Customer: CustomerModel): Observable<CustomerModel> {
-    return this.http.post<CustomerModel>(`${environment.apiUrl}/customers`, Customer);
+  saveCustomer(customer: CustomerModel): Observable<CustomerModel> {
+    return this.http.post<CustomerModel>(`${environment.apiUrl}/customers`, customer);
+  }
+
+  editCustomer(customer: CustomerModel): Observable<CustomerModel> {
+    return this.http.put<CustomerModel>(`${environment.apiUrl}/customers/${customer.id}`, customer);
   }
 
   deleteCustomer(id: number): Observable<CustomerModel> {

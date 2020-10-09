@@ -11,7 +11,6 @@ export class AddCustomerPopupComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddCustomerPopupComponent>,
-    // @Inject(MAT_DIALOG_DATA) public data: { config: TableConfigurationModel }
   ) { }
 
   ngOnInit() {

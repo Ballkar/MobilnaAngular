@@ -21,7 +21,7 @@
           <mat-icon class="active">chat</mat-icon>
         </button>
 
-        <button class="name" mat-list-item (click)="select(customer)">{{customer.name}} {{customer.surname}}</button>
+        <button class="name" mat-list-item (click)="select(customer)" (click)="edit(customer)">{{customer.name}} {{customer.surname}}</button>
       </div>
 
     </mat-action-list>
