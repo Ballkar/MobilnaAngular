@@ -1,1 +1,11 @@
-<app-main-calendar [eventsData]="events"></app-main-calendar>
+<app-main-calendar *ngIf="events"
+  [eventsData]="events"
+  [updatingState$]="isUpdating$"
+  (emptyHourClicked)="addWorkOnDate($event)"
+  (eventTimeChanged)="changeTimeOfWork($event)"
+  (eventClicked)="workClicked($event)">
+</app-main-calendar>
+
+<ng-container *ngIf="isLoading$|async">
+  <mat-spinner></mat-spinner>
+</ng-container>

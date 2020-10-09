@@ -1,0 +1,13 @@
+.titleContainer{
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  margin-bottom: 10px;
+
+  mat-card-title{
+    margin-bottom: 0;
+  }
+  .updatingStateLoader{
+    margin-left: 10px;
+  }
+}

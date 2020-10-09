@@ -1,5 +1,8 @@
 <div class="container">
-  <mat-card-title class="mainTitle">Kalendarz</mat-card-title>
+  <div class="titleContainer">
+    <mat-card-title class="mainTitle">Kalendarz</mat-card-title>
+    <mat-spinner *ngIf="updatingState$|async" class="updatingStateLoader" [diameter]="25" mode="indeterminate"></mat-spinner>
+  </div>
 
   <div class="calendar">
     <mwl-calendar-week-view
@@ -18,8 +21,9 @@
       [events]="events"
 
 
-      (eventClicked)="log($event)"
-      (eventTimesChanged)="eventTimesChanged($event)"
+      (hourSegmentClicked)="onEmptyHourClicked($event)"
+      (eventClicked)="onEventClicked($event)"
+      (eventTimesChanged)="onChangeEventTime($event)"
 
 
       (dragEnter)="log($event)"

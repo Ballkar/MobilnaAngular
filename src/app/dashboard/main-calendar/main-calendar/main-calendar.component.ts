@@ -1,8 +1,8 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Input, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { CalendarEvent, CalendarEventTimesChangedEvent } from 'angular-calendar';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 import { BaseConfigInterface, MainCalendarService } from '../main-calendar.service';
@@ -20,6 +20,7 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
   configData: BaseConfigInterface = this.calendarService.baseConfig;
   events: CalendarEvent<{id: number}>[];
 
+  @Input() updatingState$: Observable<boolean>;
   @Input() set eventsData(data: EventModel<{id: number}>[]) {
     this.events = data.map(el => ({
       start: moment(el.start, this.dateFormat).toDate(),
@@ -34,6 +35,10 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
       draggable: true,
     }));
   }
+
+  @Output() emptyHourClicked: EventEmitter<Date> = new EventEmitter();
+  @Output() eventClicked: EventEmitter<EventModel<{id: number}>> = new EventEmitter();
+  @Output() eventTimeChanged: EventEmitter<{data: {id: number}, start: Date, end: Date}> = new EventEmitter();
   constructor(
     private calendarService: MainCalendarService,
     private breakpointObserver: BreakpointObserver,
@@ -57,27 +62,26 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
     );
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
-    console.log({action, event});
-  }
-
   log(data) {
     console.log(data);
   }
 
-  eventTimesChanged(eventTimeChange: CalendarEventTimesChangedEvent): void {
+  onEmptyHourClicked(data: {date: Date}) {
+    this.emptyHourClicked.emit(data.date);
+  }
+
+  onEventClicked(data: { event: EventModel<{id: number}>, sourceEvent: any }) {
+    // tslint:disable-next-line: no-string-literal
+    this.eventClicked.emit(data.event['meta']);
+  }
+
+  onChangeEventTime(eventTimeChange: CalendarEventTimesChangedEvent<{id: number}>): void {
     const { event, newStart, newEnd } = eventTimeChange;
-    this.events = this.events.map((iEvent) => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd,
-        };
-      }
-      return iEvent;
+    this.eventTimeChanged.next({
+      start: newStart,
+      end: newEnd,
+      data: event.meta,
     });
-    this.log('zmiana godziny');
   }
 
   ngOnDestroy() {
