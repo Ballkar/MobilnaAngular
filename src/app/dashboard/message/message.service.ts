@@ -13,12 +13,17 @@ export class MessageService {
     private http: HttpClient,
   ) { }
 
-  getMessages(): Observable<MessageModel> {
-    return this.http.get<MessageModel>(`${environment.apiUrl}/messages`);
+  getMessages(pagination: PaginationEvent): Observable<MessageModel[]> {
+    const {pageIndex, pageSize} = pagination;
+    return this.http.get<MessageModel[]>(`${environment.apiUrl}/messages?_page=${pageIndex + 1}&_limit=${pageSize}`);
   }
 
   getMessage(id: number): Observable<MessageModel> {
     return this.http.get<MessageModel>(`${environment.apiUrl}/messages/${id}`);
+  }
+
+  editMessage(message: MessageModel): Observable<MessageModel> {
+    return this.http.put<MessageModel>(`${environment.apiUrl}/messages/${message.id}`, message);
   }
 
   saveMessage(message: MessageModel): Observable<MessageModel> {

@@ -1,0 +1,9 @@
+<div class="container">
+    <ng-container *ngIf="message">
+      <app-edit [message]="message" (messageEditted)="close($event)"></app-edit>
+    </ng-container>
+
+    <ng-template #addNew>
+      <app-add (messageSaved)="close($event)"></app-add>
+    </ng-template>
+</div>
