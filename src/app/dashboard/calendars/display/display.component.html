@@ -1,0 +1,32 @@
+<div class="container">
+  <mat-card-title class="mainTitle">Kalendarz</mat-card-title>
+
+  <div class="calendar">
+    <mwl-calendar-week-view
+      [viewDate]="viewDate"
+      [daysInWeek]="daysInWeek"
+      [locale]="locale"
+      [precision]="precision"
+      [hourSegments]="hourSegments"
+      [dayStartHour]="dayStartHour"
+      [dayStartMinute]="dayStartMinute"
+      [dayEndHour]="dayEndHour"
+      [dayEndMinute]="dayEndMinute"
+
+
+
+      [events]="events"
+
+
+      (eventClicked)="log($event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+
+
+      (dragEnter)="log($event)"
+    ></mwl-calendar-week-view>
+  </div>
+</div>
+
+<ng-template #headerTemplate>
+  <div>dupa</div>
+</ng-template>
