@@ -2,7 +2,7 @@
     <div class="title">Witaj!</div>
 
     <mat-form-field>
-      <input matInput placeholder="Email" required [formControl]="email">
+      <input matInput placeholder="Email" type="email" required [formControl]="email">
       <mat-error *ngIf="email.errors && email.errors['invalidCredentials']">
         {{email.errors['invalidCredentials']}}
       </mat-error>
