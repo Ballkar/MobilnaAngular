@@ -8,7 +8,6 @@ import { MainCalendarModule } from '../main-calendar/main-calendar.module';
 import { WorkFormComponent } from './work-form/work-form.component';
 import { WorkPopupComponentComponent } from './work-popup-component/work-popup-component.component';
 
-
 @NgModule({
   declarations: [
     WorkComponent,

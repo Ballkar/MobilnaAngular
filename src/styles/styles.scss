@@ -12,3 +12,7 @@ $custom-typography: mat-typography-config(
   $font-family: 'Poppins'
 );
 @include mat-core($custom-typography);
+
+.mat-dialog-container{
+  padding: 0!important;
+}

@@ -15,7 +15,6 @@ export class WorkPopupComponentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.data);
   }
 
 }

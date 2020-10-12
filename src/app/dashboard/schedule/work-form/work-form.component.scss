@@ -1,0 +1,13 @@
+.form{
+  display: flex;
+  flex-flow: column;
+
+  mat-form-field{
+
+  }
+
+  .buttonContainer{
+    display: flex;
+    justify-content: flex-end;
+  }
+}

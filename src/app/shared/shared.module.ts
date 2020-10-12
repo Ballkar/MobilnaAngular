@@ -17,7 +17,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 const materialComponents = [
   CommonModule,
   MatCardModule,
@@ -32,6 +34,11 @@ const materialComponents = [
   MatPaginatorModule,
   MatProgressSpinnerModule,
   MatDialogModule,
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule,
+  MatDatepickerModule,
+  MatAutocompleteModule,
 ];
 
 

@@ -1,1 +1,48 @@
-<p>work-form works!</p>
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <mat-form-field>
+    <input matInput [ngxMatDatetimePicker]="picker" placeholder="Data początku" [formControl]="startCtrl" [max]="stopCtrl">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #picker
+      [showSpinners]="true"
+      [showSeconds]="false"
+      [stepHour]="1"
+      [stepMinute]="15"
+      [touchUi]="true"
+      [color]="'primary'"
+      [enableMeridian]="false"
+      [disableMinute]="false"
+      [hideTime]="false">
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [ngxMatDatetimePicker]="pickerStop" placeholder="Data końca" [formControl]="stopCtrl" [min]="startCtrl">
+    <mat-datepicker-toggle matSuffix [for]="pickerStop"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #pickerStop
+      [showSpinners]="true"
+      [showSeconds]="false"
+      [stepHour]="1"
+      [stepMinute]="15"
+      [touchUi]="true"
+      [color]="'primary'"
+      [enableMeridian]="false"
+      [disableMinute]="false"
+      [hideTime]="false">
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
+
+  <mat-form-field class="name">
+    <mat-label>Klientka</mat-label>
+    <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption [displayWith]="displayFn">
+      <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer">
+        {{customer.name}} {{customer.surname}} ({{customer.phone}})
+      </mat-option>
+    </mat-autocomplete>
+    <input matInput placeholder="Imie" [formControl]="customerCtrl" [matAutocomplete]="auto" >
+  </mat-form-field>
+
+  <div class="buttonContainer">
+    <button mat-raised-button color="primary" class="addBtn" type="submit">Zapisz</button>
+  </div>
+</form>

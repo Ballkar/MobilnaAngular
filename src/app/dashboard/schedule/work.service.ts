@@ -29,6 +29,7 @@ export class WorkService {
   }
 
   saveWork(work: WorkModel): Observable<WorkModel> {
+    console.log(work);
     return this.httpClient.post<WorkModel>(`${environment.apiUrl}/works`, work);
   }
 }
