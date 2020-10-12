@@ -36,7 +36,7 @@ class CustomDateFormatter extends CalendarNativeDateFormatter {
         dateFormatter: {
           provide: CalendarDateFormatter,
           useClass: CustomDateFormatter
-      }
+      },
     }),
   ],
   exports: [

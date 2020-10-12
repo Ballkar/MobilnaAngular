@@ -1,7 +1,7 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { ChangeDetectorRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { CalendarEvent, CalendarEventTimesChangedEvent } from 'angular-calendar';
+import { CalendarEvent, CalendarEventTimesChangedEvent, CalendarEventTitleFormatter } from 'angular-calendar';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -11,7 +11,7 @@ import { EventModel } from '../event.model';
 @Component({
   selector: 'app-main-calendar',
   templateUrl: './main-calendar.component.html',
-  styleUrls: ['./main-calendar.component.scss']
+  styleUrls: ['./main-calendar.component.scss'],
 })
 export class MainCalendarComponent implements OnInit, OnDestroy {
   private dateFormat = 'YYYY-M-D H:m:s';
@@ -25,7 +25,7 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
     this.events = data.map(el => ({
       start: moment(el.start, this.dateFormat).toDate(),
       end: moment(el.stop, this.dateFormat).toDate(),
-      title: el.title,
+      title: `${el.title} <br> ${moment(el.start, this.dateFormat).format('H:mm')}-${moment(el.stop, this.dateFormat).format('H:mm')}`,
       meta: el.data,
       color: el.state,
       resizable: {

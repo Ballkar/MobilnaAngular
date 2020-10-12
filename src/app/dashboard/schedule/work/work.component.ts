@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material';
 import { Data } from '@angular/router';
 import * as moment from 'moment';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { delay, map, tap } from 'rxjs/operators';
+import { delay, filter, map, tap } from 'rxjs/operators';
 import { EventModel } from '../../main-calendar/event.model';
 import { WorkPopupComponentComponent } from '../work-popup-component/work-popup-component.component';
 import { WorkModel } from '../work.model';
@@ -37,11 +37,17 @@ export class WorkComponent implements OnInit {
   }
 
   addWorkOnDate(startDate: Data) {
-    this.dialog.open(WorkPopupComponentComponent, { data: {startDate} });
+    const ref = this.dialog.open(WorkPopupComponentComponent, { data: {startDate} });
+    ref.afterClosed().pipe(
+      filter(data => !!data),
+    ).subscribe(() => this.getEvents());
   }
 
   workClicked(work: WorkModel) {
-    this.dialog.open(WorkPopupComponentComponent, { data: {work} });
+    const ref = this.dialog.open(WorkPopupComponentComponent, { data: {work} });
+    ref.afterClosed().pipe(
+      filter(data => !!data),
+    ).subscribe(edittedWork => this.replaceElement(edittedWork));
   }
 
   changeTimeOfWork(event: {
@@ -54,9 +60,9 @@ export class WorkComponent implements OnInit {
     const startDate = moment(event.start).format('YYYY-M-D H:m:s');
     const endDate = moment(event.end).format('YYYY-M-D H:m:s');
     this.workService.editWork({...data, start: startDate, stop: endDate}).pipe(
-      delay(5000),
       tap(() => this.isUpdating$.next(false)),
-    ).subscribe(edittedWork => this.replaceElement(edittedWork));
+      tap(edittedWork => this.replaceElement(edittedWork)),
+    ).subscribe(() => this.getEvents());
   }
 
   private replaceElement(newWork: WorkModel) {
@@ -64,7 +70,7 @@ export class WorkComponent implements OnInit {
 
     if (index !== -1) {
       this.events[index] = this.mapWorkToEvent(newWork);
-      this.events = this.events;
+      this.events = [...this.events];
     }
   }
 

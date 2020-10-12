@@ -114,8 +114,8 @@
   "works": [
     {
       "id": 1,
-      "start": "2020-10-12 9:0:0",
-      "stop": "2020-10-12 11:0:0",
+      "start": "2020-10-12 9:30:0",
+      "stop": "2020-10-12 10:45:0",
       "customer": {
         "id": 4,
         "name": "Paulina",
@@ -126,8 +126,8 @@
     },
     {
       "id": 2,
-      "start": "2020-10-12 14:45:0",
-      "stop": "2020-10-12 15:45:0",
+      "start": "2020-10-12 13:30:0",
+      "stop": "2020-10-12 14:30:0",
       "customer": {
         "name": "Zosia",
         "surname": "Kowalska",
@@ -147,6 +147,30 @@
         "phone": "515314231",
         "info": "fajna babka"
       }
+    },
+    {
+      "id": 4,
+      "start": "2020-10-13 10:45:0",
+      "stop": "2020-10-13 11:45:0",
+      "customer": {
+        "name": "Zosia",
+        "surname": "Kowalska",
+        "phone": "515314231",
+        "info": "fajna babka",
+        "id": 3
+      }
+    },
+    {
+      "start": "2020-10-15 9:0:0",
+      "stop": "2020-10-15 10:15:0",
+      "customer": {
+        "name": "Zosia",
+        "surname": "Kowalska",
+        "phone": "515314231",
+        "info": "fajna babka",
+        "id": 3
+      },
+      "id": 5
     }
   ]
 }

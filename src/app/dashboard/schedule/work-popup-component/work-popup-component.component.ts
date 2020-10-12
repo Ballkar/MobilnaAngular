@@ -17,4 +17,7 @@ export class WorkPopupComponentComponent implements OnInit {
   ngOnInit() {
   }
 
+  close(work: WorkModel) {
+    this.dialogRef.close(work);
+  }
 }
