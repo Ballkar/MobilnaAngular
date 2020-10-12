@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { map, startWith, tap } from 'rxjs/operators';
+import { filter, map, startWith, tap } from 'rxjs/operators';
+import { AddCustomerPopupComponent } from '../../customers/add-customer-popup/add-customer-popup.component';
 import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
 import { WorkModel } from '../work.model';
@@ -28,6 +30,7 @@ export class WorkFormComponent implements OnInit {
   constructor(
     private customerService: CustomersService,
     private workService: WorkService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -54,6 +57,16 @@ export class WorkFormComponent implements OnInit {
   private _filter(name: string): CustomerModel[] {
     const filterValue = name.toLowerCase();
     return this.customers.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  newCustomer(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const ref = this.dialog.open(AddCustomerPopupComponent, {});
+    ref.afterClosed().pipe(
+      filter((customer: CustomerModel) => !!customer)
+    ).subscribe(customer => this.customerCtrl.setValue(customer));
   }
 
   onSubmit() {

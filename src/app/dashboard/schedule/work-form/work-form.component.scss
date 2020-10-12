@@ -3,7 +3,21 @@
   flex-flow: column;
 
   mat-form-field{
+    position: relative;
 
+    &.customer{
+      margin-bottom: 20px;
+    }
+
+    .infoB{
+      position: absolute;
+      left: 0;
+      bottom: -22px;
+      font-size: 11px;
+      color: #02bec9;
+      cursor: pointer;
+      outline: 0;
+    }
   }
 
   .buttonContainer{

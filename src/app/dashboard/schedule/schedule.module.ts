@@ -7,6 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MainCalendarModule } from '../main-calendar/main-calendar.module';
 import { WorkFormComponent } from './work-form/work-form.component';
 import { WorkPopupComponentComponent } from './work-popup-component/work-popup-component.component';
+import { CustomersModule } from '../customers/customers.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { WorkPopupComponentComponent } from './work-popup-component/work-popup-c
     CommonModule,
     ScheduleRoutingModule,
     SharedModule,
+    CustomersModule,
     MainCalendarModule,
   ],
   entryComponents: [

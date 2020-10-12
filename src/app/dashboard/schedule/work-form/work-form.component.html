@@ -32,7 +32,7 @@
     </ngx-mat-datetime-picker>
   </mat-form-field>
 
-  <mat-form-field class="name">
+  <mat-form-field class="customer">
     <mat-label>Klientka</mat-label>
     <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption [displayWith]="displayFn">
       <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer">
@@ -40,6 +40,7 @@
       </mat-option>
     </mat-autocomplete>
     <input matInput placeholder="Imie" [formControl]="customerCtrl" [matAutocomplete]="auto" >
+    <span class="infoB" (click)="newCustomer($event)">Nowa Klientka?</span>
   </mat-form-field>
 
   <div class="buttonContainer">

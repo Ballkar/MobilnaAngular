@@ -62,6 +62,20 @@
       "phone": "123123123213",
       "info": "csadsad",
       "id": 9
+    },
+    {
+      "name": "kinga",
+      "surname": "mlynarczyk",
+      "phone": "132123123",
+      "info": "",
+      "id": 10
+    },
+    {
+      "name": "Iwona",
+      "surname": "zięba",
+      "phone": "123321123",
+      "info": "test",
+      "id": 11
     }
   ],
   "messageSchemas": [
@@ -171,6 +185,18 @@
         "id": 3
       },
       "id": 5
+    },
+    {
+      "id": 6,
+      "start": "2020-10-13 9:30:0",
+      "stop": "2020-10-13 10:30:0",
+      "customer": {
+        "name": "Iwona",
+        "surname": "zięba",
+        "phone": "123321123",
+        "info": "test",
+        "id": 11
+      }
     }
   ]
 }
