@@ -18,3 +18,8 @@ $desktop-width: 1024px;
     @content;
   }
 }
+
+@mixin popupContainer {
+  padding: 24px;
+  width: 80vw;
+}

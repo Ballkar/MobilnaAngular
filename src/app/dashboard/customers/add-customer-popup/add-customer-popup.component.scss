@@ -1,4 +1,4 @@
+@import 'mixins';
 .container{
-  padding: 24px;
-  width: 80vw;
+  @include popupContainer;
 }
