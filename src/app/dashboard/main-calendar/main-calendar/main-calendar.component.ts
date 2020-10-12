@@ -36,6 +36,7 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
     }));
   }
 
+  @Output() changeDate: EventEmitter<{startDate: Date, endDate: Date}> = new EventEmitter();
   @Output() emptyHourClicked: EventEmitter<Date> = new EventEmitter();
   @Output() eventClicked: EventEmitter<EventModel<{id: number}>> = new EventEmitter();
   @Output() eventTimeChanged: EventEmitter<{data: {id: number}, start: Date, end: Date}> = new EventEmitter();
@@ -64,6 +65,13 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
 
   log(data) {
     console.log(data);
+  }
+
+  changeDateDisplayed() {
+    this.changeDate.emit({
+      startDate: this.configData.actualDate,
+      endDate: moment(this.configData.actualDate, this.dateFormat).add(this.daysInWeek, 'days').toDate()
+    });
   }
 
   onEmptyHourClicked(data: {date: Date}) {

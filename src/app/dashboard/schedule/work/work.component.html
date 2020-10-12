@@ -1,6 +1,7 @@
 <app-main-calendar *ngIf="events"
   [eventsData]="events"
   [updatingState$]="isUpdating$"
+  (changeDate)="changeDate($event)"
   (emptyHourClicked)="addWorkOnDate($event)"
   (eventTimeChanged)="changeTimeOfWork($event)"
   (eventClicked)="workClicked($event)">

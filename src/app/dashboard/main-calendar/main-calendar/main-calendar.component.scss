@@ -2,12 +2,21 @@
   display: flex;
   flex-flow: row;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 
   mat-card-title{
     margin-bottom: 0;
   }
   .updatingStateLoader{
     margin-left: 10px;
+  }
+
+  .btnContainer{
+    margin-left: auto;
+    button{
+      &:first-of-type{
+        margin-right: 5px;
+      }
+    }
   }
 }

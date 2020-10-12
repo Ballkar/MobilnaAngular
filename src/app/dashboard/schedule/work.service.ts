@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { StateModel } from '../main-calendar/state.model';
@@ -20,6 +21,8 @@ export class WorkService {
   ) { }
 
   getWorks(startDate: Date, endDate: Date): Observable<WorkModel[]> {
+    console.log(moment(startDate).format('YYYY-M-D'));
+    console.log(moment(endDate).format('YYYY-M-D'));
     return this.httpClient.get<WorkModel[]>(`${environment.apiUrl}/works`);
   }
 

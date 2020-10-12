@@ -17,6 +17,7 @@ import { WorkService } from '../work.service';
 export class WorkComponent implements OnInit {
 
   events: EventModel<WorkModel>[];
+  data: {startDate: Date, endDate: Date};
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isUpdating$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   constructor(
@@ -25,12 +26,16 @@ export class WorkComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.data = {
+      startDate: new Date(),
+      endDate: moment().add(3, 'days').toDate(),
+    };
     this.getEvents();
   }
 
-  getEvents() {
+  getEvents(startDate?: Date, endDate?: Date) {
     this.isLoading$.next(true);
-    this.workService.getWorks(moment().toDate(), moment().add(3, 'days').toDate()).pipe(
+    this.workService.getWorks(this.data.startDate, this.data.endDate).pipe(
       map(works => works.map(work => this.mapWorkToEvent(work))),
       tap(() => this.isLoading$.next(false)),
     ).subscribe(res => this.events = res);
@@ -63,6 +68,11 @@ export class WorkComponent implements OnInit {
       tap(() => this.isUpdating$.next(false)),
       tap(edittedWork => this.replaceElement(edittedWork)),
     ).subscribe(() => this.getEvents());
+  }
+
+  changeDate(data: {startDate: Date, endDate: Date}) {
+    this.data = data;
+    this.getEvents();
   }
 
   private replaceElement(newWork: WorkModel) {
