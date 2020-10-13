@@ -7,7 +7,7 @@
         color="primary"
         mwlCalendarPreviousView view="day"
         [(viewDate)]="configData.actualDate"
-        (viewDateChange)="changeDateDisplayed($event)">Wstecz</button>
+        (viewDateChange)="changeDateDisplayed()">Wstecz</button>
 
       <button mat-raised-button
         color="primary"
@@ -15,7 +15,7 @@
         type="submit"
         mwlCalendarNextView view="day"
         [(viewDate)]="configData.actualDate"
-        (viewDateChange)="changeDateDisplayed($event)">Dalej</button>
+        (viewDateChange)="changeDateDisplayed()">Dalej</button>
     </div>
   </div>
 

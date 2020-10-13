@@ -15,7 +15,7 @@ export function momentAdapterFactory() {
   return adapterFactory(moment);
 }
 
-class CustomDateFormatter extends CalendarNativeDateFormatter {
+export class CustomDateFormatter extends CalendarNativeDateFormatter {
   dayViewHour({date, locale}: DateFormatterParams): string {
     return new Intl.DateTimeFormat(locale, {hour: 'numeric'}).format(date);
   }

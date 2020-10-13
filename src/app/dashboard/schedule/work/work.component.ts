@@ -64,6 +64,7 @@ export class WorkComponent implements OnInit {
     const { data } = event;
     const startDate = moment(event.start).format('YYYY-M-D H:m:s');
     const endDate = moment(event.end).format('YYYY-M-D H:m:s');
+    this.replaceElement({...data, start: startDate, stop: endDate});
     this.workService.editWork({...data, start: startDate, stop: endDate}).pipe(
       tap(() => this.isUpdating$.next(false)),
       tap(edittedWork => this.replaceElement(edittedWork)),
