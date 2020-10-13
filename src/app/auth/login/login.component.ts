@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
@@ -31,11 +32,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.router.navigate(['/dashboard']);
-      // this.authService.login(this.email.value, this.password.value).subscribe(
-      //   (user) => this.router.navigate(['/dashboard']),
-      //   (err) => this.email.setErrors({invalidCredentials: err.errors.email})
-      // );
+      this.authService.login(this.email.value, this.password.value).pipe(
+        tap(token => localStorage.setItem('token', token)),
+      ).subscribe(
+        (user) => this.router.navigate(['/dashboard']),
+        (err) => this.email.setErrors({invalidCredentials: err.errors.email})
+      );
     }
   }
 

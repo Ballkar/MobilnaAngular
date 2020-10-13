@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UserModel } from '../shared/model/user.model';
 import { tap, map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,13 +24,14 @@ export class AuthService {
   }
 
 
-  register(email: string, password: string, name: string, regs: boolean){
-
+  register(email: string, password: string, name: string, regs: boolean) {
 
   }
 
-  login(email: string, password: string) {
-
+  login(email: string, password: string): Observable<string> {
+    return this.http.post<{data: {token: string}}>(`${environment.apiUrl}/login`, {email, password, acc_type: 2}).pipe(
+      map(res => res.data.token),
+    );
   }
 
   logout() {
