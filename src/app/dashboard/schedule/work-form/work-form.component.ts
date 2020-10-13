@@ -26,7 +26,9 @@ export class WorkFormComponent implements OnInit {
   get stopCtrl() { return this.form.get('stop') as FormControl; }
   get customerCtrl() { return this.form.get('customer') as FormControl; }
   @Input() work: WorkModel;
+  @Input() ableToRemove: boolean;
   @Output() workSubmitted: EventEmitter<WorkModel> = new EventEmitter();
+  @Output() workRemoved: EventEmitter<void> = new EventEmitter();
   constructor(
     private customerService: CustomersService,
     private workService: WorkService,
@@ -35,7 +37,6 @@ export class WorkFormComponent implements OnInit {
 
   ngOnInit() {
     this.state = this.work.stop && this.work.customer ? 'edit' : 'add';
-    console.log(this.work.stop);
     this.work.stop = this.work.stop ? this.work.stop : moment(this.work.start, 'YYYY-M-D H:m:s').add(2, 'hours').format('YYYY-M-D H:m:s');
     this.form = new FormGroup({
       start: new FormControl(this.work ? moment(this.work.start, 'YYYY-M-D H:m:s').toDate() : this.actualDate, Validators.required),
@@ -67,6 +68,10 @@ export class WorkFormComponent implements OnInit {
     ref.afterClosed().pipe(
       filter((customer: CustomerModel) => !!customer)
     ).subscribe(customer => this.customerCtrl.setValue(customer));
+  }
+
+  remove() {
+    this.workService.removeWork(this.work).subscribe(() => this.workRemoved.emit());
   }
 
   onSubmit() {

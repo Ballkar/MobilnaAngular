@@ -51,8 +51,10 @@ export class WorkComponent implements OnInit {
   workClicked(work: WorkModel) {
     const ref = this.dialog.open(WorkPopupComponentComponent, { data: {work} });
     ref.afterClosed().pipe(
+      tap(() => this.getEvents()),
       filter(data => !!data),
-    ).subscribe(edittedWork => this.replaceElement(edittedWork));
+      tap(edittedWork => this.replaceElement(edittedWork)),
+    ).subscribe();
   }
 
   changeTimeOfWork(event: {
@@ -82,6 +84,14 @@ export class WorkComponent implements OnInit {
     if (index !== -1) {
       this.events[index] = this.mapWorkToEvent(newWork);
       this.events = [...this.events];
+    }
+  }
+
+  private removeElement(workToRemove: WorkModel) {
+    const index = this.events.map(e => e.data.id).indexOf(workToRemove.id);
+
+    if (index !== -1) {
+      this.events.splice(index, 1);
     }
   }
 

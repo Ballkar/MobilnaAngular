@@ -1,6 +1,10 @@
+<div class="removeBtnContainer" *ngIf="ableToRemove">
+  <button mat-raised-button color="warn" type="button" (click)="remove()">Usuń</button>
+</div>
+
 <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
 
-  <mat-form-field>
+  <mat-form-field cdkFocusRegionstart>
     <input matInput [ngxMatDatetimePicker]="picker" placeholder="Data początku" [formControl]="startCtrl" [max]="stopCtrl">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <ngx-mat-datetime-picker #picker

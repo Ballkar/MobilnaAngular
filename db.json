@@ -171,8 +171,8 @@
     },
     {
       "id": 4,
-      "start": "2020-10-13 11:0:0",
-      "stop": "2020-10-13 12:30:0",
+      "start": "2020-10-14 10:30:0",
+      "stop": "2020-10-14 12:30:0",
       "customer": {
         "name": "Zosia",
         "surname": "Kowalska",
@@ -182,28 +182,16 @@
       }
     },
     {
-      "start": "2020-10-15 9:0:0",
-      "stop": "2020-10-15 10:15:0",
+      "start": "2020-10-15 12:45:0",
+      "stop": "2020-10-15 14:45:0",
       "customer": {
-        "name": "Zosia",
-        "surname": "Kowalska",
-        "phone": "515314231",
-        "info": "fajna babka",
-        "id": 3
+        "name": "anak",
+        "surname": "sdasd",
+        "phone": "123123213",
+        "info": "teetestsetreress",
+        "id": 8
       },
-      "id": 5
-    },
-    {
-      "id": 6,
-      "start": "2020-10-13 8:45:0",
-      "stop": "2020-10-13 10:30:0",
-      "customer": {
-        "name": "Iwona",
-        "surname": "zięba",
-        "phone": "123321123",
-        "info": "test",
-        "id": 11
-      }
+      "id": 7
     }
   ]
 }

@@ -27,12 +27,14 @@ export class WorkService {
   }
 
   editWork(work: WorkModel): Observable<WorkModel> {
-    console.log(work);
     return this.httpClient.put<WorkModel>(`${environment.apiUrl}/works/${work.id}`, work);
   }
 
   saveWork(work: WorkModel): Observable<WorkModel> {
-    console.log(work);
     return this.httpClient.post<WorkModel>(`${environment.apiUrl}/works`, work);
+  }
+
+  removeWork(work: WorkModel): Observable<WorkModel> {
+    return this.httpClient.delete<WorkModel>(`${environment.apiUrl}/works/${work.id}`);
   }
 }
