@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.email.value, this.password.value).pipe(
         tap(token => localStorage.setItem('token', token)),
       ).subscribe(
-        (user) => this.router.navigate(['/dashboard']),
+        () => this.router.navigate(['/dashboard']),
         (err) => this.email.setErrors({invalidCredentials: err.errors.email})
       );
     }

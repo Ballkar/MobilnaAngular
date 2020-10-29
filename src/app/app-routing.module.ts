@@ -6,12 +6,12 @@ import { GuestGuard } from './shared/guards/quest.guard.service';
 const routes: Routes = [
   {
     path: 'dashboard',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren : () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
   },
   {
     path: 'auth',
-    // canActivate: [GuestGuard],
+    canActivate: [GuestGuard],
     loadChildren : () => import('./auth/auth.module').then(m => m.AuthModule),
   },
   {
