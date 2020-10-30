@@ -20,28 +20,32 @@ export class CustomersService {
   getCustomers(pagination?: PaginationEvent): Observable<DataResponse<CustomerModel>> {
     let params = new HttpParams();
     params = this.helperService.returnParamsWithPaginationAdded(pagination, params);
-    return this.http.get<ResponseModel<CustomerModel>>(`${environment.apiUrl}/customers`, {params}).pipe(
+    return this.http.get<ResponseModel<DataResponse<CustomerModel>>>(`${environment.apiUrl}/customers`, {params}).pipe(
       map(res => res.data),
+      tap(data => data.items.forEach(customer => this.mapCustomerFromApi(customer))),
     );
   }
 
   getCustomer(id: number): Observable<CustomerModel> {
     return this.http.get<ResponseModel<CustomerModel>>(`${environment.apiUrl}/customers/${id}`).pipe(
-      map(data => data.data.item),
+      map(data => data.data),
+      tap(customer => this.mapCustomerFromApi(customer)),
     );
   }
 
   saveCustomer(customer: CustomerModel): Observable<CustomerModel> {
-    // tslint:disable-next-line: no-string-literal
-    customer['additional_info'] = customer.additionalInfo;
+    this.mapCustomerForApi(customer);
     return this.http.post<ResponseModel<CustomerModel>>(`${environment.apiUrl}/customers`, customer).pipe(
-      map(res => res.data.item),
+      map(res => res.data),
+      tap(res => this.mapCustomerFromApi(res)),
     );
   }
 
   editCustomer(customer: CustomerModel): Observable<CustomerModel> {
+    this.mapCustomerForApi(customer);
     return this.http.put<ResponseModel<CustomerModel>>(`${environment.apiUrl}/customers/${customer.id}`, customer).pipe(
-      map(res => res.data.item),
+      map(res => res.data),
+      tap(res => this.mapCustomerFromApi(res)),
     );
   }
 
@@ -49,7 +53,12 @@ export class CustomersService {
     return this.http.delete<null>(`${environment.apiUrl}/customers/${id}`);
   }
 
-  private mapCustomer(customer: CustomerModel) {
+  private mapCustomerForApi(customer: CustomerModel) {
+    // tslint:disable-next-line: no-string-literal
+    customer['additional_info'] = customer.additionalInfo;
+  }
+
+  private mapCustomerFromApi(customer: CustomerModel) {
     // tslint:disable-next-line: no-string-literal
     customer.additionalInfo = customer['additional_info'];
   }

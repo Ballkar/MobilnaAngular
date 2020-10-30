@@ -1,7 +1,7 @@
 export class ResponseModel<T> {
   code: number;
   message: string;
-  data: DataResponse<T>;
+  data: T;
 }
 
 export class ErrorResponseModel {

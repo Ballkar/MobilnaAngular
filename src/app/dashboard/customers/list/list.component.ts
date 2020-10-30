@@ -35,10 +35,7 @@ export class ListComponent implements OnInit {
 
   getCustomers(pagination?: PaginationEvent) {
     this.isLoading$.next(true);
-    console.log(pagination);
-
     this.customers$ = this.customerService.getCustomers(pagination).pipe(
-      tap(data => console.log(data.pagination)),
       tap(data => this.pagination = this.helperService.mapApiPaginationToMaterialEvent(data.pagination)),
       map(data => data.items),
       tap(() => this.isLoading$.next(false)),
