@@ -3,5 +3,5 @@ export interface CustomerModel {
   name: string;
   surname: string;
   phone: number;
-  info: string;
+  additionalInfo: string;
 }

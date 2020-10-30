@@ -14,7 +14,7 @@ export class EditComponent implements OnInit {
   get nameCtrl() { return this.form.get('name') as FormControl; }
   get surnameCtrl() { return this.form.get('surname') as FormControl; }
   get phoneCtrl() { return this.form.get('phone') as FormControl; }
-  get infoCtrl() { return this.form.get('info') as FormControl; }
+  get additionalInfoCtrl() { return this.form.get('additionalInfo') as FormControl; }
 
   @Output() customerEditted = new EventEmitter<CustomerModel>();
   constructor(
@@ -26,7 +26,7 @@ export class EditComponent implements OnInit {
       name: new FormControl(this.customer.name, Validators.required),
       surname: new FormControl(this.customer.surname, Validators.required),
       phone: new FormControl(this.customer.phone, Validators.required),
-      info: new FormControl(this.customer.info),
+      additionalInfo: new FormControl(this.customer.additionalInfo),
     });
   }
 

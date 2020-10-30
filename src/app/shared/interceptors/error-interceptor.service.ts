@@ -21,6 +21,7 @@ export class ErrorIntercecptorService implements HttpInterceptor {
             case 401:
               localStorage.removeItem('token');
               localStorage.removeItem('user');
+              this.router.navigate(['/']);
               break;
 
             default:

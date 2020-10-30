@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { debounceTime, delay, filter, tap } from 'rxjs/operators';
+import { debounceTime, delay, filter, map, tap } from 'rxjs/operators';
 import { AddCustomerPopupComponent } from 'src/app/dashboard/customers/add-customer-popup/add-customer-popup.component';
+import { HelperService } from 'src/app/shared/service/helper.service';
 import { CustomerModel } from '../customer.model';
 import { CustomersService } from '../customers.service';
 import { EditCustomerPopupComponent } from '../edit-customer-popup/edit-customer-popup.component';
@@ -15,17 +16,13 @@ import { EditCustomerPopupComponent } from '../edit-customer-popup/edit-customer
 })
 export class ListComponent implements OnInit {
   searchCtrl: FormControl = new FormControl();
-  initPagination: PaginationEvent = {
-    length: 5,
-    pageIndex: 0,
-    pageSize: 3,
-    previousPageIndex: null
-  };
+  initPagination: PaginationEvent;
   pagination: PaginationEvent;
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   customers$: Observable<CustomerModel[]>;
   constructor(
     private customerService: CustomersService,
+    private helperService: HelperService,
     private dialog: MatDialog,
   ) { }
 
@@ -38,9 +35,12 @@ export class ListComponent implements OnInit {
 
   getCustomers(pagination?: PaginationEvent) {
     this.isLoading$.next(true);
-    pagination = pagination ? pagination : this.initPagination;
-    this.pagination = pagination;
+    console.log(pagination);
+
     this.customers$ = this.customerService.getCustomers(pagination).pipe(
+      tap(data => console.log(data.pagination)),
+      tap(data => this.pagination = this.helperService.mapApiPaginationToMaterialEvent(data.pagination)),
+      map(data => data.items),
       tap(() => this.isLoading$.next(false)),
     );
   }

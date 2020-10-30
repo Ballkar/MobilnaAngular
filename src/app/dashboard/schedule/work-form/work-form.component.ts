@@ -43,7 +43,7 @@ export class WorkFormComponent implements OnInit {
       stop: new FormControl(this.work ? moment(this.work.stop, 'YYYY-M-D H:m:s').toDate() : '', Validators.required),
       customer: new FormControl(this.work ? this.work.customer : null, Validators.required),
     });
-    this.customerService.getCustomers({pageIndex: 0, pageSize: 999}).subscribe(customers => this.customers = customers);
+    this.customerService.getCustomers({pageIndex: 0, pageSize: 999}).subscribe(customers => this.customers = customers.items);
     this.filteredCustomers = this.customerCtrl.valueChanges.pipe(
       startWith(''),
       map(value => typeof value === 'string' ? value : value.name),

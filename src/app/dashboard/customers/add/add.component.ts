@@ -14,12 +14,12 @@ export class AddComponent implements OnInit {
     name: new FormControl('', Validators.required),
     surname: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
-    info: new FormControl(''),
+    additionalInfo: new FormControl(''),
   });
   get nameCtrl() { return this.form.get('name') as FormControl; }
   get surnameCtrl() { return this.form.get('surname') as FormControl; }
   get phoneCtrl() { return this.form.get('phone') as FormControl; }
-  get infoCtrl() { return this.form.get('info') as FormControl; }
+  get additionalInfoCtrl() { return this.form.get('additionalInfo') as FormControl; }
 
   @Output() customerAdded = new EventEmitter<CustomerModel>();
   constructor(
