@@ -23,6 +23,10 @@ const routes: Routes = [
         loadChildren : () => import('./message/message.module').then(m => m.MessageModule),
       },
       {
+        path: 'messageSchema',
+        loadChildren : () => import('./schemas/schemas.module').then(m => m.SchemasModule),
+      },
+      {
         path: 'customer',
         loadChildren : () => import('./customers/customers.module').then(m => m.CustomersModule),
       },

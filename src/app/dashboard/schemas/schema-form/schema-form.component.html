@@ -1,0 +1,19 @@
+<div class="removeBtnContainer" *ngIf="ableToRemove">
+  <button mat-raised-button color="warn" type="button" (click)="remove()">Usuń</button>
+</div>
+
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <mat-form-field>
+    <mat-label>Nazwa</mat-label>
+    <input matInput placeholder="Nazwa" [formControl]="nameCtrl">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Szablon</mat-label>
+    <input matInput placeholder="Szablon" [formControl]="textCtrl">
+  </mat-form-field>
+
+  <div class="buttonContainer">
+    <button mat-raised-button color="primary" class="addBtn" type="submit">Zapisz</button>
+  </div>
+</form>
