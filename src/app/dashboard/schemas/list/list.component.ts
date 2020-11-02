@@ -51,14 +51,14 @@ export class ListComponent implements OnInit {
   }
 
   edit(schema: MessageSchemaModel) {
-    const ref = this.dialog.open(SchemaPopupComponent, { data: schema });
+    const ref = this.dialog.open(SchemaPopupComponent, { data: {schema, ableToRemove: true} });
     ref.afterClosed().pipe(
       filter((message: MessageSchemaModel) => !!message)
     ).subscribe(() => this.getSchemas());
   }
 
   add() {
-    const ref = this.dialog.open(SchemaPopupComponent, {});
+    const ref = this.dialog.open(SchemaPopupComponent, { data: {ableToRemove: false} });
     ref.afterClosed().pipe(
       filter((message: MessageSchemaModel) => !!message)
     ).subscribe(() => this.getSchemas());

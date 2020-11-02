@@ -43,9 +43,8 @@ export class MessageSchemaService {
     );
   }
 
-  deleteSchema(id: number): Observable<MessageSchemaModel> {
-    return this.http.delete<ResponseModel<MessageSchemaModel>>(`${environment.apiUrl}/messageSchemas/${id}`).pipe(
-      map(data => data.data),
+  deleteSchema(id: number): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/messageSchemas/${id}`).pipe(
     );
   }
 }

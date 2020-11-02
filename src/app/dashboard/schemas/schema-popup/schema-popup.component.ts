@@ -11,7 +11,7 @@ export class SchemaPopupComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<SchemaPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public schema?: MessageSchemaModel,
+    @Inject(MAT_DIALOG_DATA) public data: {schema: MessageSchemaModel, ableToRemove: boolean},
   ) { }
 
   ngOnInit() {
