@@ -7,6 +7,8 @@ import { ListComponent } from './list/list.component';
 import { EditComponent } from './edit/edit.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CreateMessagePopupComponent } from './create-message-popup/create-message-popup.component';
+import { DisplayMessageComponent } from './display-message/display-message.component';
+import { InitMessageComponent } from './init-message/init-message.component';
 
 
 @NgModule({
@@ -15,6 +17,8 @@ import { CreateMessagePopupComponent } from './create-message-popup/create-messa
     ListComponent,
     EditComponent,
     CreateMessagePopupComponent,
+    DisplayMessageComponent,
+    InitMessageComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +27,7 @@ import { CreateMessagePopupComponent } from './create-message-popup/create-messa
   ],
   entryComponents: [
     CreateMessagePopupComponent,
+    DisplayMessageComponent,
   ]
 })
 export class MessageModule { }

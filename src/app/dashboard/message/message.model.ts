@@ -10,6 +10,6 @@ export interface MessageModel {
   id: number;
   name: string;
   text: string;
-  date: Date;
-  customerId: CustomerModel;
+  customer: CustomerModel;
+  created_at: string;
 }

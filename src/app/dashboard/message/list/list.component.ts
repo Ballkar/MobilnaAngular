@@ -3,9 +3,12 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap, filter, debounceTime } from 'rxjs/operators';
+import { DataResponse } from 'src/app/shared/model/response.model';
+import { HelperService } from 'src/app/shared/service/helper.service';
 import { AddCustomerPopupComponent } from '../../customers/add-customer-popup/add-customer-popup.component';
 import { EditCustomerPopupComponent } from '../../customers/edit-customer-popup/edit-customer-popup.component';
 import { CreateMessagePopupComponent } from '../create-message-popup/create-message-popup.component';
+import { DisplayMessageComponent } from '../display-message/display-message.component';
 import { MessageModel } from '../message.model';
 import { MessageService } from '../message.service';
 
@@ -25,10 +28,11 @@ export class ListComponent implements OnInit {
   };
   pagination: PaginationEvent;
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
-  messages$: Observable<MessageModel[]>;
+  messages$: Observable<DataResponse<MessageModel>>;
   constructor(
     private dialog: MatDialog,
     private messageService: MessageService,
+    private helperService: HelperService,
   ) { }
 
   ngOnInit() {
@@ -40,37 +44,23 @@ export class ListComponent implements OnInit {
 
   getMessages(pagination?: PaginationEvent) {
     this.isLoading$.next(true);
-    pagination = pagination ? pagination : this.initPagination;
-    this.pagination = pagination;
+
     this.messages$ = this.messageService.getMessages(pagination).pipe(
       tap(() => this.isLoading$.next(false)),
+      tap(res => this.pagination = this.helperService.mapApiPaginationToMaterialEvent(res.pagination)),
     );
   }
 
   initChat(message: MessageModel) {
 
+    const ref = this.dialog.open(CreateMessagePopupComponent, {});
+    ref.afterClosed().pipe(
+      filter((data: MessageModel) => !!data)
+    ).subscribe(() => this.getMessages());
   }
 
   select(message: MessageModel) {
-
-  }
-
-  edit(message: MessageModel) {
-    const ref = this.dialog.open(CreateMessagePopupComponent, {data: message});
-    ref.afterClosed().pipe(
-      filter((messageEditted: MessageModel) => !!messageEditted)
-    ).subscribe(() => this.getMessages());
-  }
-
-  remove(message: MessageModel) {
-
-  }
-
-  add() {
-    const ref = this.dialog.open(CreateMessagePopupComponent, {});
-    ref.afterClosed().pipe(
-      filter((message: MessageModel) => !!message)
-    ).subscribe(() => this.getMessages());
+    this.dialog.open(DisplayMessageComponent, {data: message});
   }
 
   changePage(event: PaginationEvent) {

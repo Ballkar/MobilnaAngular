@@ -1,6 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model';
+import { HelperService } from 'src/app/shared/service/helper.service';
 import { environment } from 'src/environments/environment';
 import { MessageModel } from './message.model';
 
@@ -11,27 +14,38 @@ export class MessageService {
 
   constructor(
     private http: HttpClient,
+    private helperService: HelperService,
   ) { }
 
-  getMessages(pagination: PaginationEvent): Observable<MessageModel[]> {
-    const {pageIndex, pageSize} = pagination;
-    return this.http.get<MessageModel[]>(`${environment.apiUrl}/messages?_page=${pageIndex + 1}&_limit=${pageSize}`);
+  getMessages(pagination: PaginationEvent): Observable<DataResponse<MessageModel>> {
+    let params = new HttpParams();
+    params = this.helperService.returnParamsWithPaginationAdded(pagination, params);
+    return this.http.get<ResponseModel<DataResponse<MessageModel>>>(`${environment.apiUrl}/messages`).pipe(
+      map(res => res.data),
+    );
   }
 
   getMessage(id: number): Observable<MessageModel> {
-    return this.http.get<MessageModel>(`${environment.apiUrl}/messages/${id}`);
+    return this.http.get<ResponseModel<MessageModel>>(`${environment.apiUrl}/messages/${id}`).pipe(
+      map(res => res.data),
+    );
   }
 
   editMessage(message: MessageModel): Observable<MessageModel> {
-    return this.http.put<MessageModel>(`${environment.apiUrl}/messages/${message.id}`, message);
+    return this.http.put<ResponseModel<MessageModel>>(`${environment.apiUrl}/messages/${message.id}`, message).pipe(
+      map(res => res.data),
+    );
   }
 
   saveMessage(message: MessageModel): Observable<MessageModel> {
-    return this.http.post<MessageModel>(`${environment.apiUrl}/messages`, message);
+    return this.http.post<ResponseModel<MessageModel>>(`${environment.apiUrl}/messages`, message).pipe(
+      map(res => res.data),
+    );
   }
 
-  deleteMessage(id: number): Observable<MessageModel> {
-    return this.http.delete<MessageModel>(`${environment.apiUrl}/messages/${id}`);
+  deleteMessage(id: number): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/messages/${id}`).pipe(
+    );
   }
 
 }

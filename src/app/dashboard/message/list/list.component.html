@@ -1,9 +1,9 @@
 <div class="container">
-  <mat-card-title class="mainTitle">Lista Wiadomości</mat-card-title>
+  <mat-card-title class="mainTitle">Historia Wiadomości</mat-card-title>
 
   <mat-form-field class="searchInput">
-    <mat-label>Wyszukaj klientkę</mat-label>
-    <input matInput placeholder="Imie lub nazwisko" [formControl]="searchCtrl">
+    <mat-label>Wyszukaj wiadomość w historii</mat-label>
+    <input matInput placeholder="Dane klientki lub numer" [formControl]="searchCtrl">
   </mat-form-field>
 
   <mat-spinner *ngIf="isLoading$|async"></mat-spinner>
@@ -11,17 +11,16 @@
 
     <mat-action-list class="messages">
 
-      <div class="message" *ngFor="let message of messages">
-
-        <!-- <button mat-icon-button class="editBtn" (click)="edit(message)">
-          <mat-icon class="active">edit</mat-icon>
-        </button> -->
-
+      <div class="message" *ngFor="let message of messages.items">
+<!--
         <button mat-icon-button class="editBtn" (click)="initChat(message)">
           <mat-icon class="active">chat</mat-icon>
-        </button>
+        </button> -->
 
-        <button class="name" mat-list-item (click)="select(message)" (click)="edit(message)">{{message.name}}</button>
+        <button class="name" mat-list-item (click)="select(message)">
+          {{message.name}} - ({{message.customer.name}} {{message.customer.surname}} / {{message.customer.phone}})
+          <span class="date">{{message.created_at|date}}</span>
+        </button>
       </div>
 
     </mat-action-list>
@@ -36,7 +35,7 @@
   </ng-container>
 </div>
 
-<button mat-raised-button color="primary" class="addBtn" (click)="add()">Dodaj klientke</button>
+<button mat-raised-button color="primary" class="addBtn" (click)="initChat()">Wyślij wiadomość</button>
 
 <ng-template #empty>
   <mat-spinner ></mat-spinner>
