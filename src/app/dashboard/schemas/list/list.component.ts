@@ -29,13 +29,13 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.searchCtrl.valueChanges.pipe(
       debounceTime(300),
-    ).subscribe(console.log);
+    ).subscribe(query => this.getSchemas(null, query));
     this.getSchemas();
   }
 
-  getSchemas(pagination?: PaginationEvent) {
+  getSchemas(pagination?: PaginationEvent, query?: string) {
     this.isLoading$.next(true);
-    this.schemaService.getSchemas(pagination).pipe(
+    this.schemaService.getSchemas(pagination, query).pipe(
       tap(res => this.pagination = this.helperService.mapApiPaginationToMaterialEvent(res.pagination)),
       tap(() => this.isLoading$.next(false)),
     ).subscribe(res => this.schemas = res.items);

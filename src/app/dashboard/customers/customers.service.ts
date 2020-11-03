@@ -17,9 +17,10 @@ export class CustomersService {
     private helperService: HelperService,
   ) { }
 
-  getCustomers(pagination?: PaginationEvent): Observable<DataResponse<CustomerModel>> {
+  getCustomers(pagination?: PaginationEvent, query?: string): Observable<DataResponse<CustomerModel>> {
     let params = new HttpParams();
     params = this.helperService.returnParamsWithPaginationAdded(pagination, params);
+    params = query ? params.set('query', query) : params;
     return this.http.get<ResponseModel<DataResponse<CustomerModel>>>(`${environment.apiUrl}/customers`, {params}).pipe(
       map(res => res.data),
       tap(data => data.items.forEach(customer => this.mapCustomerFromApi(customer))),

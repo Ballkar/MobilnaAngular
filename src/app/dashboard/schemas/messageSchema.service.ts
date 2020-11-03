@@ -17,9 +17,10 @@ export class MessageSchemaService {
     private helperService: HelperService,
   ) { }
 
-  getSchemas(pagination: PaginationEvent): Observable<DataResponse<MessageSchemaModel>> {
+  getSchemas(pagination: PaginationEvent, query: string): Observable<DataResponse<MessageSchemaModel>> {
     let params = new HttpParams();
     params = this.helperService.returnParamsWithPaginationAdded(pagination, params);
+    params = query ? params.set('query', query) : params;
     return this.http.get<ResponseModel<DataResponse<MessageSchemaModel>>>(`${environment.apiUrl}/messageSchemas`, {params}).pipe(
       map(res => res.data),
     );

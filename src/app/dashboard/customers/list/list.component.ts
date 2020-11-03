@@ -30,12 +30,12 @@ export class ListComponent implements OnInit {
     this.getCustomers();
     this.searchCtrl.valueChanges.pipe(
       debounceTime(300),
-    ).subscribe(console.log);
+    ).subscribe(query => this.getCustomers(null, query));
   }
 
-  getCustomers(pagination?: PaginationEvent) {
+  getCustomers(pagination?: PaginationEvent, query?: string) {
     this.isLoading$.next(true);
-    this.customers$ = this.customerService.getCustomers(pagination).pipe(
+    this.customers$ = this.customerService.getCustomers(pagination, query).pipe(
       tap(data => this.pagination = this.helperService.mapApiPaginationToMaterialEvent(data.pagination)),
       map(data => data.items),
       tap(() => this.isLoading$.next(false)),

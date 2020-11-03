@@ -17,9 +17,10 @@ export class MessageService {
     private helperService: HelperService,
   ) { }
 
-  getMessages(pagination: PaginationEvent): Observable<DataResponse<MessageModel>> {
+  getMessages(pagination: PaginationEvent, query: string): Observable<DataResponse<MessageModel>> {
     let params = new HttpParams();
     params = this.helperService.returnParamsWithPaginationAdded(pagination, params);
+    params = query ? params.set('query', query) : params;
     return this.http.get<ResponseModel<DataResponse<MessageModel>>>(`${environment.apiUrl}/messages`).pipe(
       map(res => res.data),
     );

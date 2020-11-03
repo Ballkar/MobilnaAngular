@@ -39,13 +39,13 @@ export class ListComponent implements OnInit {
     this.getMessages();
     this.searchCtrl.valueChanges.pipe(
       debounceTime(300),
-    ).subscribe(console.log);
+    ).subscribe(query => this.getMessages(null, query));
   }
 
-  getMessages(pagination?: PaginationEvent) {
+  getMessages(pagination?: PaginationEvent, query?: string) {
     this.isLoading$.next(true);
 
-    this.messages$ = this.messageService.getMessages(pagination).pipe(
+    this.messages$ = this.messageService.getMessages(pagination, query).pipe(
       tap(() => this.isLoading$.next(false)),
       tap(res => this.pagination = this.helperService.mapApiPaginationToMaterialEvent(res.pagination)),
     );
