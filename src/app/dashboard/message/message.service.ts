@@ -21,7 +21,7 @@ export class MessageService {
     let params = new HttpParams();
     params = this.helperService.returnParamsWithPaginationAdded(pagination, params);
     params = query ? params.set('query', query) : params;
-    return this.http.get<ResponseModel<DataResponse<MessageModel>>>(`${environment.apiUrl}/messages`).pipe(
+    return this.http.get<ResponseModel<DataResponse<MessageModel>>>(`${environment.apiUrl}/messages`, {params}).pipe(
       map(res => res.data),
     );
   }
