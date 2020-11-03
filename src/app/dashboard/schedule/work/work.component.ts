@@ -36,7 +36,7 @@ export class WorkComponent implements OnInit {
   getEvents(startDate?: Date, endDate?: Date) {
     this.isLoading$.next(true);
     this.workService.getWorks(this.data.startDate, this.data.endDate).pipe(
-      map(works => works.map(work => this.mapWorkToEvent(work))),
+      map(works => works.items.map(work => this.mapWorkToEvent(work))),
       tap(() => this.isLoading$.next(false)),
     ).subscribe(res => this.events = res);
   }
