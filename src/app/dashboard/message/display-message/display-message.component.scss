@@ -1,4 +1,29 @@
 @import 'mixins';
 .container{
   @include popupContainer;
+  .row{
+    display: flex;
+    flex-flow: row;
+  }
+}
+
+
+.title{
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.text{
+  font-size: 16px;
+  .placeholder{
+    font-size: 14px;
+  }
+}
+
+.date{
+  margin-left: auto;
+  font-size: 12px;
+}
+.customer{
+  margin-bottom: 20px;
 }
