@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { concatMap, debounceTime, filter, map, startWith, tap } from 'rxjs/operators';
-import { AddCustomerPopupComponent } from '../../customers/add-customer-popup/add-customer-popup.component';
+import { CustomerPopupComponent } from '../../customers/customer-popup/customer-popup.component';
 import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
 import { WorkModel } from '../work.model';
@@ -61,7 +61,7 @@ export class WorkFormComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
 
-    const ref = this.dialog.open(AddCustomerPopupComponent, {});
+    const ref = this.dialog.open(CustomerPopupComponent, {});
     ref.afterClosed().pipe(
       filter((customer: CustomerModel) => !!customer)
     ).subscribe(customer => this.customerCtrl.setValue(customer));

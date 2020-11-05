@@ -2,21 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CustomersRoutingModule } from './customers-routing.module';
-import { AddComponent } from './add/add.component';
 import { ListComponent } from './list/list.component';
-import { EditComponent } from './edit/edit.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { AddCustomerPopupComponent } from './add-customer-popup/add-customer-popup.component';
-import { EditCustomerPopupComponent } from './edit-customer-popup/edit-customer-popup.component';
+import { CustomerPopupComponent } from './customer-popup/customer-popup.component';
+import { CustomerFormComponent } from './customer-form/customer-form.component';
 
 
 @NgModule({
   declarations: [
-    AddComponent,
     ListComponent,
-    EditComponent,
-    AddCustomerPopupComponent,
-    EditCustomerPopupComponent,
+    CustomerPopupComponent,
+    CustomerFormComponent,
   ],
   imports: [
     CommonModule,
@@ -24,12 +20,10 @@ import { EditCustomerPopupComponent } from './edit-customer-popup/edit-customer-
     SharedModule,
   ],
   exports: [
-    AddComponent,
-    AddCustomerPopupComponent,
+    CustomerPopupComponent
   ],
   entryComponents: [
-    AddCustomerPopupComponent,
-    EditCustomerPopupComponent,
+    CustomerPopupComponent
   ]
 })
 export class CustomersModule { }

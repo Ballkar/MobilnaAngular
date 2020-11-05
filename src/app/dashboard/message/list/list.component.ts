@@ -5,8 +5,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { tap, filter, debounceTime } from 'rxjs/operators';
 import { DataResponse } from 'src/app/shared/model/response.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
-import { AddCustomerPopupComponent } from '../../customers/add-customer-popup/add-customer-popup.component';
-import { EditCustomerPopupComponent } from '../../customers/edit-customer-popup/edit-customer-popup.component';
 import { CreateMessagePopupComponent } from '../create-message-popup/create-message-popup.component';
 import { DisplayMessageComponent } from '../display-message/display-message.component';
 import { MessageModel } from '../message.model';

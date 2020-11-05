@@ -3,11 +3,10 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, delay, filter, map, tap } from 'rxjs/operators';
-import { AddCustomerPopupComponent } from 'src/app/dashboard/customers/add-customer-popup/add-customer-popup.component';
 import { HelperService } from 'src/app/shared/service/helper.service';
+import { CustomerPopupComponent } from '../customer-popup/customer-popup.component';
 import { CustomerModel } from '../customer.model';
 import { CustomersService } from '../customers.service';
-import { EditCustomerPopupComponent } from '../edit-customer-popup/edit-customer-popup.component';
 
 @Component({
   selector: 'app-list',
@@ -51,7 +50,7 @@ export class ListComponent implements OnInit {
   }
 
   edit(customer: CustomerModel) {
-    const ref = this.dialog.open(EditCustomerPopupComponent, {data: customer});
+    const ref = this.dialog.open(CustomerPopupComponent, {data: customer});
     ref.afterClosed().pipe(
       filter((customerEditted: CustomerModel) => !!customerEditted)
     ).subscribe(() => this.getCustomers());
@@ -62,7 +61,7 @@ export class ListComponent implements OnInit {
   }
 
   add() {
-    const ref = this.dialog.open(AddCustomerPopupComponent, {});
+    const ref = this.dialog.open(CustomerPopupComponent, {});
     ref.afterClosed().pipe(
       filter((customer: CustomerModel) => !!customer)
     ).subscribe(() => this.getCustomers());

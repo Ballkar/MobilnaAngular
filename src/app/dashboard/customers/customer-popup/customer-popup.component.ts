@@ -3,21 +3,21 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CustomerModel } from '../customer.model';
 
 @Component({
-  selector: 'app-edit-customer-popup',
-  templateUrl: './edit-customer-popup.component.html',
-  styleUrls: ['./edit-customer-popup.component.scss']
+  selector: 'app-customer-popup',
+  templateUrl: './customer-popup.component.html',
+  styleUrls: ['./customer-popup.component.scss']
 })
-export class EditCustomerPopupComponent implements OnInit {
+export class CustomerPopupComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<EditCustomerPopupComponent>,
+    public dialogRef: MatDialogRef<CustomerPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public customer: CustomerModel,
   ) { }
 
   ngOnInit() {
   }
 
-  close(customer: CustomerModel) {
+  catchCustomer(customer: CustomerModel) {
     this.dialogRef.close(customer);
   }
 }
