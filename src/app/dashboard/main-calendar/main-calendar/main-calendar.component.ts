@@ -69,8 +69,13 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
 
   changeDateDisplayed() {
     this.changeDate.emit({
-      startDate: this.configData.actualDate,
-      endDate: moment(this.configData.actualDate, this.dateFormat).add(this.daysInWeek, 'days').toDate()
+      startDate: moment(this.configData.actualDate, this.dateFormat)
+        .set({hour: 0, minute: 0, second: 0, millisecond: 0})
+        .toDate(),
+      endDate: moment(this.configData.actualDate, this.dateFormat)
+        .set({hour: 0, minute: 0, second: 0, millisecond: 0})
+        .add(this.daysInWeek, 'days')
+        .toDate()
     });
   }
 

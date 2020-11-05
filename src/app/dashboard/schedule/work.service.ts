@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model';
 import { environment } from 'src/environments/environment';
 import { StateModel } from '../main-calendar/state.model';
@@ -22,8 +23,12 @@ export class WorkService {
   ) { }
 
   getWorks(startDate: Date, endDate: Date): Observable<DataResponse<WorkModel>> {
-    return this.httpClient.get<ResponseModel<DataResponse<WorkModel>>>(`${environment.apiUrl}/calendarWorks`).pipe(
-      map(res => res.data)
+    const start = moment(startDate).format('YYYY-M-D H:m:s');
+    const stop = moment(endDate).format('YYYY-M-D H:m:s');
+
+    const params = new HttpParams().set('start', start).set('stop', stop);
+    return this.httpClient.get<ResponseModel<DataResponse<WorkModel>>>(`${environment.apiUrl}/calendarWorks`, { params }).pipe(
+      map(res => res.data),
     );
   }
 
