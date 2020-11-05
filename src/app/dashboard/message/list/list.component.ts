@@ -49,7 +49,7 @@ export class ListComponent implements OnInit {
     );
   }
 
-  initChat(message: MessageModel) {
+  initChat() {
 
     const ref = this.dialog.open(InitMessageComponent, {});
     ref.afterClosed().pipe(
