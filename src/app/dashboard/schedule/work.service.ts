@@ -1,12 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model';
 import { environment } from 'src/environments/environment';
 import { StateModel } from '../main-calendar/state.model';
-import { MessageSchemaModel } from '../message/message.model';
 import { WorkModel } from './work.model';
 
 @Injectable({
@@ -30,13 +28,19 @@ export class WorkService {
   }
 
   editWork(work: WorkModel): Observable<WorkModel> {
-    return this.httpClient.put<ResponseModel<WorkModel>>(`${environment.apiUrl}/calendarWorks/${work.id}`, work).pipe(
+    return this.httpClient.put<ResponseModel<WorkModel>>(`${environment.apiUrl}/calendarWorks/${work.id}`, {
+      ...work,
+      customer_id: work.customer.id
+    }).pipe(
       map(res => res.data)
     );
   }
 
   saveWork(work: WorkModel): Observable<WorkModel> {
-    return this.httpClient.post<ResponseModel<WorkModel>>(`${environment.apiUrl}/calendarWorks`, work).pipe(
+    return this.httpClient.post<ResponseModel<WorkModel>>(`${environment.apiUrl}/calendarWorks`, {
+      ...work,
+      customer_id: work.customer.id
+    }).pipe(
       map(res => res.data)
     );
   }
