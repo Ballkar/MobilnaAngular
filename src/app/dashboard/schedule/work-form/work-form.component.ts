@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { filter, map, startWith, tap } from 'rxjs/operators';
+import { concatMap, debounceTime, filter, map, startWith, tap } from 'rxjs/operators';
 import { AddCustomerPopupComponent } from '../../customers/add-customer-popup/add-customer-popup.component';
 import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
@@ -20,7 +20,7 @@ export class WorkFormComponent implements OnInit {
   state: 'add' | 'edit';
   actualDate: Date = new Date();
   form: FormGroup;
-  filteredCustomers: Observable<CustomerModel[]>;
+  filteredCustomers$: Observable<CustomerModel[]>;
   customers: CustomerModel[] = [];
   get startCtrl() { return this.form.get('start') as FormControl; }
   get stopCtrl() { return this.form.get('stop') as FormControl; }
@@ -44,20 +44,17 @@ export class WorkFormComponent implements OnInit {
       customer: new FormControl(this.work ? this.work.customer : null, Validators.required),
     });
     this.customerService.getCustomers({pageIndex: 0, pageSize: 999}).subscribe(customers => this.customers = customers.items);
-    this.filteredCustomers = this.customerCtrl.valueChanges.pipe(
+    this.filteredCustomers$ = this.customerCtrl.valueChanges.pipe(
       startWith(''),
+      debounceTime(400),
       map(value => typeof value === 'string' ? value : value.name),
-      map(name => name ? this._filter(name) : this.customers.slice())
+      concatMap(name => this.customerService.getCustomers(null, name)),
+      map(res => res.items)
     );
   }
 
   displayFn(customer: CustomerModel): string {
     return customer && customer.name ? `${customer.name} ${customer.surname} (${customer.phone})` : '';
-  }
-
-  private _filter(name: string): CustomerModel[] {
-    const filterValue = name.toLowerCase();
-    return this.customers.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
   newCustomer(event: MouseEvent) {

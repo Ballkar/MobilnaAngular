@@ -39,7 +39,7 @@
   <mat-form-field class="customer">
     <mat-label>Klientka</mat-label>
     <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption [displayWith]="displayFn">
-      <mat-option *ngFor="let customer of filteredCustomers | async" [value]="customer">
+      <mat-option *ngFor="let customer of filteredCustomers$|async" [value]="customer">
         {{customer.name}} {{customer.surname}} ({{customer.phone}})
       </mat-option>
     </mat-autocomplete>
