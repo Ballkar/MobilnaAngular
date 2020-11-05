@@ -26,7 +26,6 @@ export class SchemaFormComponent implements OnInit {
   ngOnInit() {
     this.state = this.schema ? 'edit' : 'add';
 
-    console.log(this.state);
     this.form = new FormGroup({
       name: new FormControl(this.schema ? this.schema.name : '', Validators.required),
       text: new FormControl(this.schema ? this.schema.text : '', Validators.required),

@@ -5,8 +5,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { tap, filter, debounceTime } from 'rxjs/operators';
 import { DataResponse } from 'src/app/shared/model/response.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
-import { CreateMessagePopupComponent } from '../create-message-popup/create-message-popup.component';
 import { DisplayMessageComponent } from '../display-message/display-message.component';
+import { InitMessageComponent } from '../init-message/init-message.component';
 import { MessageModel } from '../message.model';
 import { MessageService } from '../message.service';
 
@@ -51,7 +51,7 @@ export class ListComponent implements OnInit {
 
   initChat(message: MessageModel) {
 
-    const ref = this.dialog.open(CreateMessagePopupComponent, {});
+    const ref = this.dialog.open(InitMessageComponent, {});
     ref.afterClosed().pipe(
       filter((data: MessageModel) => !!data)
     ).subscribe(() => this.getMessages());
