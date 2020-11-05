@@ -6,6 +6,7 @@
 @import '~@angular/material/theming';
 
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import './parts/lists.scss';
 
 
 $custom-typography: mat-typography-config(

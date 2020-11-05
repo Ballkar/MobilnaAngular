@@ -1,0 +1,19 @@
+.container{
+  display: flex;
+  flex-flow: column;
+
+  .mainTitle{
+    margin-bottom: 10px;
+  }
+
+  mat-action-list {
+    flex: 1;
+
+    .item{
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+    }
+  }
+
+}

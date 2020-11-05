@@ -12,7 +12,7 @@
     <ng-container *ngIf="schemas; else loader">
       <mat-action-list class="schemas">
 
-        <div class="schema" *ngFor="let schema of schemas">
+        <div class="item" *ngFor="let schema of schemas">
 
           <button mat-icon-button class="editBtn" (click)="initChat(schema)">
             <mat-icon class="active">chat</mat-icon>
