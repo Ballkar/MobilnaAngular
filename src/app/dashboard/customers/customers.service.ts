@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model';
+import { PhonePipe } from 'src/app/shared/pipes/phone.pipe';
 import { HelperService } from 'src/app/shared/service/helper.service';
 import { environment } from 'src/environments/environment';
 import { CustomerModel } from './customer.model';
@@ -61,7 +62,10 @@ export class CustomersService {
   }
 
   private mapCustomerFromApi(customer: CustomerModel) {
+    const phonePipe = new PhonePipe();
+    customer.phone = phonePipe.transform(customer.phone);
     // tslint:disable-next-line: no-string-literal
     customer.additionalInfo = customer['additional_info'];
+
   }
 }

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { CustomerModel } from '../customer.model';
 import { CustomersService } from '../customers.service';
 
@@ -28,12 +29,13 @@ export class CustomerFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.state = this.customer && this.customer.id ? 'edit' : 'add';
+    const {customer} = this;
+    this.state = customer && customer.id ? 'edit' : 'add';
     this.form  = new FormGroup({
-      name: new FormControl(this.customer ? this.customer.name : '', Validators.required),
-      surname: new FormControl(this.customer ? this.customer.surname : '', Validators.required),
-      phone: new FormControl(this.customer ? this.customer.phone : '', Validators.required),
-      additionalInfo: new FormControl(this.customer ? this.customer.additionalInfo : ''),
+      name: new FormControl(customer ? customer.name : '', [Validators.required, Validators.minLength(4)]),
+      surname: new FormControl(customer ? customer.surname : '', [Validators.required, Validators.minLength(4)]),
+      phone: new FormControl(customer ? customer.phone : '', [Validators.required, Validators.maxLength(11), Validators.minLength(11)]),
+      additionalInfo: new FormControl(customer ? customer.additionalInfo : '', Validators.minLength(4)),
     });
   }
 
