@@ -49,8 +49,8 @@ const materialComponents = [
   declarations: [
     OnlyNumberDirective,
     TruncatePipe,
-    PhoneMaskDirective,
     PhonePipe,
+    PhoneMaskDirective,
   ],
   imports: [
     CommonModule,
@@ -65,8 +65,8 @@ const materialComponents = [
     HttpClientModule,
     ReactiveFormsModule,
     materialComponents,
-    PhoneMaskDirective,
     PhonePipe,
+    PhoneMaskDirective,
   ],
   entryComponents: [
   ]
