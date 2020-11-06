@@ -28,7 +28,7 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.getCustomers();
     this.searchCtrl.valueChanges.pipe(
-      debounceTime(300),
+      debounceTime(500),
     ).subscribe(query => this.getCustomers(null, query));
   }
 

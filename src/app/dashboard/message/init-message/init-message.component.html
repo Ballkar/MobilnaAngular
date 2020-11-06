@@ -23,7 +23,11 @@
 
   <mat-form-field>
     <mat-label>treść wiadomości</mat-label>
-    <input matInput placeholder="treść" [formControl]="textCtrl">
+    <textarea matInput [formControl]="textCtrl"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="3"
+              cdkAutosizeMaxRows="5"></textarea>
   </mat-form-field>
 
   <div class="buttonContainer">

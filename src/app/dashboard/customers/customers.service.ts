@@ -57,6 +57,7 @@ export class CustomersService {
   private mapCustomerForApi(customer: CustomerModel) {
     // tslint:disable-next-line: no-string-literal
     customer['additional_info'] = customer.additionalInfo;
+    customer.phone = customer.phone.replace(/-+/ig, '');
   }
 
   private mapCustomerFromApi(customer: CustomerModel) {

@@ -20,6 +20,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { PhoneMaskDirective } from './directives/phone-mask.directive';
+import { PhonePipe } from './pipes/phone.pipe';
+
 const materialComponents = [
   CommonModule,
   MatCardModule,
@@ -46,6 +49,8 @@ const materialComponents = [
   declarations: [
     OnlyNumberDirective,
     TruncatePipe,
+    PhoneMaskDirective,
+    PhonePipe,
   ],
   imports: [
     CommonModule,
@@ -60,6 +65,8 @@ const materialComponents = [
     HttpClientModule,
     ReactiveFormsModule,
     materialComponents,
+    PhoneMaskDirective,
+    PhonePipe,
   ],
   entryComponents: [
   ]
