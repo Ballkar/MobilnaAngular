@@ -21,6 +21,9 @@
     height: 220px;
     width: 220px;
     cursor: pointer;
+    &:focus{
+      outline: none;
+    }
 
     @include mobile{
       width: 100%;

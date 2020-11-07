@@ -1,5 +1,10 @@
 <div class="container">
-  <mat-card-title class="mainTitle">Lista Schematów Wiadomości</mat-card-title>
+  <mat-card-title class="mainTitle">
+    <button mat-icon-button [routerLink]="['/', 'dashboard']">
+      <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+    Lista Schematów Wiadomości
+  </mat-card-title>
 
   <mat-form-field class="searchInput">
     <mat-label>Wyszukaj Wiadomość</mat-label>

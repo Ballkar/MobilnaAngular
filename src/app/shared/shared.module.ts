@@ -22,6 +22,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { PhoneMaskDirective } from './directives/phone-mask.directive';
 import { PhonePipe } from './pipes/phone.pipe';
+import {MatRippleModule} from '@angular/material/core';
 
 const materialComponents = [
   CommonModule,
@@ -42,6 +43,7 @@ const materialComponents = [
   NgxMatTimepickerModule,
   MatDatepickerModule,
   MatAutocompleteModule,
+  MatRippleModule,
 ];
 
 
