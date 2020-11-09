@@ -7,6 +7,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DisplayMessageComponent } from './display-message/display-message.component';
 import { InitMessageComponent } from './init-message/init-message.component';
 import { InitMessagePopupComponent } from './init-message-popup/init-message-popup.component';
+import { SettingsComponent } from './settings/settings.component';
+import { SettingsPopupComponent } from './settings-popup/settings-popup.component';
 
 
 @NgModule({
@@ -15,6 +17,8 @@ import { InitMessagePopupComponent } from './init-message-popup/init-message-pop
     DisplayMessageComponent,
     InitMessageComponent,
     InitMessagePopupComponent,
+    SettingsComponent,
+    SettingsPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -24,6 +28,10 @@ import { InitMessagePopupComponent } from './init-message-popup/init-message-pop
   entryComponents: [
     InitMessagePopupComponent,
     DisplayMessageComponent,
+    SettingsPopupComponent,
+  ],
+  exports: [
+    SettingsPopupComponent,
   ]
 })
 export class MessageModule { }

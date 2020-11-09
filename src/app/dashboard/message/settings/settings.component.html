@@ -1,0 +1,28 @@
+<div class="container">
+  <mat-card-title class="mainTitle">Ustawienia wiadomości</mat-card-title>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- <mat-form-field class="name">
+      <mat-label>Imie</mat-label>
+      <input matInput placeholder="Imie" [formControl]="nameCtrl">
+    </mat-form-field>
+    <mat-form-field class="surname">
+      <mat-label>Nazwisko</mat-label>
+      <input matInput placeholder="Nazwisko" [formControl]="surnameCtrl">
+    </mat-form-field>
+    <mat-form-field class="phone">
+      <mat-label>Numer telefonu</mat-label>
+      <input matInput placeholder="numer" [formControl]="phoneCtrl" appPhoneMask>
+    </mat-form-field>
+    <mat-form-field class="info">
+      <mat-label>Dodatkowe informacje</mat-label>
+      <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"  [formControl]="additionalInfoCtrl"
+        cdkAutosizeMinRows="4" cdkAutosizeMaxRows="8"></textarea>
+    </mat-form-field> -->
+
+    <div class="buttonContainer">
+      <button mat-raised-button color="primary" class="addBtn" type="submit">Zapisz</button>
+    </div>
+  </form>
+
+</div>

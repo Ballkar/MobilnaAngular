@@ -1,12 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, debounceTime, map, concatMap } from 'rxjs/operators';
+import { startWith, debounceTime, map, concatMap, tap } from 'rxjs/operators';
 import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
 import { MessageSchemaService } from '../../schemas/messageSchema.service';
 import { MessageModel, MessageSchemaModel } from '../message.model';
 import { MessageService } from '../message.service';
+import { count as smsCount } from 'sms-length';
 
 @Component({
   selector: 'app-init-message',
@@ -18,6 +19,14 @@ export class InitMessageComponent implements OnInit {
   filteredCustomers$: Observable<CustomerModel[]>;
   filteredSchemas$: Observable<MessageSchemaModel[]>;
   form: FormGroup;
+  smsCountData: {
+    encoding: any;
+    length: number;
+    characterPerMessage: number;
+    inCurrentMessage: number;
+    remaining: number;
+    messages: number;
+  };
   get customerCtrl() { return this.form.get('customer') as FormControl; }
   get schemaCtrl() { return this.form.get('schema') as FormControl; }
   get textCtrl() { return this.form.get('text') as FormControl; }
@@ -32,8 +41,10 @@ export class InitMessageComponent implements OnInit {
     this.form = new FormGroup({
       customer: new FormControl(null, Validators.required),
       schema: new FormControl(null),
-      text: new FormControl(null),
+      text: new FormControl('', Validators.minLength(3)),
     });
+
+    this.smsCountData = smsCount(' ');
 
     this.filteredCustomers$ = this.customerCtrl.valueChanges.pipe(
       startWith(''),
@@ -50,8 +61,13 @@ export class InitMessageComponent implements OnInit {
       concatMap(name => this.schemaService.getSchemas(null, name)),
       map(res => res.items)
     );
-  }
 
+
+    this.textCtrl.valueChanges.pipe(
+      startWith(''),
+      tap(res => this.smsCountData = smsCount(res)),
+    ).subscribe();
+  }
 
   init() {
     if (this.form.valid && (this.schemaCtrl.value || this.textCtrl.value)) {

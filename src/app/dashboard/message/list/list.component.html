@@ -4,6 +4,9 @@
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
     Historia Wiadomości
+    <button mat-icon-button class="editBtn" (click)="openSettings()" [ngStyle]="{'margin-left': 'auto'}">
+      <mat-icon class="active">settings</mat-icon>
+    </button>
   </mat-card-title>
 
   <mat-form-field class="searchInput">
@@ -17,10 +20,6 @@
     <mat-action-list class="messages">
 
       <div class="item" *ngFor="let message of messages.items">
-<!--
-        <button mat-icon-button class="editBtn" (click)="initChat(message)">
-          <mat-icon class="active">chat</mat-icon>
-        </button> -->
 
         <button class="name" mat-list-item (click)="select(message)">
           {{message.name}} - ({{message.customer.name}} {{message.customer.surname}} / {{message.customer.phone}})

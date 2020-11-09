@@ -10,6 +10,7 @@ import { InitMessagePopupComponent } from '../init-message-popup/init-message-po
 import { InitMessageComponent } from '../init-message/init-message.component';
 import { MessageModel } from '../message.model';
 import { MessageService } from '../message.service';
+import { SettingsPopupComponent } from '../settings-popup/settings-popup.component';
 
 @Component({
   selector: 'app-list',
@@ -48,6 +49,10 @@ export class ListComponent implements OnInit {
       tap(() => this.isLoading$.next(false)),
       tap(res => this.pagination = this.helperService.mapApiPaginationToMaterialEvent(res.pagination)),
     );
+  }
+
+  openSettings() {
+    this.dialog.open(SettingsPopupComponent, {});
   }
 
   initChat() {

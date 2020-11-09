@@ -52,4 +52,53 @@ export class MessageService {
     );
   }
 
+  smsCounter(text: string, isUnicode = false) {
+    // const ascii: [160, 306, 459];
+    // const unicode: [70, 134, 201];
+    let smsLength = 0;
+    let smsCount = -1;
+    let charsLeft = 0;
+
+    for (let charPos = 0; charPos < text.length; charPos++) {
+      const char = text[charPos];
+      switch (char) {
+          case '\n':
+          case '[':
+          case ']':
+          case '\\':
+          case '^':
+          case '{':
+          case '}':
+          case '|':
+          case '€':
+              smsLength += 2;
+              break;
+
+          default:
+              smsLength += 1;
+      }
+
+
+      if (text.charCodeAt(charPos) > 127 && text[charPos] !== '€') {
+        console.log('unicode?');
+      }
+    }
+
+    // for (let sCount = 0; sCount < s.maxSmsNum; sCount++) {
+
+    //     cutStrLength = smsType[sCount];
+    //     if (smsLength <= smsType[sCount]) {
+
+    //         smsCount = sCount + 1;
+    //         charsLeft = smsType[sCount] - smsLength;
+    //         break;
+    //     }
+    // }
+
+    // if (s.cut) { e.val(text.substring(0, cutStrLength)); }
+    // smsCount == -1 && (smsCount = s.maxSmsNum, charsLeft = 0);
+
+
+  }
+
 }

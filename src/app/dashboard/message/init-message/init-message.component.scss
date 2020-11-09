@@ -2,3 +2,11 @@
   display: flex;
   flex-flow: column;
 }
+
+.smsCounter{
+  position: absolute;
+  font-size: 12px;
+  right: 20px;
+  bottom: 5px;
+  color: #888;
+}

@@ -21,14 +21,17 @@
     <input matInput placeholder="nazwa" [formControl]="schemaCtrl" [matAutocomplete]="schemaAutoComplete" >
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>treść wiadomości</mat-label>
-    <textarea matInput [formControl]="textCtrl"
-              cdkTextareaAutosize
-              #autosize="cdkTextareaAutosize"
-              cdkAutosizeMinRows="3"
-              cdkAutosizeMaxRows="5"></textarea>
-  </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>treść wiadomości</mat-label>
+      <textarea matInput [formControl]="textCtrl"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="3"
+                cdkAutosizeMaxRows="5"></textarea>
+
+      <div class="smsCounter">Pozostało znaków: {{smsCountData.remaining}} ({{smsCountData.messages}} wiadomość)</div>
+    </mat-form-field>
 
   <div class="buttonContainer">
     <button mat-raised-button color="primary" class="addBtn" type="submit">Wyślij</button>
