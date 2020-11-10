@@ -70,11 +70,20 @@ export class InitMessageComponent implements OnInit {
   }
 
   init() {
-    if (this.form.valid && (this.schemaCtrl.value || this.textCtrl.value)) {
-      this.messageService.initMessage(this.customerCtrl.value.id,
-        this.schemaCtrl.value ? this.schemaCtrl.value.id : null, this.textCtrl.value)
-        .subscribe(res => this.messageInited.emit(res));
+
+    if (this.form.invalid) {
+      return false;
     }
+    if (!this.schemaCtrl.value && !this.textCtrl.value) {
+      this.form.setErrors({textNeeded: 'Wymagany jest wybór schematu lub wpisanie własnej treści wiadomości.'});
+      return false;
+    }
+    this.messageService.initMessage(this.customerCtrl.value.id,
+      this.schemaCtrl.value ? this.schemaCtrl.value.id : null, this.textCtrl.value)
+      .subscribe(
+        res => this.messageInited.emit(res),
+        error => this.form.setErrors({apiError: error.error.errors})
+      );
   }
 
   displayFnCustomer(customer: CustomerModel): string {

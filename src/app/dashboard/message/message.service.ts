@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
 import { environment } from 'src/environments/environment';
@@ -23,6 +23,7 @@ export class MessageService {
     params = query ? params.set('query', query) : params;
     return this.http.get<ResponseModel<DataResponse<MessageModel>>>(`${environment.apiUrl}/messages`, {params}).pipe(
       map(res => res.data),
+      tap(console.log)
     );
   }
 

@@ -3,10 +3,21 @@
   flex-flow: column;
 }
 
+.textarea{
+  padding-bottom: 20px;
+}
+
 .smsCounter{
   position: absolute;
   font-size: 12px;
   right: 20px;
-  bottom: 5px;
+  bottom: -20px;
   color: #888;
+  &.invalid{
+    color: #f44336;
+  }
+}
+
+.mainError{
+  margin-bottom: 10px;
 }

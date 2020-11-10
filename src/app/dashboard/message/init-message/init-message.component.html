@@ -1,4 +1,10 @@
 <form class="container" [formGroup]="form" (ngSubmit)="init()">
+  <mat-error *ngIf="form.errors && form.errors['apiError']" class="mainError">
+    <div *ngFor="let error of (form.errors['apiError'])">{{error}}</div>
+  </mat-error>
+  <mat-error *ngIf="form.errors && form.errors['textNeeded']" class="mainError">
+    {{form.errors['textNeeded']}}
+  </mat-error>
 
   <mat-form-field>
     <mat-label>Klientka</mat-label>
@@ -22,15 +28,18 @@
   </mat-form-field>
 
 
-    <mat-form-field>
+    <mat-form-field class="textarea">
       <mat-label>treść wiadomości</mat-label>
       <textarea matInput [formControl]="textCtrl"
                 cdkTextareaAutosize
                 #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="3"
+                cdkAutosizeMinRows="4"
                 cdkAutosizeMaxRows="5"></textarea>
 
-      <div class="smsCounter">Pozostało znaków: {{smsCountData.remaining}} ({{smsCountData.messages}} wiadomość)</div>
+      <div class="smsCounter" [ngClass]="{invalid: textCtrl.invalid}">Pozostało znaków: {{smsCountData.remaining}} ({{smsCountData.messages}} wiadomość)</div>
+      <mat-error *ngIf="textCtrl.errors && textCtrl.errors['minlength']">
+        wiadomość zbyt krótka
+      </mat-error>
     </mat-form-field>
 
   <div class="buttonContainer">
