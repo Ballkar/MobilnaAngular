@@ -2,8 +2,8 @@ import { CustomerModel } from '../customers/customer.model';
 
 
 export const TIMETYPES = {
-  sameDay: 1,
-  dayBefore: 2,
+  sameDay: '1',
+  dayBefore: '2',
 };
 
 export interface MessageSchemaModel {
