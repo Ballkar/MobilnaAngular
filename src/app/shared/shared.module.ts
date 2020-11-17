@@ -25,6 +25,7 @@ import { PhonePipe } from './pipes/phone.pipe';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
+import { TimeLeadingZeroPipe } from './pipes/timeLeadingZero.pipe';
 
 const materialComponents = [
   CommonModule,
@@ -57,6 +58,7 @@ const materialComponents = [
     TruncatePipe,
     PhonePipe,
     PhoneMaskDirective,
+    TimeLeadingZeroPipe,
   ],
   imports: [
     CommonModule,
@@ -73,6 +75,7 @@ const materialComponents = [
     materialComponents,
     PhonePipe,
     PhoneMaskDirective,
+    TimeLeadingZeroPipe,
   ],
   entryComponents: [
   ]
