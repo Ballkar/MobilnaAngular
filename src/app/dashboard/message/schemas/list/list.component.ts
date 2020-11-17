@@ -4,9 +4,8 @@ import { MatDialog } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, filter, tap } from 'rxjs/operators';
 import { HelperService } from 'src/app/shared/service/helper.service';
-import { MessageSchemaModel } from '../../message/message.model';
+import { MessageSchemaModel } from '../../message.model';
 import { MessageSchemaService } from '../messageSchema.service';
-import { SchemaFormComponent } from '../schema-form/schema-form.component';
 import { SchemaPopupComponent } from '../schema-popup/schema-popup.component';
 
 @Component({

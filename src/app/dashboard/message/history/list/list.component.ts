@@ -5,12 +5,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { tap, filter, debounceTime } from 'rxjs/operators';
 import { DataResponse } from 'src/app/shared/model/response.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
+import { InitMessagePopupComponent } from '../../init-message-popup/init-message-popup.component';
+import { MessageModel } from '../../message.model';
+import { MessageService } from '../../message.service';
+import { SettingsPopupComponent } from '../../settings/settings-popup/settings-popup.component';
 import { DisplayMessageComponent } from '../display-message/display-message.component';
-import { InitMessagePopupComponent } from '../init-message-popup/init-message-popup.component';
-import { InitMessageComponent } from '../init-message/init-message.component';
-import { MessageModel } from '../message.model';
-import { MessageService } from '../message.service';
-import { SettingsPopupComponent } from '../settings-popup/settings-popup.component';
 
 @Component({
   selector: 'app-list',

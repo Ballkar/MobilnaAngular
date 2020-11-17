@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HelperService } from 'src/app/shared/service/helper.service';
-import { MessageSchemaModel } from '../../message/message.model';
+import { MessageSchemaModel } from '../../message.model';
 import { MessageSchemaService } from '../messageSchema.service';
 
 @Component({

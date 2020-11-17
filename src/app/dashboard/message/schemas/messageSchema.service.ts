@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
 import { environment } from 'src/environments/environment';
-import { MessageSchemaModel } from '../message/message.model';
+import { MessageSchemaModel } from '../message.model';
 
 @Injectable({
   providedIn: 'root'

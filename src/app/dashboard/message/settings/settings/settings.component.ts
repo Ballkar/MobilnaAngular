@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MessageService } from '../message.service';
+import { MessageService } from '../../message.service';
 
 @Component({
   selector: 'app-settings',
