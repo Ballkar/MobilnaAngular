@@ -1,4 +1,4 @@
-<form class="container" [formGroup]="form" (ngSubmit)="init()">
+<form class="container" [formGroup]="form" (ngSubmit)="init()" cdkFocusRegionStart>
   <mat-error *ngIf="form.errors && form.errors['apiError']" class="mainError">
     <div *ngFor="let error of (form.errors['apiError'])">{{error}}</div>
   </mat-error>
