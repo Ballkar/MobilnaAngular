@@ -1,12 +1,9 @@
 <div class="container">
   <mat-card-title class="mainTitle">
-    <button mat-icon-button [routerLink]="['/', 'dashboard']">
+    <button mat-icon-button [routerLink]="['/', 'dashboard', 'message']">
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
     Historia Wiadomości
-    <button mat-icon-button class="editBtn" (click)="openSettings()" [ngStyle]="{'margin-left': 'auto'}">
-      <mat-icon class="active">settings</mat-icon>
-    </button>
   </mat-card-title>
 
   <mat-form-field class="searchInput">

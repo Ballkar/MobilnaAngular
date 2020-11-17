@@ -8,7 +8,6 @@ import { HelperService } from 'src/app/shared/service/helper.service';
 import { InitMessagePopupComponent } from '../../init-message-popup/init-message-popup.component';
 import { MessageModel } from '../../message.model';
 import { MessageService } from '../../message.service';
-import { SettingsPopupComponent } from '../../settings/settings-popup/settings-popup.component';
 import { DisplayMessageComponent } from '../display-message/display-message.component';
 
 @Component({
@@ -48,10 +47,6 @@ export class ListComponent implements OnInit {
       tap(() => this.isLoading$.next(false)),
       tap(res => this.pagination = this.helperService.mapApiPaginationToMaterialEvent(res.pagination)),
     );
-  }
-
-  openSettings() {
-    this.dialog.open(SettingsPopupComponent, {});
   }
 
   initChat() {
