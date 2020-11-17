@@ -70,14 +70,12 @@ export class PlanFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.form.invalid) {
-      return false;
-    }
+    if (this.form.invalid) { return false; }
 
     if (this.state === 'add') {
       this.planService.add(this.form.value).subscribe(res => this.planSubmitted.emit(res));
     } else {
-      this.planService.updatePlan(this.form.value).subscribe(res => this.planSubmitted.emit(res));
+      this.planService.updatePlan({...this.form.value, id: this.plan.id}).subscribe(res => this.planSubmitted.emit(res));
     }
   }
 }

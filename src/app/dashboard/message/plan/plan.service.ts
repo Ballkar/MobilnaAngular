@@ -26,13 +26,17 @@ export class PlanService {
   }
 
   add(plan: MessagePlan): Observable<MessagePlan> {
-    return this.http.post<ResponseModel<MessagePlan>>(`${environment.apiUrl}/messages/plans`, plan).pipe(
+    return this.http.post<ResponseModel<MessagePlan>>(`${environment.apiUrl}/messages/plans`, {
+      ...plan, schema_id: plan.schema.id, time_type: plan.timeType
+    }).pipe(
       map(res => res.data),
     );
   }
 
-  updatePlan(schema: MessagePlan): Observable<MessagePlan> {
-    return this.http.put<ResponseModel<MessagePlan>>(`${environment.apiUrl}/messages/plans/${schema.id}`, schema).pipe(
+  updatePlan(plan: MessagePlan): Observable<MessagePlan> {
+    return this.http.put<ResponseModel<MessagePlan>>(`${environment.apiUrl}/messages/plans/${plan.id}`, {
+      ...plan, time_type: plan.timeType
+    }).pipe(
       map(data => data.data),
     );
   }

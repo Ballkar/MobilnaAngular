@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { DataResponse } from 'src/app/shared/model/response.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
 import { DisplayMessageComponent } from '../../history/display-message/display-message.component';
@@ -44,15 +44,17 @@ export class ListComponent implements OnInit {
   }
 
   addPlan() {
-
-    // const ref = this.dialog.open(InitMessagePopupComponent, {});
-    // ref.afterClosed().pipe(
-    //   filter((data: MessageModel) => !!data)
-    // ).subscribe(() => this.getPlans());
+    const ref = this.dialog.open(PlanPopupComponent, {data: { ableToRemove: false}});
+    ref.afterClosed().pipe(
+      filter((message: MessagePlan) => !!message)
+    ).subscribe(() => this.getPlans());
   }
 
   select(plan: MessagePlan) {
-    this.dialog.open(PlanPopupComponent, {data: plan});
+    const ref = this.dialog.open(PlanPopupComponent, {data: {plan, ableToRemove: false}});
+    ref.afterClosed().pipe(
+      filter((message: MessagePlan) => !!message)
+    ).subscribe(() => this.getPlans());
   }
 
   changePage(event: PaginationEvent) {
