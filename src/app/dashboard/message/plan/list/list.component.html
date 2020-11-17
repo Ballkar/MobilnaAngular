@@ -1,0 +1,37 @@
+<div class="container">
+  <mat-card-title class="mainTitle">
+    <button mat-icon-button [routerLink]="['/', 'dashboard', 'message']">
+      <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+    Plany wiadomości
+  </mat-card-title>
+
+  <mat-spinner *ngIf="isLoading$|async"></mat-spinner>
+  <ng-container *ngIf="(plans$|async) as plans">
+
+    <mat-action-list class="plans">
+
+      <div class="item" *ngFor="let plan of plans.items">
+
+        <button class="name" mat-list-item (click)="select(plan)">
+          {{plan.schema.name}} - {{plan.hour}}:{{plan.minute}} ( plan {{plan.active ? 'aktywny' : 'nie aktywny' }})
+        </button>
+      </div>
+
+    </mat-action-list>
+
+    <mat-paginator
+      [length]="pagination.length"
+      [pageSize]="pagination.pageSize"
+      [pageSizeOptions]="[2, 5, 10]"
+      [pageIndex]="pagination.pageIndex"
+      (page)="changePage($event)">
+    </mat-paginator>
+  </ng-container>
+</div>
+
+<button mat-raised-button color="primary" class="addBtn" (click)="addPlan()">Zaplanuj wysyłkę</button>
+
+<ng-template #empty>
+  <mat-spinner ></mat-spinner>
+</ng-template>

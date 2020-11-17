@@ -13,3 +13,14 @@ export interface MessageModel {
   customer: CustomerModel;
   created_at: string;
 }
+
+export interface MessagePlans {
+  id: number;
+  hour: number;
+  minute: number;
+  dayBefore: number;
+  sameDay: number;
+  active: number;
+  created_at: string;
+  schema: MessageSchemaModel;
+}

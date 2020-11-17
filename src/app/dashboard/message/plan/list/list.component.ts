@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { tap, filter, debounceTime } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { DataResponse } from 'src/app/shared/model/response.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
-import { InitMessagePopupComponent } from '../../init-message-popup/init-message-popup.component';
-import { MessageModel } from '../../message.model';
-import { DisplayMessageComponent } from '../display-message/display-message.component';
-import { HistoryService } from '../history.service';
+import { DisplayMessageComponent } from '../../history/display-message/display-message.component';
+import { MessageModel, MessagePlans } from '../../message.model';
+import { PlanService } from '../plan.service';
 
 @Component({
   selector: 'app-list',
@@ -16,8 +14,6 @@ import { HistoryService } from '../history.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-
-  searchCtrl: FormControl = new FormControl();
   initPagination: PaginationEvent = {
     length: 5,
     pageIndex: 0,
@@ -26,35 +22,32 @@ export class ListComponent implements OnInit {
   };
   pagination: PaginationEvent;
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
-  messages$: Observable<DataResponse<MessageModel>>;
+  plans$: Observable<DataResponse<MessagePlans>>;
   constructor(
     private dialog: MatDialog,
-    private historyService: HistoryService,
+    private planService: PlanService,
     private helperService: HelperService,
   ) { }
 
   ngOnInit() {
-    this.getMessages();
-    this.searchCtrl.valueChanges.pipe(
-      debounceTime(300),
-    ).subscribe(query => this.getMessages(null, query));
+    this.getPlans();
   }
 
-  getMessages(pagination?: PaginationEvent, query?: string) {
+  getPlans(pagination?: PaginationEvent) {
     this.isLoading$.next(true);
 
-    this.messages$ = this.historyService.getMessages(pagination, query).pipe(
+    this.plans$ = this.planService.getPlans(pagination).pipe(
       tap(() => this.isLoading$.next(false)),
       tap(res => this.pagination = this.helperService.mapApiPaginationToMaterialEvent(res.pagination)),
     );
   }
 
-  initChat() {
+  addPlan() {
 
-    const ref = this.dialog.open(InitMessagePopupComponent, {});
-    ref.afterClosed().pipe(
-      filter((data: MessageModel) => !!data)
-    ).subscribe(() => this.getMessages());
+    // const ref = this.dialog.open(InitMessagePopupComponent, {});
+    // ref.afterClosed().pipe(
+    //   filter((data: MessageModel) => !!data)
+    // ).subscribe(() => this.getPlans());
   }
 
   select(message: MessageModel) {
@@ -62,6 +55,6 @@ export class ListComponent implements OnInit {
   }
 
   changePage(event: PaginationEvent) {
-    this.getMessages(event);
+    this.getPlans(event);
   }
 }

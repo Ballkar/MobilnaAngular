@@ -21,31 +21,31 @@ export class MessageSchemaService {
     let params = new HttpParams();
     params = this.helperService.returnParamsWithPaginationAdded(pagination, params);
     params = query ? params.set('query', query) : params;
-    return this.http.get<ResponseModel<DataResponse<MessageSchemaModel>>>(`${environment.apiUrl}/messageSchemas`, {params}).pipe(
+    return this.http.get<ResponseModel<DataResponse<MessageSchemaModel>>>(`${environment.apiUrl}/messages/schemas`, {params}).pipe(
       map(res => res.data),
     );
   }
 
   getSchema(id: number): Observable<MessageSchemaModel> {
-    return this.http.get<ResponseModel<MessageSchemaModel>>(`${environment.apiUrl}/messageSchemas/${id}`).pipe(
+    return this.http.get<ResponseModel<MessageSchemaModel>>(`${environment.apiUrl}/messages/schemas/${id}`).pipe(
       map(data => data.data),
     );
   }
 
   saveSchema(schema: MessageSchemaModel): Observable<MessageSchemaModel> {
-    return this.http.post<ResponseModel<MessageSchemaModel>>(`${environment.apiUrl}/messageSchemas`, schema).pipe(
+    return this.http.post<ResponseModel<MessageSchemaModel>>(`${environment.apiUrl}/messages/schemas`, schema).pipe(
       map(data => data.data),
     );
   }
 
   updateSchema(schema: MessageSchemaModel): Observable<MessageSchemaModel> {
-    return this.http.put<ResponseModel<MessageSchemaModel>>(`${environment.apiUrl}/messageSchemas/${schema.id}`, schema).pipe(
+    return this.http.put<ResponseModel<MessageSchemaModel>>(`${environment.apiUrl}/messages/schemas/${schema.id}`, schema).pipe(
       map(data => data.data),
     );
   }
 
   deleteSchema(id: number): Observable<void> {
-    return this.http.delete<void>(`${environment.apiUrl}/messageSchemas/${id}`).pipe(
+    return this.http.delete<void>(`${environment.apiUrl}/messages/schemas/${id}`).pipe(
     );
   }
 }

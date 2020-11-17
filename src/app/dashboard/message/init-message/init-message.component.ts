@@ -5,9 +5,9 @@ import { startWith, debounceTime, map, concatMap, tap } from 'rxjs/operators';
 import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
 import { MessageModel, MessageSchemaModel } from '../message.model';
-import { MessageService } from '../message.service';
 import { count as smsCount } from 'sms-length';
 import { MessageSchemaService } from '../schemas/messageSchema.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-init-message',
