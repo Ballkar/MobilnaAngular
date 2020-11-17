@@ -3,12 +3,14 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
+import { MatDialog } from '@angular/material';
 
 export class ErrorIntercecptorService implements HttpInterceptor {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog,
     ) {}
 
 
@@ -22,6 +24,7 @@ export class ErrorIntercecptorService implements HttpInterceptor {
               localStorage.removeItem('token');
               localStorage.removeItem('user');
               this.router.navigate(['/']);
+              this.dialog.closeAll();
               break;
 
             default:

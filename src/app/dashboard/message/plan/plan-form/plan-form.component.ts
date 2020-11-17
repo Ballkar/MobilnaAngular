@@ -51,8 +51,6 @@ export class PlanFormComponent implements OnInit {
       concatMap(name => this.schemaService.getSchemas(null, name)),
       map(res => res.items)
     );
-
-    console.log(this.form.value);
   }
 
 
