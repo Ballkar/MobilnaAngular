@@ -5,7 +5,8 @@ import { tap } from 'rxjs/operators';
 import { DataResponse } from 'src/app/shared/model/response.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
 import { DisplayMessageComponent } from '../../history/display-message/display-message.component';
-import { MessageModel, MessagePlans } from '../../message.model';
+import { MessageModel, MessagePlan } from '../../message.model';
+import { PlanPopupComponent } from '../plan-popup/plan-popup.component';
 import { PlanService } from '../plan.service';
 
 @Component({
@@ -22,7 +23,7 @@ export class ListComponent implements OnInit {
   };
   pagination: PaginationEvent;
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
-  plans$: Observable<DataResponse<MessagePlans>>;
+  plans$: Observable<DataResponse<MessagePlan>>;
   constructor(
     private dialog: MatDialog,
     private planService: PlanService,
@@ -50,8 +51,8 @@ export class ListComponent implements OnInit {
     // ).subscribe(() => this.getPlans());
   }
 
-  select(message: MessageModel) {
-    this.dialog.open(DisplayMessageComponent, {data: message});
+  select(plan: MessagePlan) {
+    this.dialog.open(PlanPopupComponent, {data: plan});
   }
 
   changePage(event: PaginationEvent) {

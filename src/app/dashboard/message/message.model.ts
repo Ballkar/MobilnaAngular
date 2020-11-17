@@ -1,5 +1,11 @@
 import { CustomerModel } from '../customers/customer.model';
 
+
+export const TIMETYPES = {
+  sameDay: 1,
+  dayBefore: 2,
+};
+
 export interface MessageSchemaModel {
   id: number;
   name: string;
@@ -14,13 +20,12 @@ export interface MessageModel {
   created_at: string;
 }
 
-export interface MessagePlans {
+export interface MessagePlan {
   id: number;
   hour: number;
   minute: number;
-  dayBefore: number;
-  sameDay: number;
   active: number;
   created_at: string;
   schema: MessageSchemaModel;
+  timeType: typeof TIMETYPES;
 }

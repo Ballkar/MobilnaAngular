@@ -1,0 +1,33 @@
+.form{
+  padding: 20px;
+  display: flex;
+  flex-flow: column;
+
+  mat-form-field{
+
+  }
+
+  .radioContainer{
+    margin-bottom: 10px;
+
+    mat-radio-button{
+      margin-right: 10px;
+    }
+  }
+
+  .buttonContainer{
+    width: 100%;
+    margin-top: 15px;
+
+    button{
+      margin-left: auto;
+    }
+  }
+}
+.removeBtnContainer{
+  width: 100%;
+  button{
+    display: block;
+    margin-left: auto;
+  }
+}

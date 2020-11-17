@@ -70,10 +70,7 @@ export class InitMessageComponent implements OnInit {
   }
 
   init() {
-
-    if (this.form.invalid) {
-      return false;
-    }
+    if (this.form.invalid) { return false; }
     if (!this.schemaCtrl.value && !this.textCtrl.value) {
       this.form.setErrors({textNeeded: 'Wymagany jest wybór schematu lub wpisanie własnej treści wiadomości.'});
       return false;
@@ -90,7 +87,7 @@ export class InitMessageComponent implements OnInit {
     return customer && customer.name ? `${customer.name} ${customer.surname} (${customer.phone})` : '';
   }
 
-  displayFnMessage(customer: CustomerModel): string {
-    return customer && customer.name ? `${customer.name}` : '';
+  displayFnMessage(schema: MessageSchemaModel): string {
+    return schema && schema.name ? `${schema.name}` : '';
   }
 }

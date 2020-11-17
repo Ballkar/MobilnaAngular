@@ -15,14 +15,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { PhoneMaskDirective } from './directives/phone-mask.directive';
 import { PhonePipe } from './pipes/phone.pipe';
-import {MatRippleModule} from '@angular/material/core';
+import { MatRippleModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
 
 const materialComponents = [
   CommonModule,
@@ -44,6 +46,8 @@ const materialComponents = [
   MatDatepickerModule,
   MatAutocompleteModule,
   MatRippleModule,
+  MatSelectModule,
+  MatRadioModule,
 ];
 
 
