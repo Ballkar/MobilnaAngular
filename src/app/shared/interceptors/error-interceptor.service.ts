@@ -26,6 +26,9 @@ export class ErrorIntercecptorService implements HttpInterceptor {
               this.router.navigate(['/']);
               this.dialog.closeAll();
               break;
+            case 403:
+
+              break;
 
             default:
               console.log('Not Handled error');

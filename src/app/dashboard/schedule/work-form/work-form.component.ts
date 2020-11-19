@@ -29,6 +29,7 @@ export class WorkFormComponent implements OnInit {
   @Input() ableToRemove: boolean;
   @Output() workSubmitted: EventEmitter<WorkModel> = new EventEmitter();
   @Output() workRemoved: EventEmitter<void> = new EventEmitter();
+  @Output() errorEmitted: EventEmitter<void> = new EventEmitter();
   constructor(
     private customerService: CustomersService,
     private workService: WorkService,
@@ -83,9 +84,15 @@ export class WorkFormComponent implements OnInit {
     };
 
     if (this.state === 'add') {
-      this.workService.saveWork(work).subscribe(res => this.workSubmitted.emit(res));
+      this.workService.saveWork(work).subscribe(
+        res => this.workSubmitted.emit(res),
+        err => this.errorEmitted.emit(err)
+      );
     } else {
-      this.workService.editWork(work).subscribe(res => this.workSubmitted.emit(res));
+      this.workService.editWork(work).subscribe(
+        res => this.workSubmitted.emit(res),
+        err => this.errorEmitted.emit(err)
+      );
     }
   }
 }

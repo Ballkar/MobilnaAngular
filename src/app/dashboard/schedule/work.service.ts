@@ -27,13 +27,13 @@ export class WorkService {
     const stop = moment(endDate).format('YYYY-M-D H:m:s');
 
     const params = new HttpParams().set('start', start).set('stop', stop);
-    return this.httpClient.get<ResponseModel<DataResponse<WorkModel>>>(`${environment.apiUrl}/calendarWorks`, { params }).pipe(
+    return this.httpClient.get<ResponseModel<DataResponse<WorkModel>>>(`${environment.apiUrl}/calendar/works`, { params }).pipe(
       map(res => res.data),
     );
   }
 
   editWork(work: WorkModel): Observable<WorkModel> {
-    return this.httpClient.put<ResponseModel<WorkModel>>(`${environment.apiUrl}/calendarWorks/${work.id}`, {
+    return this.httpClient.put<ResponseModel<WorkModel>>(`${environment.apiUrl}/calendar/works/${work.id}`, {
       ...work,
       customer_id: work.customer.id
     }).pipe(
@@ -42,7 +42,7 @@ export class WorkService {
   }
 
   saveWork(work: WorkModel): Observable<WorkModel> {
-    return this.httpClient.post<ResponseModel<WorkModel>>(`${environment.apiUrl}/calendarWorks`, {
+    return this.httpClient.post<ResponseModel<WorkModel>>(`${environment.apiUrl}/calendar/works`, {
       ...work,
       customer_id: work.customer.id
     }).pipe(
@@ -51,7 +51,7 @@ export class WorkService {
   }
 
   removeWork(work: WorkModel): Observable<WorkModel> {
-    return this.httpClient.delete<ResponseModel<WorkModel>>(`${environment.apiUrl}/calendarWorks/${work.id}`).pipe(
+    return this.httpClient.delete<ResponseModel<WorkModel>>(`${environment.apiUrl}/calendar/works/${work.id}`).pipe(
       map(res => res.data)
     );
   }
