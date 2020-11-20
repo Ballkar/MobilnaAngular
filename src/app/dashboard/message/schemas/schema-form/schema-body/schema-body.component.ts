@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatMenuTrigger } from '@angular/material';
 import { Subject } from 'rxjs';
@@ -16,17 +16,18 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
   @ViewChild('triggerNewElement', {static: false}) newElementTrigger: MatMenuTrigger;
   @ViewChildren('triggerAddVariable') variableAddTrigger: QueryList<MatMenuTrigger>;
   @ViewChildren('triggerEditVariable') variableEditTrigger: QueryList<MatMenuTrigger>;
+  @ViewChildren('valueDisplayer') valueDisplayerRefs: QueryList<ElementRef>;
   @Input() bodyCtrl: FormControl;
   textToAddCtrl: FormControl = new FormControl();
   constructor(
     private dialog: MatDialog,
+    private cd: ChangeDetectorRef,
   ) { }
 
   ngOnInit() {
-    console.log(this.bodyCtrl.value);
-    this.bodyCtrl.valueChanges.pipe(
-      takeUntil(this.onDestroy$)
-    ).subscribe(console.log);
+    // this.bodyCtrl.valueChanges.pipe(
+    //   takeUntil(this.onDestroy$)
+    // ).subscribe(console.log);
   }
 
   // openEditor(value?: Array<SchemaVariable | SchemaText>) {
@@ -60,13 +61,48 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
       }
     });
 
-    console.log(res);
-
     return res;
   }
 
-  addNewText() {
+  editTextValue(element, index: number) {
+    // '&nbsp;'
+    const newValue = element.innerText.replace(/\u21B5/g, '</br>');
+    const values = [...this.bodyCtrl.value];
 
+    values[index]['text'] = newValue;
+    this.bodyCtrl.setValue(values);
+    this.bodyCtrl.setValue(this.mapValues(values));
+  }
+
+  addNewText() {
+    const values = [...this.bodyCtrl.value];
+    const lastValue = values[values.length - 1];
+    this.newElementTrigger.closeMenu();
+
+    if (lastValue['text']) {
+      const lastElement = this.valueDisplayerRefs.toArray()[values.length - 1];
+      lastElement.nativeElement.focus();
+      this.setCaretAtEndOfElement(lastElement.nativeElement);
+    } else {
+      const newTextValue: SchemaText = { text: '' };
+      values.push(newTextValue);
+      this.bodyCtrl.setValue(values);
+      this.cd.detectChanges();
+      const lastElement = this.valueDisplayerRefs.toArray()[values.length - 1];
+
+      lastElement.nativeElement.focus();
+      this.setCaretAtEndOfElement(lastElement.nativeElement);
+    }
+  }
+
+  private setCaretAtEndOfElement( node ) {
+    const sel = document.getSelection();
+    node = node.firstChild;
+    if (sel.rangeCount) {
+      ['Start', 'End'].forEach(pos =>
+        sel.getRangeAt(0)['set' + pos](node, node.length)
+      );
+    }
   }
 
   addNewVariable(model: string, name: string) {

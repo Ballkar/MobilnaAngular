@@ -8,12 +8,12 @@
     </div>
 
     <ng-container *ngFor="let bodyElement of bodyCtrl.value; let i = index">
-      <span *ngIf="!bodyElement.text; else text" class="element variable" [matMenuTriggerFor]="variableEditMenu" [matMenuTriggerData]="{variable: bodyElement, index: i}" #triggerEditVariable="matMenuTrigger">
+      <span *ngIf="!bodyElement.text || bodyElement.text === ''; else text" class="element variable" [matMenuTriggerFor]="variableEditMenu" [matMenuTriggerData]="{variable: bodyElement, index: i}" #triggerEditVariable="matMenuTrigger" #valueDisplayer>
         {{bodyElement | schemaBody}}
       </span>
 
       <ng-template #text>
-        <span *ngIf="bodyElement.text" class="element text" contenteditable="true" [innerHtml]="bodyElement.text"></span>
+        <span *ngIf="bodyElement.text" class="element text" contenteditable="true" [innerHtml]="bodyElement.text" (blur)="editTextValue(valueDisplayer, i)" #valueDisplayer></span>
       </ng-template>
     </ng-container>
 

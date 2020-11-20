@@ -16,14 +16,13 @@
 
 
     .element{
-      display: inline;
-      width: auto;
-      line-break: auto;
+      // display: inline;
+      // width: auto;
+      // line-break: auto;
 
       &.text{
         border: 1px solid white;
         &:focus{
-          // border: 1px solid grey;
           outline: none;
         }
       }

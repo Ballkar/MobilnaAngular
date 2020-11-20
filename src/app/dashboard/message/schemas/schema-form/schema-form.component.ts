@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageSchemaModel } from '../../message.model';
 import { MessageSchemaService } from '../messageSchema.service';
@@ -19,7 +19,7 @@ export class SchemaFormComponent implements OnInit {
   get nameCtrl() { return this.form.get('name') as FormControl; }
   get bodyCtrl() { return this.form.get('body') as FormControl; }
   constructor(
-    private schemaService: MessageSchemaService
+    private schemaService: MessageSchemaService,
   ) { }
 
   ngOnInit() {
