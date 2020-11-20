@@ -7,16 +7,17 @@
       </button>
     </div>
 
-    <ng-container *ngFor="let bodyElement of bodyCtrl.value; let i = index">
-      <span *ngIf="!bodyElement.text || bodyElement.text === ''; else text" class="element variable" [matMenuTriggerFor]="variableEditMenu" [matMenuTriggerData]="{variable: bodyElement, index: i}" #triggerEditVariable="matMenuTrigger" #valueDisplayer>
-        {{bodyElement | schemaBody}}
-      </span>
+    <div class="elementsContainer">
+      <ng-container *ngFor="let bodyElement of bodyCtrl.value; let i = index">
+        <span *ngIf="!bodyElement.text || bodyElement.text === ''; else text" class="element variable" [matMenuTriggerFor]="variableEditMenu" [matMenuTriggerData]="{variable: bodyElement, index: i}" #triggerEditVariable="matMenuTrigger" #valueDisplayer>
+          {{bodyElement | schemaBody}}
+        </span>
 
-      <ng-template #text>
-        <span *ngIf="bodyElement.text" class="element text" contenteditable="true" [innerHtml]="bodyElement.text" (blur)="editTextValue(valueDisplayer, i)" #valueDisplayer></span>
-      </ng-template>
-    </ng-container>
-
+        <ng-template #text>
+          <span *ngIf="bodyElement.text" class="element text" contenteditable="true" [innerHtml]="bodyElement.text" (blur)="editTextValue(valueDisplayer, i)" #valueDisplayer></span>
+        </ng-template>
+      </ng-container>
+    </div>
     <div [matMenuTriggerFor]="variableAddMenu" #triggerAddVariable="matMenuTrigger"></div>
   </div>
 </div>

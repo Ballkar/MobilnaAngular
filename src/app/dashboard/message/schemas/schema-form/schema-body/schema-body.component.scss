@@ -14,14 +14,16 @@
     margin-bottom: 8px;
   }
 
-
+  .elementsContainer{
+    padding: 5px;
+    background-color: #eee;
     .element{
       // display: inline;
       // width: auto;
       // line-break: auto;
 
       &.text{
-        border: 1px solid white;
+        border: 1px solid transparent;
         &:focus{
           outline: none;
         }
@@ -32,6 +34,7 @@
         color: green;
       }
     }
+  }
 }
 
 .matMenuBtnsContainer{
