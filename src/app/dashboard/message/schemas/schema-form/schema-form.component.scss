@@ -1,5 +1,4 @@
 .form{
-  padding: 20px;
   display: flex;
   flex-flow: column;
 
@@ -7,8 +6,13 @@
 
   }
 
+  app-schema-body{
+    margin-bottom: 20px;
+  }
+
   .buttonContainer{
     width: 100%;
+    display: flex;
 
     button{
       margin-left: auto;

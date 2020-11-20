@@ -17,7 +17,7 @@ export class SchemaFormComponent implements OnInit {
   @Output() schemaSubmitted: EventEmitter<MessageSchemaModel> = new EventEmitter();
   @Output() schemaRemoved: EventEmitter<void> = new EventEmitter();
   get nameCtrl() { return this.form.get('name') as FormControl; }
-  get textCtrl() { return this.form.get('text') as FormControl; }
+  get bodyCtrl() { return this.form.get('body') as FormControl; }
   constructor(
     private schemaService: MessageSchemaService
   ) { }
@@ -27,7 +27,7 @@ export class SchemaFormComponent implements OnInit {
 
     this.form = new FormGroup({
       name: new FormControl(this.schema ? this.schema.name : '', Validators.required),
-      text: new FormControl(this.schema ? this.schema.text : '', Validators.required),
+      body: new FormControl(this.schema ? this.schema.body : '', Validators.required),
     });
   }
 
@@ -52,7 +52,7 @@ export class SchemaFormComponent implements OnInit {
     } else {
       this.schemaService.updateSchema({...this.schema,
           name: this.nameCtrl.value,
-          text: this.textCtrl.value})
+          body: this.bodyCtrl.value})
       .subscribe(res => this.schemaSubmitted.emit(res));
     }
   }

@@ -1,0 +1,45 @@
+.bodyContainer{
+  flex-flow: column;
+  width: 100%;
+}
+
+.valueContainer{
+  .title{
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.54);
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+
+    .element{
+      display: inline;
+      width: auto;
+      line-break: auto;
+
+      &.text{
+        border: 1px solid white;
+        &:focus{
+          // border: 1px solid grey;
+          outline: none;
+        }
+      }
+
+      &.variable{
+        cursor: pointer;
+        color: green;
+      }
+    }
+}
+
+.matMenuBtnsContainer{
+  display: flex;
+  flex-flow: column;
+  padding: 0 5px;
+  button{
+    margin-bottom: 3px;
+  }
+}

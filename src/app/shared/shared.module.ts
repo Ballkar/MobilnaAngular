@@ -26,6 +26,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { TimeLeadingZeroPipe } from './pipes/timeLeadingZero.pipe';
+import { MatChipsModule } from '@angular/material/chips';
 
 const materialComponents = [
   CommonModule,
@@ -49,6 +50,7 @@ const materialComponents = [
   MatRippleModule,
   MatSelectModule,
   MatRadioModule,
+  MatChipsModule,
 ];
 
 

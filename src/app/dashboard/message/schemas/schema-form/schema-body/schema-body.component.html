@@ -1,0 +1,52 @@
+<div class="bodyContainer">
+  <div class="valueContainer">
+    <div class="title">
+      Treść
+      <button mat-icon-button type="button" [matMenuTriggerFor]="newElementMenu" #triggerNewElement="matMenuTrigger">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <ng-container *ngFor="let bodyElement of bodyCtrl.value; let i = index">
+      <span *ngIf="!bodyElement.text; else text" class="element variable" [matMenuTriggerFor]="variableEditMenu" [matMenuTriggerData]="{variable: bodyElement, index: i}" #triggerEditVariable="matMenuTrigger">
+        {{bodyElement | schemaBody}}
+      </span>
+
+      <ng-template #text>
+        <span *ngIf="bodyElement.text" class="element text" contenteditable="true" [innerHtml]="bodyElement.text"></span>
+      </ng-template>
+    </ng-container>
+
+    <div [matMenuTriggerFor]="variableAddMenu" #triggerAddVariable="matMenuTrigger"></div>
+  </div>
+</div>
+
+<mat-menu #variableAddMenu="matMenu" xPosition="after">
+  <ng-template matMenuContent>
+    <div class="matMenuBtnsContainer">
+      <button mat-raised-button color="primary" (click)="addNewVariable('customer', 'name')">Imie Klientki</button>
+      <button mat-raised-button color="primary" (click)="addNewVariable('customer', 'surname')">Nazwisko Klientki</button>
+      <button mat-raised-button color="primary" (click)="addNewVariable('work', 'date')">Data wizyty</button>
+      <button mat-raised-button color="primary" (click)="addNewVariable('user', 'name')">Nazwa salonu</button>
+    </div>
+  </ng-template>
+</mat-menu>
+
+<mat-menu #variableEditMenu="matMenu" xPosition="after">
+  <ng-template matMenuContent let-variable="variable" let-index="index">
+    <div class="matMenuBtnsContainer">
+      <button mat-raised-button color="primary" (click)="editVariable(index, 'customer', 'name')">Imie Klientki</button>
+      <button mat-raised-button color="primary" (click)="editVariable(index, 'customer', 'surname')">Nazwisko Klientki</button>
+      <button mat-raised-button color="primary" (click)="editVariable(index, 'work', 'date')">Data wizyty</button>
+      <button mat-raised-button color="primary" (click)="editVariable(index, 'user', 'name')">Nazwa salonu</button>
+      <button mat-raised-button color="warn" (click)="removeVariable(variable)" *ngIf="variable">Usuń</button>
+    </div>
+  </ng-template>
+</mat-menu>
+
+<mat-menu #newElementMenu="matMenu" xPosition="after">
+  <div class="matMenuBtnsContainer">
+    <button mat-raised-button color="primary" (click)="addNewText()">Treść</button>
+    <button mat-raised-button color="primary" (click)="openVariableMenu($event)">Wartość</button>
+  </div>
+</mat-menu>

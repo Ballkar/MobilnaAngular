@@ -6,13 +6,17 @@ import { ListComponent } from './list/list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SchemaFormComponent } from './schema-form/schema-form.component';
 import { SchemaPopupComponent } from './schema-popup/schema-popup.component';
+import { SchemaBodyComponent } from './schema-form/schema-body/schema-body.component';
+import { SchemaBodyPipe } from './schema-form/schema-body.pipe';
 
 
 @NgModule({
   declarations: [
     ListComponent,
     SchemaFormComponent,
-    SchemaPopupComponent
+    SchemaPopupComponent,
+    SchemaBodyComponent,
+    SchemaBodyPipe,
   ],
   imports: [
     CommonModule,
@@ -20,7 +24,7 @@ import { SchemaPopupComponent } from './schema-popup/schema-popup.component';
     SharedModule,
   ],
   entryComponents: [
-    SchemaPopupComponent
+    SchemaPopupComponent,
   ]
 })
 export class SchemasModule { }

@@ -9,6 +9,16 @@ export const TIMETYPES = {
 export interface MessageSchemaModel {
   id: number;
   name: string;
+  body: Array<SchemaVariable | SchemaText>;
+}
+
+export interface SchemaVariable {
+  variable: {
+    name: string;
+    model: string;
+  };
+}
+export interface SchemaText {
   text: string;
 }
 
