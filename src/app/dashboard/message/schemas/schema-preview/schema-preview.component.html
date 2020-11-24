@@ -20,12 +20,14 @@
       <div class="mobilePhone">
 
         <div class="title">
-          <span class="placeholder">Od</span> Renails
+          <span class="placeholder">Od</span> {{preview.from}}
         </div>
+
         <div class="text">
           <span class="placeholder">Treść</span>
-          {{preview}}
+          {{preview.preview}}
         </div>
+        <div class="counter">{{preview.letterCount}}/{{preview.letterNextLimit}}({{preview.smsCount}} wiadomość)</div>
       </div>
 
       <div class="buttonContainer">

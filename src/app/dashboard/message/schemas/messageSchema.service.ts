@@ -7,6 +7,7 @@ import { HelperService } from 'src/app/shared/service/helper.service';
 import { environment } from 'src/environments/environment';
 import { MessageSchemaModel, SCHEMABODYTYPES } from '../message.model';
 import { BodyAttribute } from './BodyAttribute.model';
+import { PreviewSmsModel } from './schema-preview/preview.model';
 
 @Injectable({
   providedIn: 'root'
@@ -57,10 +58,14 @@ export class MessageSchemaService {
     );
   }
 
-  getPreview(customerId: number, schema: MessageSchemaModel): Observable<string> {
-    return this.http.post<ResponseModel<string>>(`${environment.apiUrl}/messages/schemas/preview`, {
+  // tslint:disable: no-string-literal
+  getPreview(customerId: number, schema: MessageSchemaModel): Observable<PreviewSmsModel> {
+    return this.http.post<ResponseModel<PreviewSmsModel>>(`${environment.apiUrl}/messages/schemas/preview`, {
       customer_id: customerId, body: schema.body }).pipe(
-        map(res => res.data)
+        map(res => res.data),
+        tap(res => res.letterCount = res['letter_count']),
+        tap(res => res.smsCount = res['sms_count']),
+        tap(res => res.letterNextLimit = res['letter_next_limit']),
     );
   }
 

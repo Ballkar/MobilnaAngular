@@ -8,6 +8,7 @@ import { CustomerModel } from 'src/app/dashboard/customers/customer.model';
 import { CustomersService } from 'src/app/dashboard/customers/customers.service';
 import { MessageSchemaModel } from '../../message.model';
 import { MessageSchemaService } from '../messageSchema.service';
+import { PreviewSmsModel } from './preview.model';
 
 @Component({
   selector: 'app-schema-preview',
@@ -16,7 +17,7 @@ import { MessageSchemaService } from '../messageSchema.service';
 })
 export class SchemaPreviewComponent implements OnInit, OnDestroy {
 
-  preview: string;
+  preview: PreviewSmsModel;
   onDestroy$: Subject<CustomerModel[]> = new Subject();
   filteredCustomers$: Observable<CustomerModel[]>;
   form: FormGroup = new FormGroup({
@@ -40,7 +41,7 @@ export class SchemaPreviewComponent implements OnInit, OnDestroy {
     );
 
     this.customerCtrl.valueChanges.pipe(
-      tap(() => this.preview = ''),
+      tap(() => this.preview = null),
       filter(() => this.customerCtrl.value),
       filter(() => this.customerCtrl.value.id),
       takeUntil(this.onDestroy$),
