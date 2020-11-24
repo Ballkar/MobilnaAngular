@@ -1,9 +1,9 @@
+import { HostListener } from '@angular/core';
 import { ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatMenuTrigger } from '@angular/material';
 import { Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
-import { SchemaVariable, SchemaText } from '../../../message.model';
+import { MessageSchemaBodyModel, SCHEMABODYTYPES } from '../../../message.model';
 
 @Component({
   selector: 'app-schema-body',
@@ -11,35 +11,25 @@ import { SchemaVariable, SchemaText } from '../../../message.model';
   styleUrls: ['./schema-body.component.scss']
 })
 export class SchemaBodyComponent implements OnInit, OnDestroy {
-
   onDestroy$: Subject<void> = new Subject();
-  @ViewChild('triggerNewElement', {static: false}) newElementTrigger: MatMenuTrigger;
+  SCHEMABODYTYPES = SCHEMABODYTYPES;
   @ViewChildren('triggerAddVariable') variableAddTrigger: QueryList<MatMenuTrigger>;
   @ViewChildren('triggerEditVariable') variableEditTrigger: QueryList<MatMenuTrigger>;
   @ViewChildren('valueDisplayer') valueDisplayerRefs: QueryList<ElementRef>;
   @Input() bodyCtrl: FormControl;
   textToAddCtrl: FormControl = new FormControl();
+  @HostListener('keydown', ['$event'])
+    onClick(event: KeyboardEvent) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+      }
+  }
   constructor(
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
   ) { }
 
-  ngOnInit() {
-    // this.bodyCtrl.valueChanges.pipe(
-    //   takeUntil(this.onDestroy$)
-    // ).subscribe(console.log);
-  }
-
-  // openEditor(value?: Array<SchemaVariable | SchemaText>) {
-  //   const ref = this.dialog.open(ElementComponent, { data: value });
-  //   ref.afterClosed().pipe(
-  //     filter((data: Array<SchemaVariable | SchemaText>) => !!data)
-  //   ).subscribe((r) => console.log(r));
-  // }
-
-  // remove(value: Array<SchemaVariable | SchemaText>) {
-  //   console.log(value);
-  // }
+  ngOnInit() { }
 
   openVariableMenu(e: MouseEvent) {
     e.preventDefault();
@@ -47,15 +37,14 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
     this.variableAddTrigger.first.openMenu();
   }
 
-
-  mapValues(values: Array<SchemaVariable | SchemaText>) {
+  mapValues(values: MessageSchemaBodyModel[]) {
     const res = [];
     values.forEach((value, index) => {
-      if (value['text'] && values[index - 1] && values[index - 1]['text']) {
-        const concatedText = values[index - 1]['text'] + value['text'];
-        const concatedValue = values[index - 1]['text'] = concatedText;
+      if (value.type === SCHEMABODYTYPES.TEXT && values[index - 1] && values[index - 1].type === SCHEMABODYTYPES.TEXT) {
+        const concatedText = values[index - 1].text + value.text;
+        const concatedValue = values[index - 1].text = concatedText;
 
-        res[res.length - 1]['text'] = concatedValue;
+        res[res.length - 1].text = concatedValue;
       } else {
         res.push(value);
       }
@@ -65,11 +54,10 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
   }
 
   editTextValue(element, index: number) {
-    // '&nbsp;'
     const newValue = element.innerText.replace(/\u21B5/g, '</br>');
     const values = [...this.bodyCtrl.value];
 
-    values[index]['text'] = newValue;
+    values[index].text = newValue;
     this.bodyCtrl.setValue(values);
     this.bodyCtrl.setValue(this.mapValues(values));
   }
@@ -77,14 +65,14 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
   addNewText() {
     const values = [...this.bodyCtrl.value];
     const lastValue = values[values.length - 1];
-    this.newElementTrigger.closeMenu();
 
-    if (lastValue['text']) {
+    if (lastValue && lastValue.type === SCHEMABODYTYPES.TEXT) {
+
       const lastElement = this.valueDisplayerRefs.toArray()[values.length - 1];
       lastElement.nativeElement.focus();
       this.setCaretAtEndOfElement(lastElement.nativeElement);
     } else {
-      const newTextValue: SchemaText = { text: '' };
+      const newTextValue: MessageSchemaBodyModel = { text: ' ', type: SCHEMABODYTYPES.TEXT };
       values.push(newTextValue);
       this.bodyCtrl.setValue(values);
       this.cd.detectChanges();
@@ -95,6 +83,29 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
     }
   }
 
+  addNewVariable(model: string, variable: string) {
+    const values = [...this.bodyCtrl.value];
+    const newValue: MessageSchemaBodyModel = { model, variable, type: SCHEMABODYTYPES.VARIABLE };
+    values.push(newValue);
+    this.bodyCtrl.setValue(this.mapValues(values));
+  }
+
+  editVariable(index: number, model: string, variable: string) {
+    const values = [...this.bodyCtrl.value];
+    const newValue: MessageSchemaBodyModel = { model, variable, type: SCHEMABODYTYPES.VARIABLE };
+    values[index] = newValue;
+    this.bodyCtrl.setValue(this.mapValues(values));
+  }
+
+  removeVariable(variable: MessageSchemaBodyModel) {
+    const values = [...this.bodyCtrl.value];
+    const i = values.indexOf(variable);
+    if (i > -1) {
+      values.splice(i, 1);
+    }
+    this.bodyCtrl.setValue(this.mapValues(values));
+  }
+
   private setCaretAtEndOfElement( node ) {
     const sel = document.getSelection();
     node = node.firstChild;
@@ -103,30 +114,6 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
         sel.getRangeAt(0)['set' + pos](node, node.length)
       );
     }
-  }
-
-  addNewVariable(model: string, name: string) {
-    const values = [...this.bodyCtrl.value];
-    const newValue: SchemaVariable = { variable: { model, name } };
-    values.push(newValue);
-    this.bodyCtrl.setValue(this.mapValues(values));
-    this.newElementTrigger.closeMenu();
-  }
-
-  editVariable(index: number, model: string, name: string) {
-    const values = [...this.bodyCtrl.value];
-    const newValue: SchemaVariable = { variable: { model, name } };
-    values[index] = newValue;
-    this.bodyCtrl.setValue(this.mapValues(values));
-  }
-
-  removeVariable(variable: SchemaVariable) {
-    const values = [...this.bodyCtrl.value];
-    const i = values.indexOf(variable);
-    if (i > -1) {
-      values.splice(i, 1);
-    }
-    this.bodyCtrl.setValue(this.mapValues(values));
   }
 
   ngOnDestroy(): void {

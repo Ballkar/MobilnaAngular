@@ -17,11 +17,16 @@
   .elementsContainer{
     padding: 5px;
     background-color: #eee;
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    min-height: 36px;
     .element{
       // display: inline;
       // width: auto;
       // line-break: auto;
 
+      display: inline-block;
       &.text{
         border: 1px solid transparent;
         &:focus{
@@ -29,6 +34,12 @@
         }
       }
 
+      &.placeholder{
+        cursor: text;
+        display: inline-block;
+        height: 23px;
+        flex: 1;
+      }
       &.variable{
         cursor: pointer;
         color: green;

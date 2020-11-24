@@ -9,18 +9,15 @@ export const TIMETYPES = {
 export interface MessageSchemaModel {
   id: number;
   name: string;
-  body: Array<SchemaVariable | SchemaText>;
+  body: MessageSchemaBodyModel[];
 }
-
-export interface SchemaVariable {
-  variable: {
-    name: string;
-    model: string;
-  };
+export interface MessageSchemaBodyModel {
+  variable?: string;
+  model?: string;
+  text?: string;
+  type: SCHEMABODYTYPES;
 }
-export interface SchemaText {
-  text: string;
-}
+export enum SCHEMABODYTYPES {VARIABLE = 'VARIABLE', TEXT = 'TEXT'}
 
 export interface MessageModel {
   id: number;

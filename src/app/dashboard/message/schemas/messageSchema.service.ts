@@ -1,11 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
 import { environment } from 'src/environments/environment';
-import { MessageSchemaModel } from '../message.model';
+import { MessageSchemaModel, SCHEMABODYTYPES } from '../message.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,7 @@ export class MessageSchemaService {
     params = query ? params.set('query', query) : params;
     return this.http.get<ResponseModel<DataResponse<MessageSchemaModel>>>(`${environment.apiUrl}/messages/schemas`, {params}).pipe(
       map(res => res.data),
+      tap(res => res.items.forEach(item => this.mapSchemaFromApi(item))),
     );
   }
 
@@ -47,5 +48,9 @@ export class MessageSchemaService {
   deleteSchema(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.apiUrl}/messages/schemas/${id}`).pipe(
     );
+  }
+
+  private mapSchemaFromApi(schema: MessageSchemaModel) {
+    schema.body.forEach(bodyEl => bodyEl.type = bodyEl.text ? SCHEMABODYTYPES.TEXT : SCHEMABODYTYPES.VARIABLE);
   }
 }

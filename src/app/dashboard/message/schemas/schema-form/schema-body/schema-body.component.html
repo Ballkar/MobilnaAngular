@@ -2,21 +2,21 @@
   <div class="valueContainer">
     <div class="title">
       Treść
-      <button mat-icon-button type="button" [matMenuTriggerFor]="newElementMenu" #triggerNewElement="matMenuTrigger">
+      <button mat-icon-button type="button" [matMenuTriggerFor]="variableAddMenu" #triggerNewElement="matMenuTrigger">
         <mat-icon>add</mat-icon>
       </button>
     </div>
 
     <div class="elementsContainer">
       <ng-container *ngFor="let bodyElement of bodyCtrl.value; let i = index">
-        <span *ngIf="!bodyElement.text || bodyElement.text === ''; else text" class="element variable" [matMenuTriggerFor]="variableEditMenu" [matMenuTriggerData]="{variable: bodyElement, index: i}" #triggerEditVariable="matMenuTrigger" #valueDisplayer>
+
+        <span *ngIf="bodyElement.type === SCHEMABODYTYPES.VARIABLE" class="element variable" [matMenuTriggerFor]="variableEditMenu" [matMenuTriggerData]="{variable: bodyElement, index: i}" #triggerEditVariable="matMenuTrigger" #valueDisplayer>
           {{bodyElement | schemaBody}}
         </span>
 
-        <ng-template #text>
-          <span *ngIf="bodyElement.text" class="element text" contenteditable="true" [innerHtml]="bodyElement.text" (blur)="editTextValue(valueDisplayer, i)" #valueDisplayer></span>
-        </ng-template>
+        <span *ngIf="bodyElement.type === SCHEMABODYTYPES.TEXT" class="element text" contenteditable="true" [innerHtml]="bodyElement.text" (blur)="editTextValue(valueDisplayer, i)" #valueDisplayer></span>
       </ng-container>
+      <span class="element placeholder" (click)="addNewText()"></span>
     </div>
     <div [matMenuTriggerFor]="variableAddMenu" #triggerAddVariable="matMenuTrigger"></div>
   </div>
@@ -43,11 +43,4 @@
       <button mat-raised-button color="warn" (click)="removeVariable(variable)" *ngIf="variable">Usuń</button>
     </div>
   </ng-template>
-</mat-menu>
-
-<mat-menu #newElementMenu="matMenu" xPosition="after">
-  <div class="matMenuBtnsContainer">
-    <button mat-raised-button color="primary" (click)="addNewText()">Treść</button>
-    <button mat-raised-button color="primary" (click)="openVariableMenu($event)">Wartość</button>
-  </div>
 </mat-menu>
