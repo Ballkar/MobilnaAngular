@@ -2,7 +2,7 @@
   <button mat-raised-button color="warn" type="button" (click)="remove()">Usuń</button>
 </div>
 
-<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
 
   <mat-form-field cdkFocusRegionstart>
     <input matInput [ngxMatDatetimePicker]="picker" placeholder="Data początku" [formControl]="startCtrl" [max]="stopCtrl">

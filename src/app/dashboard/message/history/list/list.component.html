@@ -6,10 +6,12 @@
     Historia Wiadomości
   </mat-card-title>
 
-  <mat-form-field class="searchInput">
-    <mat-label>Wyszukaj wiadomość w historii</mat-label>
-    <input matInput placeholder="Dane klientki lub numer" [formControl]="searchCtrl">
-  </mat-form-field>
+  <form [formGroup]="searchForm" autocomplete="off">
+    <mat-form-field class="searchInput">
+      <mat-label>Wyszukaj wiadomość w historii</mat-label>
+      <input matInput placeholder="Dane klientki lub numer" name="search" [formControl]="searchCtrl">
+    </mat-form-field>
+  </form>
 
   <mat-spinner *ngIf="isLoading$|async"></mat-spinner>
   <ng-container *ngIf="(messages$|async) as messages">

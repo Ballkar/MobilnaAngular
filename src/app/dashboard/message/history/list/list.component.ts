@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap, filter, debounceTime } from 'rxjs/operators';
@@ -17,7 +17,10 @@ import { HistoryService } from '../history.service';
 })
 export class ListComponent implements OnInit {
 
-  searchCtrl: FormControl = new FormControl();
+  searchForm = new FormGroup({
+    search: new FormControl()
+  });
+  get searchCtrl() { return this.searchForm.get('search') as FormControl; }
   initPagination: PaginationEvent = {
     length: 5,
     pageIndex: 0,

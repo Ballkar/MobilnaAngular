@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime, filter, tap } from 'rxjs/operators';
@@ -17,7 +17,10 @@ export class ListComponent implements OnInit {
 
   schemas: MessageSchemaModel[];
   pagination: PaginationEvent;
-  searchCtrl: FormControl = new FormControl();
+  searchForm = new FormGroup({
+    search: new FormControl()
+  });
+  get searchCtrl() { return this.searchForm.get('search') as FormControl; }
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   constructor(
     private helperService: HelperService,

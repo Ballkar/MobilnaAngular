@@ -4,7 +4,7 @@
   </div>
   <mat-card-title class="mainTitle">Edytuj klientkę</mat-card-title>
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
     <mat-form-field class="name">
       <mat-label>Imie</mat-label>
       <input matInput placeholder="Imie" [formControl]="nameCtrl">

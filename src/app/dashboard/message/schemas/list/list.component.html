@@ -6,10 +6,12 @@
     Lista Schematów Wiadomości
   </mat-card-title>
 
-  <mat-form-field class="searchInput">
-    <mat-label>Wyszukaj Wiadomość</mat-label>
-    <input matInput placeholder="Imie lub nazwisko" [formControl]="searchCtrl">
-  </mat-form-field>
+  <form [formGroup]="searchForm" autocomplete="off">
+    <mat-form-field class="searchInput">
+      <mat-label>Wyszukaj Wiadomość</mat-label>
+      <input matInput placeholder="Imie lub nazwisko" name="search" [formControl]="searchCtrl">
+    </mat-form-field>
+  </form>
 
   <mat-spinner *ngIf="(isLoading$|async); else data"></mat-spinner>
   <ng-template #data>
