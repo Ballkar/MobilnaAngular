@@ -11,8 +11,11 @@
 
   <app-schema-body [bodyCtrl]="bodyCtrl"></app-schema-body>
 
-  <div class="buttonContainer">
-    <button mat-raised-button color="primary" type="button" (click)="preview()">Podgląd</button>
-    <button mat-raised-button color="primary" class="addBtn" type="submit">Zapisz</button>
+  <div class="row">
+    <mat-checkbox [formControl]="clearDiacriticsCtrl" color="primary">Usuń polskie znaki</mat-checkbox>
+    <div class="buttonContainer">
+      <button mat-raised-button color="primary" type="button" (click)="preview()">Podgląd</button>
+      <button mat-raised-button color="primary" class="addBtn" type="submit">Zapisz</button>
+    </div>
   </div>
 </form>

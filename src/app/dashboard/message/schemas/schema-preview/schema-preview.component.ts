@@ -49,7 +49,7 @@ export class SchemaPreviewComponent implements OnInit, OnDestroy {
   }
 
   getPreview(customer: CustomerModel) {
-    this.schemaService.getPreview(customer.id, this.schema).pipe(
+    this.schemaService.getPreview(customer.id, this.schema, this.schema.clearDiacritics).pipe(
       tap(preview => this.preview = preview),
     ).subscribe();
   }

@@ -9,6 +9,7 @@ export const TIMETYPES = {
 export interface MessageSchemaModel {
   id: number;
   name: string;
+  clearDiacritics: boolean;
   body: MessageSchemaBodyModel[];
 }
 export interface MessageSchemaBodyModel {

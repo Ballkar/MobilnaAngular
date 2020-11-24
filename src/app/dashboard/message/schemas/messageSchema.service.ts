@@ -59,9 +59,9 @@ export class MessageSchemaService {
   }
 
   // tslint:disable: no-string-literal
-  getPreview(customerId: number, schema: MessageSchemaModel): Observable<PreviewSmsModel> {
+  getPreview(customerId: number, schema: MessageSchemaModel, clearDiacritics: boolean): Observable<PreviewSmsModel> {
     return this.http.post<ResponseModel<PreviewSmsModel>>(`${environment.apiUrl}/messages/schemas/preview`, {
-      customer_id: customerId, body: schema.body }).pipe(
+      customer_id: customerId, body: schema.body, clear_diacritics: clearDiacritics }).pipe(
         map(res => res.data),
         tap(res => res.letterCount = res['letter_count']),
         tap(res => res.smsCount = res['sms_count']),
@@ -71,5 +71,6 @@ export class MessageSchemaService {
 
   private mapSchemaFromApi(schema: MessageSchemaModel) {
     schema.body.forEach(bodyEl => bodyEl.type = bodyEl.text ? SCHEMABODYTYPES.TEXT : SCHEMABODYTYPES.VARIABLE);
+    schema.clearDiacritics = schema['clear_diacritics'];
   }
 }

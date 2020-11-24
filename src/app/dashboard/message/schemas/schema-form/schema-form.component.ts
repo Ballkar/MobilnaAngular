@@ -21,6 +21,7 @@ export class SchemaFormComponent implements OnInit {
   @Output() schemaRemoved: EventEmitter<void> = new EventEmitter();
   get nameCtrl() { return this.form.get('name') as FormControl; }
   get bodyCtrl() { return this.form.get('body') as FormControl; }
+  get clearDiacriticsCtrl() { return this.form.get('clearDiacritics') as FormControl; }
   constructor(
     private schemaService: MessageSchemaService,
     private dialog: MatDialog,
@@ -32,6 +33,7 @@ export class SchemaFormComponent implements OnInit {
     this.form = new FormGroup({
       name: new FormControl(this.schema ? this.schema.name : '', Validators.required),
       body: new FormControl(this.schema ? this.schema.body : '', Validators.required),
+      clearDiacritics: new FormControl(this.schema ? this.schema.clearDiacritics : true, Validators.required),
     });
   }
 
