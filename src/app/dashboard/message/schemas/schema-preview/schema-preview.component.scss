@@ -11,7 +11,13 @@
   flex-flow: row;
   align-items: baseline;
   border-bottom: 1px solid #eee;
-
+  @include mobile{
+    flex-flow: column;
+    mat-form-field{
+      margin-left: 0!important;
+      width: 100%;
+    }
+  }
 
   mat-form-field{
     flex: 1;
@@ -22,8 +28,32 @@
 .preview{
   padding-top: 25px;
   font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &.center{
     text-align: center;
+  }
+  .mobilePhone{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('/assets/svg/mobile-phone.png');
+    width: 375px;
+    height: 400px;
+    padding: 75px 30px;
+    @include mobile{
+      padding: 60px 30px!important;
+    }
+
+    .placeholder{
+      font-size: 13px;
+    }
+    .title{
+      border-bottom: 1px solid #ddd;
+    }
+    .text{
+      margin-top: 15px;
+    }
   }
 }
 

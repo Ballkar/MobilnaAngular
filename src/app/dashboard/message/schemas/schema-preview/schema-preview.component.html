@@ -15,7 +15,16 @@
 
   <ng-container *ngIf="customerCtrl.value && customerCtrl.value.id; else emptyCustomer">
     <div class="preview" *ngIf="preview; else loader">
-      {{preview}}
+      <div class="mobilePhone">
+
+        <div class="title">
+          <span class="placeholder">Od</span> Renails
+        </div>
+        <div class="text">
+          <span class="placeholder">Treść</span>
+          {{preview}}
+        </div>
+      </div>
     </div>
   </ng-container>
 </div>
