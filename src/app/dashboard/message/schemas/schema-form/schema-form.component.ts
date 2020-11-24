@@ -1,7 +1,10 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { filter } from 'rxjs/operators';
 import { MessageSchemaModel } from '../../message.model';
 import { MessageSchemaService } from '../messageSchema.service';
+import { SchemaPreviewComponent } from '../schema-preview/schema-preview.component';
 
 @Component({
   selector: 'app-schema-form',
@@ -20,6 +23,7 @@ export class SchemaFormComponent implements OnInit {
   get bodyCtrl() { return this.form.get('body') as FormControl; }
   constructor(
     private schemaService: MessageSchemaService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -31,21 +35,19 @@ export class SchemaFormComponent implements OnInit {
     });
   }
 
-
-  newCustomer(event: MouseEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-
-  }
-
   remove() {
     this.schemaService.deleteSchema(this.schema.id).subscribe(() => this.schemaRemoved.emit());
   }
 
+  preview() {
+    const ref = this.dialog.open(SchemaPreviewComponent, { data: this.schema });
+    ref.afterClosed().pipe(
+      filter((message: MessageSchemaModel) => !!message)
+    ).subscribe();
+  }
+
   onSubmit() {
-    if (this.form.invalid) {
-      return false;
-    }
+    if (this.form.invalid) { return false; }
 
     if (this.state === 'add') {
       this.schemaService.saveSchema(this.form.value).subscribe(res => this.schemaSubmitted.emit(res));

@@ -13,9 +13,11 @@
   .buttonContainer{
     width: 100%;
     display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
 
     button{
-      margin-left: auto;
+      margin-right: 5px;
     }
   }
 }

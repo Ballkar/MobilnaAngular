@@ -1,0 +1,34 @@
+<div class="previewContainer">
+  <div class="row">
+    <div class="title">Podgląd</div>
+
+    <mat-form-field>
+      <mat-label>Klientka</mat-label>
+      <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption [displayWith]="displayFnCustomer">
+        <mat-option *ngFor="let customer of filteredCustomers$|async" [value]="customer">
+          {{customer.name}} {{customer.surname}} ({{customer.phone}})
+        </mat-option>
+      </mat-autocomplete>
+      <input matInput placeholder="Imie" [formControl]="customerCtrl" [matAutocomplete]="auto" >
+    </mat-form-field>
+  </div>
+
+  <ng-container *ngIf="customerCtrl.value && customerCtrl.value.id; else emptyCustomer">
+    <div class="preview" *ngIf="preview; else loader">
+      {{preview}}
+    </div>
+  </ng-container>
+</div>
+
+
+<ng-template #loader>
+  <div class="preview">
+    <mat-spinner diameter="45"></mat-spinner>
+  </div>
+</ng-template>
+
+<ng-template #emptyCustomer>
+  <div class="preview">
+    Prosze wybrać klientkę aby wyświelić schemat na jej przykładzie.
+  </div>
+</ng-template>

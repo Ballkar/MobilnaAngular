@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { delay, map, tap } from 'rxjs/operators';
 import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
 import { environment } from 'src/environments/environment';
@@ -47,6 +47,13 @@ export class MessageSchemaService {
 
   deleteSchema(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.apiUrl}/messages/schemas/${id}`).pipe(
+    );
+  }
+
+  getPreview(customerId: number, schema: MessageSchemaModel): Observable<string> {
+    return this.http.post<ResponseModel<string>>(`${environment.apiUrl}/messages/schemas/preview`, { customer_id: customerId, schema })
+    .pipe(
+      map(res => res.data)
     );
   }
 

@@ -8,6 +8,7 @@ import { SchemaFormComponent } from './schema-form/schema-form.component';
 import { SchemaPopupComponent } from './schema-popup/schema-popup.component';
 import { SchemaBodyComponent } from './schema-form/schema-body/schema-body.component';
 import { SchemaBodyPipe } from './schema-form/schema-body.pipe';
+import { SchemaPreviewComponent } from './schema-preview/schema-preview.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { SchemaBodyPipe } from './schema-form/schema-body.pipe';
     SchemaPopupComponent,
     SchemaBodyComponent,
     SchemaBodyPipe,
+    SchemaPreviewComponent,
   ],
   imports: [
     CommonModule,
@@ -25,6 +27,7 @@ import { SchemaBodyPipe } from './schema-form/schema-body.pipe';
   ],
   entryComponents: [
     SchemaPopupComponent,
+    SchemaPreviewComponent,
   ]
 })
 export class SchemasModule { }

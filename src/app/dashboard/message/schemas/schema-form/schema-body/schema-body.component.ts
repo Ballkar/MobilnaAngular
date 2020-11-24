@@ -40,10 +40,9 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
   mapValues(values: MessageSchemaBodyModel[]) {
     const res = [];
     values.forEach((value, index) => {
-      if (value.type === SCHEMABODYTYPES.TEXT && values[index - 1] && values[index - 1].type === SCHEMABODYTYPES.TEXT) {
-        const concatedText = values[index - 1].text + value.text;
-        const concatedValue = values[index - 1].text = concatedText;
-
+      const previousValue = values[index - 1];
+      if (value.type === SCHEMABODYTYPES.TEXT && previousValue && previousValue.type === SCHEMABODYTYPES.TEXT) {
+        const concatedValue = previousValue.text + value.text;
         res[res.length - 1].text = concatedValue;
       } else {
         res.push(value);
@@ -100,9 +99,7 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
   removeVariable(variable: MessageSchemaBodyModel) {
     const values = [...this.bodyCtrl.value];
     const i = values.indexOf(variable);
-    if (i > -1) {
-      values.splice(i, 1);
-    }
+    if (i > -1) { values.splice(i, 1); }
     this.bodyCtrl.setValue(this.mapValues(values));
   }
 
