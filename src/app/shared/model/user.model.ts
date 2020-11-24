@@ -6,6 +6,10 @@ export class UserModel {
   phone: string;
   email: string;
   messageSettings: MessageSettings;
+  wallet: WalletModel;
 }
 
+export class WalletModel {
+  money: number;
+}
 

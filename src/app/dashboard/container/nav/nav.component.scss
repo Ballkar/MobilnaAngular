@@ -21,4 +21,23 @@
     }
   }
 
+  .iconsContainer{
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+
+    .label{
+      font-size: 14px;
+    }
+
+    .walllet{
+      font-size: 16px;
+    }
+
+    button{
+
+      margin-left: 30px;
+    }
+  }
+
 }
