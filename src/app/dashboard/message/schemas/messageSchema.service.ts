@@ -51,9 +51,9 @@ export class MessageSchemaService {
   }
 
   getPreview(customerId: number, schema: MessageSchemaModel): Observable<string> {
-    return this.http.post<ResponseModel<string>>(`${environment.apiUrl}/messages/schemas/preview`, { customer_id: customerId, schema })
-    .pipe(
-      map(res => res.data)
+    return this.http.post<ResponseModel<string>>(`${environment.apiUrl}/messages/schemas/preview`, {
+      customer_id: customerId, body: schema.body }).pipe(
+        map(res => res.data)
     );
   }
 
