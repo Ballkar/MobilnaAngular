@@ -15,6 +15,8 @@
 
   <ng-container *ngIf="customerCtrl.value && customerCtrl.value.id; else emptyCustomer">
     <div class="preview" *ngIf="preview; else loader">
+      <div class="previewCenterFlexEmelent"></div>
+
       <div class="mobilePhone">
 
         <div class="title">
@@ -24,6 +26,10 @@
           <span class="placeholder">Treść</span>
           {{preview}}
         </div>
+      </div>
+
+      <div class="buttonContainer">
+        <button mat-raised-button color="primary" type="button" (click)="close()">Wróć</button>
       </div>
     </div>
   </ng-container>
