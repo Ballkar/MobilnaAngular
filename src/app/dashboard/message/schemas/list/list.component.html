@@ -16,7 +16,7 @@
   <mat-spinner *ngIf="(isLoading$|async); else data"></mat-spinner>
   <ng-template #data>
 
-    <ng-container *ngIf="schemas; else loader">
+    <ng-container *ngIf="schemas[0]; else empty">
       <mat-action-list class="schemas">
 
         <div class="item" *ngFor="let schema of schemas">
@@ -46,4 +46,10 @@
 
 <ng-template #loader>
   <mat-spinner ></mat-spinner>
+</ng-template>
+
+<ng-template #empty>
+  <div class="emptyContainer">
+    <div class="title">Brak danych</div>
+  </div>
 </ng-template>

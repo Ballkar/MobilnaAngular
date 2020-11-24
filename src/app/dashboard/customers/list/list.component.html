@@ -16,7 +16,7 @@
   <mat-spinner *ngIf="isLoading$|async"></mat-spinner>
   <ng-container *ngIf="(customers$|async) as customers">
 
-    <mat-action-list class="customers">
+    <mat-action-list class="customers" *ngIf="customers[0]; else empty">
 
       <div class="item" *ngFor="let customer of customers">
 
@@ -46,5 +46,7 @@
 <button mat-raised-button color="primary" class="addBtn" (click)="add()">Dodaj klientke</button>
 
 <ng-template #empty>
-  <mat-spinner ></mat-spinner>
+  <div class="emptyContainer">
+    <div class="title">Brak danych</div>
+  </div>
 </ng-template>

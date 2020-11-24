@@ -16,7 +16,7 @@
   <mat-spinner *ngIf="isLoading$|async"></mat-spinner>
   <ng-container *ngIf="(messages$|async) as messages">
 
-    <mat-action-list class="messages">
+    <mat-action-list class="messages" *ngIf="messages[0]; else empty">
 
       <div class="item" *ngFor="let message of messages.items">
 
@@ -40,6 +40,10 @@
 
 <button mat-raised-button color="primary" class="addBtn" (click)="initChat()">Wyślij wiadomość</button>
 
+
 <ng-template #empty>
-  <mat-spinner ></mat-spinner>
+  <div class="emptyContainer">
+    <div class="title">Brak danych</div>
+  </div>
 </ng-template>
+

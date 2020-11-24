@@ -24,4 +24,14 @@
       width: 100%;
     }
   }
+
+  .emptyContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    .title{
+      font-size: 20px;
+    }
+  }
 }
