@@ -20,8 +20,10 @@
 }
 
 .preview{
-  text-align: center;
   padding-top: 25px;
   font-size: 20px;
+  &.center{
+    text-align: center;
+  }
 }
 

@@ -17,6 +17,7 @@ export interface MessageSchemaBodyModel {
   text?: string;
   type: SCHEMABODYTYPES;
 }
+
 export enum SCHEMABODYTYPES {VARIABLE = 'VARIABLE', TEXT = 'TEXT'}
 
 export interface MessageModel {

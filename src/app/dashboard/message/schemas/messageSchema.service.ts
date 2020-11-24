@@ -6,16 +6,23 @@ import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model
 import { HelperService } from 'src/app/shared/service/helper.service';
 import { environment } from 'src/environments/environment';
 import { MessageSchemaModel, SCHEMABODYTYPES } from '../message.model';
+import { BodyAttribute } from './BodyAttribute.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageSchemaService {
-
+  bodyAttributes: BodyAttribute[] = [
+    new BodyAttribute('customer', 'name'),
+    new BodyAttribute('customer', 'surname'),
+    new BodyAttribute('user', 'name'),
+    new BodyAttribute('work', 'start'),
+  ];
   constructor(
     private http: HttpClient,
     private helperService: HelperService,
-  ) { }
+  ) {
+  }
 
   getSchemas(pagination: PaginationEvent, query: string): Observable<DataResponse<MessageSchemaModel>> {
     let params = new HttpParams();

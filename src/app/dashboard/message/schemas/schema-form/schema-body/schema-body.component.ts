@@ -4,6 +4,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatMenuTrigger } from '@angular/material';
 import { Subject } from 'rxjs';
 import { MessageSchemaBodyModel, SCHEMABODYTYPES } from '../../../message.model';
+import { BodyAttribute } from '../../BodyAttribute.model';
+import { MessageSchemaService } from '../../messageSchema.service';
 
 @Component({
   selector: 'app-schema-body',
@@ -27,6 +29,7 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
+    public schemaService: MessageSchemaService,
   ) { }
 
   ngOnInit() { }
@@ -56,7 +59,12 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
     const newValue = element.innerText.replace(/\u21B5/g, '</br>');
     const values = [...this.bodyCtrl.value];
 
-    values[index].text = newValue;
+    if (newValue) {
+      values[index].text = newValue;
+    } else {
+      values.splice(index, 1);
+    }
+
     this.bodyCtrl.setValue(values);
     this.bodyCtrl.setValue(this.mapValues(values));
   }
@@ -82,15 +90,17 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
     }
   }
 
-  addNewVariable(model: string, variable: string) {
+  addNewVariable(attribute: BodyAttribute) {
     const values = [...this.bodyCtrl.value];
+    const { model, variable} = attribute;
     const newValue: MessageSchemaBodyModel = { model, variable, type: SCHEMABODYTYPES.VARIABLE };
     values.push(newValue);
     this.bodyCtrl.setValue(this.mapValues(values));
   }
 
-  editVariable(index: number, model: string, variable: string) {
+  editVariable(index: number, attribute: BodyAttribute) {
     const values = [...this.bodyCtrl.value];
+    const { model, variable} = attribute;
     const newValue: MessageSchemaBodyModel = { model, variable, type: SCHEMABODYTYPES.VARIABLE };
     values[index] = newValue;
     this.bodyCtrl.setValue(this.mapValues(values));

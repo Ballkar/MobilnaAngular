@@ -40,7 +40,7 @@ export class SchemaFormComponent implements OnInit {
   }
 
   preview() {
-    const ref = this.dialog.open(SchemaPreviewComponent, { data: this.schema });
+    const ref = this.dialog.open(SchemaPreviewComponent, { data: {...this.form.value, id: this.schema.id} });
     ref.afterClosed().pipe(
       filter((message: MessageSchemaModel) => !!message)
     ).subscribe();
