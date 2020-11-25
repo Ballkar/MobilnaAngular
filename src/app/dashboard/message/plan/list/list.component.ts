@@ -40,6 +40,7 @@ export class ListComponent implements OnInit {
     this.plans$ = this.planService.getPlans(pagination).pipe(
       tap(() => this.isLoading$.next(false)),
       tap(res => this.pagination = this.helperService.mapApiPaginationToMaterialEvent(res.pagination)),
+      tap(res => console.log(res))
     );
   }
 

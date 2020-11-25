@@ -42,13 +42,17 @@ export class MessageSchemaService {
   }
 
   saveSchema(schema: MessageSchemaModel): Observable<MessageSchemaModel> {
-    return this.http.post<ResponseModel<MessageSchemaModel>>(`${environment.apiUrl}/messages/schemas`, schema).pipe(
+    return this.http.post<ResponseModel<MessageSchemaModel>>(`${environment.apiUrl}/messages/schemas`, {
+      ...schema, clear_diacritics: schema.clearDiacritics
+    }).pipe(
       map(data => data.data),
     );
   }
 
   updateSchema(schema: MessageSchemaModel): Observable<MessageSchemaModel> {
-    return this.http.put<ResponseModel<MessageSchemaModel>>(`${environment.apiUrl}/messages/schemas/${schema.id}`, schema).pipe(
+    return this.http.put<ResponseModel<MessageSchemaModel>>(`${environment.apiUrl}/messages/schemas/${schema.id}`, {
+      ...schema, clear_diacritics: schema.clearDiacritics
+    }).pipe(
       map(data => data.data),
     );
   }

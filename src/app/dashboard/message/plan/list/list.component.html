@@ -9,7 +9,7 @@
   <mat-spinner *ngIf="isLoading$|async"></mat-spinner>
   <ng-container *ngIf="(plans$|async) as plans">
 
-    <mat-action-list class="plans" *ngIf="plans[0]; else empty">
+    <mat-action-list class="plans" *ngIf="plans.items[0]; else empty">
 
       <div class="item" *ngFor="let plan of plans.items">
 

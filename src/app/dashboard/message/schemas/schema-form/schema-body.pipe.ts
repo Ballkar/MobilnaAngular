@@ -7,8 +7,6 @@ import { BodyAttribute } from '../BodyAttribute.model';
 })
 export class SchemaBodyPipe implements PipeTransform {
   transform(value: MessageSchemaBodyModel) {
-    console.log('dupa');
-
     switch (value.type) {
       case SCHEMABODYTYPES.TEXT:
         return value.text;

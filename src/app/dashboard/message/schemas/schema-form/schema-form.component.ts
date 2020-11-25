@@ -51,10 +51,13 @@ export class SchemaFormComponent implements OnInit {
   onSubmit() {
     if (this.form.invalid) { return false; }
 
+    console.log(this.form);
+
     if (this.state === 'add') {
       this.schemaService.saveSchema(this.form.value).subscribe(res => this.schemaSubmitted.emit(res));
     } else {
       this.schemaService.updateSchema({...this.schema,
+          clearDiacritics: this.clearDiacriticsCtrl.value,
           name: this.nameCtrl.value,
           body: this.bodyCtrl.value})
       .subscribe(res => this.schemaSubmitted.emit(res));
