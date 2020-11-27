@@ -1,3 +1,4 @@
+@import 'mixins';
 
 .navBarContainer{
   display: flex;
@@ -32,6 +33,10 @@
 
     .walllet{
       font-size: 16px;
+
+      @include mobile{
+        display: none;
+      }
     }
 
     button{

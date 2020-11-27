@@ -19,8 +19,8 @@
 
 
       <mat-menu #quickMenu="matMenu" class="quickMenu" xPosition="before">
-        <button mat-menu-item [routerLink]="['/', 'dashboard', 'customer', 'add']">
-          <mat-icon>add</mat-icon> Dodaj klientkę </button>
+        <button mat-menu-item (click)="addCustomer()"><mat-icon>add</mat-icon> Dodaj klientkę</button>
+        <button mat-menu-item (click)="addWork()"><mat-icon>add</mat-icon> Dodaj Wizytę</button>
       </mat-menu>
 
       <button mat-fab color="primary" class="quickFunctionButton" [matMenuTriggerFor]="quickMenu">

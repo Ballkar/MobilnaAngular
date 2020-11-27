@@ -7,6 +7,8 @@ import { SharedModule } from '../shared/shared.module';
 import { NavComponent } from './container/nav/nav.component';
 import { SidebarComponent } from './container/sidebar/sidebar.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { CustomersModule } from './customers/customers.module';
+import { ScheduleModule } from './schedule/schedule.module';
 
 
 @NgModule({
@@ -20,6 +22,8 @@ import { HomepageComponent } from './homepage/homepage.component';
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
-  ]
+    CustomersModule,
+    ScheduleModule,
+  ],
 })
 export class DashboardModule { }
