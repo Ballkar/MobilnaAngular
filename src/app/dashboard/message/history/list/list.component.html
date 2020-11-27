@@ -16,7 +16,7 @@
   <mat-spinner *ngIf="isLoading$|async"></mat-spinner>
   <ng-container *ngIf="(messages$|async) as messages">
 
-    <mat-action-list class="messages" *ngIf="messages[0]; else empty">
+    <mat-action-list class="messages" *ngIf="messages.items[0]; else empty">
 
       <div class="item" *ngFor="let message of messages.items">
 

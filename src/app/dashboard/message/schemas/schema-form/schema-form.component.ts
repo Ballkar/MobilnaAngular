@@ -42,7 +42,7 @@ export class SchemaFormComponent implements OnInit {
   }
 
   preview() {
-    const ref = this.dialog.open(SchemaPreviewComponent, { data: {...this.form.value, id: this.schema.id} });
+    const ref = this.dialog.open(SchemaPreviewComponent, { data: {...this.form.value} });
     ref.afterClosed().pipe(
       filter((message: MessageSchemaModel) => !!message)
     ).subscribe();
@@ -50,8 +50,6 @@ export class SchemaFormComponent implements OnInit {
 
   onSubmit() {
     if (this.form.invalid) { return false; }
-
-    console.log(this.form);
 
     if (this.state === 'add') {
       this.schemaService.saveSchema(this.form.value).subscribe(res => this.schemaSubmitted.emit(res));

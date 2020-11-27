@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.dev.mobilnakosmetyczka.pl/api/v1',
+  apiUrl: 'https://api.mobilnakosmetyczka.pl/api/v1',
 };
