@@ -13,7 +13,7 @@
     </mat-form-field>
   </form>
 
-  <mat-spinner *ngIf="isLoading$|async"></mat-spinner>
+  <mat-spinner class="listSpinner" *ngIf="isLoading$|async"></mat-spinner>
   <ng-container *ngIf="(customers$|async) as customers">
 
     <mat-action-list class="customers" *ngIf="customers[0]; else empty">

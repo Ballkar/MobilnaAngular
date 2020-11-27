@@ -6,7 +6,7 @@
     Plany wiadomości
   </mat-card-title>
 
-  <mat-spinner *ngIf="isLoading$|async"></mat-spinner>
+  <mat-spinner class="listSpinner" *ngIf="isLoading$|async"></mat-spinner>
   <ng-container *ngIf="(plans$|async) as plans">
 
     <mat-action-list class="plans" *ngIf="plans.items[0]; else empty">
