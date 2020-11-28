@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, debounceTime, map, concatMap, tap } from 'rxjs/operators';
@@ -30,6 +30,8 @@ export class InitMessageComponent implements OnInit {
   get customerCtrl() { return this.form.get('customer') as FormControl; }
   get schemaCtrl() { return this.form.get('schema') as FormControl; }
   get textCtrl() { return this.form.get('text') as FormControl; }
+  @Input() customer: EventEmitter<CustomerModel>;
+  @Input() schema: EventEmitter<MessageSchemaModel>;
   @Output() messageInited: EventEmitter<MessageModel> = new EventEmitter();
   constructor(
     private messageService: MessageService,
@@ -39,8 +41,8 @@ export class InitMessageComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
-      customer: new FormControl(null, Validators.required),
-      schema: new FormControl(null),
+      customer: new FormControl(this.customer ? this.customer : null, Validators.required),
+      schema: new FormControl(this.schema ? this.schema : null),
       text: new FormControl('', Validators.minLength(3)),
     });
 

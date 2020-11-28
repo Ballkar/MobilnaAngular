@@ -54,7 +54,7 @@ export class ListComponent implements OnInit {
 
   initChat() {
 
-    const ref = this.dialog.open(InitMessagePopupComponent, {});
+    const ref = this.dialog.open(InitMessagePopupComponent, {data: {}});
     ref.afterClosed().pipe(
       filter((data: MessageModel) => !!data)
     ).subscribe(() => this.getMessages());

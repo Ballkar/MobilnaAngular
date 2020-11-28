@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, delay, filter, map, tap } from 'rxjs/operators';
 import { HelperService } from 'src/app/shared/service/helper.service';
+import { InitMessagePopupComponent } from '../../message/init-message-popup/init-message-popup.component';
+import { MessageModel } from '../../message/message.model';
 import { CustomerPopupComponent } from '../customer-popup/customer-popup.component';
 import { CustomerModel } from '../customer.model';
 import { CustomersService } from '../customers.service';
@@ -45,7 +47,10 @@ export class ListComponent implements OnInit {
   }
 
   initChat(customer: CustomerModel) {
-
+    const ref = this.dialog.open(InitMessagePopupComponent, {data: {customer}});
+    ref.afterClosed().pipe(
+      filter((data: MessageModel) => !!data)
+    ).subscribe();
   }
 
   select(customer: CustomerModel) {

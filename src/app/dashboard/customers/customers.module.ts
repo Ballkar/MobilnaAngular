@@ -6,6 +6,7 @@ import { ListComponent } from './list/list.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CustomerPopupComponent } from './customer-popup/customer-popup.component';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
+import { MessageModule } from '../message/message.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { CustomerFormComponent } from './customer-form/customer-form.component';
     CommonModule,
     CustomersRoutingModule,
     SharedModule,
+    MessageModule,
   ],
   exports: [
     CustomerPopupComponent

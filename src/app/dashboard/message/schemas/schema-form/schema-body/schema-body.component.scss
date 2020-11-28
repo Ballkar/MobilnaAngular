@@ -21,11 +21,8 @@
     align-items: center;
     flex-flow: row wrap;
     min-height: 36px;
+    word-break: break-word;
     .element{
-      // display: inline;
-      // width: auto;
-      // line-break: auto;
-
       display: inline-block;
       &.text{
         border: 1px solid transparent;
