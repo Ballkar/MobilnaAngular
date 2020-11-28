@@ -21,6 +21,11 @@ export class NavComponent implements OnInit {
     this.user = this.route.snapshot.data.user;
   }
 
+  clickOnProfileMenu(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/']);

@@ -1,11 +1,12 @@
 <mat-toolbar color="primary" class="navBarContainer">
+
+
   <div class="brandContainer">
     <button mat-icon-button (click)="sidebarService.toggle()" class="menuHamburger">
         <mat-icon>menu</mat-icon>
     </button>
-
     <a class="navbarBrand" routerLink="/">
-      <img src="assets/logo.png" class="logo" alt="homepage">
+      <img src="assets/logo.svg" class="logo" alt="homepage">
     </a>
   </div>
 
@@ -13,27 +14,30 @@
 
   <div class="iconsContainer">
 
-    <div class="walllet">
+    <div class="walllet" [routerLink]="['/', 'dashboard', 'profile', 'wallet']">
       <span class="label">Stan konta: </span>
       {{user.wallet.money}} PLN
     </div>
-    <button mat-icon-button (click)="logout()">
+
+    <button mat-icon-button (click)="logout()" class="logoutBtn">
       <mat-icon>exit_to_app</mat-icon>
     </button>
-    <!-- <mat-menu #profile="matMenu" class="profileMenu">
-      <div class="accountInformation" (click)="prevent($event)">
+
+    <button mat-icon-button  [matMenuTriggerFor]="profileMenu" #triggerNewElement="matMenuTrigger">
+      <mat-icon>settings</mat-icon>
+    </button>
+
+    <mat-menu #profileMenu="matMenu" class="profileMenu">
+      <div class="accountInformation" (click)="clickOnProfileMenu($event)">
         <span class="name">{{user.name}}</span>
         <span class="email">{{user.email}}</span>
       </div>
-      <button mat-menu-item [routerLink]="['/', 'dashboard', 'connections']">
-        <mat-icon>folder_open</mat-icon> Connections
-      </button>
-      <button mat-menu-item (click)="openPasswordChange()">
-        <mat-icon>edit</mat-icon> Change password
+      <button mat-menu-item [routerLink]="['/', 'dashboard', 'profile']">
+        <mat-icon>edit</mat-icon> Edytuj profil
       </button>
       <button mat-menu-item (click)="logout()">
-        <mat-icon>exit_to_app</mat-icon> Sign Out
+        <mat-icon>exit_to_app</mat-icon> Wyloguj
       </button>
-    </mat-menu> -->
+    </mat-menu>
   </div>
 </mat-toolbar>

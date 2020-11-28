@@ -1,0 +1,77 @@
+<div class="profileContainer" *ngIf="user; else loader">
+  <mat-card-title>Ustawienia konta</mat-card-title>
+
+  <mat-accordion>
+    <mat-expansion-panel (click)="setOpened('profile')" [expanded]="opened === 'profile'">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Profil
+        </mat-panel-title>
+        <mat-panel-description>
+          Informacje ogólne
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+
+      <form [formGroup]="formProfile" (ngSubmit)="onProfileSubmit()">
+
+        <mat-form-field>
+          <mat-label>Nazwa</mat-label>
+          <input matInput [formControl]="nameCtrl">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Telefon</mat-label>
+          <input matInput [formControl]="phoneCtrl" appPhoneMask>
+        </mat-form-field>
+
+        <div class="buttonContainer">
+          <button mat-raised-button color="primary" class="addBtn" type="submit">Zapisz</button>
+        </div>
+      </form>
+
+
+
+    </mat-expansion-panel>
+  </mat-accordion>
+  <mat-accordion>
+    <mat-expansion-panel (click)="setOpened('password')" [expanded]="opened === 'password'">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Ustawienia hasła
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+
+      <form [formGroup]="formPassword" (ngSubmit)="onPasswordSubmit()">
+
+        <mat-form-field>
+          <mat-label>Podaj aktualne hasło</mat-label>
+          <input matInput type="password" name='password' [formControl]="passwordCtrl">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Nowe hasło</mat-label>
+          <input matInput type="password" name='password' [formControl]="newPasswordCtrl">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Powtórz nowe hasło</mat-label>
+          <input matInput type="password" name='password' [formControl]="newPasswordConfirmationCtrl">
+        </mat-form-field>
+
+        <div class="buttonContainer">
+          <button mat-raised-button color="primary" class="addBtn" type="submit">Zapisz</button>
+        </div>
+      </form>
+
+
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+
+<ng-template #loader>
+  <mat-spinner class="loader"></mat-spinner>
+</ng-template>

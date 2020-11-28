@@ -17,7 +17,8 @@
       align-items: center;
 
       img{
-        height: 30px;
+        height: 40px;
+        margin-top: 3px;
       }
     }
   }
@@ -39,10 +40,33 @@
       }
     }
 
+    .logoutBtn{
+      display: none;
+      @include mobile{
+        display: block;
+      }
+    }
+
     button{
 
       margin-left: 30px;
     }
   }
 
+}
+
+
+.accountInformation{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  padding-bottom: 10px;
+
+  .name{
+
+  }
+  .email{
+    font-size: 12px;
+  }
 }
