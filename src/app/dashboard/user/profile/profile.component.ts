@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { tap } from 'rxjs/operators';
 import { UserModel } from 'src/app/shared/model/user.model';
 import { UserService } from '../user.service';
 
@@ -47,6 +49,13 @@ export class ProfileComponent implements OnInit {
 
   onPasswordSubmit() {
     if (this.formPassword.invalid) { return false; }
-    this.userService.changePassword(this.passwordCtrl.value).subscribe(res => console.log(res));
+    this.userService.changePassword(this.formPassword.value).subscribe(
+      () => this.resetForm(this.formPassword),
+    );
+  }
+
+  resetForm(form: FormGroup) {
+    form.reset();
+    Object.keys(form.controls).forEach(key => form.controls[key].setErrors(null));
   }
 }
