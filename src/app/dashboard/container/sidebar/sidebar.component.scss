@@ -1,4 +1,4 @@
-
+@import 'mixins';
 .container{
   width: 260px;
   height: 100%;
@@ -13,8 +13,15 @@
   mat-icon{
     margin-right: 5px;
   }
-
-  &.active {
-    color: #02bec9;
+  &.child {
+    padding-left: 35px;
   }
+}
+
+.active {
+  color: #02bec9;
+}
+
+.arrow_icon{
+  @include arrowAnimation;
 }

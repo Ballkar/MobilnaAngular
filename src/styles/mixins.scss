@@ -23,3 +23,17 @@ $desktop-width: 1024px;
   padding: 24px;
   width: 80vw;
 }
+
+@mixin arrowAnimation {
+  transition: transform .3s ;
+  user-select: none;
+
+  &.up{
+
+    transform: rotateZ(-90deg);
+  }
+  &.down{
+
+    transform: rotateZ(90deg);
+  }
+}

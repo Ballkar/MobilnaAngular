@@ -7,9 +7,58 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
+  sidemenuElements: SidemenuElement[] = [
+    {
+      icon: 'assignment_ind',
+      navigateTo: ['/', 'dashboard', 'customer'],
+      title: 'Klientki',
+      active: false,
+    },
+    {
+      icon: 'phonelink_setup',
+      navigateTo: ['/', 'dashboard', 'message'],
+      title: 'Wiadomości',
+      active: false,
+      child: [
+        {
+          icon: 'history',
+          navigateTo: ['/', 'dashboard', 'message', 'history'],
+          title: 'Historia',
+          active: false,
+        },
+        {
+          icon: 'question_answer',
+          navigateTo: ['/', 'dashboard', 'message', 'schema'],
+          title: 'Schematy',
+          active: false,
+        },
+        {
+          icon: 'schedule',
+          navigateTo: ['/', 'dashboard', 'message', 'plan'],
+          title: 'Planowanie',
+          active: false,
+        },
+      ]
+    },
+    {
+      icon: 'work',
+      navigateTo: ['/', 'dashboard', 'work'],
+      title: 'Wizyty',
+      active: false,
+    }
+  ];
   constructor() { }
 
   ngOnInit() {
   }
 
+}
+
+
+interface SidemenuElement {
+  icon: string;
+  title: string;
+  navigateTo: string[];
+  active: boolean;
+  child?: SidemenuElement[];
 }
