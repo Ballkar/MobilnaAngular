@@ -13,7 +13,7 @@ export class SchemaBodyPipe implements PipeTransform {
 
       case SCHEMABODYTYPES.VARIABLE:
         const attribute = new BodyAttribute(value.model, value.variable);
-        return '{' + attribute.alias + '}';
+        return attribute.alias;
 
       default:
         const exhaustCheck: never = value.type;
