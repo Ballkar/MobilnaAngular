@@ -15,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -29,6 +29,7 @@ import { TimeLeadingZeroPipe } from './pipes/timeLeadingZero.pipe';
 import { MatChipsModule } from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatBadgeModule} from '@angular/material/badge';
+import { getPolishPaginatorIntl } from './internationalizations/polish-paginator-intl';
 
 const materialComponents = [
   CommonModule,
@@ -84,6 +85,9 @@ const materialComponents = [
     TimeLeadingZeroPipe,
   ],
   entryComponents: [
-  ]
+  ],
+  providers: [
+    { provide: MatPaginatorIntl, useValue: getPolishPaginatorIntl() }
+ ]
 })
 export class SharedModule { }
