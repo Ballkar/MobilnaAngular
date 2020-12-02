@@ -4,37 +4,40 @@
 
 <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
 
-  <mat-form-field cdkFocusRegionstart>
-    <input matInput [ngxMatDatetimePicker]="picker" type="text" placeholder="Data początku" [formControl]="startCtrl" [max]="stopCtrl" name="startCtrl">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <ngx-mat-datetime-picker #picker
-      [showSpinners]="true"
-      [showSeconds]="false"
-      [stepHour]="1"
-      [stepMinute]="15"
-      [touchUi]="true"
-      [color]="'primary'"
-      [enableMeridian]="false"
-      [disableMinute]="false"
-      [hideTime]="false">
-    </ngx-mat-datetime-picker>
-  </mat-form-field>
+  <div class="datesContainer">
 
-  <mat-form-field>
-    <input matInput [ngxMatDatetimePicker]="pickerStop" type="text" placeholder="Data końca" [formControl]="stopCtrl" [min]="startCtrl" name="stopCtrl">
-    <mat-datepicker-toggle matSuffix [for]="pickerStop"></mat-datepicker-toggle>
-    <ngx-mat-datetime-picker #pickerStop
-      [showSpinners]="true"
-      [showSeconds]="false"
-      [stepHour]="1"
-      [stepMinute]="15"
-      [touchUi]="true"
-      [color]="'primary'"
-      [enableMeridian]="false"
-      [disableMinute]="false"
-      [hideTime]="false">
-    </ngx-mat-datetime-picker>
-  </mat-form-field>
+    <mat-form-field cdkFocusRegionstart class="dateCtrl">
+      <input matInput [ngxMatDatetimePicker]="picker" type="text" placeholder="Data początku" [formControl]="startCtrl" [max]="stopCtrl" name="startCtrl">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #picker
+        [showSpinners]="true"
+        [showSeconds]="false"
+        [stepHour]="1"
+        [stepMinute]="15"
+        [touchUi]="true"
+        [color]="'primary'"
+        [enableMeridian]="false"
+        [disableMinute]="false"
+        [hideTime]="false">
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+
+    <mat-form-field  class="dateCtrl">
+      <input matInput [ngxMatDatetimePicker]="pickerStop" type="text" placeholder="Data końca" [formControl]="stopCtrl" [min]="startCtrl" name="stopCtrl">
+      <mat-datepicker-toggle matSuffix [for]="pickerStop"></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #pickerStop
+        [showSpinners]="true"
+        [showSeconds]="false"
+        [stepHour]="1"
+        [stepMinute]="15"
+        [touchUi]="true"
+        [color]="'primary'"
+        [enableMeridian]="false"
+        [disableMinute]="false"
+        [hideTime]="false">
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+  </div>
 
   <mat-form-field class="customer">
     <mat-label>Klientka</mat-label>

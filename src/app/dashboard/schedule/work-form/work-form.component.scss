@@ -1,6 +1,27 @@
+@import 'mixins';
+
 .form{
   display: flex;
   flex-flow: column;
+
+  .datesContainer{
+    display: flex;
+    flex-flow:row;
+
+    @include mobile {
+      flex-flow: column;
+    }
+
+    mat-form-field{
+      &:first-of-type{
+        margin-right: 10px;
+        @include mobile {
+          margin: 0;
+        }
+      }
+
+    }
+  }
 
   mat-form-field{
     position: relative;
