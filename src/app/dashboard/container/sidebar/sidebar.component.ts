@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
       active: false,
     },
     {
-      icon: 'phonelink_setup',
+      icon: 'sms',
       navigateTo: ['/', 'dashboard', 'message'],
       title: 'Wiadomości',
       active: false,

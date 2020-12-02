@@ -8,6 +8,7 @@ export class UserModel {
   // avatar: string;
   messageSettings: MessageSettings;
   wallet: WalletModel;
+  notificationCount: number;
 }
 
 export class WalletModel {

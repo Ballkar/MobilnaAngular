@@ -9,6 +9,7 @@ import { SidebarComponent } from './container/sidebar/sidebar.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { CustomersModule } from './customers/customers.module';
 import { ScheduleModule } from './schedule/schedule.module';
+import { NotificationMenuComponent } from './container/notification-menu/notification-menu.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { ScheduleModule } from './schedule/schedule.module';
     NavComponent,
     SidebarComponent,
     HomepageComponent,
+    NotificationMenuComponent,
   ],
   imports: [
     CommonModule,

@@ -30,7 +30,6 @@ export class WalletComponent implements OnInit {
     this.isLoading$.next(true);
 
     this.userService.getWalletHistory(pagination).pipe(
-      tap(r => console.log(r)),
       tap(res => this.pagination = this.helperService.mapApiPaginationToMaterialEvent(res.pagination)),
     ).subscribe(res => this.transactions = res);
   }
