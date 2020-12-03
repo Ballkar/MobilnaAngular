@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         tap(token => localStorage.setItem('token', token)),
       ).subscribe(
         () => this.router.navigate(['/dashboard']),
-        (err) => this.email.setErrors({invalidCredentials: err.errors.email})
+        err => this.email.setErrors({invalidCredentials: err.error.message})
       );
     }
   }

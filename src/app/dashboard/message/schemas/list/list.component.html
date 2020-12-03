@@ -13,7 +13,7 @@
     </mat-form-field>
   </form>
 
-  <mat-spinner *ngIf="(isLoading$|async); else data"></mat-spinner>
+  <mat-spinner class="listSpinner" *ngIf="(isLoading$|async); else data"></mat-spinner>
   <ng-template #data>
 
     <ng-container *ngIf="schemas[0]; else empty">

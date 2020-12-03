@@ -7,6 +7,9 @@ import { SharedModule } from '../shared/shared.module';
 import { NavComponent } from './container/nav/nav.component';
 import { SidebarComponent } from './container/sidebar/sidebar.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { CustomersModule } from './customers/customers.module';
+import { ScheduleModule } from './schedule/schedule.module';
+import { NotificationMenuComponent } from './container/notification-menu/notification-menu.component';
 
 
 @NgModule({
@@ -15,11 +18,14 @@ import { HomepageComponent } from './homepage/homepage.component';
     NavComponent,
     SidebarComponent,
     HomepageComponent,
+    NotificationMenuComponent,
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
-  ]
+    CustomersModule,
+    ScheduleModule,
+  ],
 })
 export class DashboardModule { }

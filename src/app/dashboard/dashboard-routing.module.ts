@@ -32,6 +32,10 @@ const routes: Routes = [
         path: 'work',
         loadChildren : () => import('./schedule/schedule.module').then(m => m.ScheduleModule),
       },
+      {
+        path: 'profile',
+        loadChildren : () => import('./user/user.module').then(m => m.UserModule),
+      },
     ]
   }
 ];

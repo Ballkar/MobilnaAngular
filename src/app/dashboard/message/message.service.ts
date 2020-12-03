@@ -19,7 +19,7 @@ export class MessageService {
     let body: {customer_id: number, schema_id?: number, text?: string} = { customer_id: customerId };
     body = schemaId ? {...body, schema_id: schemaId} : body;
     body = text ? {...body, text} : body;
-    return this.http.post<ResponseModel<MessageModel>>(`${environment.apiUrl}/messages/history`, body).pipe(
+    return this.http.post<ResponseModel<MessageModel>>(`${environment.apiUrl}/messages/init`, body).pipe(
       map(res => res.data),
     );
   }

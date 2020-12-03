@@ -1,3 +1,3 @@
 <div class="container">
-  <app-init-message (messageInited)="close($event)"></app-init-message>
+  <app-init-message (messageInited)="close($event)" [schema]="data.schema" [customer]="data.customer"></app-init-message>
 </div>

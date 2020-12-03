@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { delay, filter, tap } from 'rxjs/operators';
 import { DataResponse } from 'src/app/shared/model/response.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
 import { DisplayMessageComponent } from '../../history/display-message/display-message.component';
@@ -40,7 +40,6 @@ export class ListComponent implements OnInit {
     this.plans$ = this.planService.getPlans(pagination).pipe(
       tap(() => this.isLoading$.next(false)),
       tap(res => this.pagination = this.helperService.mapApiPaginationToMaterialEvent(res.pagination)),
-      tap(res => console.log(res))
     );
   }
 

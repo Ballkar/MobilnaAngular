@@ -21,12 +21,12 @@
     align-items: center;
     flex-flow: row wrap;
     min-height: 36px;
-    .element{
-      // display: inline;
-      // width: auto;
-      // line-break: auto;
+    word-break: break-word;
 
+
+    .element{
       display: inline-block;
+      line-height: 33px;
       &.text{
         border: 1px solid transparent;
         &:focus{
@@ -41,8 +41,28 @@
         flex: 1;
       }
       &.variable{
+        $color: green;
+        line-height: 23px;
         cursor: pointer;
-        color: green;
+        color: $color;
+        border: 1px solid $color;
+        padding: 1px 3px;
+        position: relative;
+        padding-right: 15px;
+        background-color: rgba(100, 200, 100, 0.3);
+        border-radius: 5px;
+
+        &::after{
+          position: absolute;
+          right: 3px;
+          top: 10px;
+          content: '';
+          width: 0;
+          height: 0;
+          border-left: 4px solid transparent;
+          border-right: 4px solid transparent;
+          border-top: 6px solid $color;
+        }
       }
     }
   }

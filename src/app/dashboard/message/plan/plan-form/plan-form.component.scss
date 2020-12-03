@@ -1,10 +1,14 @@
 .form{
-  padding: 20px;
   display: flex;
   flex-flow: column;
 
   mat-form-field{
 
+  }
+
+  mat-checkbox{
+    // margin-left: auto;
+    margin-top: 15px;
   }
 
   .radioContainer{

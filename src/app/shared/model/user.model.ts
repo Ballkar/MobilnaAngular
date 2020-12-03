@@ -5,8 +5,10 @@ export class UserModel {
   name: string;
   phone: string;
   email: string;
+  // avatar: string;
   messageSettings: MessageSettings;
   wallet: WalletModel;
+  notificationCount: number;
 }
 
 export class WalletModel {

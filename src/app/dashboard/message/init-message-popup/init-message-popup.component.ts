@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { MessageModel } from '../message.model';
+import { CustomerModel } from '../../customers/customer.model';
+import { MessageModel, MessageSchemaModel } from '../message.model';
 
 @Component({
   selector: 'app-init-message-popup',
@@ -10,7 +11,7 @@ import { MessageModel } from '../message.model';
 export class InitMessagePopupComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<InitMessagePopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public message: MessageModel,
+    @Inject(MAT_DIALOG_DATA) public data: {schema?: MessageSchemaModel, customer?: CustomerModel},
   ) { }
 
   ngOnInit() {
