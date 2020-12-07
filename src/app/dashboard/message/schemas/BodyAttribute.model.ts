@@ -44,8 +44,10 @@ export class BodyAttribute {
 
   private workVariable() {
     switch (this.variable) {
-      case 'start':
+      case 'start_date':
         return 'data wizyty';
+      case 'start_hour':
+        return 'godzina wizyty';
 
       default:
         console.error('unknown variable variable from work model in SchemaBodyPipe');
