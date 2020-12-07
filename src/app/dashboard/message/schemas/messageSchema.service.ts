@@ -17,7 +17,8 @@ export class MessageSchemaService {
     new BodyAttribute('customer', 'name'),
     new BodyAttribute('customer', 'surname'),
     new BodyAttribute('user', 'name'),
-    new BodyAttribute('work', 'start'),
+    new BodyAttribute('work', 'start_hour'),
+    new BodyAttribute('work', 'start_date'),
   ];
   constructor(
     private http: HttpClient,
