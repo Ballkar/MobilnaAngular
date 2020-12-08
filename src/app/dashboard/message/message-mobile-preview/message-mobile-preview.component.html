@@ -1,0 +1,20 @@
+<div class="preview">
+  <div class="previewCenterFlexEmelent"></div>
+
+  <div class="mobilePhone">
+
+    <div class="title">
+      <span class="placeholder">Od</span> {{from}}
+    </div>
+
+    <div class="text">
+      <span class="placeholder">Treść</span>
+      {{text}}
+    </div>
+    <div class="counter">{{letterCount}}/{{letterNextLimit}}({{smsCount}} wiadomość)</div>
+  </div>
+
+  <div class="buttonContainer">
+    <button mat-raised-button color="primary" type="button" (click)="close()">Wróć</button>
+  </div>
+</div>

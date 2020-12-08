@@ -12,28 +12,15 @@
       <input matInput placeholder="Imie" [formControl]="customerCtrl" [matAutocomplete]="auto" >
     </mat-form-field>
   </div>
-
   <ng-container *ngIf="customerCtrl.value && customerCtrl.value.id; else emptyCustomer">
-    <div class="preview" *ngIf="preview; else loader">
-      <div class="previewCenterFlexEmelent"></div>
-
-      <div class="mobilePhone">
-
-        <div class="title">
-          <span class="placeholder">Od</span> {{preview.from}}
-        </div>
-
-        <div class="text">
-          <span class="placeholder">Treść</span>
-          {{preview.preview}}
-        </div>
-        <div class="counter">{{preview.letterCount}}/{{preview.letterNextLimit}}({{preview.smsCount}} wiadomość)</div>
-      </div>
-
-      <div class="buttonContainer">
-        <button mat-raised-button color="primary" type="button" (click)="close()">Wróć</button>
-      </div>
-    </div>
+    <app-message-mobile-preview *ngIf="preview; else loader"
+      [from]="preview.from"
+      [text]="preview.preview"
+      [smsCount]="preview.smsCount"
+      [letterCount]="preview.letterCount"
+      [letterNextLimit]="preview.letterNextLimit"
+      (backClicked)="close()"
+    ></app-message-mobile-preview>
   </ng-container>
 </div>
 

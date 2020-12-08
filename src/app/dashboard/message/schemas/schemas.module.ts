@@ -9,6 +9,7 @@ import { SchemaPopupComponent } from './schema-popup/schema-popup.component';
 import { SchemaBodyComponent } from './schema-form/schema-body/schema-body.component';
 import { SchemaBodyPipe } from './schema-form/schema-body.pipe';
 import { SchemaPreviewComponent } from './schema-preview/schema-preview.component';
+import { MessageModule } from '../message.module';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { SchemaPreviewComponent } from './schema-preview/schema-preview.componen
     CommonModule,
     SchemasRoutingModule,
     SharedModule,
+    MessageModule,
   ],
   entryComponents: [
     SchemaPopupComponent,

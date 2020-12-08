@@ -4,8 +4,6 @@
   @include popupContainer;
 }
 
-
-
 .row{
   display: flex;
   flex-flow: row;
@@ -25,63 +23,4 @@
   }
 }
 
-.preview{
-  padding-top: 25px;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-flow: row;
-  &.center{
-    text-align: center;
-    justify-content: center;
-  }
-  @include mobile{
-    flex-flow: column!important;
-  }
-  .previewCenterFlexEmelent{
-
-  }
-  .mobilePhone{
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url('/assets/svg/mobile-phone.png');
-    width: 375px;
-    height: 400px;
-    padding: 75px 30px;
-    position: relative;
-    @include mobile{
-      width: 300px!important;
-      height: 450px!important;
-      padding: 60px 30px!important;
-    }
-
-    .placeholder{
-      font-size: 13px;
-    }
-    .title{
-      border-bottom: 1px solid #ddd;
-    }
-    .text{
-      margin-top: 15px;
-      word-break: break-word;
-    }
-    .counter{
-      position: absolute;
-      font-size: 12px;
-      text-align: end;
-      bottom: 0px;
-      right: 30px;
-    }
-  }
-
-  .buttonContainer{
-    align-self: flex-end;
-    button{
-      @include mobile{
-        margin-top: 5px;
-      }
-    }
-  }
-}
 
