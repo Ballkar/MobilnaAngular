@@ -15,14 +15,14 @@ export class ProfileComponent implements OnInit {
   opened: string;
   user: UserModel;
   formProfile: FormGroup = new FormGroup({
-    name: new FormControl(null, Validators.required),
+    name: new FormControl(null, [Validators.required, Validators.maxLength(11), Validators.minLength(3)]),
     phone: new FormControl(null, Validators.required),
   });
   get nameCtrl() { return this.formProfile.get('name') as FormControl; }
   get phoneCtrl() { return this.formProfile.get('phone') as FormControl; }
   formPassword: FormGroup = new FormGroup({
     password: new FormControl(null, Validators.required),
-    new_password: new FormControl(null, Validators.required),
+    new_password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     new_password_confirmation: new FormControl(null, Validators.required),
   });
   get passwordCtrl() { return this.formPassword.get('password') as FormControl; }
