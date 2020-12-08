@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, debounceTime, map, concatMap } from 'rxjs/operators';
+import { startWith, debounceTime, map, concatMap, finalize } from 'rxjs/operators';
 import { MessagePlan, MessageSchemaModel, TIMETYPES,  } from '../../message.model';
 import { MessageSchemaService } from '../../schemas/messageSchema.service';
 import { PlanService } from '../plan.service';
@@ -13,6 +13,7 @@ import { PlanService } from '../plan.service';
 })
 export class PlanFormComponent implements OnInit {
 
+  isLocked = false;
   TIMETYPES = TIMETYPES;
   filteredSchemas$: Observable<MessageSchemaModel[]>;
   state: 'add' | 'edit';
@@ -73,11 +74,16 @@ export class PlanFormComponent implements OnInit {
 
   onSubmit() {
     if (this.form.invalid) { return false; }
+    this.isLocked = true;
 
     if (this.state === 'add') {
-      this.planService.add(this.form.value).subscribe(res => this.planSubmitted.emit(res));
+      this.planService.add(this.form.value).pipe(
+        finalize(() => this.isLocked = false),
+      ).subscribe(res => this.planSubmitted.emit(res));
     } else {
-      this.planService.updatePlan({...this.form.value, id: this.plan.id}).subscribe(res => this.planSubmitted.emit(res));
+      this.planService.updatePlan({...this.form.value, id: this.plan.id}).pipe(
+        finalize(() => this.isLocked = false),
+      ).subscribe(res => this.planSubmitted.emit(res));
     }
   }
 }

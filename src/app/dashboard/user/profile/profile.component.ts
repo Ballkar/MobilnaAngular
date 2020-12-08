@@ -1,7 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { tap } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { UserModel } from 'src/app/shared/model/user.model';
 import { UserService } from '../user.service';
 
@@ -12,6 +11,7 @@ import { UserService } from '../user.service';
 })
 export class ProfileComponent implements OnInit {
 
+  isLocked = false;
   opened: string;
   user: UserModel;
   formProfile: FormGroup = new FormGroup({
@@ -44,14 +44,18 @@ export class ProfileComponent implements OnInit {
 
   onProfileSubmit() {
     if (this.formProfile.invalid) { return false; }
-    this.userService.updateProfile(this.formProfile.value).subscribe(res => console.log(res));
+    this.isLocked = true;
+    this.userService.updateProfile(this.formProfile.value).pipe(
+      finalize(() => this.isLocked = false),
+    ).subscribe();
   }
 
   onPasswordSubmit() {
     if (this.formPassword.invalid) { return false; }
-    this.userService.changePassword(this.formPassword.value).subscribe(
-      () => this.resetForm(this.formPassword),
-    );
+    this.isLocked = true;
+    this.userService.changePassword(this.formPassword.value).pipe(
+      finalize(() => this.isLocked = false),
+    ).subscribe(() => this.resetForm(this.formPassword));
   }
 
   resetForm(form: FormGroup) {

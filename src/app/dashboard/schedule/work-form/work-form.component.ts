@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { concatMap, debounceTime, filter, map, startWith, tap } from 'rxjs/operators';
+import { concatMap, debounceTime, filter, finalize, map, startWith, tap } from 'rxjs/operators';
 import { CustomerPopupComponent } from '../../customers/customer-popup/customer-popup.component';
 import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
@@ -17,6 +17,7 @@ import { WorkService } from '../work.service';
 })
 export class WorkFormComponent implements OnInit {
 
+  isLocked = false;
   state: 'add' | 'edit';
   actualDate: Date = new Date();
   form: FormGroup;
@@ -73,9 +74,9 @@ export class WorkFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.form.invalid) {
-      return false;
-    }
+    if (this.form.invalid) { return false; }
+
+    this.isLocked = true;
     const work: WorkModel = {
       id: this.work ? this.work.id : null,
       start: moment(this.startCtrl.value).format('YYYY-M-D H:m:s'),
@@ -84,12 +85,16 @@ export class WorkFormComponent implements OnInit {
     };
 
     if (this.state === 'add') {
-      this.workService.saveWork(work).subscribe(
+      this.workService.saveWork(work).pipe(
+        finalize(() => this.isLocked = false),
+      ).subscribe(
         res => this.workSubmitted.emit(res),
         err => this.errorEmitted.emit(err)
       );
     } else {
-      this.workService.editWork(work).subscribe(
+      this.workService.editWork(work).pipe(
+        finalize(() => this.isLocked = false),
+      ).subscribe(
         res => this.workSubmitted.emit(res),
         err => this.errorEmitted.emit(err)
       );
