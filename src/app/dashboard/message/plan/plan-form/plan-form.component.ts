@@ -63,6 +63,10 @@ export class PlanFormComponent implements OnInit {
     return schema && schema.name ? `${schema.name}` : '';
   }
 
+  autocompleteBlur(input) {
+    input.value = this.schemaCtrl.value && this.schemaCtrl.value.name ? this.schemaCtrl.value.name : '';
+  }
+
   remove() {
     // this.planService.deleteSchema(this.plan.id).subscribe(() => this.planRemoved.emit());
   }

@@ -11,7 +11,7 @@
         {{schema.name}}
       </mat-option>
     </mat-autocomplete>
-    <input matInput placeholder="nazwa" [formControl]="schemaCtrl" [matAutocomplete]="schemaAutoComplete" >
+    <input matInput #input placeholder="nazwa" [formControl]="schemaCtrl" [matAutocomplete]="schemaAutoComplete"  (blur)="autocompleteBlur(input)">
   </mat-form-field>
 
   <mat-form-field>
