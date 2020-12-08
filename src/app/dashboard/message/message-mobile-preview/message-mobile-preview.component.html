@@ -4,14 +4,18 @@
   <div class="mobilePhone">
 
     <div class="title">
-      <span class="placeholder">Od</span> {{from}}
+      <span class="placeholder">Od:</span> {{from}}
+    </div>
+
+    <div class="title" *ngIf="to">
+      <span class="placeholder">Do:</span> {{to}}
     </div>
 
     <div class="text">
-      <span class="placeholder">Treść</span>
+      <div class="placeholder">Treść: <div class="date" *ngIf="date">{{date}}</div></div>
       {{text}}
     </div>
-    <div class="counter">{{letterCount}}/{{letterNextLimit}}({{smsCount}} wiadomość)</div>
+    <div class="counter">{{letterCount}}<span *ngIf="letterNextLimit">/{{letterNextLimit}}</span> <span *ngIf="smsCount">({{smsCount}} wiadomość)</span></div>
   </div>
 
   <div class="buttonContainer">

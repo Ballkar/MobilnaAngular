@@ -17,4 +17,7 @@ export class DisplayMessageComponent implements OnInit {
   ngOnInit() {
   }
 
+  close() {
+    this.dialogRef.close();
+  }
 }

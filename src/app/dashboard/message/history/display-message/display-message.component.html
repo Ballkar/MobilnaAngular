@@ -1,12 +1,23 @@
 <div class="container">
   <div class="row">
     <div class="customer">{{message.customer.name}} {{message.customer.surname}}</div>
-    <div class="date">{{message.created_at|date: 'HH:mm dd-MM-yyyy'}}</div>
+    <!-- <div class="date">{{message.created_at|date: 'HH:mm dd-MM-yyyy'}}</div> -->
   </div>
   <div class="row">
     <div class="title">{{message.name}}</div>
   </div>
   <div class="row">
-    <div class="text"><span class="placeholder">treść: </span>{{message.text}}</div>
+
+  </div>
+  <div class="row">
+
+    <app-message-mobile-preview class="preview"
+      [from]="message.name"
+      [to]="message.customer.phone"
+      [text]="message.text"
+      [date]="message.created_at | date: 'HH:mm dd-MM-yyyy'"
+      (backClicked)="close()"
+    ></app-message-mobile-preview>
+    <!-- <div class="text"><span class="placeholder">treść: </span>{{message.text}}</div> -->
   </div>
 </div>

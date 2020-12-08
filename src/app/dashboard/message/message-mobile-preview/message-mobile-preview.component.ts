@@ -8,7 +8,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class MessageMobilePreviewComponent implements OnInit {
 
   @Input() from: string;
+  @Input() to: string;
   @Input() text: string;
+  @Input() date: string;
   @Input() smsCount: number;
   @Input() letterCount: number;
   @Input() letterNextLimit: number;
