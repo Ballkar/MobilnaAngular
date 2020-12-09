@@ -1,6 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/operators';
+import { SnotifyService } from 'ng-snotify';
+import { Observable, throwError } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
 import { UserModel } from 'src/app/shared/model/user.model';
 import { UserService } from '../user.service';
 
@@ -30,6 +33,7 @@ export class ProfileComponent implements OnInit {
   get newPasswordConfirmationCtrl() { return this.formPassword.get('new_password_confirmation') as FormControl; }
   constructor(
     private userService: UserService,
+    private notifyService: SnotifyService,
   ) { }
 
   ngOnInit() {
@@ -47,15 +51,25 @@ export class ProfileComponent implements OnInit {
     this.isLocked = true;
     this.userService.updateProfile(this.formProfile.value).pipe(
       finalize(() => this.isLocked = false),
-    ).subscribe();
+    ).subscribe(() => this.notifyService.success('Profil pomyślnie zaktualizowany'));
   }
 
   onPasswordSubmit() {
     if (this.formPassword.invalid) { return false; }
     this.isLocked = true;
     this.userService.changePassword(this.formPassword.value).pipe(
+      tap(() => this.resetForm(this.formPassword)),
+      catchError(e => this.catchPasswordError(e)),
       finalize(() => this.isLocked = false),
-    ).subscribe(() => this.resetForm(this.formPassword));
+    ).subscribe(() => this.notifyService.success('Hasło poprawnie zmienione'));
+  }
+
+  catchPasswordError(error: HttpErrorResponse): Observable<HttpErrorResponse> {
+    const message = error.error.message;
+    const errors = error.error.errors;
+
+    this.notifyService.error(message);
+    return throwError(error);
   }
 
   resetForm(form: FormGroup) {
