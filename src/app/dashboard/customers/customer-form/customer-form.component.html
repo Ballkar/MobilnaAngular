@@ -7,24 +7,24 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
     <mat-form-field class="name">
       <mat-label>Imie</mat-label>
-      <input matInput placeholder="Imie" [formControl]="nameCtrl">
+      <input matInput placeholder="Imie" [formControl]="nameCtrl" tabindex="1" required>
     </mat-form-field>
     <mat-form-field class="surname">
       <mat-label>Nazwisko</mat-label>
-      <input matInput placeholder="Nazwisko" [formControl]="surnameCtrl">
+      <input matInput placeholder="Nazwisko" [formControl]="surnameCtrl" tabindex="2" required>
     </mat-form-field>
     <mat-form-field class="phone">
       <mat-label>Numer telefonu</mat-label>
-      <input matInput placeholder="numer" [formControl]="phoneCtrl" appPhoneMask>
+      <input matInput placeholder="numer" [formControl]="phoneCtrl" appPhoneMask tabindex="3" required>
     </mat-form-field>
     <mat-form-field class="info">
       <mat-label>Dodatkowe informacje</mat-label>
-      <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"  [formControl]="additionalInfoCtrl"
+      <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" [formControl]="additionalInfoCtrl" tabindex="3"
         cdkAutosizeMinRows="4" cdkAutosizeMaxRows="8"></textarea>
     </mat-form-field>
 
     <div class="buttonContainer">
-      <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Zapisz</button>
+      <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked" tabindex="5">Zapisz</button>
     </div>
   </form>
 
