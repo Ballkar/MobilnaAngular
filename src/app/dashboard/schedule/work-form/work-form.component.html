@@ -51,6 +51,6 @@
   </mat-form-field>
 
   <div class="buttonContainer">
-    <button mat-raised-button color="primary" class="addBtn" type="submit">Zapisz</button>
+    <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Zapisz</button>
   </div>
 </form>

@@ -1,0 +1,62 @@
+@import 'mixins';
+.preview{
+  padding-top: 25px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-flow: row;
+  &.center{
+    text-align: center;
+    justify-content: center;
+  }
+  @include mobile{
+    flex-flow: column!important;
+  }
+
+  .mobilePhone{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('/assets/svg/mobile-phone.png');
+    width: 375px;
+    height: 400px;
+    padding: 75px 30px;
+    position: relative;
+    @include mobile{
+      width: 300px!important;
+      height: 450px!important;
+      padding: 60px 30px!important;
+    }
+
+    .text{
+      border-top: 1px solid #ddd;
+      word-break: break-word;
+      .placeholder{
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        padding-top: 15px;
+        padding-bottom: 5px;
+        .date{
+          font-size: 10px;
+        }
+      }
+    }
+    .counter{
+      position: absolute;
+      font-size: 12px;
+      text-align: end;
+      bottom: 0px;
+      right: 30px;
+    }
+  }
+
+  .buttonContainer{
+    align-self: flex-end;
+    button{
+      @include mobile{
+        margin-top: 5px;
+      }
+    }
+  }
+}

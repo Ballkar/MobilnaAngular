@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { InitMessageComponent } from './init-message/init-message.component';
 import { InitMessagePopupComponent } from './init-message-popup/init-message-popup.component';
 import { StartPageComponent } from './start-page/start-page.component';
+import { MessageMobilePreviewComponent } from './message-mobile-preview/message-mobile-preview.component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { StartPageComponent } from './start-page/start-page.component';
     InitMessageComponent,
     InitMessagePopupComponent,
     StartPageComponent,
+    MessageMobilePreviewComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +25,7 @@ import { StartPageComponent } from './start-page/start-page.component';
     InitMessagePopupComponent,
   ],
   exports: [
+    MessageMobilePreviewComponent,
   ]
 })
 export class MessageModule { }

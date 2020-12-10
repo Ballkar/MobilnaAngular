@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, debounceTime, map, concatMap, tap } from 'rxjs/operators';
+import { startWith, debounceTime, map, concatMap, tap, finalize } from 'rxjs/operators';
 import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
 import { MessageModel, MessageSchemaModel } from '../message.model';
@@ -16,6 +16,7 @@ import { MessageService } from '../message.service';
 })
 export class InitMessageComponent implements OnInit {
 
+  isLocked = false;
   filteredCustomers$: Observable<CustomerModel[]>;
   filteredSchemas$: Observable<MessageSchemaModel[]>;
   form: FormGroup;
@@ -77,9 +78,11 @@ export class InitMessageComponent implements OnInit {
       this.form.setErrors({textNeeded: 'Wymagany jest wybór schematu lub wpisanie własnej treści wiadomości.'});
       return false;
     }
+    this.isLocked = true;
     this.messageService.initMessage(this.customerCtrl.value.id,
-      this.schemaCtrl.value ? this.schemaCtrl.value.id : null, this.textCtrl.value)
-      .subscribe(
+      this.schemaCtrl.value ? this.schemaCtrl.value.id : null, this.textCtrl.value).pipe(
+        finalize(() => this.isLocked = false),
+      ).subscribe(
         res => this.messageInited.emit(res),
         error => this.form.setErrors({apiError: error.error.errors})
       );

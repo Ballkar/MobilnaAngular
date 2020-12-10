@@ -43,6 +43,6 @@
     </mat-form-field>
 
   <div class="buttonContainer">
-    <button mat-raised-button color="primary" class="addBtn" type="submit">Wyślij</button>
+    <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Wyślij</button>
   </div>
 </form>

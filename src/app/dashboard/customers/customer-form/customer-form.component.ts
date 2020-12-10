@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { SnotifyService } from 'ng-snotify';
+import { finalize, tap } from 'rxjs/operators';
 import { CustomerModel } from '../customer.model';
 import { CustomersService } from '../customers.service';
 
@@ -11,11 +11,11 @@ import { CustomersService } from '../customers.service';
   styleUrls: ['./customer-form.component.scss']
 })
 export class CustomerFormComponent implements OnInit {
-
   state: 'add' | 'edit';
   form: FormGroup;
-
   customers: CustomerModel[] = [];
+  isLocked = false;
+
   get nameCtrl() { return this.form.get('name') as FormControl; }
   get surnameCtrl() { return this.form.get('surname') as FormControl; }
   get phoneCtrl() { return this.form.get('phone') as FormControl; }
@@ -26,6 +26,7 @@ export class CustomerFormComponent implements OnInit {
   @Output() customerEmitted: EventEmitter<CustomerModel> = new EventEmitter();
   constructor(
     private customerService: CustomersService,
+    private notificationService: SnotifyService,
   ) { }
 
   ngOnInit() {
@@ -45,13 +46,18 @@ export class CustomerFormComponent implements OnInit {
 
   onSubmit() {
     if (this.form.invalid) {  return false; }
+    this.isLocked = true;
 
     if (this.state === 'add') {
-      this.customerService.saveCustomer({...this.form.value})
-        .subscribe(customer => this.customerEmitted.emit(customer));
+      this.customerService.saveCustomer({...this.form.value}).pipe(
+        finalize(() => this.isLocked = false),
+        tap(customer => this.customerEmitted.emit(customer)),
+      ).subscribe(() => this.notificationService.success('Klientka została poprawnie dodana!'));
     } else {
-      this.customerService.editCustomer({...this.form.value, id: this.customer.id})
-        .subscribe(customer => this.customerEmitted.emit(customer));
+      this.customerService.editCustomer({...this.form.value, id: this.customer.id}).pipe(
+        finalize(() => this.isLocked = false),
+        tap(customer => this.customerEmitted.emit(customer)),
+      ).subscribe(() => this.notificationService.success('Klientka została poprawnie edytowana!'));
     }
   }
 }

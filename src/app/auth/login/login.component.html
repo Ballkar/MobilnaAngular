@@ -1,11 +1,11 @@
 <form id="form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="title">Witaj!</div>
+    <mat-error *ngIf="form.errors && form.errors['invalidCredentials']">
+      {{form.errors['invalidCredentials']}}
+    </mat-error>
 
     <mat-form-field>
       <input matInput placeholder="Email" type="email" required [formControl]="email">
-      <mat-error *ngIf="email.errors && email.errors['invalidCredentials']">
-        {{email.errors['invalidCredentials']}}
-      </mat-error>
     </mat-form-field>
 
     <mat-form-field>

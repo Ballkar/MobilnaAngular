@@ -1,7 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { tap } from 'rxjs/operators';
+import { SnotifyService } from 'ng-snotify';
+import { Observable, throwError } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
 import { UserModel } from 'src/app/shared/model/user.model';
 import { UserService } from '../user.service';
 
@@ -12,17 +14,18 @@ import { UserService } from '../user.service';
 })
 export class ProfileComponent implements OnInit {
 
+  isLocked = false;
   opened: string;
   user: UserModel;
   formProfile: FormGroup = new FormGroup({
-    name: new FormControl(null, Validators.required),
+    name: new FormControl(null, [Validators.required, Validators.maxLength(11), Validators.minLength(3)]),
     phone: new FormControl(null, Validators.required),
   });
   get nameCtrl() { return this.formProfile.get('name') as FormControl; }
   get phoneCtrl() { return this.formProfile.get('phone') as FormControl; }
   formPassword: FormGroup = new FormGroup({
     password: new FormControl(null, Validators.required),
-    new_password: new FormControl(null, Validators.required),
+    new_password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     new_password_confirmation: new FormControl(null, Validators.required),
   });
   get passwordCtrl() { return this.formPassword.get('password') as FormControl; }
@@ -30,6 +33,7 @@ export class ProfileComponent implements OnInit {
   get newPasswordConfirmationCtrl() { return this.formPassword.get('new_password_confirmation') as FormControl; }
   constructor(
     private userService: UserService,
+    private notifyService: SnotifyService,
   ) { }
 
   ngOnInit() {
@@ -44,14 +48,28 @@ export class ProfileComponent implements OnInit {
 
   onProfileSubmit() {
     if (this.formProfile.invalid) { return false; }
-    this.userService.updateProfile(this.formProfile.value).subscribe(res => console.log(res));
+    this.isLocked = true;
+    this.userService.updateProfile(this.formProfile.value).pipe(
+      finalize(() => this.isLocked = false),
+    ).subscribe(() => this.notifyService.success('Profil pomyślnie zaktualizowany'));
   }
 
   onPasswordSubmit() {
     if (this.formPassword.invalid) { return false; }
-    this.userService.changePassword(this.formPassword.value).subscribe(
-      () => this.resetForm(this.formPassword),
-    );
+    this.isLocked = true;
+    this.userService.changePassword(this.formPassword.value).pipe(
+      tap(() => this.resetForm(this.formPassword)),
+      catchError(e => this.catchPasswordError(e)),
+      finalize(() => this.isLocked = false),
+    ).subscribe(() => this.notifyService.success('Hasło poprawnie zmienione'));
+  }
+
+  catchPasswordError(error: HttpErrorResponse): Observable<HttpErrorResponse> {
+    const message = error.error.message;
+    const errors = error.error.errors;
+
+    this.notifyService.error(message);
+    return throwError(error);
   }
 
   resetForm(form: FormGroup) {

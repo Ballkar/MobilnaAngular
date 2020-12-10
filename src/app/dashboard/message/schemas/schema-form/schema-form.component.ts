@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
-import { filter } from 'rxjs/operators';
+import { filter, finalize } from 'rxjs/operators';
 import { MessageSchemaModel } from '../../message.model';
 import { MessageSchemaService } from '../messageSchema.service';
 import { SchemaPreviewComponent } from '../schema-preview/schema-preview.component';
@@ -13,6 +13,7 @@ import { SchemaPreviewComponent } from '../schema-preview/schema-preview.compone
 })
 export class SchemaFormComponent implements OnInit {
 
+  isLocked = false;
   state: 'add' | 'edit';
   form: FormGroup;
   @Input() schema: MessageSchemaModel;
@@ -50,15 +51,20 @@ export class SchemaFormComponent implements OnInit {
 
   onSubmit() {
     if (this.form.invalid) { return false; }
+    this.isLocked = true;
 
     if (this.state === 'add') {
-      this.schemaService.saveSchema(this.form.value).subscribe(res => this.schemaSubmitted.emit(res));
+      this.schemaService.saveSchema(this.form.value).pipe(
+        finalize(() => this.isLocked = false),
+      ).subscribe(res => this.schemaSubmitted.emit(res));
     } else {
       this.schemaService.updateSchema({...this.schema,
-          clearDiacritics: this.clearDiacriticsCtrl.value,
-          name: this.nameCtrl.value,
-          body: this.bodyCtrl.value})
-      .subscribe(res => this.schemaSubmitted.emit(res));
+        clearDiacritics: this.clearDiacriticsCtrl.value,
+        name: this.nameCtrl.value,
+        body: this.bodyCtrl.value
+      }).pipe(
+        finalize(() => this.isLocked = false),
+      ).subscribe(res => this.schemaSubmitted.emit(res));
     }
   }
 }

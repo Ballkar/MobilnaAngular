@@ -14,8 +14,8 @@
   <div class="row">
     <mat-checkbox [formControl]="clearDiacriticsCtrl" color="primary">Usuń polskie znaki</mat-checkbox>
     <div class="buttonContainer">
-      <button mat-raised-button color="primary" type="button" (click)="preview()">Podgląd</button>
-      <button mat-raised-button color="primary" class="addBtn" type="submit">Zapisz</button>
+      <button mat-raised-button color="primary" type="button" (click)="preview()" [disabled]="isLocked">Podgląd</button>
+      <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Zapisz</button>
     </div>
   </div>
 </form>
