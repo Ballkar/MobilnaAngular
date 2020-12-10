@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SnotifyService } from 'ng-snotify';
 import { finalize, tap } from 'rxjs/operators';
 import { CustomerModel } from '../customer.model';
 import { CustomersService } from '../customers.service';
@@ -26,7 +25,6 @@ export class CustomerFormComponent implements OnInit {
   @Output() customerEmitted: EventEmitter<CustomerModel> = new EventEmitter();
   constructor(
     private customerService: CustomersService,
-    private notificationService: SnotifyService,
   ) { }
 
   ngOnInit() {
@@ -52,12 +50,12 @@ export class CustomerFormComponent implements OnInit {
       this.customerService.saveCustomer({...this.form.value}).pipe(
         finalize(() => this.isLocked = false),
         tap(customer => this.customerEmitted.emit(customer)),
-      ).subscribe(() => this.notificationService.success('Klientka została poprawnie dodana!'));
+      ).subscribe();
     } else {
       this.customerService.editCustomer({...this.form.value, id: this.customer.id}).pipe(
         finalize(() => this.isLocked = false),
         tap(customer => this.customerEmitted.emit(customer)),
-      ).subscribe(() => this.notificationService.success('Klientka została poprawnie edytowana!'));
+      ).subscribe();
     }
   }
 }
