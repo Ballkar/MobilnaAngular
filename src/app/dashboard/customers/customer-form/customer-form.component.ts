@@ -31,10 +31,10 @@ export class CustomerFormComponent implements OnInit {
     const {customer} = this;
     this.state = customer && customer.id ? 'edit' : 'add';
     this.form  = new FormGroup({
-      name: new FormControl(customer ? customer.name : '', [Validators.required, Validators.minLength(4)]),
-      surname: new FormControl(customer ? customer.surname : '', [Validators.required, Validators.minLength(4)]),
+      name: new FormControl(customer ? customer.name : '', [Validators.required, Validators.minLength(3)]),
+      surname: new FormControl(customer ? customer.surname : '', [Validators.required, Validators.minLength(3)]),
       phone: new FormControl(customer ? customer.phone : '', [Validators.required, Validators.maxLength(11), Validators.minLength(11)]),
-      additionalInfo: new FormControl(customer ? customer.additionalInfo : '', Validators.minLength(4)),
+      additionalInfo: new FormControl(customer ? customer.additionalInfo : ''),
     });
   }
 

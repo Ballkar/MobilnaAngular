@@ -7,10 +7,10 @@ import { DAYS_OF_WEEK } from 'angular-calendar';
 export class MainCalendarService {
 
   baseConfig: BaseConfigInterface = {
-    dayStartHour: 8,
+    dayStartHour: 7,
     dayStartMinute: 0,
     hourSegments: 4,
-    dayEndHour: 19,
+    dayEndHour: 24,
     dayEndMinute: 0,
     locale: 'pl',
     actualDate: new Date(),
