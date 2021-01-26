@@ -20,9 +20,21 @@
 
       <div class="item" *ngFor="let message of messages.items">
 
-        <button class="name" mat-list-item (click)="select(message)">
-          {{message.name}} - ({{message.customer.name}} {{message.customer.surname}} / {{message.customer.phone}})
-          <span class="date">{{message.created_at|date: 'HH:mm dd-MM-yyyy'}}</span>
+        <button mat-list-item (click)="select(message)">
+
+          <div class="onlyDesktop">
+            <div class="content">
+              <div class="name">{{message.name}} - ({{message.customer.name}} {{message.customer.surname}} / {{message.customer.phone}})</div>
+              <span class="date">{{message.created_at|date: 'HH:mm dd-MM-yyyy'}}</span>
+            </div>
+          </div>
+
+          <div class="onlyMobile">
+            <div class="content">
+              <div class="name">{{message.customer.name}} {{message.customer.surname}} / {{message.customer.phone}}</div>
+              <span class="date">{{message.created_at|date: 'dd-MM-yyyy'}}</span>
+            </div>
+          </div>
         </button>
       </div>
 
