@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-import { DAYS_OF_WEEK } from 'angular-calendar';
+import { CalendarEvent, DAYS_OF_WEEK } from 'angular-calendar';
+import * as moment from 'moment';
+import { EventModel } from './event.model';
+import { ItemModel } from './item.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainCalendarService {
+  dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
   baseConfig: BaseConfigInterface = {
     dayStartHour: 7,
@@ -34,6 +38,34 @@ export class MainCalendarService {
   };
 
   constructor() { }
+
+  mapEventsToInnerModel(event: EventModel<ItemModel>): CalendarEvent<ItemModel> {
+    return {
+      start: moment(event.start, this.dateFormat).toDate(),
+      end: moment(event.stop, this.dateFormat).toDate(),
+      title: event.title,
+      meta: event.data,
+      color: event.state,
+      resizable: {
+        beforeStart: true,
+        afterEnd: true,
+      },
+      draggable: true,
+    }
+  }
+
+  mapEventsToOutputModel(event: CalendarEvent<ItemModel>): EventModel<ItemModel> {
+    const start = moment(event.start, this.dateFormat).format(this.dateFormat);
+    const end = moment(event.start, this.dateFormat).format(this.dateFormat);
+
+    return {
+      data: event.meta,
+      start: start,
+      stop: end,
+      title: event.title,
+      state: event.color,
+    }
+  }
 }
 
 export interface BaseConfigInterface {

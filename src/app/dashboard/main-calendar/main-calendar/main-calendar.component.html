@@ -1,46 +1,45 @@
 <div class="container">
   <div class="titleContainer">
-    <mat-spinner *ngIf="updatingState$|async" class="updatingStateLoader" [diameter]="25" mode="indeterminate"></mat-spinner>
+    <mat-spinner *ngIf="updatingState$|async" class="updatingStateLoader" [diameter]="25" mode="indeterminate">
+    </mat-spinner>
     <div class="btnContainer">
       <button mat-raised-button
-        color="primary"
-        mwlCalendarPreviousView view="day"
-        [(viewDate)]="configData.actualDate"
-        (viewDateChange)="changeDateDisplayed()">Wstecz</button>
+              color="primary"
+              mwlCalendarPreviousView view="day"
+              [(viewDate)]="configData.actualDate"
+              (viewDateChange)="changeDateDisplayed()">Wstecz
+      </button>
 
       <button mat-raised-button
-        color="primary"
-        class="addBtn"
-        type="submit"
-        mwlCalendarNextView view="day"
-        [(viewDate)]="configData.actualDate"
-        (viewDateChange)="changeDateDisplayed()">Dalej</button>
+              color="primary"
+              class="addBtn"
+              type="submit"
+              mwlCalendarNextView
+              view="day"
+              [(viewDate)]="configData.actualDate"
+              (viewDateChange)="changeDateDisplayed()">Dalej
+      </button>
     </div>
   </div>
 
   <div class="calendar">
     <mwl-calendar-week-view
-      [viewDate]="configData.actualDate"
-      [locale]="configData.locale"
-      [precision]="configData.precision"
-      [hourSegments]="configData.hourSegments"
-      [dayStartHour]="configData.dayStartHour"
-      [dayStartMinute]="configData.dayStartMinute"
-      [dayEndHour]="configData.dayEndHour"
-      [dayEndMinute]="configData.dayEndMinute"
+                            [viewDate]="configData.actualDate"
+                            [locale]="configData.locale"
+                            [precision]="configData.precision"
+                            [hourSegments]="configData.hourSegments"
+                            [dayStartHour]="configData.dayStartHour"
+                            [dayStartMinute]="configData.dayStartMinute"
+                            [dayEndHour]="configData.dayEndHour"
+                            [dayEndMinute]="configData.dayEndMinute"
 
-      [daysInWeek]="daysInWeek"
+                            [daysInWeek]="daysInWeek"
 
+                            [events]="events"
 
-      [events]="events"
-
-
-      (hourSegmentClicked)="onEmptyHourClicked($event)"
-      (eventClicked)="onEventClicked($event)"
-      (eventTimesChanged)="onChangeEventTime($event)"
-
-
-      (dragEnter)="log($event)"
-    ></mwl-calendar-week-view>
+                            (hourSegmentClicked)="onEmptyHourClicked($event)"
+                            (eventClicked)="onEventClicked($event)"
+                            (eventTimesChanged)="onChangeEventTime($event)">
+    </mwl-calendar-week-view>
   </div>
 </div>

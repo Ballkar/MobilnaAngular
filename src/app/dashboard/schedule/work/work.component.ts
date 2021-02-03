@@ -15,7 +15,7 @@ import { WorkService } from '../work.service';
   styleUrls: ['./work.component.scss']
 })
 export class WorkComponent implements OnInit {
-
+  dateFormat = 'YYYY-M-D H:m:s';
   events: EventModel<WorkModel>[];
   date: {startDate: Date, endDate: Date};
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -48,7 +48,8 @@ export class WorkComponent implements OnInit {
     ).subscribe(() => this.getEvents());
   }
 
-  workClicked(work: WorkModel) {
+  workClicked(event: EventModel<WorkModel>) {
+    const work: WorkModel = event.data;
     const ref = this.dialog.open(WorkPopupComponentComponent, { data: {work} });
     ref.afterClosed().pipe(
       tap(() => this.getEvents()),
@@ -64,8 +65,8 @@ export class WorkComponent implements OnInit {
   }) {
     this.isUpdating$.next(true);
     const { data } = event;
-    const startDate = moment(event.start).format('YYYY-M-D H:m:s');
-    const endDate = moment(event.end).format('YYYY-M-D H:m:s');
+    const startDate = moment(event.start).format(this.dateFormat);
+    const endDate = moment(event.end).format(this.dateFormat);
     this.replaceElement({...data, start: startDate, stop: endDate});
     this.workService.editWork({...data, start: startDate, stop: endDate}).pipe(
       tap(() => this.isUpdating$.next(false)),
@@ -99,7 +100,7 @@ export class WorkComponent implements OnInit {
     const event: EventModel<WorkModel> = {
       start: work.start,
       stop: work.stop,
-      title: `${work.customer.name} ${work.customer.surname}`,
+      title: `${work.customer.name} ${work.customer.surname} <br> ${moment(work.start, this.dateFormat).format('H:mm')}-${moment(work.stop, this.dateFormat).format('H:mm')}`,
       state: this.workService.clientState,
       data: work,
     };
