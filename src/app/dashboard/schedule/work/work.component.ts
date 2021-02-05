@@ -18,7 +18,6 @@ export class WorkComponent implements OnInit {
   dateFormat = 'YYYY-M-D H:m:s';
   events: EventModel<WorkModel>[];
   date: {startDate: Date, endDate: Date};
-  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isUpdating$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   constructor(
     private workService: WorkService,
@@ -31,13 +30,18 @@ export class WorkComponent implements OnInit {
       endDate: moment().set({hour: 0, minute: 0, second: 0, millisecond: 0}).add(7, 'days').toDate(),
     };
     this.getEvents();
+
+    this.isUpdating$.pipe(
+      map(res => res ? 'loading' : 'nie loading'),
+    ).subscribe(console.log);
   }
 
   getEvents() {
-    this.isLoading$.next(true);
+    this.isUpdating$.next(true);
     this.workService.getWorks(this.date.startDate, this.date.endDate).pipe(
       map(works => works.items.map(work => this.mapWorkToEvent(work))),
-      tap(() => this.isLoading$.next(false)),
+      delay(5000),
+      tap(() => this.isUpdating$.next(false)),
     ).subscribe(res => this.events = res);
   }
 

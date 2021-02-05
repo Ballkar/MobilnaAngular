@@ -6,7 +6,7 @@
     Kalendarz
   </mat-card-title>
 
-  <app-main-calendar *ngIf="events"
+  <app-main-calendar
     [eventsData]="events"
     [updatingState$]="isUpdating$"
     (changeDate)="changeDate($event)"
@@ -14,8 +14,4 @@
     (eventTimeChanged)="changeTimeOfWork($event)"
     (eventClicked)="workClicked($event)">
   </app-main-calendar>
-
-  <ng-container *ngIf="isLoading$|async">
-    <mat-spinner></mat-spinner>
-  </ng-container>
 </div>

@@ -22,6 +22,7 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
 
   @Input() updatingState$: Observable<boolean>;
   @Input() set eventsData(data: EventModel<ItemModel>[]) {
+    if (!data) { return; }
     this.events = data.map(el => (this.calendarService.mapEventsToInnerModel(el)));
   }
 
