@@ -1,3 +1,4 @@
+@import 'mixins';
 .container{
   display: flex;
   flex-flow: column;
@@ -19,6 +20,23 @@
       display: flex;
       flex-flow: row;
       align-items: center;
+
+      button{
+
+        .onlyDesktop{
+          width: 100%;
+          @include onlyDesktop;
+        }
+        .onlyMobile{
+          width: 100%;
+          @include onlyMobile;
+        }
+        .content{
+          font-size: 13px;
+          width: 100%;
+          display: flex;
+        }
+      }
     }
   }
 

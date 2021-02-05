@@ -10,7 +10,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthIntercecptorService } from './shared/interceptors/auth-interceptor.service';
 import { ErrorIntercecptorService } from './shared/interceptors/error-interceptor.service';
 import { SharedModule } from './shared/shared.module';
-import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,6 @@ import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
-    SnotifyModule,
   ],
   providers: [
     GuestGuard,
@@ -36,8 +34,6 @@ import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
       useClass: ErrorIntercecptorService,
       multi: true
     },
-    { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
-    SnotifyService
   ],
   bootstrap: [AppComponent]
 })

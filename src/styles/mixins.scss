@@ -19,6 +19,20 @@ $desktop-width: 1024px;
   }
 }
 
+@mixin onlyMobile {
+  display: none;
+  @include mobile {
+    display: block;
+  }
+}
+
+@mixin onlyDesktop {
+  display: none;
+  @include desktop {
+    display: block;
+  }
+}
+
 @mixin popupContainer {
   padding: 24px;
   width: 80vw;

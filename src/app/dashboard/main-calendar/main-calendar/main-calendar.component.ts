@@ -1,12 +1,13 @@
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { ChangeDetectorRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { CalendarEvent, CalendarEventTimesChangedEvent, CalendarEventTitleFormatter } from 'angular-calendar';
+import { CalendarEvent, CalendarEventTimesChangedEvent } from 'angular-calendar';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 import { BaseConfigInterface, MainCalendarService } from '../main-calendar.service';
 import { EventModel } from '../event.model';
+import { ItemModel } from '../item.model';
 
 @Component({
   selector: 'app-main-calendar',
@@ -14,32 +15,20 @@ import { EventModel } from '../event.model';
   styleUrls: ['./main-calendar.component.scss'],
 })
 export class MainCalendarComponent implements OnInit, OnDestroy {
-  private dateFormat = 'YYYY-M-D H:m:s';
   private destroy$ = new Subject();
   daysInWeek: number;
   configData: BaseConfigInterface = this.calendarService.baseConfig;
-  events: CalendarEvent<{id: number}>[];
+  events: CalendarEvent<ItemModel>[];
 
   @Input() updatingState$: Observable<boolean>;
-  @Input() set eventsData(data: EventModel<{id: number}>[]) {
-    this.events = data.map(el => ({
-      start: moment(el.start, this.dateFormat).toDate(),
-      end: moment(el.stop, this.dateFormat).toDate(),
-      title: `${el.title} <br> ${moment(el.start, this.dateFormat).format('H:mm')}-${moment(el.stop, this.dateFormat).format('H:mm')}`,
-      meta: el.data,
-      color: el.state,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    }));
+  @Input() set eventsData(data: EventModel<ItemModel>[]) {
+    this.events = data.map(el => (this.calendarService.mapEventsToInnerModel(el)));
   }
 
-  @Output() changeDate: EventEmitter<{startDate: Date, endDate: Date}> = new EventEmitter();
+  @Output() changeDate: EventEmitter<{ startDate: Date, endDate: Date }> = new EventEmitter();
   @Output() emptyHourClicked: EventEmitter<Date> = new EventEmitter();
-  @Output() eventClicked: EventEmitter<EventModel<{id: number}>> = new EventEmitter();
-  @Output() eventTimeChanged: EventEmitter<{data: {id: number}, start: Date, end: Date}> = new EventEmitter();
+  @Output() eventClicked: EventEmitter<EventModel<ItemModel>> = new EventEmitter();
+  @Output() eventTimeChanged: EventEmitter<{ data: ItemModel, start: Date, end: Date }> = new EventEmitter();
   constructor(
     private calendarService: MainCalendarService,
     private breakpointObserver: BreakpointObserver,
@@ -60,35 +49,30 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
         }
         this.cd.markForCheck();
       }
-    );
-  }
-
-  log(data) {
-    console.log(data);
+      );
   }
 
   changeDateDisplayed() {
     this.changeDate.emit({
-      startDate: moment(this.configData.actualDate, this.dateFormat)
-        .set({hour: 0, minute: 0, second: 0, millisecond: 0})
+      startDate: moment(this.configData.actualDate, this.calendarService.dateFormat)
+        .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
         .toDate(),
-      endDate: moment(this.configData.actualDate, this.dateFormat)
-        .set({hour: 0, minute: 0, second: 0, millisecond: 0})
+      endDate: moment(this.configData.actualDate, this.calendarService.dateFormat)
+        .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
         .add(this.daysInWeek, 'days')
         .toDate()
     });
   }
 
-  onEmptyHourClicked(data: {date: Date}) {
+  onEmptyHourClicked(data: { date: Date }) {
     this.emptyHourClicked.emit(data.date);
   }
 
-  onEventClicked(data: { event: EventModel<{id: number}>, sourceEvent: any }) {
-    // tslint:disable-next-line: no-string-literal
-    this.eventClicked.emit(data.event['meta']);
+  onEventClicked(data: { event: CalendarEvent<ItemModel>, sourceEvent: any }) {
+    this.eventClicked.emit(this.calendarService.mapEventsToOutputModel(data.event));
   }
 
-  onChangeEventTime(eventTimeChange: CalendarEventTimesChangedEvent<{id: number}>): void {
+  onChangeEventTime(eventTimeChange: CalendarEventTimesChangedEvent<ItemModel>): void {
     const { event, newStart, newEnd } = eventTimeChange;
     this.eventTimeChanged.next({
       start: newStart,
