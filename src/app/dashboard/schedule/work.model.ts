@@ -5,6 +5,7 @@ export interface WorkModel {
   start: string;
   stop: string;
   customer: CustomerModel;
+  customer_id?: number;
 }
 
 

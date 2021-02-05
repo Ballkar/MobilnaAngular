@@ -1,3 +1,25 @@
+@import 'mixins';
+
 mat-spinner{
   margin: 0 auto;
+}
+
+.controlButtonsContainer{
+  position: fixed;
+  bottom: 80px;
+  right: 25px;
+  display: flex;
+  flex-flow: column;
+  z-index: 999;
+  // @include mobile{
+  //   flex-flow: row;
+  // }
+
+  button:first-of-type{
+    margin-bottom: 10px;
+    // @include mobile{
+    //   margin-bottom: 0px;
+    //   margin-right: 10px;
+    // }
+  }
 }

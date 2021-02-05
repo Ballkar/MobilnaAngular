@@ -7,11 +7,17 @@
   </mat-card-title>
 
   <app-main-calendar
-    [eventsData]="events"
+    [eventsData]="workEvents"
     [updatingState$]="isUpdating$"
     (dateDisplayedChanged)="changeDate($event)"
     (emptyHourClicked)="addWorkOnDate($event)"
     (eventTimeChanged)="changeTimeOfWork($event)"
     (eventClicked)="workClicked($event)">
   </app-main-calendar>
+</div>
+
+
+<div class="controlButtonsContainer" *ngIf="dataHaveBeenChanged">
+  <button mat-raised-button color="primary" (click)="saveActualWorks()">Zapisz</button>
+  <button mat-raised-button color="warn" (click)="resetActualWorks()">Przywróć</button>
 </div>

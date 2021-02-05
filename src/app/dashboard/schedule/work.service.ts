@@ -22,13 +22,13 @@ export class WorkService {
     private httpClient: HttpClient,
   ) { }
 
-  getWorks(startDate: Date, endDate: Date): Observable<DataResponse<WorkModel>> {
+  getWorks(startDate: Date, endDate: Date): Observable<WorkModel[]> {
     const start = moment(startDate).format('YYYY-M-D H:m:s');
     const stop = moment(endDate).format('YYYY-M-D H:m:s');
 
     const params = new HttpParams().set('start', start).set('stop', stop);
     return this.httpClient.get<ResponseModel<DataResponse<WorkModel>>>(`${environment.apiUrl}/calendar/works`, { params }).pipe(
-      map(res => res.data),
+      map(res => res.data.items),
     );
   }
 
@@ -46,6 +46,13 @@ export class WorkService {
       ...work,
       customer_id: work.customer.id
     }).pipe(
+      map(res => res.data)
+    );
+  }
+
+  saveManyWorks(works: WorkModel[]): Observable<WorkModel[]> {
+    works.forEach(work => work.customer_id = work.customer.id);
+    return this.httpClient.post<ResponseModel<WorkModel[]>>(`${environment.apiUrl}/calendar/works/mass-update`, {works}).pipe(
       map(res => res.data)
     );
   }

@@ -9,6 +9,7 @@ import { EventMainCalendar } from '../../main-calendar/eventMainCalendar.model';
 import { WorkPopupComponentComponent } from '../work-popup-component/work-popup-component.component';
 import { WorkModel } from '../work.model';
 import { WorkService } from '../work.service';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-work',
@@ -16,10 +17,12 @@ import { WorkService } from '../work.service';
   styleUrls: ['./work.component.scss']
 })
 export class WorkComponent implements OnInit {
+  dataHaveBeenChanged = false;
   dateFormat = 'YYYY-M-D H:m:s';
-  events: EventMainCalendar<WorkModel>[];
+  workEvents: EventMainCalendar<WorkModel>[];
   date: DateInMainCalendar;
   isUpdating$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private worksFromApi: WorkModel[];
   constructor(
     private workService: WorkService,
     private dialog: MatDialog,
@@ -30,71 +33,76 @@ export class WorkComponent implements OnInit {
       startDate: moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).toDate(),
       endDate: moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).add(7, 'days').toDate(),
     };
-    this.getEvents();
+    this.getWorks();
   }
 
-  getEvents() {
+  getWorks() {
     this.isUpdating$.next(true);
     this.workService.getWorks(this.date.startDate, this.date.endDate).pipe(
-      map(works => works.items.map(work => this.mapWorkToEvent(work))),
+      tap((works) => this.worksFromApi = cloneDeep(works)),
+      tap(() => this.dataHaveBeenChanged = false),
+      map(works => works.map(work => this.mapWorkToEvent(work))),
       tap(() => this.isUpdating$.next(false)),
-    ).subscribe(res => this.events = res);
+    ).subscribe(res => this.workEvents = res);
   }
 
   addWorkOnDate(startDate: Data) {
     const ref = this.dialog.open(WorkPopupComponentComponent, { data: { startDate } });
     ref.afterClosed().pipe(
       filter(data => !!data),
-    ).subscribe(() => this.getEvents());
+    ).subscribe(() => this.getWorks());
   }
 
   workClicked(event: EventMainCalendar<WorkModel>) {
     const work: WorkModel = event.data;
     const ref = this.dialog.open(WorkPopupComponentComponent, { data: { work } });
     ref.afterClosed().pipe(
-      tap(() => this.getEvents()),
       filter(data => !!data),
       tap(edittedWork => this.replaceElement(edittedWork)),
     ).subscribe();
   }
 
   changeTimeOfWork(event: EventMainCalendar<WorkModel>) {
-
-    // this.isUpdating$.next(true);
-
     const { data: work } = event;
     work.start = event.start;
     work.stop = event.stop;
-    // console.log('work', work);
-    // console.log('event', event);
-
-
     this.replaceElement(work);
-    // this.workService.editWork(data).pipe(
-    //   tap(() => this.isUpdating$.next(false)),
-    //   tap(edittedWork => this.replaceElement(edittedWork)),
-    // ).subscribe(() => this.getEvents());
+  }
+
+  saveActualWorks() {
+    this.isUpdating$.next(true);
+    const works: WorkModel[] = this.workEvents.map(event => event.data);
+    this.workService.saveManyWorks(works).pipe(
+      // tap(edittedWork => this.replaceElement(edittedWork)),
+    ).subscribe(() => this.getWorks());
+  }
+
+  resetActualWorks() {
+    this.dataHaveBeenChanged = false;
+    const worksEventsRemembered = this.worksFromApi.map(work => this.mapWorkToEvent(work));
+    this.workEvents = cloneDeep(worksEventsRemembered);
   }
 
   changeDate(data: DateInMainCalendar) {
     this.date = data;
-    this.getEvents();
+    this.getWorks();
   }
 
   private replaceElement(newWork: WorkModel) {
-    const index = this.events.map(e => e.data.id).indexOf(newWork.id);
+    this.dataHaveBeenChanged = true;
+    const index = this.workEvents.map(e => e.data.id).indexOf(newWork.id);
 
     if (index !== -1) {
-      this.events[index] = this.mapWorkToEvent(newWork);
-      this.events = [...this.events];
+      this.workEvents[index] = this.mapWorkToEvent(newWork);
+      this.workEvents = [...this.workEvents];
     }
   }
 
   private removeElement(workToRemove: WorkModel) {
-    const index = this.events.map(e => e.data.id).indexOf(workToRemove.id);
+    const index = this.workEvents.map(e => e.data.id).indexOf(workToRemove.id);
 
     if (index !== -1) {
-      this.events.splice(index, 1);
+      this.workEvents.splice(index, 1);
     }
   }
 
