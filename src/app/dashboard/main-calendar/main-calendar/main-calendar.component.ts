@@ -6,9 +6,9 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 import { BaseConfigInterface, MainCalendarService } from '../main-calendar.service';
-import { EventModel } from '../event.model';
+import { EventMainCalendar } from '../eventMainCalendar.model';
 import { ItemModel } from '../item.model';
-
+import { DateInMainCalendar } from '../DateInMainCalendar';
 @Component({
   selector: 'app-main-calendar',
   templateUrl: './main-calendar.component.html',
@@ -21,15 +21,16 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
   events: CalendarEvent<ItemModel>[];
 
   @Input() updatingState$: Observable<boolean>;
-  @Input() set eventsData(data: EventModel<ItemModel>[]) {
+  @Input() set eventsData(data: EventMainCalendar<ItemModel>[]) {
     if (!data) { return; }
     this.events = data.map(el => (this.calendarService.mapEventsToInnerModel(el)));
   }
 
-  @Output() changeDate: EventEmitter<{ startDate: Date, endDate: Date }> = new EventEmitter();
+  @Output() dateDisplayedChanged: EventEmitter<DateInMainCalendar> = new EventEmitter();
+
   @Output() emptyHourClicked: EventEmitter<Date> = new EventEmitter();
-  @Output() eventClicked: EventEmitter<EventModel<ItemModel>> = new EventEmitter();
-  @Output() eventTimeChanged: EventEmitter<{ data: ItemModel, start: Date, end: Date }> = new EventEmitter();
+  @Output() eventClicked: EventEmitter<EventMainCalendar<ItemModel>> = new EventEmitter();
+  @Output() eventTimeChanged: EventEmitter<EventMainCalendar<ItemModel>> = new EventEmitter();
   constructor(
     private calendarService: MainCalendarService,
     private breakpointObserver: BreakpointObserver,
@@ -54,7 +55,7 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
   }
 
   changeDateDisplayed() {
-    this.changeDate.emit({
+    this.dateDisplayedChanged.emit({
       startDate: moment(this.configData.actualDate, this.calendarService.dateFormat)
         .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
         .toDate(),
@@ -73,13 +74,13 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
     this.eventClicked.emit(this.calendarService.mapEventsToOutputModel(data.event));
   }
 
-  onChangeEventTime(eventTimeChange: CalendarEventTimesChangedEvent<ItemModel>): void {
-    const { event, newStart, newEnd } = eventTimeChange;
-    this.eventTimeChanged.next({
-      start: newStart,
-      end: newEnd,
-      data: event.meta,
-    });
+  onChangeEventTime(timeChanged: CalendarEventTimesChangedEvent<ItemModel>): void {
+    const start = timeChanged.newStart;
+    const end = timeChanged.newEnd;
+    const eventAfterChange: CalendarEvent<ItemModel> = {...timeChanged.event, end, start };
+
+    const eventToEmit: EventMainCalendar<ItemModel> = this.calendarService.mapEventsToOutputModel(eventAfterChange);
+    this.eventTimeChanged.next(eventToEmit);
   }
 
   ngOnDestroy() {

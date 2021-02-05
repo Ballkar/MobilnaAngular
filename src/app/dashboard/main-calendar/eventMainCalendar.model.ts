@@ -1,6 +1,6 @@
 import { StateModel } from './state.model';
 
-export interface EventModel<T> {
+export interface EventMainCalendar<T> {
   start: string;
   stop: string;
   title: string;

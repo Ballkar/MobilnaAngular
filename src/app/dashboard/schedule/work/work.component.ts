@@ -4,7 +4,8 @@ import { Data } from '@angular/router';
 import * as moment from 'moment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { delay, filter, map, tap } from 'rxjs/operators';
-import { EventModel } from '../../main-calendar/event.model';
+import { DateInMainCalendar } from '../../main-calendar/DateInMainCalendar';
+import { EventMainCalendar } from '../../main-calendar/eventMainCalendar.model';
 import { WorkPopupComponentComponent } from '../work-popup-component/work-popup-component.component';
 import { WorkModel } from '../work.model';
 import { WorkService } from '../work.service';
@@ -16,8 +17,8 @@ import { WorkService } from '../work.service';
 })
 export class WorkComponent implements OnInit {
   dateFormat = 'YYYY-M-D H:m:s';
-  events: EventModel<WorkModel>[];
-  date: {startDate: Date, endDate: Date};
+  events: EventMainCalendar<WorkModel>[];
+  date: DateInMainCalendar;
   isUpdating$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   constructor(
     private workService: WorkService,
@@ -26,35 +27,30 @@ export class WorkComponent implements OnInit {
 
   ngOnInit() {
     this.date = {
-      startDate: moment().set({hour: 0, minute: 0, second: 0, millisecond: 0}).toDate(),
-      endDate: moment().set({hour: 0, minute: 0, second: 0, millisecond: 0}).add(7, 'days').toDate(),
+      startDate: moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).toDate(),
+      endDate: moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).add(7, 'days').toDate(),
     };
     this.getEvents();
-
-    this.isUpdating$.pipe(
-      map(res => res ? 'loading' : 'nie loading'),
-    ).subscribe(console.log);
   }
 
   getEvents() {
     this.isUpdating$.next(true);
     this.workService.getWorks(this.date.startDate, this.date.endDate).pipe(
       map(works => works.items.map(work => this.mapWorkToEvent(work))),
-      delay(5000),
       tap(() => this.isUpdating$.next(false)),
     ).subscribe(res => this.events = res);
   }
 
   addWorkOnDate(startDate: Data) {
-    const ref = this.dialog.open(WorkPopupComponentComponent, { data: {startDate} });
+    const ref = this.dialog.open(WorkPopupComponentComponent, { data: { startDate } });
     ref.afterClosed().pipe(
       filter(data => !!data),
     ).subscribe(() => this.getEvents());
   }
 
-  workClicked(event: EventModel<WorkModel>) {
+  workClicked(event: EventMainCalendar<WorkModel>) {
     const work: WorkModel = event.data;
-    const ref = this.dialog.open(WorkPopupComponentComponent, { data: {work} });
+    const ref = this.dialog.open(WorkPopupComponentComponent, { data: { work } });
     ref.afterClosed().pipe(
       tap(() => this.getEvents()),
       filter(data => !!data),
@@ -62,23 +58,25 @@ export class WorkComponent implements OnInit {
     ).subscribe();
   }
 
-  changeTimeOfWork(event: {
-    start: Date,
-    end: Date,
-    data: WorkModel,
-  }) {
-    this.isUpdating$.next(true);
-    const { data } = event;
-    const startDate = moment(event.start).format(this.dateFormat);
-    const endDate = moment(event.end).format(this.dateFormat);
-    this.replaceElement({...data, start: startDate, stop: endDate});
-    this.workService.editWork({...data, start: startDate, stop: endDate}).pipe(
-      tap(() => this.isUpdating$.next(false)),
-      tap(edittedWork => this.replaceElement(edittedWork)),
-    ).subscribe(() => this.getEvents());
+  changeTimeOfWork(event: EventMainCalendar<WorkModel>) {
+
+    // this.isUpdating$.next(true);
+
+    const { data: work } = event;
+    work.start = event.start;
+    work.stop = event.stop;
+    // console.log('work', work);
+    // console.log('event', event);
+
+
+    this.replaceElement(work);
+    // this.workService.editWork(data).pipe(
+    //   tap(() => this.isUpdating$.next(false)),
+    //   tap(edittedWork => this.replaceElement(edittedWork)),
+    // ).subscribe(() => this.getEvents());
   }
 
-  changeDate(data: {startDate: Date, endDate: Date}) {
+  changeDate(data: DateInMainCalendar) {
     this.date = data;
     this.getEvents();
   }
@@ -100,10 +98,11 @@ export class WorkComponent implements OnInit {
     }
   }
 
-  private mapWorkToEvent(work: WorkModel): EventModel<WorkModel> {
-    const event: EventModel<WorkModel> = {
+  private mapWorkToEvent(work: WorkModel): EventMainCalendar<WorkModel> {
+    const event: EventMainCalendar<WorkModel> = {
       start: work.start,
       stop: work.stop,
+      // tslint:disable-next-line: max-line-length
       title: `${work.customer.name} ${work.customer.surname} <br> ${moment(work.start, this.dateFormat).format('H:mm')}-${moment(work.stop, this.dateFormat).format('H:mm')}`,
       state: this.workService.clientState,
       data: work,

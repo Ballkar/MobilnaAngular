@@ -9,7 +9,7 @@
   <app-main-calendar
     [eventsData]="events"
     [updatingState$]="isUpdating$"
-    (changeDate)="changeDate($event)"
+    (dateDisplayedChanged)="changeDate($event)"
     (emptyHourClicked)="addWorkOnDate($event)"
     (eventTimeChanged)="changeTimeOfWork($event)"
     (eventClicked)="workClicked($event)">
