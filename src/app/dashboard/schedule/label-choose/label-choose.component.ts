@@ -39,7 +39,11 @@ export class LabelChooseComponent implements OnInit {
         this.labels[0].active = true;
       }
     } else {
-      labels.map((label, i) => label.active = this.labelsChoosenIds[0] ? this.labelsChoosenIds.includes(label.id) : true);
+      this.labelsChoosenIds.forEach(labelId => this.labels.find(l => l.id === labelId).active = true);
+      if (!this.labelsChoosenIds[0]) {
+        this.allLabel.active = true;
+        this.labelsChanged.emit(this.labels);
+      }
     }
 
     return labels;

@@ -24,6 +24,7 @@ export class WorkComponent implements OnInit {
   workEvents: EventMainCalendar<WorkModel>[];
   date: DateInMainCalendar;
   isUpdating$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  labelsChosen: LabelModel[] = [];
   private worksFromApi: WorkModel[];
   constructor(
     private workService: WorkService,
@@ -40,7 +41,7 @@ export class WorkComponent implements OnInit {
 
   getWorks() {
     this.isUpdating$.next(true);
-    this.workService.getWorks(this.date.startDate, this.date.endDate).pipe(
+    this.workService.getWorks(this.date.startDate, this.date.endDate, this.labelsChosen).pipe(
       tap((works) => this.worksFromApi = cloneDeep(works)),
       tap(() => this.dataHaveBeenChanged = false),
       map(works => works.map(work => this.mapWorkToEvent(work))),
@@ -64,8 +65,9 @@ export class WorkComponent implements OnInit {
     ).subscribe();
   }
 
-  log(e) {
-    console.log(e);
+  catchChangeLabels(labels: LabelModel[]) {
+    this.labelsChosen = labels;
+    this.getWorks();
   }
 
   changeTimeOfWork(event: EventMainCalendar<WorkModel>) {

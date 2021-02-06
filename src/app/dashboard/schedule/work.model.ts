@@ -1,4 +1,5 @@
 import { CustomerModel } from '../customers/customer.model';
+import { LabelModel } from './label.model';
 
 export interface WorkModel {
   id: number;
@@ -6,6 +7,8 @@ export interface WorkModel {
   stop: string;
   customer: CustomerModel;
   customer_id?: number;
+  label: LabelModel;
+  label_id?: number;
 }
 
 
