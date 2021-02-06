@@ -10,6 +10,8 @@ import { WorkPopupComponentComponent } from '../work-popup-component/work-popup-
 import { WorkModel } from '../work.model';
 import { WorkService } from '../work.service';
 import { cloneDeep } from 'lodash';
+import { LabelModel } from '../label.model';
+import { LabelService } from '../label.service';
 
 @Component({
   selector: 'app-work',
@@ -60,6 +62,10 @@ export class WorkComponent implements OnInit {
       filter(data => !!data),
       tap(edittedWork => this.replaceElement(edittedWork)),
     ).subscribe();
+  }
+
+  log(e) {
+    console.log(e);
   }
 
   changeTimeOfWork(event: EventMainCalendar<WorkModel>) {

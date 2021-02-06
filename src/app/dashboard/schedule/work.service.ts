@@ -52,6 +52,7 @@ export class WorkService {
 
   saveManyWorks(works: WorkModel[]): Observable<WorkModel[]> {
     works.forEach(work => work.customer_id = work.customer.id);
+    works.forEach(work => delete work.customer);
     return this.httpClient.post<ResponseModel<WorkModel[]>>(`${environment.apiUrl}/calendar/works/mass-update`, {works}).pipe(
       map(res => res.data)
     );

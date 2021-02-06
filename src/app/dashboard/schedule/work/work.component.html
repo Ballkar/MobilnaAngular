@@ -6,6 +6,8 @@
     Kalendarz
   </mat-card-title>
 
+  <app-label-choose (labelsChanged)="log($event)" [preventNewLabel]="true"></app-label-choose>
+
   <app-main-calendar
     [eventsData]="workEvents"
     [updatingState$]="isUpdating$"

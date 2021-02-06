@@ -8,12 +8,16 @@ import { MainCalendarModule } from '../main-calendar/main-calendar.module';
 import { WorkFormComponent } from './work-form/work-form.component';
 import { WorkPopupComponentComponent } from './work-popup-component/work-popup-component.component';
 import { CustomersModule } from '../customers/customers.module';
+import { LabelFormComponent } from './label-form/label-form.component';
+import { LabelChooseComponent } from './label-choose/label-choose.component';
 
 @NgModule({
   declarations: [
     WorkComponent,
     WorkFormComponent,
     WorkPopupComponentComponent,
+    LabelFormComponent,
+    LabelChooseComponent,
   ],
   imports: [
     CommonModule,

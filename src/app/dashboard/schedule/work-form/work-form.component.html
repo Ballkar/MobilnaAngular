@@ -50,6 +50,8 @@
     <span class="infoB" (click)="newCustomer($event)">Nowa Klientka?</span>
   </mat-form-field>
 
+  <app-label-choose [singleChoose]="true"></app-label-choose>
+
   <div class="buttonContainer">
     <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Zapisz</button>
   </div>
