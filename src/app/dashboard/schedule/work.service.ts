@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model';
 import { environment } from 'src/environments/environment';
-import { StateModel } from '../main-calendar/state.model';
 import { LabelModel } from './label.model';
 import { WorkModel } from './work.model';
 
@@ -13,12 +12,6 @@ import { WorkModel } from './work.model';
   providedIn: 'root'
 })
 export class WorkService {
-
-
-  clientState: StateModel = {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF',
-  };
   constructor(
     private httpClient: HttpClient,
   ) { }

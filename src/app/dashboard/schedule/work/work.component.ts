@@ -27,6 +27,7 @@ export class WorkComponent implements OnInit {
   labelsChosen: LabelModel[] = [];
   private worksFromApi: WorkModel[];
   constructor(
+    private labelService: LabelService,
     private workService: WorkService,
     private dialog: MatDialog,
   ) { }
@@ -120,7 +121,7 @@ export class WorkComponent implements OnInit {
       stop: work.stop,
       // tslint:disable-next-line: max-line-length
       title: `${work.customer.name} ${work.customer.surname} <br> ${moment(work.start, this.dateFormat).format('H:mm')}-${moment(work.stop, this.dateFormat).format('H:mm')}`,
-      state: this.workService.clientState,
+      color: work.label ? work.label.color : this.labelService.voidLabelColor,
       data: work,
     };
 

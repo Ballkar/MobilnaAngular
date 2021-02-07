@@ -10,6 +10,8 @@ import { LabelModel } from './label.model';
   providedIn: 'root'
 })
 export class LabelService {
+  voidLabelColor = '#d1e8ff';
+
   constructor(
     private httpClient: HttpClient,
   ) { }
