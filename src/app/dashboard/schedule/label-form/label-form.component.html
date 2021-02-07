@@ -1,15 +1,17 @@
 <div class="container">
   <form class="label" [formGroup]="form" (ngSubmit)="submit()">
-    <div class="buttonElement"
-      [(colorPicker)]="colorCtrl.value"
-      [ngStyle]="{backgroundColor: colorCtrl.value}">
+    <div class="infoContainer">
+      <div class="buttonElement"
+        [(colorPicker)]="colorCtrl.value"
+        [ngStyle]="{backgroundColor: colorCtrl.value}">
+      </div>
+
+      <mat-form-field>
+        <mat-label>Nazwa etykiety</mat-label>
+        <input matInput placeholder="Nazwa" [formControl]="nameCtrl">
+      </mat-form-field>
     </div>
 
-    <mat-form-field>
-      <mat-label>Nazwa etykiety</mat-label>
-      <input matInput placeholder="Nazwa" [formControl]="nameCtrl">
-    </mat-form-field>
-
-    <button mat-raised-button color="primary" class="addBtn" type="submit">Dodaj</button>
+    <button mat-raised-button color="primary" class="submitBtn" type="submit">Dodaj</button>
   </form>
 </div>
