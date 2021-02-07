@@ -51,7 +51,8 @@ export class WorkComponent implements OnInit {
   }
 
   addWorkOnDate(startDate: Data) {
-    const ref = this.dialog.open(WorkPopupComponentComponent, { data: { startDate } });
+    const work = this.labelsChosen.length === 1 ? { label: this.labelsChosen[0] } : null;
+    const ref = this.dialog.open(WorkPopupComponentComponent, { data: { startDate, work } });
     ref.afterClosed().pipe(
       filter(data => !!data),
     ).subscribe(() => this.getWorks());
