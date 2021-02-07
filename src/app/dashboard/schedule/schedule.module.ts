@@ -10,6 +10,7 @@ import { WorkPopupComponentComponent } from './work-popup-component/work-popup-c
 import { CustomersModule } from '../customers/customers.module';
 import { LabelFormComponent } from './label-form/label-form.component';
 import { LabelChooseComponent } from './label-choose/label-choose.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { LabelChooseComponent } from './label-choose/label-choose.component';
     SharedModule,
     CustomersModule,
     MainCalendarModule,
+    ColorPickerModule,
   ],
   entryComponents: [
     WorkPopupComponentComponent,

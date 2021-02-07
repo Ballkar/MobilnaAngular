@@ -50,7 +50,14 @@
     <span class="infoB" (click)="newCustomer($event)">Nowa Klientka?</span>
   </mat-form-field>
 
-  <app-label-choose [singleChoose]="true" [labelsChoosenIds]="[labelCtrl.value ? labelCtrl.value.id : null]" (labelChanged)="catchLabelChange($event)"></app-label-choose>
+  <app-label-choose #labelChoose
+    [singleChoose]="true"
+    [labelsChoosenIds]="[labelCtrl.value ? labelCtrl.value.id : null]"
+    (newLabelWasClicked)="newLabelOpenned = !newLabelOpenned"
+    (labelChanged)="catchLabelChange($event)">
+  </app-label-choose>
+
+  <app-label-form *ngIf="newLabelOpenned" (labelSaved)="catchLabelChange($event)"></app-label-form>
 
   <div class="buttonContainer">
     <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Zapisz</button>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import * as moment from 'moment';
@@ -7,6 +7,7 @@ import { concatMap, debounceTime, filter, finalize, map, startWith, tap } from '
 import { CustomerPopupComponent } from '../../customers/customer-popup/customer-popup.component';
 import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
+import { LabelChooseComponent } from '../label-choose/label-choose.component';
 import { LabelModel } from '../label.model';
 import { WorkModel } from '../work.model';
 import { WorkService } from '../work.service';
@@ -18,6 +19,8 @@ import { WorkService } from '../work.service';
 })
 export class WorkFormComponent implements OnInit {
 
+  @ViewChild('labelChoose', {static: false}) labelChooseComponent: LabelChooseComponent;
+  newLabelOpenned = false;
   isLocked = false;
   state: 'add' | 'edit';
   actualDate: Date = new Date();
@@ -63,7 +66,9 @@ export class WorkFormComponent implements OnInit {
   }
 
   catchLabelChange(label: LabelModel) {
+    this.labelChooseComponent.getLabels();
     this.labelCtrl.setValue(label);
+    this.newLabelOpenned = false;
   }
 
   newCustomer(event: MouseEvent) {

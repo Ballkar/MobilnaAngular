@@ -22,6 +22,10 @@ export class LabelChooseComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getLabels();
+  }
+
+  getLabels() {
     this.labelService.getLabels().pipe(
       tap(labels => this.labels = [{color: this.labelService.voidLabelColor, id: null, name: 'Brak', active: false}, ...labels]),
       map(labels => this.mapLabelsState(labels)),

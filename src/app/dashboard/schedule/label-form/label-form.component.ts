@@ -24,7 +24,7 @@ export class LabelFormComponent implements OnInit {
   ngOnInit() {
     this.form = new FormGroup({
       name: new FormControl(this.label ? this.label.name : '', Validators.required),
-      color: new FormControl(this.label ? this.label.color : '', Validators.required),
+      color: new FormControl(this.label ? this.label.color : 'black', Validators.required),
     });
   }
 

@@ -1,0 +1,19 @@
+.label {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .buttonElement {
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    border-radius: 10%;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+
+  mat-form-field {
+    margin: 0 15px;
+  }
+}

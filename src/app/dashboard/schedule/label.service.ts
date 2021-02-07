@@ -29,13 +29,13 @@ export class LabelService {
   }
 
   editLabel(label: LabelModel): Observable<LabelModel> {
-    return this.httpClient.put<ResponseModel<LabelModel>>(`${environment.apiUrl}/calendar/labels/${label.id}`, { label }).pipe(
+    return this.httpClient.put<ResponseModel<LabelModel>>(`${environment.apiUrl}/calendar/labels/${label.id}`, label).pipe(
       map(res => res.data)
     );
   }
 
   saveWork(label: LabelModel): Observable<LabelModel> {
-    return this.httpClient.post<ResponseModel<LabelModel>>(`${environment.apiUrl}/calendar/labels`, { label }).pipe(
+    return this.httpClient.post<ResponseModel<LabelModel>>(`${environment.apiUrl}/calendar/labels`, label).pipe(
       map(res => res.data)
     );
   }
