@@ -16,4 +16,8 @@
       <div class="name">{{label.name}}</div>
     </div>
   </div>
+
+  <div class="buttonsContainer">
+    <button mat-raised-button color="primary" (click)="editClick()" *ngIf="!preventEditing">Edytuj etykiety</button>
+  </div>
 </div>

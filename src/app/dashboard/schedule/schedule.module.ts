@@ -11,6 +11,7 @@ import { CustomersModule } from '../customers/customers.module';
 import { LabelFormComponent } from './label-form/label-form.component';
 import { LabelChooseComponent } from './label-choose/label-choose.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { LabelseEditingPopupComponent } from './labelse-editing-popup/labelse-editing-popup.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
     WorkPopupComponentComponent,
     LabelFormComponent,
     LabelChooseComponent,
+    LabelseEditingPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
   ],
   entryComponents: [
     WorkPopupComponentComponent,
+    LabelseEditingPopupComponent,
   ]
 })
 export class ScheduleModule { }

@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material';
 import { Data } from '@angular/router';
 import * as moment from 'moment';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { delay, filter, map, tap } from 'rxjs/operators';
+import { delay, filter, map, switchMap, tap } from 'rxjs/operators';
 import { DateInMainCalendar } from '../../main-calendar/DateInMainCalendar';
 import { EventMainCalendar } from '../../main-calendar/eventMainCalendar.model';
 import { WorkPopupComponentComponent } from '../work-popup-component/work-popup-component.component';
@@ -12,6 +12,7 @@ import { WorkService } from '../work.service';
 import { cloneDeep } from 'lodash';
 import { LabelModel } from '../label.model';
 import { LabelService } from '../label.service';
+import { LabelseEditingPopupComponent } from '../labelse-editing-popup/labelse-editing-popup.component';
 
 @Component({
   selector: 'app-work',
@@ -56,6 +57,15 @@ export class WorkComponent implements OnInit {
     ref.afterClosed().pipe(
       filter(data => !!data),
     ).subscribe(() => this.getWorks());
+  }
+
+  openEditLabels() {
+    const ref = this.dialog.open(LabelseEditingPopupComponent, {data: this.labelService.getLabels()} );
+
+    ref.afterClosed().pipe(
+      filter(data => !!data),
+      switchMap(labels => this.labelService.massEditLabel(labels)),
+    ).subscribe();
   }
 
   workClicked(event: EventMainCalendar<WorkModel>) {

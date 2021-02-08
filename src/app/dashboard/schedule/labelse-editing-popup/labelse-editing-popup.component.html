@@ -1,0 +1,7 @@
+<div class="container">
+  <app-label-form *ngFor="let label of labels" [label]="label" (labelChanged)="label.color = $event.color; label.name = $event.name"></app-label-form>
+</div>
+
+<div class="buttonsContainer">
+  <button mat-raised-button color="primary" (click)="save()">Zapisz</button>
+</div>

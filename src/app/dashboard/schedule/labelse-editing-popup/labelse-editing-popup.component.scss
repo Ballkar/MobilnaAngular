@@ -1,0 +1,11 @@
+@import 'mixins';
+.container{
+  @include popupContainer;
+}
+
+.buttonsContainer{
+  margin: 25px;
+  margin-top: 0;
+  display: flex;
+  justify-content: flex-end;
+}

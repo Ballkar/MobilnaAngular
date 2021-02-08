@@ -52,6 +52,7 @@
 
   <app-label-choose #labelChoose
     [singleChoose]="true"
+    [preventEditing]="true"
     [labelsChoosenIds]="[labelCtrl.value ? labelCtrl.value.id : null]"
     (newLabelWasClicked)="newLabelOpenned = !newLabelOpenned"
     (labelChanged)="catchLabelChange($event)">

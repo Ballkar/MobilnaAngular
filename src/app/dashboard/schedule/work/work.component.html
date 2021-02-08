@@ -6,7 +6,11 @@
     Kalendarz
   </mat-card-title>
 
-  <app-label-choose (labelsChanged)="catchChangeLabels($event)" [preventNewLabel]="true"></app-label-choose>
+  <app-label-choose
+    (editLabelsWasClicked)="openEditLabels($event)"
+    (labelsChanged)="catchChangeLabels($event)"
+    [preventNewLabel]="true">
+  </app-label-choose>
 
   <app-main-calendar
     [eventsData]="workEvents"

@@ -3,6 +3,7 @@
     <div class="infoContainer">
       <div class="buttonElement"
         [(colorPicker)]="colorCtrl.value"
+        (colorPickerChange)="colorCtrl.setValue($event)"
         [ngStyle]="{backgroundColor: colorCtrl.value}">
       </div>
 
@@ -12,6 +13,7 @@
       </mat-form-field>
     </div>
 
-    <button mat-raised-button color="primary" class="submitBtn" type="submit">Dodaj</button>
+    <button mat-raised-button color="primary" class="submitBtn" type="submit" *ngIf="!label">Dodaj</button>
+    <button mat-raised-button color="warn" class="submitBtn" type="button" (click)="remove()" *ngIf="label">Usuń</button>
   </form>
 </div>

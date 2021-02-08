@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { LabelModel } from '../label.model';
 import { LabelService } from '../label.service';
 
@@ -10,10 +11,12 @@ import { LabelService } from '../label.service';
   styleUrls: ['./label-form.component.scss']
 })
 
-export class LabelFormComponent implements OnInit {
+export class LabelFormComponent implements OnInit, OnDestroy {
   @Input() label: LabelModel;
+  @Output() labelChanged: EventEmitter<LabelModel> = new EventEmitter();
   @Output() labelSaved: EventEmitter<LabelModel> = new EventEmitter();
   form: FormGroup;
+  onDestroy$: Subject<void> = new Subject();
   get nameCtrl() { return this.form.get('name') as FormControl; }
   get colorCtrl() { return this.form.get('color') as FormControl; }
 
@@ -26,10 +29,17 @@ export class LabelFormComponent implements OnInit {
       name: new FormControl(this.label ? this.label.name : '', Validators.required),
       color: new FormControl(this.label ? this.label.color : 'black', Validators.required),
     });
+    this.form.valueChanges.pipe(
+      takeUntil(this.onDestroy$),
+    ).subscribe(label => this.labelChanged.next({...this.label, name: label.name, color: label.color}));
+  }
+
+  remove() {
+    return this.labelService.removeLabel(this.label);
   }
 
   saveLabel() {
-    return this.labelService.saveWork(this.form.value);
+    return this.labelService.saveLabel(this.form.value);
   }
 
   editLabel() {
@@ -50,5 +60,9 @@ export class LabelFormComponent implements OnInit {
     }
 
     request.subscribe(label => this.labelSaved.emit(label));
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
   }
 }

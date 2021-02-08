@@ -34,13 +34,19 @@ export class LabelService {
     );
   }
 
-  saveWork(label: LabelModel): Observable<LabelModel> {
+  massEditLabel(labels: LabelModel[]): Observable<LabelModel[]> {
+    return this.httpClient.post<ResponseModel<LabelModel[]>>(`${environment.apiUrl}/calendar/labels/mass-update`, {labels}).pipe(
+      map(res => res.data)
+    );
+  }
+
+  saveLabel(label: LabelModel): Observable<LabelModel> {
     return this.httpClient.post<ResponseModel<LabelModel>>(`${environment.apiUrl}/calendar/labels`, label).pipe(
       map(res => res.data)
     );
   }
 
-  removeWork(label: LabelModel): Observable<LabelModel> {
+  removeLabel(label: LabelModel): Observable<LabelModel> {
     return this.httpClient.delete<ResponseModel<LabelModel>>(`${environment.apiUrl}/calendar/labels/${label.id}`).pipe(
       map(res => res.data)
     );

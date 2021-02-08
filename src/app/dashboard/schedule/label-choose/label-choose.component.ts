@@ -11,8 +11,10 @@ import { LabelService } from '../label.service';
 export class LabelChooseComponent implements OnInit {
   @Input() singleChoose = false;
   @Input() preventNewLabel = false;
+  @Input() preventEditing = false;
   @Input() labelsChoosenIds: number[] = [];
   @Output() newLabelWasClicked: EventEmitter<void> = new EventEmitter();
+  @Output() editLabelsWasClicked: EventEmitter<void> = new EventEmitter();
   @Output() labelChanged: EventEmitter<LabelModel> = new EventEmitter();
   @Output() labelsChanged: EventEmitter<LabelModel[]> = new EventEmitter();
   allLabel: LabelModel = {color: 'yellow', id: null, name: 'Wszystkie', active: false};
@@ -55,6 +57,10 @@ export class LabelChooseComponent implements OnInit {
 
   newLabelClick() {
     this.newLabelWasClicked.emit();
+  }
+
+  editClick() {
+    this.editLabelsWasClicked.emit();
   }
 
   changeLabelState(label: LabelModel) {

@@ -16,3 +16,9 @@ mat-spinner{
     margin-bottom: 10px;
   }
 }
+
+.labelsContainer{
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
