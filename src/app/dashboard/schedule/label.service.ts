@@ -19,6 +19,7 @@ export class LabelService {
   getLabels(): Observable<LabelModel[]> {
     return this.httpClient.get<ResponseModel<DataResponse<LabelModel>>>(`${environment.apiUrl}/calendar/labels`).pipe(
       map(res => res.data.items),
+      map(labels => [{color: this.voidLabelColor, id: null, name: 'Brak', active: false}, ...labels]),
     );
   }
 
