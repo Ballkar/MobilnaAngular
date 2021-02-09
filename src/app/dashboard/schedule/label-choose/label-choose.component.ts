@@ -30,7 +30,7 @@ export class LabelChooseComponent implements OnInit {
   getLabels() {
     this.labelService.getLabels().pipe(
       map(labels => this.mapLabelsState(labels)),
-    ).subscribe();
+    ).subscribe(labels => this.labels = labels);
   }
 
   private mapLabelsState(labels: LabelModel[]): LabelModel[] {
