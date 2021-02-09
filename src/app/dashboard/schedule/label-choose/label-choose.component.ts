@@ -12,10 +12,13 @@ export class LabelChooseComponent implements OnInit {
   @Input() singleChoose = false;
   @Input() preventNewLabel = false;
   @Input() preventEditing = false;
+
   @Input() labelsChoosenIds: number[] = [];
+
   @Output() newLabelWasClicked: EventEmitter<void> = new EventEmitter();
   @Output() editLabelsWasClicked: EventEmitter<void> = new EventEmitter();
   @Output() labelsChanged: EventEmitter<LabelModel[]> = new EventEmitter();
+
   allLabel: LabelModel = {color: 'yellow', id: null, name: 'Wszystkie', active: false};
   labels: LabelModel[];
   constructor(
@@ -28,8 +31,9 @@ export class LabelChooseComponent implements OnInit {
 
   getLabels() {
     this.labelService.getLabels().pipe(
+      tap(labels => this.labels = labels),
       map(labels => this.mapLabelsState(labels)),
-    ).subscribe(labels => this.labels = labels);
+    ).subscribe();
   }
 
   private mapLabelsState(labels: LabelModel[]): LabelModel[] {
