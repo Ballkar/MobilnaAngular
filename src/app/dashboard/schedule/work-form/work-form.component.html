@@ -53,12 +53,12 @@
   <app-label-choose #labelChoose
     [singleChoose]="true"
     [preventEditing]="true"
-    [labelsChoosenIds]="[labelCtrl.value ? labelCtrl.value.id : null]"
+    [labelsChoosenIds]="labelCtrl.value ? [labelCtrl.value.id] : []"
     (newLabelWasClicked)="newLabelOpenned = !newLabelOpenned"
     (labelsChanged)="catchLabelChange($event[0])">
   </app-label-choose>
 
-  <app-label-form *ngIf="newLabelOpenned" (labelSaved)="catchLabelChange($event)"></app-label-form>
+  <app-label-form *ngIf="newLabelOpenned" (labelSaved)="catchLabelSave($event)"></app-label-form>
 
   <div class="buttonContainer">
     <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Zapisz wizyte</button>

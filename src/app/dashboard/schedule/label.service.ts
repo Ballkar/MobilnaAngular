@@ -45,7 +45,8 @@ export class LabelService {
 
   saveLabel(label: LabelModel): Observable<LabelModel> {
     return this.httpClient.post<ResponseModel<LabelModel>>(`${environment.apiUrl}/calendar/labels`, label).pipe(
-      map(res => res.data)
+      map(res => res.data),
+      tap(label => this.labels$.next([...this.labels$.getValue(), label])),
     );
   }
 

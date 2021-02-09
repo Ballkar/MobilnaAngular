@@ -39,6 +39,11 @@ export class LabelChooseComponent implements OnInit {
     ).subscribe();
   }
 
+  setNewLabels(labelsToChoose: LabelModel[]) {
+    this.labels.map(label => label.active = false);
+    this.labels.forEach(label => label.active = !!labelsToChoose.find(l => l.id === label.id));
+  }
+
   private mapLabelsState(labels: LabelModel[]): LabelModel[] {
     labels.map(label => label.active = false);
 
