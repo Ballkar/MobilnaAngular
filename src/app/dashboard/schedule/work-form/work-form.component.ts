@@ -71,9 +71,8 @@ export class WorkFormComponent implements OnInit {
   }
 
   catchLabelSave(label: LabelModel) {
-    this.labelChooseComponent.getLabels();
-    this.labelChooseComponent.setNewLabels([label]);
-    this.newLabelOpenned = false;
+    this.labelChooseComponent.setNewLabelsActive([label]);
+    this.catchLabelChange(label);
   }
 
   newCustomer(event: MouseEvent) {

@@ -33,7 +33,7 @@ export class LabelService {
 
   editLabel(label: LabelModel): Observable<LabelModel> {
     return this.httpClient.put<ResponseModel<LabelModel>>(`${environment.apiUrl}/calendar/labels/${label.id}`, label).pipe(
-      map(res => res.data)
+      map(res => res.data),
     );
   }
 
@@ -54,5 +54,9 @@ export class LabelService {
     return this.httpClient.delete<ResponseModel<LabelModel>>(`${environment.apiUrl}/calendar/labels/${label.id}`).pipe(
       map(res => res.data)
     );
+  }
+
+  private findLabelIndex(label: LabelModel): number {
+    return this.labels$.getValue().findIndex(l => l.id === label.id);
   }
 }

@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { cloneDeep } from 'lodash';
-import { first, map, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { first, map, takeUntil, tap } from 'rxjs/operators';
 import { LabelModel } from '../label.model';
 import { LabelService } from '../label.service';
 
@@ -9,7 +10,7 @@ import { LabelService } from '../label.service';
   templateUrl: './label-choose.component.html',
   styleUrls: ['./label-choose.component.scss']
 })
-export class LabelChooseComponent implements OnInit {
+export class LabelChooseComponent implements OnInit, OnDestroy {
   @Input() singleChoose = false;
   @Input() preventNewLabel = false;
   @Input() preventEditing = false;
@@ -21,25 +22,23 @@ export class LabelChooseComponent implements OnInit {
   @Output() editLabelsWasClicked: EventEmitter<void> = new EventEmitter();
   @Output() labelsChanged: EventEmitter<LabelModel[]> = new EventEmitter();
 
-  allLabel: LabelModel = {color: 'yellow', id: null, name: 'Wszystkie', active: false};
+  allLabel: LabelModel = { id: null, name: 'Wszystkie', color: 'yellow', active: false};
   labels: LabelModel[];
+
+  onDestroy$: Subject<void> = new Subject();
   constructor(
     private labelService: LabelService,
   ) { }
 
   ngOnInit() {
-    this.getLabels();
-  }
-
-  getLabels() {
     this.labelService.labels$.pipe(
-      first(),
+      takeUntil(this.onDestroy$),
       tap(labels => this.labels = cloneDeep(labels)),
       map(labels => this.mapLabelsState(labels)),
     ).subscribe();
   }
 
-  setNewLabels(labelsToChoose: LabelModel[]) {
+  setNewLabelsActive(labelsToChoose: LabelModel[]) {
     this.labels.map(label => label.active = false);
     this.labels.forEach(label => label.active = !!labelsToChoose.find(l => l.id === label.id));
   }
@@ -53,7 +52,7 @@ export class LabelChooseComponent implements OnInit {
     } else if(this.singleChoose && !this.isAnyLabelsChoosenOnInit) {
       this.labels[0].active = true;
     } else if(!this.singleChoose && !this.isAnyLabelsChoosenOnInit) {
-      this.allLabel.active = true;
+      this.setAllLabel();
     } else {
       this.labelsChoosenIds.forEach(labelId => this.labels.find(l => l.id === labelId).active = true);
     }
@@ -86,5 +85,9 @@ export class LabelChooseComponent implements OnInit {
     this.labels.forEach(label => label.active = false);
     this.allLabel.active = true;
     this.labelsChanged.emit(this.labels);
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
   }
 }

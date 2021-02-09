@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Data } from '@angular/router';
 import * as moment from 'moment';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { delay, filter, map, switchMap, tap } from 'rxjs/operators';
+import { delay, filter, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { DateInMainCalendar } from '../../main-calendar/DateInMainCalendar';
 import { EventMainCalendar } from '../../main-calendar/eventMainCalendar.model';
 import { WorkPopupComponentComponent } from '../work-popup-component/work-popup-component.component';
@@ -13,6 +13,7 @@ import { cloneDeep } from 'lodash';
 import { LabelModel } from '../label.model';
 import { LabelService } from '../label.service';
 import { LabelseEditingPopupComponent } from '../labelse-editing-popup/labelse-editing-popup.component';
+import { LabelChooseComponent } from '../label-choose/label-choose.component';
 
 @Component({
   selector: 'app-work',
@@ -20,6 +21,7 @@ import { LabelseEditingPopupComponent } from '../labelse-editing-popup/labelse-e
   styleUrls: ['./work.component.scss']
 })
 export class WorkComponent implements OnInit {
+  @ViewChild('labelChoose', {static: false}) labelChooseComponent: LabelChooseComponent;
   dataHaveBeenChanged = false;
   dateFormat = 'YYYY-M-D H:m:s';
   workEvents: EventMainCalendar<WorkModel>[];
@@ -38,7 +40,7 @@ export class WorkComponent implements OnInit {
       startDate: moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).toDate(),
       endDate: moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).add(7, 'days').toDate(),
     };
-    this.getWorks(this.labelService.labels$.getValue());
+    this.labelsChosen = this.labelService.labels$.getValue();
   }
 
   getWorks(labels: LabelModel[]) {
@@ -52,8 +54,11 @@ export class WorkComponent implements OnInit {
   }
 
   addWorkOnDate(startDate: Data) {
-    const work = this.labelsChosen.length === 1 ? { label: this.labelsChosen[0] } : null;
-    const ref = this.dialog.open(WorkPopupComponentComponent, { data: { startDate, work } });
+    const work = {
+      start: startDate,
+      label: this.labelsChosen.length === 1 ? this.labelsChosen[0] : null,
+    };
+    const ref = this.dialog.open(WorkPopupComponentComponent, { data: work });
     ref.afterClosed().pipe(
       filter(data => !!data),
     ).subscribe(() => this.getWorks(this.labelsChosen));
@@ -70,7 +75,7 @@ export class WorkComponent implements OnInit {
 
   workClicked(event: EventMainCalendar<WorkModel>) {
     const work: WorkModel = event.data;
-    const ref = this.dialog.open(WorkPopupComponentComponent, { data: { work } });
+    const ref = this.dialog.open(WorkPopupComponentComponent, { data: work });
     ref.afterClosed().pipe(
       filter(data => !!data),
       tap(edittedWork => this.replaceElement(edittedWork)),

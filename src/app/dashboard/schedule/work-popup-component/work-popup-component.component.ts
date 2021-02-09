@@ -11,7 +11,7 @@ export class WorkPopupComponentComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<WorkPopupComponentComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { work?: WorkModel, startDate?: Date },
+    @Inject(MAT_DIALOG_DATA) public data: WorkModel,
   ) { }
 
   ngOnInit() {

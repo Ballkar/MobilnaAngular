@@ -6,7 +6,7 @@
     Kalendarz
   </mat-card-title>
 
-  <app-label-choose
+  <app-label-choose #labelChoose
     (editLabelsWasClicked)="openEditLabels($event)"
     (labelsChanged)="catchChangeLabels($event)"
     [preventNewLabel]="true">
