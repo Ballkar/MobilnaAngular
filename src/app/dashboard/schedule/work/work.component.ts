@@ -34,6 +34,7 @@ export class WorkComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.labelsChosen = this.labelService.labels$.getValue();
     this.date = {
       startDate: moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).toDate(),
       endDate: moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).add(7, 'days').toDate(),

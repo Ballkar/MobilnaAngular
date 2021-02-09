@@ -51,7 +51,6 @@ export class LabelChooseComponent implements OnInit {
       this.labelsChoosenIds.forEach(labelId => this.labels.find(l => l.id === labelId).active = true);
       if (!this.labelsChoosenIds[0]) {
         this.allLabel.active = true;
-        this.labelsChanged.emit(this.labels);
       }
     }
 
