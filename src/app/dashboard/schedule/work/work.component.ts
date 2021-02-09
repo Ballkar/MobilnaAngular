@@ -34,17 +34,16 @@ export class WorkComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.labelsChosen = this.labelService.labels$.getValue();
     this.date = {
       startDate: moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).toDate(),
       endDate: moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).add(7, 'days').toDate(),
     };
-    this.getWorks();
+    this.getWorks(this.labelService.labels$.getValue());
   }
 
-  getWorks() {
+  getWorks(labels: LabelModel[]) {
     this.isUpdating$.next(true);
-    this.workService.getWorks(this.date.startDate, this.date.endDate, this.labelsChosen).pipe(
+    this.workService.getWorks(this.date.startDate, this.date.endDate, labels).pipe(
       tap((works) => this.worksFromApi = cloneDeep(works)),
       tap(() => this.dataHaveBeenChanged = false),
       map(works => works.map(work => this.mapWorkToEvent(work))),
@@ -57,7 +56,7 @@ export class WorkComponent implements OnInit {
     const ref = this.dialog.open(WorkPopupComponentComponent, { data: { startDate, work } });
     ref.afterClosed().pipe(
       filter(data => !!data),
-    ).subscribe(() => this.getWorks());
+    ).subscribe(() => this.getWorks(this.labelsChosen));
   }
 
   openEditLabels() {
@@ -80,7 +79,7 @@ export class WorkComponent implements OnInit {
 
   catchChangeLabels(labels: LabelModel[]) {
     this.labelsChosen = labels;
-    this.getWorks();
+    this.getWorks(this.labelsChosen);
   }
 
   changeTimeOfWork(event: EventMainCalendar<WorkModel>) {
@@ -95,7 +94,7 @@ export class WorkComponent implements OnInit {
     const works: WorkModel[] = this.workEvents.map(event => event.data);
     this.workService.saveManyWorks(works).pipe(
       // tap(edittedWork => this.replaceElement(edittedWork)),
-    ).subscribe(() => this.getWorks());
+    ).subscribe(() => this.getWorks(this.labelsChosen));
   }
 
   resetActualWorks() {
@@ -106,7 +105,7 @@ export class WorkComponent implements OnInit {
 
   changeDate(data: DateInMainCalendar) {
     this.date = data;
-    this.getWorks();
+    this.getWorks(this.labelsChosen);
   }
 
   private replaceElement(newWork: WorkModel) {

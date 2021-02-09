@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { cloneDeep } from 'lodash';
 import { first, map, tap } from 'rxjs/operators';
 import { LabelModel } from '../label.model';
 import { LabelService } from '../label.service';
@@ -14,6 +15,7 @@ export class LabelChooseComponent implements OnInit {
   @Input() preventEditing = false;
 
   @Input() labelsChoosenIds: number[] = [];
+  get isAnyLabelsChoosenOnInit() { return !!this.labelsChoosenIds[0] }
 
   @Output() newLabelWasClicked: EventEmitter<void> = new EventEmitter();
   @Output() editLabelsWasClicked: EventEmitter<void> = new EventEmitter();
@@ -32,7 +34,7 @@ export class LabelChooseComponent implements OnInit {
   getLabels() {
     this.labelService.labels$.pipe(
       first(),
-      tap(labels => this.labels = labels),
+      tap(labels => this.labels = cloneDeep(labels)),
       map(labels => this.mapLabelsState(labels)),
     ).subscribe();
   }
@@ -40,18 +42,15 @@ export class LabelChooseComponent implements OnInit {
   private mapLabelsState(labels: LabelModel[]): LabelModel[] {
     labels.map(label => label.active = false);
 
-    if (this.singleChoose) {
-      if (this.labelsChoosenIds[0]) {
-        const labelChosenOnInit = this.labels.find(label => label.id === this.labelsChoosenIds[0]);
-        labelChosenOnInit.active = true;
-      } else {
-        this.labels[0].active = true;
-      }
+    if (this.singleChoose && this.isAnyLabelsChoosenOnInit) {
+      const labelChosenOnInit = this.labels.find(label => label.id === this.labelsChoosenIds[0]);
+      labelChosenOnInit.active = true;
+    } else if(this.singleChoose && !this.isAnyLabelsChoosenOnInit) {
+      this.labels[0].active = true;
+    } else if(!this.singleChoose && !this.isAnyLabelsChoosenOnInit) {
+      this.allLabel.active = true;
     } else {
       this.labelsChoosenIds.forEach(labelId => this.labels.find(l => l.id === labelId).active = true);
-      if (!this.labelsChoosenIds[0]) {
-        this.allLabel.active = true;
-      }
     }
 
     return labels;
