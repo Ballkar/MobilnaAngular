@@ -55,7 +55,7 @@
     [preventEditing]="true"
     [labelsChoosenIds]="[labelCtrl.value ? labelCtrl.value.id : null]"
     (newLabelWasClicked)="newLabelOpenned = !newLabelOpenned"
-    (labelChanged)="catchLabelChange($event)">
+    (labelsChanged)="catchLabelChange($event[0])">
   </app-label-choose>
 
   <app-label-form *ngIf="newLabelOpenned" (labelSaved)="catchLabelChange($event)"></app-label-form>

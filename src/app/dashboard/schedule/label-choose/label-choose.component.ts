@@ -15,7 +15,6 @@ export class LabelChooseComponent implements OnInit {
   @Input() labelsChoosenIds: number[] = [];
   @Output() newLabelWasClicked: EventEmitter<void> = new EventEmitter();
   @Output() editLabelsWasClicked: EventEmitter<void> = new EventEmitter();
-  @Output() labelChanged: EventEmitter<LabelModel> = new EventEmitter();
   @Output() labelsChanged: EventEmitter<LabelModel[]> = new EventEmitter();
   allLabel: LabelModel = {color: 'yellow', id: null, name: 'Wszystkie', active: false};
   labels: LabelModel[];
@@ -67,7 +66,7 @@ export class LabelChooseComponent implements OnInit {
     if (this.singleChoose) {
       this.labels.forEach(l => l.active = false);
       label.active = true;
-      this.labelChanged.emit(label);
+      this.labelsChanged.emit([label]);
     } else {
       label.active = !label.active;
       const activeLabels = this.labels.filter(l => l.active);
