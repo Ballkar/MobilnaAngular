@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model';
 import { environment } from 'src/environments/environment';
 import { LabelModel } from './label.model';
@@ -11,6 +11,7 @@ import { LabelModel } from './label.model';
 })
 export class LabelService {
   voidLabelColor = '#d1e8ff';
+  labels$: BehaviorSubject<LabelModel[]> = new BehaviorSubject([]);
 
   constructor(
     private httpClient: HttpClient,
@@ -20,6 +21,7 @@ export class LabelService {
     return this.httpClient.get<ResponseModel<DataResponse<LabelModel>>>(`${environment.apiUrl}/calendar/labels`).pipe(
       map(res => res.data.items),
       map(labels => [{color: this.voidLabelColor, id: null, name: 'Brak', active: false}, ...labels]),
+      tap(labels => this.labels$.next(labels)),
     );
   }
 

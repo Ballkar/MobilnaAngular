@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
+import { first, map, tap } from 'rxjs/operators';
 import { LabelModel } from '../label.model';
 import { LabelService } from '../label.service';
 
@@ -30,7 +30,8 @@ export class LabelChooseComponent implements OnInit {
   }
 
   getLabels() {
-    this.labelService.getLabels().pipe(
+    this.labelService.labels$.pipe(
+      first(),
       tap(labels => this.labels = labels),
       map(labels => this.mapLabelsState(labels)),
     ).subscribe();
