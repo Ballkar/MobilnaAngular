@@ -60,7 +60,7 @@ export class WorkComponent implements OnInit {
   }
 
   openEditLabels() {
-    const ref = this.dialog.open(LabelseEditingPopupComponent, {data: this.labelService.getLabels()} );
+    const ref = this.dialog.open(LabelseEditingPopupComponent, {data: this.labelService.labels$.getValue()} );
 
     ref.afterClosed().pipe(
       filter(data => !!data),

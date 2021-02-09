@@ -10,14 +10,12 @@ import { LabelModel } from '../label.model';
 })
 export class LabelseEditingPopupComponent implements OnInit {
 
-  labels: LabelModel[];
   constructor(
     public dialogRef: MatDialogRef<LabelseEditingPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public labels$: Observable<LabelModel[]>,
+    @Inject(MAT_DIALOG_DATA) public labels: LabelModel[],
   ) { }
 
   ngOnInit() {
-    this.labels$.subscribe(res => this.labels = res);
   }
 
   save() {
