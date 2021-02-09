@@ -65,12 +65,7 @@ export class WorkComponent implements OnInit {
   }
 
   openEditLabels() {
-    const ref = this.dialog.open(LabelseEditingPopupComponent, {data: this.labelService.labels$.getValue()} );
-
-    ref.afterClosed().pipe(
-      filter(data => !!data),
-      switchMap(labels => this.labelService.massEditLabel(labels)),
-    ).subscribe();
+    this.dialog.open(LabelseEditingPopupComponent, {data: this.labelService} );
   }
 
   workClicked(event: EventMainCalendar<WorkModel>) {

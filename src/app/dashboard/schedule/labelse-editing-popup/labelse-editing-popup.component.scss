@@ -9,3 +9,13 @@
   display: flex;
   justify-content: flex-end;
 }
+
+
+.labelContainer{
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  app-label-form{
+    flex: 1;
+  }
+}

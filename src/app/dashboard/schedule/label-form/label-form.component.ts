@@ -34,10 +34,6 @@ export class LabelFormComponent implements OnInit, OnDestroy {
     ).subscribe(label => this.labelChanged.next({...this.label, name: label.name, color: label.color}));
   }
 
-  remove() {
-    return this.labelService.removeLabel(this.label);
-  }
-
   saveLabel() {
     return this.labelService.saveLabel(this.form.value);
   }
