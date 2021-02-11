@@ -1,17 +1,17 @@
 <div class="container">
 
-  <ng-container *ngIf="data.work; else empty">
-    <app-work-form [work]="data.work"
+  <ng-container *ngIf="data; else empty">
+    <app-work-form [work]="data"
       [ableToRemove]="true"
       (errorEmitted)="close(null)"
       (workSubmitted)="close($event)"
-      (workRemoved)="close(data.work)">
+      (workRemoved)="close(data)">
     </app-work-form>
   </ng-container>
 
   <ng-template #empty>
     <app-work-form
-      [work]="{start: data.startDate}"
+      [work]="data"
       (errorEmitted)="close(null)"
       (workSubmitted)="close($event)">
     </app-work-form>

@@ -1,0 +1,46 @@
+@import 'mixins';
+
+.label {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  margin-bottom: 10px;
+
+  .infoContainer{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    @include mobile {
+      width: 100%;
+      flex: none;
+    }
+
+    .buttonElement {
+      width: 20px;
+      height: 20px;
+      border: 1px solid black;
+      background-color: green;
+      border-radius: 10%;
+      cursor: pointer;
+      @include mobile {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+      }
+    }
+
+    mat-form-field {
+      margin: 0 15px;
+      @include mobile {
+        margin: 0;
+      }
+    }
+  }
+
+  .submitBtn{
+    @include mobile {
+      width: 100%;
+    }
+  }
+
+}

@@ -45,7 +45,10 @@ export class MainCalendarService {
       end: moment(event.stop, this.dateFormat).toDate(),
       title: event.title,
       meta: event.data,
-      color: event.state,
+      color: {
+        primary: event.color,
+        secondary: event.color,
+      },
       resizable: {
         beforeStart: true,
         afterEnd: true,
@@ -63,7 +66,7 @@ export class MainCalendarService {
       start,
       stop: end,
       title: event.title,
-      state: event.color,
+      color: event.color.primary,
     };
   }
 }

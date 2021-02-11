@@ -1,0 +1,77 @@
+@import 'mixins';
+
+.labelsContainer {
+  display: flex;
+  flex-flow: row;
+  margin-bottom: 10px;
+
+  .titleContainer{
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .newLabelButton{
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      color: #02bec9;
+      cursor: pointer;
+      margin-left: auto;
+
+      .icon{
+        color: #02bec9;
+        width: 13px;
+        height: 13px;
+        font-size: 13px;
+      }
+    }
+  }
+
+  .labels{
+    display: flex;
+    flex-flow: row;
+    flex-flow: wrap;
+    @include mobile {
+      flex: 1;
+      flex-flow: column;
+    }
+
+    .label {
+      margin-left: 10px;
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 500;
+      &:hover{
+        &.inactive{
+          opacity: 0.6;
+        }
+        .buttonElement{
+          box-shadow: 0 0 4px;
+        }
+      }
+
+      &.inactive{
+        opacity: 0.3;
+      }
+
+      .buttonElement {
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        margin-right: 5px;
+        border: 1px solid black;
+      }
+      .name {
+      }
+    }
+  }
+}
+
+.buttonsContainer{
+  margin-left: auto;
+}
+
+

@@ -1,0 +1,16 @@
+<div class="container">
+  <div *ngFor="let label of labels$|async" class="labelContainer">
+    <app-label-form [label]="label" (labelChanged)="label.color = $event.color; label.name = $event.name"></app-label-form>
+    <button mat-raised-button color="warn" class="submitBtn" type="button" (click)="remove(label)">Usuń</button>
+    <mat-divider></mat-divider>
+  </div>
+  <div class="labelContainer">
+    <app-label-form (labelSaved)="catchSave(labelFormComponent)" #labelFormComponent></app-label-form>
+    <!-- <button mat-raised-button color="primary" class="submitBtn" type="button" (click)="save(label)">Dodaj</button> -->
+  </div>
+</div>
+
+<div class="buttonsContainer">
+  <mat-spinner *ngIf="loadingState$|async" [diameter]="25"></mat-spinner>
+  <button mat-raised-button color="primary" (click)="save()">Zapisz</button>
+</div>

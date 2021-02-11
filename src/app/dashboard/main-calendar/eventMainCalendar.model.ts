@@ -5,5 +5,5 @@ export interface EventMainCalendar<T> {
   stop: string;
   title: string;
   data: T;
-  state: StateModel;
+  color: string;
 }
