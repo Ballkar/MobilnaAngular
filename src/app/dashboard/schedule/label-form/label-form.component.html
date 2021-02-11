@@ -3,7 +3,7 @@
     <div class="infoContainer">
       <div class="buttonElement"
       cpAlphaChannel="disabled"
-        [(colorPicker)]="colorCtrl.value"
+        [colorPicker]="colorCtrl.value"
         (colorPickerChange)="colorCtrl.setValue($event)"
         [ngStyle]="{backgroundColor: colorCtrl.value}">
       </div>

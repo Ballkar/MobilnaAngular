@@ -7,7 +7,7 @@
   </mat-card-title>
 
   <app-label-choose #labelChoose
-    (editLabelsWasClicked)="openEditLabels($event)"
+    (editLabelsWasClicked)="openEditLabels()"
     (labelsChanged)="catchChangeLabels($event)"
     [preventNewLabel]="true">
   </app-label-choose>
