@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { cloneDeep } from 'lodash';
 import { Observable, Subject } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { LabelFormComponent } from '../label-form/label-form.component';
 import { LabelModel } from '../label.model';
 import { LabelService } from '../label.service';
 
@@ -37,9 +38,8 @@ export class LabelseEditingPopupComponent implements OnInit, OnDestroy {
     ).subscribe(labels => cloneDeep(labels).filter(l => l.id));
   }
 
-  catchSave(l) {
-    console.log(l);
-
+  catchSave(labelFormComponent: LabelFormComponent) {
+    labelFormComponent.clearValue();
   }
 
   save() {

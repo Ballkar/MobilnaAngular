@@ -27,7 +27,7 @@ export class LabelFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.form = new FormGroup({
       name: new FormControl(this.label ? this.label.name : '', Validators.required),
-      color: new FormControl(this.label ? this.label.color : 'black', Validators.required),
+      color: new FormControl(this.label ? this.label.color : 'white', Validators.required),
     });
     this.form.valueChanges.pipe(
       takeUntil(this.onDestroy$),
@@ -44,6 +44,13 @@ export class LabelFormComponent implements OnInit, OnDestroy {
       color: this.colorCtrl.value,
       name: this.nameCtrl.value,
     });
+  }
+
+  clearValue() {
+    this.form.reset();
+    this.colorCtrl.setValue('white');
+    this.nameCtrl.markAsUntouched();
+    this.nameCtrl.updateValueAndValidity();
   }
 
   submit() {

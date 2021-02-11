@@ -1,6 +1,8 @@
 @import 'mixins';
 .container{
   @include popupContainer;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .buttonsContainer{
@@ -15,6 +17,30 @@
   display: flex;
   flex-flow: row;
   align-items: center;
+  @include mobile {
+    flex-flow: column;
+    align-items: flex-end;
+    width: 100%;
+
+    button{
+      order: 1;
+      margin-bottom: 5px;
+    }
+
+    app-label-form{
+      width: 100%;
+      margin: 0 5px;
+      order: 2;
+    }
+
+    mat-divider{
+      width: 100%;
+      margin: 3px 0 10px;
+      order: 3;
+    }
+  }
+
+
   app-label-form{
     flex: 1;
   }

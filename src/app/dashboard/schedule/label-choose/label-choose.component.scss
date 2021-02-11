@@ -43,6 +43,7 @@
       flex-flow: row;
       align-items: center;
       cursor: pointer;
+      font-weight: 500;
       &:hover{
         &.inactive{
           opacity: 0.6;
@@ -57,11 +58,11 @@
       }
 
       .buttonElement {
-        width: 10px;
-        height: 10px;
-        background-color: green;
+        width: 13px;
+        height: 13px;
         border-radius: 50%;
         margin-right: 5px;
+        border: 1px solid black;
       }
       .name {
       }

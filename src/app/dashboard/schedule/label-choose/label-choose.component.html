@@ -1,5 +1,9 @@
 <div class="labelsContainer">
   <div class="titleContainer">
+    <div class="newLabelButton" (click)="editClick()" *ngIf="!preventEditing">
+      <mat-icon class="icon">edit</mat-icon>
+      Edytuj
+    </div>
     <div class="title">Etykiety</div>
     <div class="newLabelButton" *ngIf="!preventNewLabel" (click)="newLabelClick()">
       <mat-icon class="icon">add</mat-icon>
@@ -15,9 +19,5 @@
       <div class="buttonElement" [ngStyle]="{backgroundColor: label.color}"></div>
       <div class="name">{{label.name}}</div>
     </div>
-  </div>
-
-  <div class="buttonsContainer">
-    <button mat-raised-button color="primary" (click)="editClick()" *ngIf="!preventEditing">Edytuj etykiety</button>
   </div>
 </div>
