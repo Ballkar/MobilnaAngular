@@ -57,9 +57,8 @@ export class WorkService {
     );
   }
 
-  removeWork(work: WorkModel): Observable<WorkModel> {
-    return this.httpClient.delete<ResponseModel<WorkModel>>(`${environment.apiUrl}/calendar/works/${work.id}`).pipe(
-      map(res => res.data)
+  removeWork(work: WorkModel): Observable<void> {
+    return this.httpClient.delete<void>(`${environment.apiUrl}/calendar/works/${work.id}`).pipe(
     );
   }
 }

@@ -1,19 +1,19 @@
 <div class="container">
 
-  <ng-container *ngIf="data; else empty">
+  <ng-container *ngIf="data && data.id; else empty">
     <app-work-form [work]="data"
       [ableToRemove]="true"
-      (errorEmitted)="close(null)"
-      (workSubmitted)="close($event)"
-      (workRemoved)="close(data)">
+      (errorEmitted)="close(null, 'edit')"
+      (workSubmitted)="close($event, 'edit')"
+      (workRemoved)="close(data, 'delete')">
     </app-work-form>
   </ng-container>
 
   <ng-template #empty>
     <app-work-form
       [work]="data"
-      (errorEmitted)="close(null)"
-      (workSubmitted)="close($event)">
+      (errorEmitted)="close(null, 'add')"
+      (workSubmitted)="close($event, 'add')">
     </app-work-form>
   </ng-template>
 

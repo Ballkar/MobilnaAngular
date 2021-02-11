@@ -37,10 +37,7 @@ export class ContainerComponent implements OnInit, OnDestroy {
   }
 
   addWork() {
-    const ref = this.dialog.open(WorkPopupComponentComponent, { data: {} });
-    ref.afterClosed().pipe(
-      filter(data => !!data),
-    ).subscribe();
+    this.dialog.open(WorkPopupComponentComponent, { data: {} });
   }
 
   addCustomer() {

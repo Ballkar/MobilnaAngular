@@ -73,8 +73,18 @@ export class WorkComponent implements OnInit {
     const ref = this.dialog.open(WorkPopupComponentComponent, { data: work });
     ref.afterClosed().pipe(
       filter(data => !!data),
-      tap(edittedWork => this.replaceElement(edittedWork)),
+      tap(data => this.reactOnWorkFormClosed(data.work, data.state)),
     ).subscribe();
+  }
+
+  private reactOnWorkFormClosed(work: WorkModel, state: 'add' | 'edit' | 'delete') {
+    if(state === 'edit') {
+      this.replaceElement(work);
+    } else if(state === 'delete') {
+      this.getWorks(this.labelsChosen);
+    } else if(state === 'add') {
+      this.getWorks(this.labelsChosen);
+    }
   }
 
   catchChangeLabels(labels: LabelModel[]) {
@@ -121,8 +131,13 @@ export class WorkComponent implements OnInit {
   private removeElement(workToRemove: WorkModel) {
     const index = this.workEvents.map(e => e.data.id).indexOf(workToRemove.id);
 
+    console.log(index);
+
     if (index !== -1) {
-      this.workEvents.splice(index, 1);
+      const a = this.workEvents.splice(index, 1);
+      console.log(this.workEvents);
+      console.log(a);
+
     }
   }
 

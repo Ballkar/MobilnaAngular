@@ -15,9 +15,11 @@ export class WorkPopupComponentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.data);
+
   }
 
-  close(work: WorkModel) {
-    this.dialogRef.close(work);
+  close(work: WorkModel, state: 'delete' | 'edit' | 'add') {
+    this.dialogRef.close({work, state});
   }
 }
