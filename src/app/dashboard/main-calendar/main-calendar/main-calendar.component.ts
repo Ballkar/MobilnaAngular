@@ -9,6 +9,7 @@ import { BaseConfigInterface, MainCalendarService } from '../main-calendar.servi
 import { EventMainCalendar } from '../eventMainCalendar.model';
 import { ItemModel } from '../item.model';
 import { DateInMainCalendar } from '../DateInMainCalendar';
+import { cloneDeep } from 'lodash';
 @Component({
   selector: 'app-main-calendar',
   templateUrl: './main-calendar.component.html',
@@ -17,7 +18,7 @@ import { DateInMainCalendar } from '../DateInMainCalendar';
 export class MainCalendarComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   daysInWeek: number;
-  configData: BaseConfigInterface = this.calendarService.baseConfig;
+  configData: BaseConfigInterface = cloneDeep(this.calendarService.baseConfig);
   events: CalendarEvent<ItemModel>[];
 
   @Input() updatingState$: Observable<boolean>;
@@ -52,6 +53,9 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
         this.cd.markForCheck();
       }
       );
+
+      console.log(this.configData);
+
   }
 
   changeDateDisplayed() {
