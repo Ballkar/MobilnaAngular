@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
-import { concatMap, debounceTime, filter, finalize, map, startWith, tap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { concatMap, debounceTime, filter, finalize, map, startWith, takeUntil, tap } from 'rxjs/operators';
 import { CustomerPopupComponent } from '../../customers/customer-popup/customer-popup.component';
 import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
@@ -17,16 +17,17 @@ import { WorkService } from '../work.service';
   templateUrl: './work-form.component.html',
   styleUrls: ['./work-form.component.scss']
 })
-export class WorkFormComponent implements OnInit {
+export class WorkFormComponent implements OnInit, OnDestroy {
 
   @ViewChild('labelChoose', {static: false}) labelChooseComponent: LabelChooseComponent;
   newLabelOpenned = false;
   isLocked = false;
   state: 'add' | 'edit';
-  actualDate: Date = new Date();
   form: FormGroup;
   filteredCustomers$: Observable<CustomerModel[]>;
   customers: CustomerModel[] = [];
+  actualDate: Date = new Date();
+  private onDestroy$ = new Subject<void>();
   get startCtrl() { return this.form.get('start') as FormControl; }
   get stopCtrl() { return this.form.get('stop') as FormControl; }
   get labelCtrl() { return this.form.get('label') as FormControl; }
@@ -59,6 +60,10 @@ export class WorkFormComponent implements OnInit {
       concatMap(name => this.customerService.getCustomers(null, name)),
       map(res => res.items)
     );
+
+    this.startCtrl.valueChanges.pipe(
+      takeUntil(this.onDestroy$),
+    ).subscribe(time => this.stopCtrl.setValue(moment(time, 'YYYY-M-D H:m:s').add(2, 'hours').toDate()));
   }
 
   displayFn(customer: CustomerModel): string {
@@ -116,5 +121,9 @@ export class WorkFormComponent implements OnInit {
         err => this.errorEmitted.emit(err)
       );
     }
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
   }
 }
