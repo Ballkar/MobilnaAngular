@@ -51,8 +51,8 @@ export class CustomersService {
     );
   }
 
-  deleteCustomer(id: number): Observable<null> {
-    return this.http.delete<null>(`${environment.apiUrl}/customers/${id}`);
+  deleteCustomer(id: number): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/customers/${id}`);
   }
 
   private mapCustomerForApi(customer: CustomerModel) {

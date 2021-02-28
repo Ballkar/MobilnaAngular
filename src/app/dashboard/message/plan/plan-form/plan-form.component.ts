@@ -21,7 +21,7 @@ export class PlanFormComponent implements OnInit {
   @Input() plan: MessagePlan;
   @Input() ableToRemove: boolean;
   @Output() planSubmitted: EventEmitter<MessagePlan> = new EventEmitter();
-  @Output() schemaRemoved: EventEmitter<void> = new EventEmitter();
+  @Output() planRemoved: EventEmitter<void> = new EventEmitter();
 
   get schemaCtrl() { return this.form.get('schema') as FormControl; }
   get timeTypeCtrl() { return this.form.get('timeType') as FormControl; }
@@ -69,7 +69,7 @@ export class PlanFormComponent implements OnInit {
   }
 
   remove() {
-    // this.planService.deleteSchema(this.plan.id).subscribe(() => this.planRemoved.emit());
+    this.planService.deletePlan(this.plan).subscribe(() => this.planRemoved.emit());
   }
 
   onSubmit() {

@@ -40,4 +40,9 @@ export class PlanService {
       map(data => data.data),
     );
   }
+
+  deletePlan(plan: MessagePlan): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/messages/plans/${plan.id}`).pipe(
+    );
+  }
 }

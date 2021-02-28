@@ -51,7 +51,7 @@ export class ListComponent implements OnInit {
   }
 
   select(plan: MessagePlan) {
-    const ref = this.dialog.open(PlanPopupComponent, {data: {plan, ableToRemove: false}});
+    const ref = this.dialog.open(PlanPopupComponent, {data: {plan, ableToRemove: true}});
     ref.afterClosed().pipe(
       filter((message: MessagePlan) => !!message)
     ).subscribe(() => this.getPlans());
