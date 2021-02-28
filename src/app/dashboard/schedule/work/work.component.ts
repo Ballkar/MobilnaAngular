@@ -94,6 +94,11 @@ export class WorkComponent implements OnInit {
 
   changeTimeOfWork(event: EventMainCalendar<WorkModel>) {
     const { data: work } = event;
+    if(moment(event.start).isBefore()) {
+      // TODO: notify że nie można przenosić na date przed aktualnym czasem.
+      return;
+    }
+
     work.start = event.start;
     work.stop = event.stop;
     this.replaceElement(work);
@@ -115,7 +120,7 @@ export class WorkComponent implements OnInit {
     this.workEvents = cloneDeep(worksEventsRemembered);
   }
 
-  changeDate(data: DateInMainCalendar) {
+  changeDateDisplayed(data: DateInMainCalendar) {
     this.date = data;
     this.getWorks(this.labelsChosen);
   }
@@ -127,19 +132,6 @@ export class WorkComponent implements OnInit {
     if (index !== -1) {
       this.workEvents[index] = this.mapWorkToEvent(newWork);
       this.workEvents = [...this.workEvents];
-    }
-  }
-
-  private removeElement(workToRemove: WorkModel) {
-    const index = this.workEvents.map(e => e.data.id).indexOf(workToRemove.id);
-
-    console.log(index);
-
-    if (index !== -1) {
-      const a = this.workEvents.splice(index, 1);
-      console.log(this.workEvents);
-      console.log(a);
-
     }
   }
 

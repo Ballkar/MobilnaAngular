@@ -15,7 +15,7 @@
   <app-main-calendar
     [eventsData]="workEvents"
     [updatingState$]="isUpdating$"
-    (dateDisplayedChanged)="changeDate($event)"
+    (dateDisplayedChanged)="changeDateDisplayed($event)"
     (emptyHourClicked)="addWorkOnDate($event)"
     (eventTimeChanged)="changeTimeOfWork($event)"
     (eventClicked)="workClicked($event)">
