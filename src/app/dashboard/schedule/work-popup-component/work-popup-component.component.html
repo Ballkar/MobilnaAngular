@@ -1,7 +1,7 @@
 <div class="container">
 
   <ng-container *ngIf="data && data.id; else empty">
-    <app-work-form [work]="data"
+    <app-work-form [work]="data" *ngIf="!isOldWork; else oldWorkDisplay"
       [ableToRemove]="true"
       (errorEmitted)="close(null, 'edit')"
       (workSubmitted)="close($event, 'edit')"
@@ -18,3 +18,8 @@
   </ng-template>
 
 </div>
+
+
+<ng-template #oldWorkDisplay>
+  stara wizyta tutaj wyświetle informacje może jakieś możliwości co do starej wizyty?
+</ng-template>

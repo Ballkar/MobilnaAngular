@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import * as moment from 'moment';
 import { WorkModel } from '../work.model';
 
 @Component({
@@ -9,14 +10,16 @@ import { WorkModel } from '../work.model';
 })
 export class WorkPopupComponentComponent implements OnInit {
 
+  isOldWork = false;
   constructor(
     public dialogRef: MatDialogRef<WorkPopupComponentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: WorkModel,
   ) { }
 
   ngOnInit() {
-    console.log(this.data);
-
+    if(this.data) {
+      this.isOldWork = moment(this.data.start, 'YYYY-MM-DD HH:mm:ss').isBefore();
+    }
   }
 
   close(work: WorkModel, state: 'delete' | 'edit' | 'add') {
