@@ -13,6 +13,7 @@
   </app-label-choose>
 
   <app-main-calendar
+    [disableDateDisplayedChange]="dataHaveBeenChanged"
     [eventsData]="workEvents"
     [updatingState$]="isUpdating$"
     (dateDisplayedChanged)="changeDateDisplayed($event)"
