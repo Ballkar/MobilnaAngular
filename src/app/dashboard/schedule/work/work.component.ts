@@ -151,6 +151,7 @@ export class WorkComponent implements OnInit {
       title: `${work.customer.name} ${work.customer.surname} <br> ${moment(work.start, this.dateFormat).format('H:mm')}-${moment(work.stop, this.dateFormat).format('H:mm')}`,
       color: work.label ? work.label.color : this.labelService.voidLabelColor,
       data: work,
+      draggable: moment(work.start, this.dateFormat).isAfter()
     };
 
     return event;
