@@ -1,0 +1,38 @@
+@import 'mixins';
+
+.container {
+  @include popupContainer;
+  width: auto;
+
+  .queryContainer {
+    margin-bottom: 20px;
+
+    .title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 16px;
+    }
+  }
+
+  .buttonsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      &:first-of-type {
+        margin-right: 5px;
+      }
+
+      &:nth-last-of-type(2) {
+        margin-left: 5px;
+      }
+    }
+  }
+}

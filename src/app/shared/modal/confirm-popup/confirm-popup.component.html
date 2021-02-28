@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="queryContainer">
+    <div class="title">{{data.text}}</div>
+    <div class="subtitle">{{data.subtitle}}</div>
+  </div>
+
+  <div class="buttonsContainer">
+    <button mat-raised-button color="primary" (click)="agree()">{{data.confirm}}</button>
+    <button mat-raised-button color="warn" (click)="cancel()">{{data.cancel}}</button>
+  </div>
+</div>

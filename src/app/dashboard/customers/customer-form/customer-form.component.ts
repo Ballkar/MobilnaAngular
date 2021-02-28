@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize, tap } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
+import { filter, finalize, tap } from 'rxjs/operators';
+import { ConfirmPopupComponent, ConfirmPopupComponentData } from 'src/app/shared/modal/confirm-popup/confirm-popup.component';
 import { CustomerModel } from '../customer.model';
 import { CustomersService } from '../customers.service';
 
@@ -26,6 +28,7 @@ export class CustomerFormComponent implements OnInit {
   @Output() customerRemoved: EventEmitter<void> = new EventEmitter();
   constructor(
     private customerService: CustomersService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -39,7 +42,20 @@ export class CustomerFormComponent implements OnInit {
     });
   }
 
-  remove() {
+  initRemove() {
+    const data: ConfirmPopupComponentData = {
+      confirm: 'tak',
+      cancel: 'nie',
+      text: 'Czy napewno chcesz usunąć tego klienta?',
+      subtitle: 'Spowoduje to usunięcie jego przyszłych wizyt. Nadal zachowamy natomiast wizyty oraz całą historię spotkań z tą osobą.'
+    };
+    const ref = this.dialog.open(ConfirmPopupComponent, { data });
+    ref.afterClosed().pipe(
+      filter((data: CustomerModel) => !!data)
+    ).subscribe(() => this.remove());
+  }
+
+  private remove() {
     this.isLocked = true;
     this.customerService.deleteCustomer(this.customer.id).subscribe(() => this.customerRemoved.emit());
   }

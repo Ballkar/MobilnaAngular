@@ -30,6 +30,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatBadgeModule} from '@angular/material/badge';
 import { getPolishPaginatorIntl } from './internationalizations/polish-paginator-intl';
+import { ConfirmPopupComponent } from './modal/confirm-popup/confirm-popup.component';
 
 const materialComponents = [
   CommonModule,
@@ -66,6 +67,7 @@ const materialComponents = [
     PhonePipe,
     PhoneMaskDirective,
     TimeLeadingZeroPipe,
+    ConfirmPopupComponent,
   ],
   imports: [
     CommonModule,
@@ -83,8 +85,10 @@ const materialComponents = [
     PhonePipe,
     PhoneMaskDirective,
     TimeLeadingZeroPipe,
+    ConfirmPopupComponent,
   ],
   entryComponents: [
+    ConfirmPopupComponent,
   ],
   providers: [
     { provide: MatPaginatorIntl, useValue: getPolishPaginatorIntl() }
