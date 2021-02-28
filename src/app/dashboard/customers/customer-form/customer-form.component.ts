@@ -47,7 +47,8 @@ export class CustomerFormComponent implements OnInit {
       confirm: 'tak',
       cancel: 'nie',
       text: 'Czy napewno chcesz usunąć tego klienta?',
-      subtitle: 'Spowoduje to usunięcie jego przyszłych wizyt. Nadal zachowamy natomiast wizyty oraz całą historię spotkań z tą osobą.'
+      subtitle: `Spowoduje to usunięcie jego przyszłych wizyt.
+      Zachowamy natomiast wizyty oraz całą historię spotkań z tą osobą.`
     };
     const ref = this.dialog.open(ConfirmPopupComponent, { data });
     ref.afterClosed().pipe(
