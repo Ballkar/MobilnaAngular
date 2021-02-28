@@ -53,10 +53,7 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
         }
         this.cd.markForCheck();
       }
-      );
-
-      console.log(this.configData);
-
+    );
   }
 
   changeDateDisplayed() {

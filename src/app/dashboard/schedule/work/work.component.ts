@@ -54,6 +54,9 @@ export class WorkComponent implements OnInit {
   }
 
   addWorkOnDate(startDate: Data) {
+    if(moment(startDate).isBefore()) {
+      return;
+    }
     const work = {
       start: startDate,
       label: this.labelsChosen.length === 1 ? this.labelsChosen[0] : null,
@@ -78,25 +81,6 @@ export class WorkComponent implements OnInit {
     ).subscribe();
   }
 
-  private reactOnWorkFormClosed(work: WorkModel, state: 'add' | 'edit' | 'delete'): Observable<WorkModel> {
-    this.isUpdating$.next(true);
-    if(state === 'edit') {
-      this.replaceElement(work);
-      return of(work).pipe(
-        tap(() => this.isUpdating$.next(false)),
-      );
-    } else if(state === 'delete') {
-      return this.workService.removeWork(work).pipe(
-        map(() => work),
-        tap(() => this.getWorks(this.labelsChosen)),
-      );
-    } else if(state === 'add') {
-      return this.workService.saveWork(work).pipe(
-        tap(() => this.getWorks(this.labelsChosen)),
-      );
-    }
-  }
-
   catchChangeLabels(labels: LabelModel[]) {
     this.labelsChosen = labels;
     this.getWorks(this.labelsChosen);
@@ -119,9 +103,7 @@ export class WorkComponent implements OnInit {
     const works: WorkModel[] = this.workEvents.map(event => event.data);
     const changedWorks = differenceWith(works, this.worksFromApi, isEqual);
 
-    this.workService.saveManyWorks(changedWorks).pipe(
-      // tap(edittedWork => this.replaceElement(edittedWork)),
-    ).subscribe(() => this.getWorks(this.labelsChosen));
+    this.workService.saveManyWorks(changedWorks).subscribe(() => this.getWorks(this.labelsChosen));
   }
 
   resetActualWorks() {
@@ -133,6 +115,25 @@ export class WorkComponent implements OnInit {
   changeDateDisplayed(data: DateInMainCalendar) {
     this.date = data;
     this.getWorks(this.labelsChosen);
+  }
+
+  private reactOnWorkFormClosed(work: WorkModel, state: 'add' | 'edit' | 'delete'): Observable<WorkModel> {
+    this.isUpdating$.next(true);
+    if(state === 'edit') {
+      this.replaceElement(work);
+      return of(work).pipe(
+        tap(() => this.isUpdating$.next(false)),
+      );
+    } else if(state === 'delete') {
+      return this.workService.removeWork(work).pipe(
+        map(() => work),
+        tap(() => this.getWorks(this.labelsChosen)),
+      );
+    } else if(state === 'add') {
+      return this.workService.saveWork(work).pipe(
+        tap(() => this.getWorks(this.labelsChosen)),
+      );
+    }
   }
 
   private replaceElement(newWork: WorkModel) {
