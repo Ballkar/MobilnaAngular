@@ -9,7 +9,7 @@ import { EventMainCalendar } from '../../main-calendar/eventMainCalendar.model';
 import { WorkPopupComponentComponent } from '../work-popup-component/work-popup-component.component';
 import { WorkModel } from '../work.model';
 import { WorkService } from '../work.service';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, differenceWith, isEqual } from 'lodash';
 import { LabelModel } from '../label.model';
 import { LabelService } from '../label.service';
 import { LabelseEditingPopupComponent } from '../labelse-editing-popup/labelse-editing-popup.component';
@@ -102,7 +102,9 @@ export class WorkComponent implements OnInit {
   saveActualWorks() {
     this.isUpdating$.next(true);
     const works: WorkModel[] = this.workEvents.map(event => event.data);
-    this.workService.saveManyWorks(works).pipe(
+    const changedWorks = differenceWith(works, this.worksFromApi, isEqual);
+
+    this.workService.saveManyWorks(changedWorks).pipe(
       // tap(edittedWork => this.replaceElement(edittedWork)),
     ).subscribe(() => this.getWorks(this.labelsChosen));
   }
