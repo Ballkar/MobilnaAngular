@@ -20,4 +20,8 @@ export class CustomerPopupComponent implements OnInit {
   catchCustomer(customer: CustomerModel) {
     this.dialogRef.close(customer);
   }
+
+  close() {
+    this.dialogRef.close(true);
+  }
 }

@@ -1,3 +1,3 @@
 <div class="container">
-  <app-customer-form [customer]="customer" (customerEmitted)="catchCustomer($event)"></app-customer-form>
+  <app-customer-form [customer]="customer" (customerEmitted)="catchCustomer($event)" (customerRemoved)="close()"></app-customer-form>
 </div>

@@ -23,6 +23,7 @@ export class CustomerFormComponent implements OnInit {
   @Input() customer: CustomerModel;
   @Input() ableToRemove: boolean;
   @Output() customerEmitted: EventEmitter<CustomerModel> = new EventEmitter();
+  @Output() customerRemoved: EventEmitter<void> = new EventEmitter();
   constructor(
     private customerService: CustomersService,
   ) { }
@@ -39,7 +40,8 @@ export class CustomerFormComponent implements OnInit {
   }
 
   remove() {
-
+    this.isLocked = true;
+    this.customerService.deleteCustomer(this.customer.id).subscribe(() => this.customerRemoved.emit());
   }
 
   onSubmit() {
