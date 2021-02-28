@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Data } from '@angular/router';
 import * as moment from 'moment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, filter, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { DateInMainCalendar } from '../../main-calendar/DateInMainCalendar';
 import { EventMainCalendar } from '../../main-calendar/eventMainCalendar.model';
@@ -61,7 +61,8 @@ export class WorkComponent implements OnInit {
     const ref = this.dialog.open(WorkPopupComponentComponent, { data: work });
     ref.afterClosed().pipe(
       filter(data => !!data),
-    ).subscribe(() => this.getWorks(this.labelsChosen));
+      switchMap(data => this.reactOnWorkFormClosed(data.work, data.state)),
+    ).subscribe();
   }
 
   openEditLabels() {
@@ -73,17 +74,26 @@ export class WorkComponent implements OnInit {
     const ref = this.dialog.open(WorkPopupComponentComponent, { data: work });
     ref.afterClosed().pipe(
       filter(data => !!data),
-      tap(data => this.reactOnWorkFormClosed(data.work, data.state)),
+      switchMap(data => this.reactOnWorkFormClosed(data.work, data.state)),
     ).subscribe();
   }
 
-  private reactOnWorkFormClosed(work: WorkModel, state: 'add' | 'edit' | 'delete') {
+  private reactOnWorkFormClosed(work: WorkModel, state: 'add' | 'edit' | 'delete'): Observable<WorkModel> {
+    this.isUpdating$.next(true);
     if(state === 'edit') {
       this.replaceElement(work);
+      return of(work).pipe(
+        tap(() => this.isUpdating$.next(false)),
+      );
     } else if(state === 'delete') {
-      this.getWorks(this.labelsChosen);
+      return this.workService.removeWork(work).pipe(
+        map(() => work),
+        tap(() => this.getWorks(this.labelsChosen)),
+      );
     } else if(state === 'add') {
-      this.getWorks(this.labelsChosen);
+      return this.workService.saveWork(work).pipe(
+        tap(() => this.getWorks(this.labelsChosen)),
+      );
     }
   }
 

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import * as moment from 'moment';
 import { WorkModel } from '../work.model';
+import { WorkService } from '../work.service';
 
 @Component({
   selector: 'app-work-popup-component',
@@ -9,9 +10,9 @@ import { WorkModel } from '../work.model';
   styleUrls: ['./work-popup-component.component.scss']
 })
 export class WorkPopupComponentComponent implements OnInit {
-
   isOldWork = false;
   constructor(
+    public workService: WorkService,
     public dialogRef: MatDialogRef<WorkPopupComponentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: WorkModel,
   ) { }
@@ -22,7 +23,12 @@ export class WorkPopupComponentComponent implements OnInit {
     }
   }
 
-  close(work: WorkModel, state: 'delete' | 'edit' | 'add') {
-    this.dialogRef.close({work, state});
+  catchWorkEmitted(work: WorkModel) {
+    const state = this.data && this.data.id ? 'edit' : 'add';
+    this.dialogRef.close({work, state });
+  }
+
+  catchRemove() {
+    this.dialogRef.close({work: this.data, state: 'delete'});
   }
 }

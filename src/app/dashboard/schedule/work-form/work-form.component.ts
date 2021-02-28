@@ -22,7 +22,6 @@ export class WorkFormComponent implements OnInit, OnDestroy {
   @ViewChild('labelChoose', {static: false}) labelChooseComponent: LabelChooseComponent;
   newLabelOpenned = false;
   isLocked = false;
-  state: 'add' | 'edit';
   form: FormGroup;
   filteredCustomers$: Observable<CustomerModel[]>;
   customers: CustomerModel[] = [];
@@ -36,7 +35,6 @@ export class WorkFormComponent implements OnInit, OnDestroy {
   @Input() ableToRemove: boolean;
   @Output() workSubmitted: EventEmitter<WorkModel> = new EventEmitter();
   @Output() workRemoved: EventEmitter<void> = new EventEmitter();
-  @Output() errorEmitted: EventEmitter<void> = new EventEmitter();
   constructor(
     private customerService: CustomersService,
     private workService: WorkService,
@@ -44,7 +42,6 @@ export class WorkFormComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.state = this.work.stop && this.work.customer ? 'edit' : 'add';
     this.work.stop = this.work.stop ? this.work.stop : moment(this.work.start, 'YYYY-M-D H:m:s').add(2, 'hours').format('YYYY-M-D H:m:s');
     this.form = new FormGroup({
       start: new FormControl(this.work ? moment(this.work.start, 'YYYY-M-D H:m:s').toDate() : this.actualDate, Validators.required),
@@ -60,10 +57,6 @@ export class WorkFormComponent implements OnInit, OnDestroy {
       concatMap(name => this.customerService.getCustomers(null, name)),
       map(res => res.items)
     );
-
-    this.startCtrl.valueChanges.pipe(
-      takeUntil(this.onDestroy$),
-    ).subscribe(time => this.stopCtrl.setValue(moment(time, 'YYYY-M-D H:m:s').add(2, 'hours').toDate()));
   }
 
   displayFn(customer: CustomerModel): string {
@@ -91,7 +84,7 @@ export class WorkFormComponent implements OnInit, OnDestroy {
   }
 
   remove() {
-    this.workService.removeWork(this.work).subscribe(() => this.workRemoved.emit());
+    this.workRemoved.emit();
   }
 
   onSubmit() {
@@ -106,21 +99,7 @@ export class WorkFormComponent implements OnInit, OnDestroy {
       label: this.labelCtrl.value,
     };
 
-    if (this.state === 'add') {
-      this.workService.saveWork(work).pipe(
-        finalize(() => this.isLocked = false),
-      ).subscribe(
-        res => this.workSubmitted.emit(res),
-        err => this.errorEmitted.emit(err)
-      );
-    } else {
-      this.workService.editWork(work).pipe(
-        finalize(() => this.isLocked = false),
-      ).subscribe(
-        res => this.workSubmitted.emit(res),
-        err => this.errorEmitted.emit(err)
-      );
-    }
+    this.workSubmitted.emit(work);
   }
 
   ngOnDestroy(): void {
