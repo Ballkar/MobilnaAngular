@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import * as moment from 'moment';
+import { SnotifyService } from 'ng-snotify';
 import { Observable, Subject } from 'rxjs';
 import { concatMap, debounceTime, filter, finalize, map, startWith, takeUntil, tap } from 'rxjs/operators';
 import { CustomerPopupComponent } from '../../customers/customer-popup/customer-popup.component';
@@ -37,7 +38,6 @@ export class WorkFormComponent implements OnInit, OnDestroy {
   @Output() workRemoved: EventEmitter<void> = new EventEmitter();
   constructor(
     private customerService: CustomersService,
-    private workService: WorkService,
     private dialog: MatDialog,
   ) { }
 
@@ -79,7 +79,7 @@ export class WorkFormComponent implements OnInit, OnDestroy {
 
     const ref = this.dialog.open(CustomerPopupComponent, {});
     ref.afterClosed().pipe(
-      filter((customer: CustomerModel) => !!customer)
+      filter((customer: CustomerModel) => !!customer),
     ).subscribe(customer => this.customerCtrl.setValue(customer));
   }
 

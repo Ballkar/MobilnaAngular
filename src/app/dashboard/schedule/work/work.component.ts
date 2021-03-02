@@ -14,6 +14,7 @@ import { LabelModel } from '../label.model';
 import { LabelService } from '../label.service';
 import { LabelseEditingPopupComponent } from '../labelse-editing-popup/labelse-editing-popup.component';
 import { LabelChooseComponent } from '../label-choose/label-choose.component';
+import { SnotifyService } from 'ng-snotify';
 
 @Component({
   selector: 'app-work',
@@ -30,6 +31,7 @@ export class WorkComponent implements OnInit {
   labelsChosen: LabelModel[] = [];
   private worksFromApi: WorkModel[];
   constructor(
+    private notifyService: SnotifyService,
     private labelService: LabelService,
     private workService: WorkService,
     private dialog: MatDialog,
@@ -89,7 +91,7 @@ export class WorkComponent implements OnInit {
   changeTimeOfWork(event: EventMainCalendar<WorkModel>) {
     const { data: work } = event;
     if(moment(event.start).isBefore()) {
-      // TODO: notify że nie można przenosić na date przed aktualnym czasem.
+      this.notifyService.error('Wizyta musi odbyć się w przyszłości!');
       return;
     }
 
@@ -103,7 +105,9 @@ export class WorkComponent implements OnInit {
     const works: WorkModel[] = this.workEvents.map(event => event.data);
     const changedWorks = differenceWith(works, this.worksFromApi, isEqual);
 
-    this.workService.saveManyWorks(changedWorks).subscribe(() => this.getWorks(this.labelsChosen));
+    this.workService.saveManyWorks(changedWorks).pipe(
+      tap(() => this.notifyService.success('Kalendarz został zaaktualizowany!')),
+    ).subscribe(() => this.getWorks(this.labelsChosen));
   }
 
   resetActualWorks() {
@@ -128,10 +132,12 @@ export class WorkComponent implements OnInit {
       return this.workService.removeWork(work).pipe(
         map(() => work),
         tap(() => this.getWorks(this.labelsChosen)),
+        tap(() => this.notifyService.success('Wizyta została usunięta!')),
       );
     } else if(state === 'add') {
       return this.workService.saveWork(work).pipe(
         tap(() => this.getWorks(this.labelsChosen)),
+        tap(() => this.notifyService.success('Wizyta została dodana!')),
       );
     }
   }
