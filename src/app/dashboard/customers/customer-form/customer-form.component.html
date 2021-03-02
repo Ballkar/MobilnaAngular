@@ -1,8 +1,8 @@
 <div class="container">
   <div class="removeBtnContainer" *ngIf="ableToRemove">
-    <button mat-raised-button color="warn" type="button" (click)="remove()">Usuń</button>
+    <button mat-raised-button color="warn" type="button" (click)="initRemove()">Usuń</button>
   </div>
-  <mat-card-title class="mainTitle">Edytuj klientkę</mat-card-title>
+  <mat-card-title class="mainTitle">{{state === 'add' ? 'Dodaj klientkę' : 'Edytuj klientkę'}}</mat-card-title>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
     <mat-form-field class="name">

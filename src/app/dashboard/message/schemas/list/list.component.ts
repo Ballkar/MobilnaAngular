@@ -43,11 +43,6 @@ export class ListComponent implements OnInit {
     ).subscribe(res => this.schemas = res.items);
   }
 
-
-  initChat(schema: MessageSchemaModel) {
-
-  }
-
   select(schema: MessageSchemaModel) {
 
   }

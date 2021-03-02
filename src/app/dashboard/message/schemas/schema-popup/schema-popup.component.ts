@@ -17,7 +17,7 @@ export class SchemaPopupComponent implements OnInit {
   ngOnInit() {
   }
 
-  close(work: MessageSchemaModel) {
-    this.dialogRef.close(work);
+  close() {
+    this.dialogRef.close(true);
   }
 }

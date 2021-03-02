@@ -1,8 +1,10 @@
 <div class="container">
 
   <ng-container>
-    <app-schema-form [schema]="data?.schema" (schemaSubmitted)="close($event)" (schemaRemoved)="close(data?.schema)" [ableToRemove]="data?.ableToRemove"></app-schema-form>
+    <app-schema-form [schema]="data.schema"
+                     (schemaSubmitted)="close()"
+                     (schemaRemoved)="close()"
+                     [ableToRemove]="data.ableToRemove">
+    </app-schema-form>
   </ng-container>
-
-
 </div>

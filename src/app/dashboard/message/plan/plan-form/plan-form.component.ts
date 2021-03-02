@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SnotifyService } from 'ng-snotify';
 import { Observable } from 'rxjs';
-import { startWith, debounceTime, map, concatMap, finalize } from 'rxjs/operators';
+import { startWith, debounceTime, map, concatMap, finalize, tap } from 'rxjs/operators';
 import { MessagePlan, MessageSchemaModel, TIMETYPES,  } from '../../message.model';
 import { MessageSchemaService } from '../../schemas/messageSchema.service';
 import { PlanService } from '../plan.service';
@@ -31,6 +32,7 @@ export class PlanFormComponent implements OnInit {
 
   constructor(
     private planService: PlanService,
+    private notifyService: SnotifyService,
     private schemaService: MessageSchemaService,
   ) { }
 
@@ -69,7 +71,9 @@ export class PlanFormComponent implements OnInit {
   }
 
   remove() {
-    this.planService.deletePlan(this.plan).subscribe(() => this.planRemoved.emit());
+    this.planService.deletePlan(this.plan).pipe(
+      tap(() => this.planRemoved.emit()),
+    ).subscribe(() => this.notifyService.success('Plan został usunięty!'));
   }
 
   onSubmit() {
@@ -79,11 +83,13 @@ export class PlanFormComponent implements OnInit {
     if (this.state === 'add') {
       this.planService.add(this.form.value).pipe(
         finalize(() => this.isLocked = false),
-      ).subscribe(res => this.planSubmitted.emit(res));
+        tap(() => this.planSubmitted.emit()),
+      ).subscribe(() => this.notifyService.success('Plan został dodany!'));
     } else {
       this.planService.updatePlan({...this.form.value, id: this.plan.id}).pipe(
         finalize(() => this.isLocked = false),
-      ).subscribe(res => this.planSubmitted.emit(res));
+        tap(() => this.planSubmitted.emit()),
+      ).subscribe(() => this.notifyService.success('Plan został zaktualizowany!'));
     }
   }
 }

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
-import { filter, finalize } from 'rxjs/operators';
+import { SnotifyService } from 'ng-snotify';
+import { filter, finalize, tap } from 'rxjs/operators';
 import { MessageSchemaModel } from '../../message.model';
 import { MessageSchemaService } from '../messageSchema.service';
 import { SchemaPreviewComponent } from '../schema-preview/schema-preview.component';
@@ -23,8 +24,10 @@ export class SchemaFormComponent implements OnInit {
   get nameCtrl() { return this.form.get('name') as FormControl; }
   get bodyCtrl() { return this.form.get('body') as FormControl; }
   get clearDiacriticsCtrl() { return this.form.get('clearDiacritics') as FormControl; }
+
   constructor(
     private schemaService: MessageSchemaService,
+    private notifyService: SnotifyService,
     private dialog: MatDialog,
   ) { }
 
@@ -39,7 +42,9 @@ export class SchemaFormComponent implements OnInit {
   }
 
   remove() {
-    this.schemaService.deleteSchema(this.schema.id).subscribe(() => this.schemaRemoved.emit());
+    this.schemaService.deleteSchema(this.schema.id).pipe(
+      tap(() => this.schemaRemoved.emit())
+    ).subscribe(() => this.notifyService.success('Schemat został usunięty!'));
   }
 
   preview() {
@@ -56,7 +61,8 @@ export class SchemaFormComponent implements OnInit {
     if (this.state === 'add') {
       this.schemaService.saveSchema(this.form.value).pipe(
         finalize(() => this.isLocked = false),
-      ).subscribe(res => this.schemaSubmitted.emit(res));
+        tap(() => this.schemaSubmitted.emit())
+      ).subscribe(() => this.notifyService.success('Schemat został dodany!'));
     } else {
       this.schemaService.updateSchema({...this.schema,
         clearDiacritics: this.clearDiacriticsCtrl.value,
@@ -64,7 +70,8 @@ export class SchemaFormComponent implements OnInit {
         body: this.bodyCtrl.value
       }).pipe(
         finalize(() => this.isLocked = false),
-      ).subscribe(res => this.schemaSubmitted.emit(res));
+        tap(() => this.schemaSubmitted.emit())
+      ).subscribe(() => this.notifyService.success('Schemat został zaktualizowany!'));
     }
   }
 }

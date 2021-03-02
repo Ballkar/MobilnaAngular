@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
+import { SnotifyService } from 'ng-snotify';
 import { filter, finalize, tap } from 'rxjs/operators';
 import { ConfirmPopupComponent, ConfirmPopupComponentData } from 'src/app/shared/modal/confirm-popup/confirm-popup.component';
 import { CustomerModel } from '../customer.model';
@@ -28,6 +29,7 @@ export class CustomerFormComponent implements OnInit {
   @Output() customerRemoved: EventEmitter<void> = new EventEmitter();
   constructor(
     private customerService: CustomersService,
+    private notifyService: SnotifyService,
     private dialog: MatDialog,
   ) { }
 
@@ -58,7 +60,11 @@ export class CustomerFormComponent implements OnInit {
 
   private remove() {
     this.isLocked = true;
-    this.customerService.deleteCustomer(this.customer.id).subscribe(() => this.customerRemoved.emit());
+    this.customerService.deleteCustomer(this.customer.id).pipe(
+      tap(() => this.customerRemoved.emit()),
+    ).subscribe(
+      () => this.notifyService.success('Klientka została usunięta!')
+    );
   }
 
   onSubmit() {
@@ -69,12 +75,16 @@ export class CustomerFormComponent implements OnInit {
       this.customerService.saveCustomer({...this.form.value}).pipe(
         finalize(() => this.isLocked = false),
         tap(customer => this.customerEmitted.emit(customer)),
-      ).subscribe();
+      ).subscribe(
+        () => this.notifyService.success('Klientka została dodana!')
+      );
     } else {
       this.customerService.editCustomer({...this.form.value, id: this.customer.id}).pipe(
         finalize(() => this.isLocked = false),
         tap(customer => this.customerEmitted.emit(customer)),
-      ).subscribe();
+      ).subscribe(
+        () => this.notifyService.success('Klientka została zaktualizowana!')
+      );
     }
   }
 }
