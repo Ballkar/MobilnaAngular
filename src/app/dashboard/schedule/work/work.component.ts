@@ -2,18 +2,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Data } from '@angular/router';
 import * as moment from 'moment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, filter, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { DateInMainCalendar } from '../../main-calendar/DateInMainCalendar';
 import { EventMainCalendar } from '../../main-calendar/eventMainCalendar.model';
 import { WorkPopupComponentComponent } from '../work-popup-component/work-popup-component.component';
 import { WorkModel } from '../work.model';
 import { WorkService } from '../work.service';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, differenceWith, isEqual } from 'lodash';
 import { LabelModel } from '../label.model';
 import { LabelService } from '../label.service';
 import { LabelseEditingPopupComponent } from '../labelse-editing-popup/labelse-editing-popup.component';
 import { LabelChooseComponent } from '../label-choose/label-choose.component';
+import { SnotifyService } from 'ng-snotify';
 
 @Component({
   selector: 'app-work',
@@ -30,6 +31,7 @@ export class WorkComponent implements OnInit {
   labelsChosen: LabelModel[] = [];
   private worksFromApi: WorkModel[];
   constructor(
+    private notifyService: SnotifyService,
     private labelService: LabelService,
     private workService: WorkService,
     private dialog: MatDialog,
@@ -54,6 +56,9 @@ export class WorkComponent implements OnInit {
   }
 
   addWorkOnDate(startDate: Data) {
+    if(moment(startDate).isBefore()) {
+      return;
+    }
     const work = {
       start: startDate,
       label: this.labelsChosen.length === 1 ? this.labelsChosen[0] : null,
@@ -61,7 +66,8 @@ export class WorkComponent implements OnInit {
     const ref = this.dialog.open(WorkPopupComponentComponent, { data: work });
     ref.afterClosed().pipe(
       filter(data => !!data),
-    ).subscribe(() => this.getWorks(this.labelsChosen));
+      switchMap(data => this.reactOnWorkFormClosed(data.work, data.state)),
+    ).subscribe();
   }
 
   openEditLabels() {
@@ -73,18 +79,8 @@ export class WorkComponent implements OnInit {
     const ref = this.dialog.open(WorkPopupComponentComponent, { data: work });
     ref.afterClosed().pipe(
       filter(data => !!data),
-      tap(data => this.reactOnWorkFormClosed(data.work, data.state)),
+      switchMap(data => this.reactOnWorkFormClosed(data.work, data.state)),
     ).subscribe();
-  }
-
-  private reactOnWorkFormClosed(work: WorkModel, state: 'add' | 'edit' | 'delete') {
-    if(state === 'edit') {
-      this.replaceElement(work);
-    } else if(state === 'delete') {
-      this.getWorks(this.labelsChosen);
-    } else if(state === 'add') {
-      this.getWorks(this.labelsChosen);
-    }
   }
 
   catchChangeLabels(labels: LabelModel[]) {
@@ -94,6 +90,11 @@ export class WorkComponent implements OnInit {
 
   changeTimeOfWork(event: EventMainCalendar<WorkModel>) {
     const { data: work } = event;
+    if(moment(event.start).isBefore()) {
+      this.notifyService.error('Wizyta musi odbyć się w przyszłości!');
+      return;
+    }
+
     work.start = event.start;
     work.stop = event.stop;
     this.replaceElement(work);
@@ -102,8 +103,10 @@ export class WorkComponent implements OnInit {
   saveActualWorks() {
     this.isUpdating$.next(true);
     const works: WorkModel[] = this.workEvents.map(event => event.data);
-    this.workService.saveManyWorks(works).pipe(
-      // tap(edittedWork => this.replaceElement(edittedWork)),
+    const changedWorks = differenceWith(works, this.worksFromApi, isEqual);
+
+    this.workService.saveManyWorks(changedWorks).pipe(
+      tap(() => this.notifyService.success('Kalendarz został zaaktualizowany!')),
     ).subscribe(() => this.getWorks(this.labelsChosen));
   }
 
@@ -113,9 +116,30 @@ export class WorkComponent implements OnInit {
     this.workEvents = cloneDeep(worksEventsRemembered);
   }
 
-  changeDate(data: DateInMainCalendar) {
+  changeDateDisplayed(data: DateInMainCalendar) {
     this.date = data;
     this.getWorks(this.labelsChosen);
+  }
+
+  private reactOnWorkFormClosed(work: WorkModel, state: 'add' | 'edit' | 'delete'): Observable<WorkModel> {
+    this.isUpdating$.next(true);
+    if(state === 'edit') {
+      this.replaceElement(work);
+      return of(work).pipe(
+        tap(() => this.isUpdating$.next(false)),
+      );
+    } else if(state === 'delete') {
+      return this.workService.removeWork(work).pipe(
+        map(() => work),
+        tap(() => this.getWorks(this.labelsChosen)),
+        tap(() => this.notifyService.success('Wizyta została usunięta!')),
+      );
+    } else if(state === 'add') {
+      return this.workService.saveWork(work).pipe(
+        tap(() => this.getWorks(this.labelsChosen)),
+        tap(() => this.notifyService.success('Wizyta została dodana!')),
+      );
+    }
   }
 
   private replaceElement(newWork: WorkModel) {
@@ -128,19 +152,6 @@ export class WorkComponent implements OnInit {
     }
   }
 
-  private removeElement(workToRemove: WorkModel) {
-    const index = this.workEvents.map(e => e.data.id).indexOf(workToRemove.id);
-
-    console.log(index);
-
-    if (index !== -1) {
-      const a = this.workEvents.splice(index, 1);
-      console.log(this.workEvents);
-      console.log(a);
-
-    }
-  }
-
   private mapWorkToEvent(work: WorkModel): EventMainCalendar<WorkModel> {
     const event: EventMainCalendar<WorkModel> = {
       start: work.start,
@@ -149,6 +160,7 @@ export class WorkComponent implements OnInit {
       title: `${work.customer.name} ${work.customer.surname} <br> ${moment(work.start, this.dateFormat).format('H:mm')}-${moment(work.stop, this.dateFormat).format('H:mm')}`,
       color: work.label ? work.label.color : this.labelService.voidLabelColor,
       data: work,
+      draggable: moment(work.start, this.dateFormat).isAfter()
     };
 
     return event;

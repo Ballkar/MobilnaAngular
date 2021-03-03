@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SnotifyService } from 'ng-snotify';
 import { Observable, throwError } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { UserModel } from 'src/app/shared/model/user.model';
@@ -32,6 +33,7 @@ export class ProfileComponent implements OnInit {
   get newPasswordConfirmationCtrl() { return this.formPassword.get('new_password_confirmation') as FormControl; }
   constructor(
     private userService: UserService,
+    private notifyService: SnotifyService,
   ) { }
 
   ngOnInit() {
@@ -49,6 +51,7 @@ export class ProfileComponent implements OnInit {
     this.isLocked = true;
     this.userService.updateProfile(this.formProfile.value).pipe(
       finalize(() => this.isLocked = false),
+      tap(() => this.notifyService.success('Profil został zaktualizowany!')),
     ).subscribe();
   }
 
@@ -59,6 +62,7 @@ export class ProfileComponent implements OnInit {
       tap(() => this.resetForm(this.formPassword)),
       catchError(e => this.catchPasswordError(e)),
       finalize(() => this.isLocked = false),
+      tap(() => this.notifyService.success('Hasło zostało zmienione!')),
     ).subscribe();
   }
 

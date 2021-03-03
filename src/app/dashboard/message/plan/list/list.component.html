@@ -14,7 +14,7 @@
       <div class="item" *ngFor="let plan of plans.items">
 
         <button class="name" mat-list-item (click)="select(plan)">
-          {{plan.schema.name}} - {{plan.hour | timeLeadingZero}}:{{plan.minute | timeLeadingZero}} (
+          Plan: {{plan.schema.name}} - {{plan.hour | timeLeadingZero}}:{{plan.minute | timeLeadingZero}} (
           <span class="active" *ngIf="plan.active">plan aktywny</span>
           <span class="inactive" *ngIf="!plan.active">plan nieaktywny</span>
           )

@@ -7,7 +7,7 @@
   <div class="datesContainer">
 
     <mat-form-field cdkFocusRegionstart class="dateCtrl">
-      <input matInput [ngxMatDatetimePicker]="picker" type="text" placeholder="Data początku" [formControl]="startCtrl" [max]="stopCtrl" name="startCtrl">
+      <input matInput [ngxMatDatetimePicker]="picker" type="text" placeholder="Data początku" [formControl]="startCtrl" [min]="actualDate" name="startCtrl">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <ngx-mat-datetime-picker #picker
         [showSpinners]="true"
@@ -23,7 +23,7 @@
     </mat-form-field>
 
     <mat-form-field  class="dateCtrl">
-      <input matInput [ngxMatDatetimePicker]="pickerStop" type="text" placeholder="Data końca" [formControl]="stopCtrl" [min]="startCtrl" name="stopCtrl">
+      <input matInput [ngxMatDatetimePicker]="pickerStop" type="text" placeholder="Data końca" [formControl]="stopCtrl" [min]="startCtrl.value" name="stopCtrl">
       <mat-datepicker-toggle matSuffix [for]="pickerStop"></mat-datepicker-toggle>
       <ngx-mat-datetime-picker #pickerStop
         [showSpinners]="true"

@@ -21,6 +21,7 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
   configData: BaseConfigInterface = cloneDeep(this.calendarService.baseConfig);
   events: CalendarEvent<ItemModel>[];
 
+  @Input() disableDateDisplayedChange = false;
   @Input() updatingState$: Observable<boolean>;
   @Input() set eventsData(data: EventMainCalendar<ItemModel>[]) {
     if (!data) { return; }
@@ -52,10 +53,7 @@ export class MainCalendarComponent implements OnInit, OnDestroy {
         }
         this.cd.markForCheck();
       }
-      );
-
-      console.log(this.configData);
-
+    );
   }
 
   changeDateDisplayed() {

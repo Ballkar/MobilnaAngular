@@ -3,6 +3,15 @@
   @include popupContainer;
   max-height: 90vh;
   overflow-y: auto;
+
+  .title{
+    font-size: 500;
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+  }
 }
 
 .buttonsContainer{

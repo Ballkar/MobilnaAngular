@@ -40,6 +40,7 @@ export class MainCalendarService {
   constructor() { }
 
   mapEventsToInnerModel(event: EventMainCalendar<ItemModel>): CalendarEvent<ItemModel> {
+    const draggable = event.draggable;
     return {
       start: moment(event.start, this.dateFormat).toDate(),
       end: moment(event.stop, this.dateFormat).toDate(),
@@ -50,10 +51,10 @@ export class MainCalendarService {
         secondary: event.color,
       },
       resizable: {
-        beforeStart: true,
-        afterEnd: true,
+        beforeStart: draggable,
+        afterEnd: draggable,
       },
-      draggable: true,
+      draggable: draggable,
     };
   }
 
@@ -67,6 +68,7 @@ export class MainCalendarService {
       stop: end,
       title: event.title,
       color: event.color.primary,
+      draggable: event.draggable
     };
   }
 }

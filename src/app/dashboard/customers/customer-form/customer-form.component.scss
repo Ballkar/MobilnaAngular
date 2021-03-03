@@ -5,11 +5,8 @@ form{
   .buttonContainer{
     display: flex;
     justify-content: flex-end;
+    .removeBtn{
+      margin-right: 5px;
+    }
   }
-}
-
-.removeBtnContainer{
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
 }

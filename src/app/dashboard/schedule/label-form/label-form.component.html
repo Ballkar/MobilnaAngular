@@ -2,10 +2,10 @@
   <form class="label" [formGroup]="form" (ngSubmit)="submit()">
     <div class="infoContainer">
       <div class="buttonElement"
-      cpAlphaChannel="disabled"
-        [colorPicker]="colorCtrl.value"
-        (colorPickerChange)="colorCtrl.setValue($event)"
-        [ngStyle]="{backgroundColor: colorCtrl.value}">
+           cpAlphaChannel="disabled"
+           [colorPicker]="colorCtrl.value"
+           (colorPickerChange)="colorCtrl.setValue($event)"
+           [ngStyle]="{backgroundColor: colorCtrl.value}">
       </div>
 
       <mat-form-field>

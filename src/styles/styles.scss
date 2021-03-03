@@ -8,6 +8,8 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import './parts/lists.scss';
 
+@import "~ng-snotify/styles/material";
+
 
 $custom-typography: mat-typography-config(
   $font-family: 'Poppins'

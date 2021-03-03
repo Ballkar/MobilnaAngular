@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
-import { concatMap, debounceTime, filter, finalize, map, startWith, tap } from 'rxjs/operators';
+import { SnotifyService } from 'ng-snotify';
+import { Observable, Subject } from 'rxjs';
+import { concatMap, debounceTime, filter, finalize, map, startWith, takeUntil, tap } from 'rxjs/operators';
 import { CustomerPopupComponent } from '../../customers/customer-popup/customer-popup.component';
 import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
@@ -17,16 +18,16 @@ import { WorkService } from '../work.service';
   templateUrl: './work-form.component.html',
   styleUrls: ['./work-form.component.scss']
 })
-export class WorkFormComponent implements OnInit {
+export class WorkFormComponent implements OnInit, OnDestroy {
 
   @ViewChild('labelChoose', {static: false}) labelChooseComponent: LabelChooseComponent;
   newLabelOpenned = false;
   isLocked = false;
-  state: 'add' | 'edit';
-  actualDate: Date = new Date();
   form: FormGroup;
   filteredCustomers$: Observable<CustomerModel[]>;
   customers: CustomerModel[] = [];
+  actualDate: Date = new Date();
+  private onDestroy$ = new Subject<void>();
   get startCtrl() { return this.form.get('start') as FormControl; }
   get stopCtrl() { return this.form.get('stop') as FormControl; }
   get labelCtrl() { return this.form.get('label') as FormControl; }
@@ -35,15 +36,12 @@ export class WorkFormComponent implements OnInit {
   @Input() ableToRemove: boolean;
   @Output() workSubmitted: EventEmitter<WorkModel> = new EventEmitter();
   @Output() workRemoved: EventEmitter<void> = new EventEmitter();
-  @Output() errorEmitted: EventEmitter<void> = new EventEmitter();
   constructor(
     private customerService: CustomersService,
-    private workService: WorkService,
     private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
-    this.state = this.work.stop && this.work.customer ? 'edit' : 'add';
     this.work.stop = this.work.stop ? this.work.stop : moment(this.work.start, 'YYYY-M-D H:m:s').add(2, 'hours').format('YYYY-M-D H:m:s');
     this.form = new FormGroup({
       start: new FormControl(this.work ? moment(this.work.start, 'YYYY-M-D H:m:s').toDate() : this.actualDate, Validators.required),
@@ -81,12 +79,12 @@ export class WorkFormComponent implements OnInit {
 
     const ref = this.dialog.open(CustomerPopupComponent, {});
     ref.afterClosed().pipe(
-      filter((customer: CustomerModel) => !!customer)
+      filter((customer: CustomerModel) => !!customer),
     ).subscribe(customer => this.customerCtrl.setValue(customer));
   }
 
   remove() {
-    this.workService.removeWork(this.work).subscribe(() => this.workRemoved.emit());
+    this.workRemoved.emit();
   }
 
   onSubmit() {
@@ -101,20 +99,10 @@ export class WorkFormComponent implements OnInit {
       label: this.labelCtrl.value,
     };
 
-    if (this.state === 'add') {
-      this.workService.saveWork(work).pipe(
-        finalize(() => this.isLocked = false),
-      ).subscribe(
-        res => this.workSubmitted.emit(res),
-        err => this.errorEmitted.emit(err)
-      );
-    } else {
-      this.workService.editWork(work).pipe(
-        finalize(() => this.isLocked = false),
-      ).subscribe(
-        res => this.workSubmitted.emit(res),
-        err => this.errorEmitted.emit(err)
-      );
-    }
+    this.workSubmitted.emit(work);
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
   }
 }

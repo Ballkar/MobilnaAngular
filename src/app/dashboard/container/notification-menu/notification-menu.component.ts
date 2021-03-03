@@ -28,8 +28,6 @@ export class NotificationMenuComponent implements OnInit {
   getNotification(pagination?: PaginationEvent) {
     this.isLoading$.next(true);
     this.notificationService.getNotifications(pagination).pipe(
-      delay(1000),
-      tap((re) => console.log(re)),
       tap(() => this.isLoading$.next(false)),
       tap(res => this.pagination = this.helperService.mapApiPaginationToMaterialEvent(res.pagination)),
     ).subscribe(res => this.notifications = [...this.notifications, ...res.items]);

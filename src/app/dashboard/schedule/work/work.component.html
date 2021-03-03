@@ -13,9 +13,10 @@
   </app-label-choose>
 
   <app-main-calendar
+    [disableDateDisplayedChange]="dataHaveBeenChanged"
     [eventsData]="workEvents"
     [updatingState$]="isUpdating$"
-    (dateDisplayedChanged)="changeDate($event)"
+    (dateDisplayedChanged)="changeDateDisplayed($event)"
     (emptyHourClicked)="addWorkOnDate($event)"
     (eventTimeChanged)="changeTimeOfWork($event)"
     (eventClicked)="workClicked($event)">

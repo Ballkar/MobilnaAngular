@@ -17,7 +17,7 @@ export class PlanPopupComponent implements OnInit {
   ngOnInit() {
   }
 
-  close(plan: MessagePlan) {
-    this.dialogRef.close(plan);
+  close() {
+    this.dialogRef.close(true);
   }
 }

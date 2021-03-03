@@ -20,12 +20,7 @@
       <mat-action-list class="schemas">
 
         <div class="item" *ngFor="let schema of schemas">
-
-          <button mat-icon-button class="editBtn" (click)="initChat(schema)">
-            <mat-icon class="active">chat</mat-icon>
-          </button>
-
-          <button class="name" mat-list-item (click)="select(schema)" (click)="edit(schema)">{{schema.name}}</button>
+          <button class="name" mat-list-item (click)="select(schema)" (click)="edit(schema)">Schemat: {{schema.name}}</button>
         </div>
 
       </mat-action-list>

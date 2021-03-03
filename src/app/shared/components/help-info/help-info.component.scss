@@ -1,0 +1,10 @@
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+  mat-icon{
+    cursor: pointer;
+    color: #3f51b5;
+  }
+}

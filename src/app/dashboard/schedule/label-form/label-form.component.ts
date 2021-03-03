@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SnotifyService } from 'ng-snotify';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { LabelModel } from '../label.model';
 import { LabelService } from '../label.service';
 
@@ -22,6 +23,7 @@ export class LabelFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private labelService: LabelService,
+    private notifyService: SnotifyService,
   ) { }
 
   ngOnInit() {
@@ -35,7 +37,9 @@ export class LabelFormComponent implements OnInit, OnDestroy {
   }
 
   saveLabel() {
-    return this.labelService.saveLabel(this.form.value);
+    return this.labelService.saveLabel(this.form.value).pipe(
+      tap(() => this.notifyService.success('Etykieta została dodana!')),
+    );
   }
 
   editLabel() {
@@ -43,7 +47,9 @@ export class LabelFormComponent implements OnInit, OnDestroy {
       ...this.label,
       color: this.colorCtrl.value,
       name: this.nameCtrl.value,
-    });
+    }).pipe(
+      tap(() => this.notifyService.success('Etykieta została zaktualizowana!')),
+    );
   }
 
   clearValue() {
