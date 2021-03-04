@@ -57,6 +57,7 @@ export class WorkComponent implements OnInit {
 
   addWorkOnDate(startDate: Data) {
     if(moment(startDate).isBefore()) {
+      this.notifyService.error('Wizyta musi odbyć się w przyszłości');
       return;
     }
     const work = {
