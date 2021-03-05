@@ -1,0 +1,38 @@
+@import 'mixins';
+
+.container {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 15px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+
+  &.loadingState {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      background-color: black;
+      opacity: 0.25;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      z-index: 999;
+    }
+  }
+
+  .title {
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    mat-spinner{
+      margin-left: 5px;
+    }
+  }
+}

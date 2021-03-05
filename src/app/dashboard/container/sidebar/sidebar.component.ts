@@ -38,6 +38,12 @@ export class SidebarComponent implements OnInit {
           title: 'Planowanie',
           active: false,
         },
+        {
+          icon: 'schedule',
+          navigateTo: ['/', 'dashboard', 'message', 'plans'],
+          title: 'Plany Kosmetyczki',
+          active: false,
+        },
       ]
     },
     {
