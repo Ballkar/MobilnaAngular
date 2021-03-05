@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, Que
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatMenuTrigger } from '@angular/material';
 import { Subject } from 'rxjs';
-import { MessageSchemaBodyModel, SCHEMABODYTYPES } from '../../../../message.model';
+import { MessageSchemaBodyModel, SCHEMABODYTYPES } from '../../../models/remindPlan.model';
 import { BodyAttribute } from '../../../../schemas/BodyAttribute.model';
 import { MessageSchemaService } from '../../../../schemas/messageSchema.service';
 
@@ -13,13 +13,14 @@ import { MessageSchemaService } from '../../../../schemas/messageSchema.service'
   styleUrls: ['./schema-body.component.scss']
 })
 export class SchemaBodyComponent implements OnInit, OnDestroy {
-  onDestroy$: Subject<void> = new Subject();
+  private onDestroy$: Subject<void> = new Subject();
   SCHEMABODYTYPES = SCHEMABODYTYPES;
   @ViewChildren('triggerAddVariable') variableAddTrigger: QueryList<MatMenuTrigger>;
   @ViewChildren('triggerEditVariable') variableEditTrigger: QueryList<MatMenuTrigger>;
   @ViewChildren('valueDisplayer') valueDisplayerRefs: QueryList<ElementRef>;
   @Input() bodyCtrl: FormControl;
   textToAddCtrl: FormControl = new FormControl();
+
   @HostListener('keydown', ['$event'])
     onClick(event: KeyboardEvent) {
       if (event.key === 'Enter') {
@@ -32,7 +33,10 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
     public schemaService: MessageSchemaService,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    console.log(this.bodyCtrl.value);
+
+  }
 
   openVariableMenu(e: MouseEvent) {
     e.preventDefault();
@@ -93,7 +97,7 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
   addNewVariable(attribute: BodyAttribute) {
     const values = [...this.bodyCtrl.value];
     const { model, variable} = attribute;
-    const newValue: MessageSchemaBodyModel = { model, variable, type: SCHEMABODYTYPES.VARIABLE };
+    const newValue: MessageSchemaBodyModel = { model, variable: { name: variable, model }, type: SCHEMABODYTYPES.VARIABLE };
     values.push(newValue);
     this.bodyCtrl.setValue(this.mapValues(values));
   }
@@ -101,7 +105,7 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
   editVariable(index: number, attribute: BodyAttribute) {
     const values = [...this.bodyCtrl.value];
     const { model, variable} = attribute;
-    const newValue: MessageSchemaBodyModel = { model, variable, type: SCHEMABODYTYPES.VARIABLE };
+    const newValue: MessageSchemaBodyModel = { model, variable: { name: variable, model }, type: SCHEMABODYTYPES.VARIABLE };
     values[index] = newValue;
     this.bodyCtrl.setValue(this.mapValues(values));
   }

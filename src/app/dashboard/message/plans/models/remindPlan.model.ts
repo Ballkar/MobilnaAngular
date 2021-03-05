@@ -15,7 +15,10 @@ export const TIMETYPES = {
 };
 
 export interface MessageSchemaBodyModel {
-  variable?: string;
+  variable?: {
+    model: string,
+    name: string,
+  };
   model?: string;
   text?: string;
   type: SCHEMABODYTYPES;

@@ -7,7 +7,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { SchemaFormComponent } from './schema-form/schema-form.component';
 import { SchemaPopupComponent } from './schema-popup/schema-popup.component';
 import { SchemaBodyComponent } from '../plans/remind-plan/remind-plan-form/schema-body/schema-body.component';
-import { SchemaBodyPipe } from '../plans/remind-plan/remind-plan-form/schema-body/schema-body.pipe';
 import { SchemaPreviewComponent } from './schema-preview/schema-preview.component';
 import { MessageModule } from '../message.module';
 
@@ -18,7 +17,6 @@ import { MessageModule } from '../message.module';
     SchemaFormComponent,
     SchemaPopupComponent,
     SchemaBodyComponent,
-    SchemaBodyPipe,
     SchemaPreviewComponent,
   ],
   imports: [

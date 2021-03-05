@@ -9,9 +9,8 @@
 
     <div class="elementsContainer">
       <ng-container *ngFor="let bodyElement of bodyCtrl.value; let i = index">
-
         <span *ngIf="bodyElement.type === SCHEMABODYTYPES.VARIABLE" class="element variable" [matMenuTriggerFor]="variableEditMenu" [matMenuTriggerData]="{variable: bodyElement, index: i}" #triggerEditVariable="matMenuTrigger" #valueDisplayer>
-          {{bodyElement | schemaBody}}
+          {{ bodyElement | schemaBody }}
         </span>
 
         <span *ngIf="bodyElement.type === SCHEMABODYTYPES.TEXT" class="element text" contenteditable="true" [innerHtml]="bodyElement.text" (blur)="editTextValue(valueDisplayer, i)" #valueDisplayer></span>
