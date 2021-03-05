@@ -5,10 +5,9 @@ import { Observable, Subject } from 'rxjs';
 import { startWith, debounceTime, map, concatMap, filter, takeUntil, tap } from 'rxjs/operators';
 import { CustomerModel } from 'src/app/dashboard/customers/customer.model';
 import { CustomersService } from 'src/app/dashboard/customers/customers.service';
-import { RemindPlanModel } from '../../../models/remindPlan.model';
-import { PlanService } from '../../../services/plan.service';
-import { RemindPlanService } from '../../remind-plan.service';
-import { RemindPlanPreviewSmsModel } from './preview.model';
+import { RemindPlanModel } from '../../models/remindPlan.model';
+import { RemindPlanService } from '../remind-plan.service';
+import { RemindPlanPreviewModel } from './remindPlanPreviewModel.model';
 
 @Component({
   selector: 'app-remind-plan-preview',
@@ -17,7 +16,7 @@ import { RemindPlanPreviewSmsModel } from './preview.model';
 })
 export class RemindPlanPreviewComponent implements OnInit, OnDestroy {
 
-  preview: RemindPlanPreviewSmsModel;
+  preview: RemindPlanPreviewModel;
   onDestroy$: Subject<CustomerModel[]> = new Subject();
   filteredCustomers$: Observable<CustomerModel[]>;
   form: FormGroup = new FormGroup({

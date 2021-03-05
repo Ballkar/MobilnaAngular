@@ -1,4 +1,4 @@
-export interface RemindPlanPreviewSmsModel {
+export interface RemindPlanPreviewModel {
   preview: string;
   smsCount: number;
   letterCount: number;

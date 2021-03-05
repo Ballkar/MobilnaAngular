@@ -21,27 +21,15 @@ export class SidebarComponent implements OnInit {
       active: false,
       child: [
         {
+          icon: 'sms',
+          navigateTo: ['/', 'dashboard', 'message', 'plans'],
+          title: 'Plany SMS',
+          active: false,
+        },
+        {
           icon: 'history',
           navigateTo: ['/', 'dashboard', 'message', 'history'],
           title: 'Historia',
-          active: false,
-        },
-        {
-          icon: 'question_answer',
-          navigateTo: ['/', 'dashboard', 'message', 'schema'],
-          title: 'Schematy',
-          active: false,
-        },
-        {
-          icon: 'schedule',
-          navigateTo: ['/', 'dashboard', 'message', 'plan'],
-          title: 'Planowanie',
-          active: false,
-        },
-        {
-          icon: 'schedule',
-          navigateTo: ['/', 'dashboard', 'message', 'plans'],
-          title: 'Plany Kosmetyczki',
           active: false,
         },
       ]

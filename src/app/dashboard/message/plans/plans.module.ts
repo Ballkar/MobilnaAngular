@@ -9,7 +9,7 @@ import { RemindPlanFormComponent } from './remind-plan/remind-plan-form/remind-p
 import { SchemaBodyComponent } from './remind-plan/remind-plan-form/schema-body/schema-body.component';
 import { SchemaBodyPipe } from './remind-plan/remind-plan-form/schema-body/schema-body.pipe';
 import { RemindPlanPopupComponent } from './remind-plan/remind-plan-popup/remind-plan-popup.component';
-import { RemindPlanPreviewComponent } from './remind-plan/remind-plan-form/remind-plan-preview/remind-plan-preview.component';
+import { RemindPlanPreviewComponent } from './remind-plan/remind-plan-preview/remind-plan-preview.component';
 import { MessageModule } from '../message.module';
 
 

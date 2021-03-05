@@ -5,7 +5,7 @@ import { map, tap } from 'rxjs/operators';
 import { ResponseModel } from 'src/app/shared/model/response.model';
 import { environment } from 'src/environments/environment';
 import { RemindPlanModel } from '../models/remindPlan.model';
-import { RemindPlanPreviewSmsModel } from './remind-plan-form/remind-plan-preview/preview.model';
+import { RemindPlanPreviewModel } from './remind-plan-preview/remindPlanPreviewModel.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +27,9 @@ export class RemindPlanService {
     );
   }
 
-  getPreview(customerId: number, plan: RemindPlanModel): Observable<RemindPlanPreviewSmsModel> {
+  getPreview(customerId: number, plan: RemindPlanModel): Observable<RemindPlanPreviewModel> {
     const { clear_diacritics, body } = plan;
-    return this.http.post<ResponseModel<RemindPlanPreviewSmsModel>>(`${environment.apiUrl}/messages/plans/remind/preview`,
+    return this.http.post<ResponseModel<RemindPlanPreviewModel>>(`${environment.apiUrl}/messages/plans/remind/preview`,
     { customer_id: customerId, body, clear_diacritics }).pipe(
         map(res => res.data),
         tap(res => res.letterCount = res['letter_count']),

@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { SnotifyService } from 'ng-snotify';
 import { filter } from 'rxjs/operators';
 import { MessageSchemaModel } from '../../../message.model';
-import { RemindPlanPreviewComponent } from './remind-plan-preview/remind-plan-preview.component';
+import { RemindPlanPreviewComponent } from '../remind-plan-preview/remind-plan-preview.component';
 import { RemindPlanModel, TIMETYPES } from '../../models/remindPlan.model';
 
 @Component({
