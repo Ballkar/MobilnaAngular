@@ -1,34 +1,46 @@
 <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" cdkFocusRegionStart autocomplete="off">
 
+  <div class="row">
+    <div class="title">Przypomnienie o wizycie</div>
+    <mat-slide-toggle class="activeCtrl" [formControl]="activeCtrl" [labelPosition]="'before'">aktywny</mat-slide-toggle>
+  </div>
   <app-schema-body [bodyCtrl]="bodyCtrl"></app-schema-body>
-  <mat-checkbox [formControl]="clearDiacriticsCtrl" color="primary">Usuń polskie znaki</mat-checkbox>
+  <mat-checkbox [formControl]="clearDiacriticsCtrl" color="primary" class="diacriticsCtrl">Usuń polskie znaki</mat-checkbox>
 
-  <mat-form-field>
-    <mat-label>Godzina</mat-label>
-    <mat-select [formControl]="hourCtrl">
-      <mat-option *ngFor="let hour of [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]" [value]="hour">
-        {{hour | timeLeadingZero}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div class="row">
 
-  <mat-form-field>
-    <mat-label>Minuta</mat-label>
-    <mat-select [formControl]="minuteCtrl">
-      <mat-option *ngFor="let minute of [00, 15, 30, 45]" [value]="minute">
-        {{minute | timeLeadingZero }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Godzina</mat-label>
+      <mat-select [formControl]="hourCtrl">
+        <mat-option *ngFor="let hour of [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]" [value]="hour">
+          {{hour | timeLeadingZero}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-radio-group class="radioContainer" [formControl]="timeTypeCtrl">
-    <mat-radio-button [value]="TIMETYPES.dayBefore">Dzień Wcześniej</mat-radio-button>
-    <mat-radio-button [value]="TIMETYPES.sameDay">Dzień wydarzenia</mat-radio-button>
-  </mat-radio-group>
+    <mat-form-field>
+      <mat-label>Minuta</mat-label>
+      <mat-select [formControl]="minuteCtrl">
+        <mat-option *ngFor="let minute of [00, 15, 30, 45]" [value]="minute">
+          {{minute | timeLeadingZero }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
-  <mat-checkbox [formControl]="activeCtrl">Aktywny</mat-checkbox>
+  <div class="row">
+    <div class="timeLabel">
+      Moment powiadomienia:
+    </div>
+    <mat-radio-group class="timeContainer" [formControl]="timeTypeCtrl">
+      <mat-radio-button [value]="TIMETYPES.dayBefore">Dzień przed wizytą</mat-radio-button>
+      <mat-radio-button [value]="TIMETYPES.sameDay">Dzień wizyty</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
 
   <div class="buttonContainer">
+    <button mat-raised-button class="previewBtn" type="button" [disabled]="isLocked">Podgląd</button>
     <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Zapisz</button>
   </div>
 </form>

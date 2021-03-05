@@ -41,9 +41,13 @@
     @include mobile {
       flex-flow: column;
       justify-content: center;
-      mat-slide-toggle{
-        margin-left: 0;
+      button{
+        order: 2;
         margin-top: 10px;
+      }
+      mat-slide-toggle{
+        order: 1;
+        margin-left: 0!important;
       }
     }
     mat-slide-toggle{
