@@ -1,6 +1,6 @@
 export class RemindPlanModel {
   active: boolean;
-  body: MessageSchemaBodyModel[];
+  body: PlanBodyModel[];
   clear_diacritics: boolean;
   hour: number;
   minute: number;
@@ -14,14 +14,13 @@ export const TIMETYPES = {
   dayBefore: '2',
 };
 
-export interface MessageSchemaBodyModel {
+export interface PlanBodyModel {
   variable?: {
     model: string,
     name: string,
   };
-  model?: string;
   text?: string;
-  type: SCHEMABODYTYPES;
+  type: PLANBODYTYPES;
 }
 
-export enum SCHEMABODYTYPES {VARIABLE = 'VARIABLE', TEXT = 'TEXT'}
+export enum PLANBODYTYPES {VARIABLE = 'VARIABLE', TEXT = 'TEXT'}

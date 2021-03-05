@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ResponseModel } from 'src/app/shared/model/response.model';
 import { environment } from 'src/environments/environment';
-import { RemindPlanModel } from '../models/remindPlan.model';
-import { RemindPlanPreviewModel } from './remind-plan-preview/remindPlanPreviewModel.model';
+import { RemindPlanModel } from './models/remindPlan.model';
+import { RemindPlanPreviewModel } from './models/remindPlanPreviewModel.model';
 
 @Injectable({
   providedIn: 'root'

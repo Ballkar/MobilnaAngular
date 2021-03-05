@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, Que
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatMenuTrigger } from '@angular/material';
 import { Subject } from 'rxjs';
-import { MessageSchemaBodyModel, SCHEMABODYTYPES } from '../../../models/remindPlan.model';
+import { PlanBodyModel, PLANBODYTYPES } from '../../models/remindPlan.model';
 import { BodyAttribute } from '../../../BodyAttribute.model';
 
 @Component({
@@ -13,7 +13,7 @@ import { BodyAttribute } from '../../../BodyAttribute.model';
 })
 export class SchemaBodyComponent implements OnInit, OnDestroy {
   private onDestroy$: Subject<void> = new Subject();
-  SCHEMABODYTYPES = SCHEMABODYTYPES;
+  SCHEMABODYTYPES = PLANBODYTYPES;
   @ViewChildren('triggerAddVariable') variableAddTrigger: QueryList<MatMenuTrigger>;
   @ViewChildren('triggerEditVariable') variableEditTrigger: QueryList<MatMenuTrigger>;
   @ViewChildren('valueDisplayer') valueDisplayerRefs: QueryList<ElementRef>;
@@ -40,11 +40,11 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
     this.variableAddTrigger.first.openMenu();
   }
 
-  mapValues(values: MessageSchemaBodyModel[]) {
+  mapValues(values: PlanBodyModel[]) {
     const res = [];
     values.forEach((value, index) => {
       const previousValue = values[index - 1];
-      if (value.type === SCHEMABODYTYPES.TEXT && previousValue && previousValue.type === SCHEMABODYTYPES.TEXT) {
+      if (value.type === PLANBODYTYPES.TEXT && previousValue && previousValue.type === PLANBODYTYPES.TEXT) {
         const concatedValue = previousValue.text + value.text;
         res[res.length - 1].text = concatedValue;
       } else {
@@ -73,13 +73,13 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
     const values = [...this.bodyCtrl.value];
     const lastValue = values[values.length - 1];
 
-    if (lastValue && lastValue.type === SCHEMABODYTYPES.TEXT) {
+    if (lastValue && lastValue.type === PLANBODYTYPES.TEXT) {
 
       const lastElement = this.valueDisplayerRefs.toArray()[values.length - 1];
       lastElement.nativeElement.focus();
       this.setCaretAtEndOfElement(lastElement.nativeElement);
     } else {
-      const newTextValue: MessageSchemaBodyModel = { text: ' ', type: SCHEMABODYTYPES.TEXT };
+      const newTextValue: PlanBodyModel = { text: ' ', type: PLANBODYTYPES.TEXT };
       values.push(newTextValue);
       this.bodyCtrl.setValue(values);
       this.cd.detectChanges();
@@ -93,7 +93,7 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
   addNewVariable(attribute: BodyAttribute) {
     const values = [...this.bodyCtrl.value];
     const { model, variable} = attribute;
-    const newValue: MessageSchemaBodyModel = { model, variable: { name: variable, model }, type: SCHEMABODYTYPES.VARIABLE };
+    const newValue: PlanBodyModel = { variable: { name: variable, model }, type: PLANBODYTYPES.VARIABLE };
     values.push(newValue);
     this.bodyCtrl.setValue(this.mapValues(values));
   }
@@ -101,12 +101,12 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
   editVariable(index: number, attribute: BodyAttribute) {
     const values = [...this.bodyCtrl.value];
     const { model, variable} = attribute;
-    const newValue: MessageSchemaBodyModel = { model, variable: { name: variable, model }, type: SCHEMABODYTYPES.VARIABLE };
+    const newValue: PlanBodyModel = { variable: { name: variable, model }, type: PLANBODYTYPES.VARIABLE };
     values[index] = newValue;
     this.bodyCtrl.setValue(this.mapValues(values));
   }
 
-  removeVariable(variable: MessageSchemaBodyModel) {
+  removeVariable(variable: PlanBodyModel) {
     const values = [...this.bodyCtrl.value];
     const i = values.indexOf(variable);
     if (i > -1) { values.splice(i, 1); }

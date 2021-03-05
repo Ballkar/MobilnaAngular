@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material';
 import { SnotifyService } from 'ng-snotify';
 import { Subject } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
-import { RemindPlanModel } from '../models/remindPlan.model';
+import { RemindPlanModel } from './models/remindPlan.model';
 import { RemindPlanPopupComponent } from './remind-plan-popup/remind-plan-popup.component';
 import { RemindPlanService } from './remind-plan.service';
 

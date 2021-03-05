@@ -6,16 +6,12 @@
 </mat-card-title>
 <div class="cubesContainer">
 
+  <div class="moduleCube" [routerLink]="['plans']">
+    <mat-icon>sms</mat-icon>
+    <div class="title">Plany Sms</div>
+  </div>
   <div class="moduleCube" [routerLink]="['history']">
     <mat-icon>history</mat-icon>
     <div class="title">Historia wiadomości</div>
-  </div>
-  <div class="moduleCube" [routerLink]="['schema']">
-    <mat-icon>question_answer</mat-icon>
-    <div class="title">Schematy wiadomości</div>
-  </div>
-  <div class="moduleCube" [routerLink]="['plan']">
-    <mat-icon>schedule</mat-icon>
-    <div class="title">Planowanie wiadomości</div>
   </div>
 </div>

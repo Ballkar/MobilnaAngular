@@ -5,9 +5,9 @@ import { Observable, Subject } from 'rxjs';
 import { startWith, debounceTime, map, concatMap, filter, takeUntil, tap } from 'rxjs/operators';
 import { CustomerModel } from 'src/app/dashboard/customers/customer.model';
 import { CustomersService } from 'src/app/dashboard/customers/customers.service';
-import { RemindPlanModel } from '../../models/remindPlan.model';
+import { RemindPlanModel } from '../models/remindPlan.model';
 import { RemindPlanService } from '../remind-plan.service';
-import { RemindPlanPreviewModel } from './remindPlanPreviewModel.model';
+import { RemindPlanPreviewModel } from '../models/remindPlanPreviewModel.model';
 
 @Component({
   selector: 'app-remind-plan-preview',

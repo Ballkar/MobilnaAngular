@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { startWith, debounceTime, map, concatMap, tap, finalize } from 'rxjs/operators';
 import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
-import { MessageModel, MessageSchemaModel } from '../message.model';
+import { MessageModel } from '../message.model';
 import { count as smsCount } from 'sms-length';
 import { MessageService } from '../message.service';
 
@@ -17,7 +17,6 @@ export class InitMessageComponent implements OnInit {
 
   isLocked = false;
   filteredCustomers$: Observable<CustomerModel[]>;
-  filteredSchemas$: Observable<MessageSchemaModel[]>;
   form: FormGroup;
   smsCountData: {
     encoding: any;
@@ -31,7 +30,6 @@ export class InitMessageComponent implements OnInit {
   get schemaCtrl() { return this.form.get('schema') as FormControl; }
   get textCtrl() { return this.form.get('text') as FormControl; }
   @Input() customer: EventEmitter<CustomerModel>;
-  @Input() schema: EventEmitter<MessageSchemaModel>;
   @Output() messageInited: EventEmitter<MessageModel> = new EventEmitter();
   constructor(
     private messageService: MessageService,
@@ -41,7 +39,6 @@ export class InitMessageComponent implements OnInit {
   ngOnInit() {
     this.form = new FormGroup({
       customer: new FormControl(this.customer ? this.customer : null, Validators.required),
-      schema: new FormControl(this.schema ? this.schema : null),
       text: new FormControl('', Validators.minLength(3)),
     });
 
@@ -79,9 +76,5 @@ export class InitMessageComponent implements OnInit {
 
   displayFnCustomer(customer: CustomerModel): string {
     return customer && customer.name ? `${customer.name} ${customer.surname} (${customer.phone})` : '';
-  }
-
-  displayFnMessage(schema: MessageSchemaModel): string {
-    return schema && schema.name ? `${schema.name}` : '';
   }
 }
