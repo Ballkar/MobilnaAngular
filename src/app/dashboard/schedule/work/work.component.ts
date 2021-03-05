@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Data } from '@angular/router';
 import * as moment from 'moment';
 import { BehaviorSubject, Observable, of } from 'rxjs';

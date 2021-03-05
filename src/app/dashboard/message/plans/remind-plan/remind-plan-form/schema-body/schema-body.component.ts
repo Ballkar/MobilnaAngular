@@ -1,7 +1,8 @@
 import { HostListener } from '@angular/core';
 import { ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialog, MatMenuTrigger } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { Subject } from 'rxjs';
 import { PlanBodyModelElement, PLANBODYTYPES } from '../../models/remindPlan.model';
 import { BodyVariable } from './BodyVariable.model';

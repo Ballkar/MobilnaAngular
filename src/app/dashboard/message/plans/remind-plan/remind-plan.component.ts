@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { SnotifyService } from 'ng-snotify';
 import { Subject } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';

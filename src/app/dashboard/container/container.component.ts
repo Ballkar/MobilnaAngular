@@ -1,6 +1,6 @@
 import { HostListener, OnDestroy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { CustomerPopupComponent } from '../customers/customer-popup/customer-popup.component';

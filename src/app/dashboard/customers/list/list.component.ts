@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { debounceTime, delay, filter, map, tap } from 'rxjs/operators';
+import { PaginationEvent } from 'src/app/shared/model/paginationEvent.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
 import { InitMessagePopupComponent } from '../../message/init-message-popup/init-message-popup.component';
 import { MessageModel } from '../../message/message.model';

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { SnotifyService } from 'ng-snotify';
 import { RemindPlanPreviewComponent } from '../remind-plan-preview/remind-plan-preview.component';
 import { RemindPlanModel, TIMETYPES } from '../models/remindPlan.model';
