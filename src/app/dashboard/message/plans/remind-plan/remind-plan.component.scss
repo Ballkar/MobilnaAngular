@@ -35,4 +35,19 @@
       margin-left: 5px;
     }
   }
+  .btnsContainer{
+    display: flex;
+    align-items: center;
+    @include mobile {
+      flex-flow: column;
+      justify-content: center;
+      mat-slide-toggle{
+        margin-left: 0;
+        margin-top: 10px;
+      }
+    }
+    mat-slide-toggle{
+      margin-left: 10px;
+    }
+  }
 }

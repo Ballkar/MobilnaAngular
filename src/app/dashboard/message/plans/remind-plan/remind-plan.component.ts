@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { SnotifyService } from 'ng-snotify';
 import { Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { RemindPlanModel } from '../models/remindPlan.model';
+import { RemindPlanPopupComponent } from './remind-plan-popup/remind-plan-popup.component';
 import { RemindPlanService } from './remind-plan.service';
 
 @Component({
@@ -16,9 +18,17 @@ export class RemindPlanComponent implements OnInit {
   constructor(
     private remindPlanService: RemindPlanService,
     private notifierService: SnotifyService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
+  }
+
+  openDetails() {
+    const ref = this.dialog.open(RemindPlanPopupComponent, { data: this.plan });
+    ref.afterClosed().pipe(
+      filter((plan: RemindPlanModel) => !!plan)
+    ).subscribe((plan) => console.log(plan));
   }
 
   changeActivness() {

@@ -3,9 +3,9 @@ import { ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, Que
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatMenuTrigger } from '@angular/material';
 import { Subject } from 'rxjs';
-import { MessageSchemaBodyModel, SCHEMABODYTYPES } from '../../../message.model';
-import { BodyAttribute } from '../../BodyAttribute.model';
-import { MessageSchemaService } from '../../messageSchema.service';
+import { MessageSchemaBodyModel, SCHEMABODYTYPES } from '../../../../message.model';
+import { BodyAttribute } from '../../../../schemas/BodyAttribute.model';
+import { MessageSchemaService } from '../../../../schemas/messageSchema.service';
 
 @Component({
   selector: 'app-schema-body',

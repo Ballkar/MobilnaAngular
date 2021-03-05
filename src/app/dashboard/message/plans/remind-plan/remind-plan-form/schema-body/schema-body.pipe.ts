@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { MessageSchemaBodyModel, SCHEMABODYTYPES } from '../../message.model';
-import { BodyAttribute } from '../BodyAttribute.model';
+import { MessageSchemaBodyModel, SCHEMABODYTYPES } from '../../../../message.model';
+import { BodyAttribute } from '../../../../schemas/BodyAttribute.model';
 
 @Pipe({
   name: 'schemaBody'
