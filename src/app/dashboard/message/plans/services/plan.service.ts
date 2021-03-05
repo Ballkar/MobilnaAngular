@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ResponseModel } from 'src/app/shared/model/response.model';
 import { environment } from 'src/environments/environment';
-import { PlanBodyModel, PLANBODYTYPES, RemindPlanModel } from '../remind-plan/models/remindPlan.model';
+import { PlanBodyModelElement, PLANBODYTYPES, RemindPlanModel } from '../remind-plan/models/remindPlan.model';
 
 export interface PlansResponse {
   remindPlan: RemindPlanModel,
@@ -27,7 +27,7 @@ export class PlanService {
     );
   }
 
-  private mapBodyFromApi(body: PlanBodyModel[]) {
+  private mapBodyFromApi(body: PlanBodyModelElement[]) {
     body.forEach(bodyEl => bodyEl.type = bodyEl.text ? PLANBODYTYPES.TEXT : PLANBODYTYPES.VARIABLE);
   }
 }

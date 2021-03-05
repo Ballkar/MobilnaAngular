@@ -24,7 +24,7 @@
 <mat-menu #variableAddMenu="matMenu" xPosition="after">
   <ng-template matMenuContent>
     <div class="matMenuBtnsContainer">
-      <button mat-raised-button color="primary" (click)="addNewVariable(attribute)" *ngFor="let attribute of schemaService.bodyAttributes">{{attribute.alias}}</button>
+      <button mat-raised-button color="primary" (click)="addNewVariable(attribute)" *ngFor="let attribute of bodyVariablesAvailable">{{attribute.alias}}</button>
     </div>
   </ng-template>
 </mat-menu>
@@ -32,7 +32,7 @@
 <mat-menu #variableEditMenu="matMenu" xPosition="after">
   <ng-template matMenuContent let-variable="variable" let-index="index">
     <div class="matMenuBtnsContainer">
-      <button mat-raised-button color="primary" (click)="editVariable(index, attribute)" *ngFor="let attribute of schemaService.bodyAttributes">{{attribute.alias}}</button>
+      <button mat-raised-button color="primary" (click)="editVariable(index, attribute)" *ngFor="let attribute of bodyVariablesAvailable">{{attribute.alias}}</button>
       <button mat-raised-button color="warn" (click)="removeVariable(variable)" *ngIf="variable">Usuń</button>
     </div>
   </ng-template>

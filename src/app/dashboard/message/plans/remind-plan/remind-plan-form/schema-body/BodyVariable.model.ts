@@ -1,8 +1,8 @@
 
 
-export class BodyAttribute {
+export class BodyVariable {
   alias: string;
-  constructor(public model: string, public variable: string) {
+  constructor(public model: string, public name: string) {
     this.alias = this.getAlias();
   }
 
@@ -21,7 +21,7 @@ export class BodyAttribute {
   }
 
   private customerVariable() {
-    switch (this.variable) {
+    switch (this.name) {
       case 'name':
         return 'Imie klientki';
       case 'surname':
@@ -33,7 +33,7 @@ export class BodyAttribute {
   }
 
   private userVariable() {
-    switch (this.variable) {
+    switch (this.name) {
       case 'name':
         return 'Nazwa salonu';
 
@@ -43,7 +43,7 @@ export class BodyAttribute {
   }
 
   private workVariable() {
-    switch (this.variable) {
+    switch (this.name) {
       case 'start_date':
         return 'data wizyty';
       case 'start_hour':

@@ -1,6 +1,6 @@
 export class RemindPlanModel {
   active: boolean;
-  body: PlanBodyModel[];
+  body: PlanBodyModelElement[];
   clear_diacritics: boolean;
   hour: number;
   minute: number;
@@ -14,7 +14,7 @@ export const TIMETYPES = {
   dayBefore: '2',
 };
 
-export interface PlanBodyModel {
+export interface PlanBodyModelElement {
   variable?: {
     model: string,
     name: string,

@@ -3,8 +3,8 @@ import { ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, Que
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatMenuTrigger } from '@angular/material';
 import { Subject } from 'rxjs';
-import { PlanBodyModel, PLANBODYTYPES } from '../../models/remindPlan.model';
-import { BodyAttribute } from '../../../BodyAttribute.model';
+import { PlanBodyModelElement, PLANBODYTYPES } from '../../models/remindPlan.model';
+import { BodyVariable } from './BodyVariable.model';
 
 @Component({
   selector: 'app-schema-body',
@@ -19,6 +19,13 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
   @ViewChildren('valueDisplayer') valueDisplayerRefs: QueryList<ElementRef>;
   @Input() bodyCtrl: FormControl;
   textToAddCtrl: FormControl = new FormControl();
+  bodyVariablesAvailable: BodyVariable[] = [
+    new BodyVariable('customer', 'name'),
+    new BodyVariable('customer', 'surname'),
+    new BodyVariable('user', 'name'),
+    new BodyVariable('work', 'start_hour'),
+    new BodyVariable('work', 'start_date'),
+  ];
 
   @HostListener('keydown', ['$event'])
     onClick(event: KeyboardEvent) {
@@ -40,7 +47,7 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
     this.variableAddTrigger.first.openMenu();
   }
 
-  mapValues(values: PlanBodyModel[]) {
+  mapValues(values: PlanBodyModelElement[]) {
     const res = [];
     values.forEach((value, index) => {
       const previousValue = values[index - 1];
@@ -79,7 +86,7 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
       lastElement.nativeElement.focus();
       this.setCaretAtEndOfElement(lastElement.nativeElement);
     } else {
-      const newTextValue: PlanBodyModel = { text: ' ', type: PLANBODYTYPES.TEXT };
+      const newTextValue: PlanBodyModelElement = { text: ' ', type: PLANBODYTYPES.TEXT };
       values.push(newTextValue);
       this.bodyCtrl.setValue(values);
       this.cd.detectChanges();
@@ -90,23 +97,23 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
     }
   }
 
-  addNewVariable(attribute: BodyAttribute) {
+  addNewVariable(attribute: BodyVariable) {
     const values = [...this.bodyCtrl.value];
-    const { model, variable} = attribute;
-    const newValue: PlanBodyModel = { variable: { name: variable, model }, type: PLANBODYTYPES.VARIABLE };
+    const { model, name } = attribute;
+    const newValue: PlanBodyModelElement = { variable: { name, model }, type: PLANBODYTYPES.VARIABLE };
     values.push(newValue);
     this.bodyCtrl.setValue(this.mapValues(values));
   }
 
-  editVariable(index: number, attribute: BodyAttribute) {
+  editVariable(index: number, attribute: BodyVariable) {
     const values = [...this.bodyCtrl.value];
-    const { model, variable} = attribute;
-    const newValue: PlanBodyModel = { variable: { name: variable, model }, type: PLANBODYTYPES.VARIABLE };
+    const { model, name } = attribute;
+    const newValue: PlanBodyModelElement = { variable: { name, model }, type: PLANBODYTYPES.VARIABLE };
     values[index] = newValue;
     this.bodyCtrl.setValue(this.mapValues(values));
   }
 
-  removeVariable(variable: PlanBodyModel) {
+  removeVariable(variable: PlanBodyModelElement) {
     const values = [...this.bodyCtrl.value];
     const i = values.indexOf(variable);
     if (i > -1) { values.splice(i, 1); }
