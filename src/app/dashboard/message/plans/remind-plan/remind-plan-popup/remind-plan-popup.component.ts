@@ -17,4 +17,7 @@ export class RemindPlanPopupComponent implements OnInit {
   ngOnInit() {
   }
 
+  catchPlan(plan: RemindPlanModel) {
+    this.dialogRef.close(plan);
+  }
 }

@@ -34,8 +34,6 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    console.log(this.bodyCtrl.value);
-
   }
 
   openVariableMenu(e: MouseEvent) {

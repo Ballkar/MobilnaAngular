@@ -21,6 +21,8 @@ export class RemindPlanService {
   }
 
   updatePlan(plan: RemindPlanModel): Observable<RemindPlanModel> {
+    console.log(plan);
+
     return this.http.put<ResponseModel<RemindPlanModel>>(`${environment.apiUrl}/messages/plans/remind`, plan).pipe(
       map(res => res.data),
     );

@@ -1,11 +1,11 @@
 export class RemindPlanModel {
   active: boolean;
   body: MessageSchemaBodyModel[];
-  clearDiacritics: boolean;
+  clear_diacritics: boolean;
   hour: number;
   minute: number;
   id: number;
-  timeType: typeof TIMETYPES;
+  time_type: typeof TIMETYPES;
 }
 
 

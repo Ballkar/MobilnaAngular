@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { SnotifyService } from 'ng-snotify';
 import { Subject } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 import { RemindPlanModel } from '../models/remindPlan.model';
 import { RemindPlanPopupComponent } from './remind-plan-popup/remind-plan-popup.component';
 import { RemindPlanService } from './remind-plan.service';
@@ -27,8 +27,15 @@ export class RemindPlanComponent implements OnInit {
   openDetails() {
     const ref = this.dialog.open(RemindPlanPopupComponent, { data: this.plan });
     ref.afterClosed().pipe(
-      filter((plan: RemindPlanModel) => !!plan)
-    ).subscribe((plan) => console.log(plan));
+      filter((plan: RemindPlanModel) => !!plan),
+      tap(() => this.isLoading = true),
+      switchMap((plan) => this.remindPlanService.updatePlan(plan)),
+      tap(() => this.isLoading = false),
+      tap((plan) => this.plan = plan),
+    ).subscribe(
+      () => this.notifierService.success('Plan zaktualizowany'),
+      () => this.notifierService.success('Błąd podczas aktualizacji'),
+    );
   }
 
   changeActivness() {
@@ -36,7 +43,6 @@ export class RemindPlanComponent implements OnInit {
     const notification = this.plan.active ? 'Plan aktywowany' : 'Plan wyłączony';
     this.isLoading = true;
     this.remindPlanService.updatePlan(this.plan).pipe(
-      tap(console.log),
       tap({ complete: () => this.isLoading = false }),
     ).subscribe(
       () => this.notifierService.success(notification),
