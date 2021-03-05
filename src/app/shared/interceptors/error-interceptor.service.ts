@@ -4,7 +4,9 @@ import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { MatDialog } from '@angular/material';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class ErrorIntercecptorService implements HttpInterceptor {
 
   constructor(

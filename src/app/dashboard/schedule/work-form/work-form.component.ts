@@ -20,7 +20,7 @@ import { WorkService } from '../work.service';
 })
 export class WorkFormComponent implements OnInit, OnDestroy {
 
-  @ViewChild('labelChoose', {static: false}) labelChooseComponent: LabelChooseComponent;
+  @ViewChild('labelChoose') labelChooseComponent: LabelChooseComponent;
   newLabelOpenned = false;
   isLocked = false;
   form: FormGroup;

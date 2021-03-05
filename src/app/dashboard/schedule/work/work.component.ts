@@ -22,7 +22,7 @@ import { SnotifyService } from 'ng-snotify';
   styleUrls: ['./work.component.scss']
 })
 export class WorkComponent implements OnInit {
-  @ViewChild('labelChoose', {static: false}) labelChooseComponent: LabelChooseComponent;
+  @ViewChild('labelChoose') labelChooseComponent: LabelChooseComponent;
   dataHaveBeenChanged = false;
   dateFormat = 'YYYY-M-D H:m:s';
   workEvents: EventMainCalendar<WorkModel>[];
