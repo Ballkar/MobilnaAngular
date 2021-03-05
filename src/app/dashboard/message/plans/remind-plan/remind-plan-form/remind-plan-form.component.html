@@ -40,7 +40,7 @@
 
 
   <div class="buttonContainer">
-    <button mat-raised-button class="previewBtn" type="button" [disabled]="isLocked">Podgląd</button>
+    <button mat-raised-button class="previewBtn" type="button" [disabled]="isLocked" (click)="preview()">Podgląd</button>
     <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Zapisz</button>
   </div>
 </form>

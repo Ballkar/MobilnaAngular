@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { BodyAttribute } from 'src/app/dashboard/message/schemas/BodyAttribute.model';
+import { BodyAttribute } from 'src/app/dashboard/message/plans/BodyAttribute.model';
 import { MessageSchemaBodyModel, SCHEMABODYTYPES } from '../../../models/remindPlan.model';
 
 @Pipe({

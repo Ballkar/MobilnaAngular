@@ -6,7 +6,6 @@ import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
 import { MessageModel, MessageSchemaModel } from '../message.model';
 import { count as smsCount } from 'sms-length';
-import { MessageSchemaService } from '../schemas/messageSchema.service';
 import { MessageService } from '../message.service';
 
 @Component({
@@ -37,7 +36,6 @@ export class InitMessageComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private customerService: CustomersService,
-    private schemaService: MessageSchemaService,
   ) { }
 
   ngOnInit() {
@@ -56,15 +54,6 @@ export class InitMessageComponent implements OnInit {
       concatMap(name => this.customerService.getCustomers(null, name)),
       map(res => res.items)
     );
-
-    this.filteredSchemas$ = this.schemaCtrl.valueChanges.pipe(
-      startWith(''),
-      debounceTime(400),
-      map(value => typeof value === 'string' ? value : value.name),
-      concatMap(name => this.schemaService.getSchemas(null, name)),
-      map(res => res.items)
-    );
-
 
     this.textCtrl.valueChanges.pipe(
       startWith(''),

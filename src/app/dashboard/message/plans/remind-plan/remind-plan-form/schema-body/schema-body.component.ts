@@ -4,8 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatMenuTrigger } from '@angular/material';
 import { Subject } from 'rxjs';
 import { MessageSchemaBodyModel, SCHEMABODYTYPES } from '../../../models/remindPlan.model';
-import { BodyAttribute } from '../../../../schemas/BodyAttribute.model';
-import { MessageSchemaService } from '../../../../schemas/messageSchema.service';
+import { BodyAttribute } from '../../../BodyAttribute.model';
 
 @Component({
   selector: 'app-schema-body',
@@ -30,7 +29,6 @@ export class SchemaBodyComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private cd: ChangeDetectorRef,
-    public schemaService: MessageSchemaService,
   ) { }
 
   ngOnInit() {

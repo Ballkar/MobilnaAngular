@@ -5,18 +5,19 @@ import { Observable, Subject } from 'rxjs';
 import { startWith, debounceTime, map, concatMap, filter, takeUntil, tap } from 'rxjs/operators';
 import { CustomerModel } from 'src/app/dashboard/customers/customer.model';
 import { CustomersService } from 'src/app/dashboard/customers/customers.service';
-import { MessageSchemaModel } from '../../message.model';
-import { MessageSchemaService } from '../messageSchema.service';
-import { PreviewSmsModel } from './preview.model';
+import { RemindPlanModel } from '../../../models/remindPlan.model';
+import { PlanService } from '../../../services/plan.service';
+import { RemindPlanService } from '../../remind-plan.service';
+import { RemindPlanPreviewSmsModel } from './preview.model';
 
 @Component({
-  selector: 'app-schema-preview',
-  templateUrl: './schema-preview.component.html',
-  styleUrls: ['./schema-preview.component.scss']
+  selector: 'app-remind-plan-preview',
+  templateUrl: './remind-plan-preview.component.html',
+  styleUrls: ['./remind-plan-preview.component.scss']
 })
-export class SchemaPreviewComponent implements OnInit, OnDestroy {
+export class RemindPlanPreviewComponent implements OnInit, OnDestroy {
 
-  preview: PreviewSmsModel;
+  preview: RemindPlanPreviewSmsModel;
   onDestroy$: Subject<CustomerModel[]> = new Subject();
   filteredCustomers$: Observable<CustomerModel[]>;
   form: FormGroup = new FormGroup({
@@ -24,10 +25,10 @@ export class SchemaPreviewComponent implements OnInit, OnDestroy {
   });
   get customerCtrl() { return this.form.get('customer') as FormControl; }
   constructor(
-    private schemaService: MessageSchemaService,
+    private remindPlanService: RemindPlanService,
     private customerService: CustomersService,
-    public dialogRef: MatDialogRef<SchemaPreviewComponent>,
-    @Inject(MAT_DIALOG_DATA) public schema: MessageSchemaModel,
+    public dialogRef: MatDialogRef<RemindPlanPreviewComponent>,
+    @Inject(MAT_DIALOG_DATA) public plan: RemindPlanModel,
   ) { }
 
   ngOnInit() {
@@ -48,7 +49,7 @@ export class SchemaPreviewComponent implements OnInit, OnDestroy {
   }
 
   getPreview(customer: CustomerModel) {
-    this.schemaService.getPreview(customer.id, this.schema, this.schema.clearDiacritics).pipe(
+    this.remindPlanService.getPreview(customer.id, this.plan).pipe(
       tap(preview => this.preview = preview),
     ).subscribe();
   }

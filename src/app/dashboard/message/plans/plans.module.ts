@@ -9,6 +9,8 @@ import { RemindPlanFormComponent } from './remind-plan/remind-plan-form/remind-p
 import { SchemaBodyComponent } from './remind-plan/remind-plan-form/schema-body/schema-body.component';
 import { SchemaBodyPipe } from './remind-plan/remind-plan-form/schema-body/schema-body.pipe';
 import { RemindPlanPopupComponent } from './remind-plan/remind-plan-popup/remind-plan-popup.component';
+import { RemindPlanPreviewComponent } from './remind-plan/remind-plan-form/remind-plan-preview/remind-plan-preview.component';
+import { MessageModule } from '../message.module';
 
 
 
@@ -19,15 +21,18 @@ import { RemindPlanPopupComponent } from './remind-plan/remind-plan-popup/remind
     RemindPlanFormComponent,
     SchemaBodyComponent, // TODO: refactor
     SchemaBodyPipe, RemindPlanPopupComponent, // TODO: refactor
+    RemindPlanPreviewComponent, // TODO: refactor
   ],
   imports: [
     CommonModule,
     SharedModule,
     PlansRoutingModule,
     FormsModule,
+    MessageModule,
   ],
   entryComponents: [
     RemindPlanPopupComponent,
+    RemindPlanPreviewComponent,
   ]
 })
 export class PlansModule { }

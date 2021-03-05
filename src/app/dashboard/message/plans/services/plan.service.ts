@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ResponseModel } from 'src/app/shared/model/response.model';
 import { environment } from 'src/environments/environment';
+import { MessageSchemaModel } from '../../message.model';
 import { MessageSchemaBodyModel, RemindPlanModel, SCHEMABODYTYPES } from '../models/remindPlan.model';
+import { RemindPlanPreviewSmsModel } from '../remind-plan/remind-plan-form/remind-plan-preview/preview.model';
 
 export interface PlansResponse {
   remindPlan: RemindPlanModel,
