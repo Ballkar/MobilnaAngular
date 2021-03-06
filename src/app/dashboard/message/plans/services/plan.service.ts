@@ -22,8 +22,8 @@ export class PlanService {
   getPlans(): Observable<PlansResponse> {
     return this.http.get<ResponseModel<PlansResponse>>(`${environment.apiUrl}/messages/plans`).pipe(
       map(res => res.data),
+      tap(res => res.remindPlan.body = res.remindPlan.body ? res.remindPlan.body : []),
       tap(res => this.mapBodyFromApi(res.remindPlan.body)),
-      tap(res => console.log(res.remindPlan.body)),
     );
   }
 

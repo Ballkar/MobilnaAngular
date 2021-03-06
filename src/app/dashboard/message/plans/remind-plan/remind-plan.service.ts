@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ResponseModel } from 'src/app/shared/model/response.model';
 import { environment } from 'src/environments/environment';
-import { RemindPlanModel } from './models/remindPlan.model';
+import { PlanBodyModelElement, PLANBODYTYPES, RemindPlanModel } from './models/remindPlan.model';
 import { RemindPlanPreviewModel } from './models/remindPlanPreviewModel.model';
 
 @Injectable({
@@ -18,7 +18,13 @@ export class RemindPlanService {
   getPlan(): Observable<RemindPlanModel> {
     return this.http.get<ResponseModel<RemindPlanModel>>(`${environment.apiUrl}/messages/plans`).pipe(
       map(res => res.data),
+      tap(res => res.body = res.body ? res.body : []),
+      tap(res => this.mapBodyFromApi(res.body)),
     );
+  }
+
+  private mapBodyFromApi(body: PlanBodyModelElement[]) {
+    body.forEach(bodyEl => bodyEl.type = bodyEl.text ? PLANBODYTYPES.TEXT : PLANBODYTYPES.VARIABLE);
   }
 
   updatePlan(plan: RemindPlanModel): Observable<RemindPlanModel> {

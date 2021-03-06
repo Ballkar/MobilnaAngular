@@ -43,10 +43,23 @@ export class RemindPlanComponent implements OnInit {
     const notification = this.plan.active ? 'Plan aktywowany' : 'Plan wyłączony';
     this.isLoading = true;
     this.remindPlanService.updatePlan(this.plan).pipe(
-      tap({ complete: () => this.isLoading = false }),
-    ).subscribe(
-      () => this.notifierService.success(notification),
-      () => this.notifierService.error('Błąd podczas zmiany w planie')
-    );
+      tap(
+          (plan) => {
+            this.plan = plan;
+            this.isLoading = false;
+          },
+          () => this.getPlan(),
+      ),
+      tap(
+          () => this.notifierService.success(notification),
+          () => this.notifierService.error('Błąd podczas zmiany w planie')
+      ),
+    ).subscribe();
+  }
+
+  getPlan() {
+    this.remindPlanService.getPlan().pipe(
+      tap(() => this.isLoading = false),
+    ).subscribe(plan => this.plan = plan);
   }
 }
