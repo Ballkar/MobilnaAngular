@@ -42,6 +42,10 @@ export class RemindPlanFormComponent implements OnInit {
   }
 
   preview() {
+    if (this.form.invalid) {
+      this.notificationService.error('Błąd w formularzu');
+      return;
+    }
     this.dialog.open(RemindPlanPreviewComponent, { data: {...this.form.value} });
   }
 

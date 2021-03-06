@@ -1,7 +1,7 @@
 <div class="bodyContainer">
-  <div class="valueContainer">
+  <div class="valueContainer" [ngClass]="{invalid: bodyCtrl.invalid}">
     <div class="title">
-      Treść
+      Schemat wiadomości
       <button mat-icon-button type="button" [matMenuTriggerFor]="variableAddMenu" #triggerNewElement="matMenuTrigger">
         <mat-icon>add</mat-icon>
       </button>
