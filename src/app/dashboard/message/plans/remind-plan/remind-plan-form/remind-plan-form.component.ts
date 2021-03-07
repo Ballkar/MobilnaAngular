@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { SnotifyService } from 'ng-snotify';
 import { RemindPlanPreviewComponent } from '../remind-plan-preview/remind-plan-preview.component';
 import { RemindPlanModel, TIMETYPES } from '../models/remindPlan.model';
+import { filter, map, tap } from 'rxjs/operators';
+import { CustomerModel } from 'src/app/dashboard/customers/customer.model';
 
 @Component({
   selector: 'app-remind-plan-form',
@@ -23,6 +25,7 @@ export class RemindPlanFormComponent implements OnInit {
   get activeCtrl() { return this.form.get('active') as FormControl; }
   get hourCtrl() { return this.form.get('hour') as FormControl; }
   get minuteCtrl() { return this.form.get('minute') as FormControl; }
+  private customerSelected: CustomerModel;
 
   constructor(
     private notificationService: SnotifyService,
@@ -46,7 +49,11 @@ export class RemindPlanFormComponent implements OnInit {
       this.notificationService.error('Błąd w formularzu');
       return;
     }
-    this.dialog.open(RemindPlanPreviewComponent, { data: {...this.form.value} });
+    const ref = this.dialog.open(RemindPlanPreviewComponent, { data: { plan: {...this.form.value}, customer: this.customerSelected } });
+
+    ref.afterClosed().pipe(
+      map(() => ref.componentInstance.customerCtrl.value),
+    ).subscribe((customer) => this.customerSelected = customer);
   }
 
   onSubmit() {
