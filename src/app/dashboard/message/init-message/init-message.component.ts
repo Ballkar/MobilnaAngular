@@ -27,7 +27,6 @@ export class InitMessageComponent implements OnInit {
     messages: number;
   };
   get customerCtrl() { return this.form.get('customer') as FormControl; }
-  get schemaCtrl() { return this.form.get('schema') as FormControl; }
   get textCtrl() { return this.form.get('text') as FormControl; }
   @Input() customer: EventEmitter<CustomerModel>;
   @Output() messageInited: EventEmitter<MessageModel> = new EventEmitter();
@@ -60,13 +59,8 @@ export class InitMessageComponent implements OnInit {
 
   init() {
     if (this.form.invalid) { return false; }
-    if (!this.schemaCtrl.value && !this.textCtrl.value) {
-      this.form.setErrors({textNeeded: 'Wymagany jest wybór schematu lub wpisanie własnej treści wiadomości.'});
-      return false;
-    }
     this.isLocked = true;
-    this.messageService.initMessage(this.customerCtrl.value.id,
-      this.schemaCtrl.value ? this.schemaCtrl.value.id : null, this.textCtrl.value).pipe(
+    this.messageService.initMessage(this.customerCtrl.value.id, this.textCtrl.value).pipe(
         finalize(() => this.isLocked = false),
       ).subscribe(
         res => this.messageInited.emit(res),
