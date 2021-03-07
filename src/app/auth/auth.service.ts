@@ -24,8 +24,9 @@ export class AuthService {
   }
 
 
-  register(email: string, password: string, name: string, regs: boolean) {
-
+  register(email: string, password: string, name: string, reg: boolean) {
+    return this.http.post<void>(`${environment.apiUrl}/register`, {email, password, acc_type: 2, reg, name}).pipe(
+    );
   }
 
   login(email: string, password: string): Observable<string> {
