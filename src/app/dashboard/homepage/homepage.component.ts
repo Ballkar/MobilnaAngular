@@ -23,8 +23,6 @@ export class HomepageComponent implements OnInit {
   }
 
   startTour(): void {
-    console.log('opened?', this.sidebarService.open);
-
     if(!this.sidebarService.open) {
       // console.log('open');
       // this.sidebarService.toggle();

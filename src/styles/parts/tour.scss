@@ -1,5 +1,7 @@
 @import './../../../node_modules/ngx-guided-tour/scss/guided-tour-base-theme.scss';
 
+@import 'mixins';
+
 .tour-buttons{
   .next-button, .back-button{
     padding: 5px 10px!important;
@@ -17,5 +19,8 @@
 }
 
 .tour-block{
-  padding: 10px!important;
+  padding: 15px!important;
+  @include mobile{
+    padding: 10px!important;
+  }
 }

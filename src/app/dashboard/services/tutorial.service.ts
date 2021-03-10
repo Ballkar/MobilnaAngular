@@ -45,9 +45,16 @@ export class TutorialService {
         orientation: Orientation.BottomRight,
         skipStep: false,
       },
+      {
+        content: `Właśnie ukończyłaś wprowadzenie do aplikacji. <br>
+        Poznanie reszty funkcji zajmie tyle co wypicie kawy.`,
+        title: 'Świetnie!',
+        orientation: Orientation.Center,
+        skipStep: false,
+      },
     ],
     tourId: 'base',
-    completeCallback: () => console.log('complete'),
+    completeCallback: () => this.baseTutorialCompleted(),
   }
 
   constructor(
@@ -58,5 +65,9 @@ export class TutorialService {
 
   startBaseTutorial() {
     this.guidedTourService.startTour(this.baseTour);
+  }
+
+  private baseTutorialCompleted() {
+    console.log('api call base tutorial has been completed!');
   }
 }
