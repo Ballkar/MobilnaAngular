@@ -7,6 +7,7 @@ import { CustomerPopupComponent } from '../customers/customer-popup/customer-pop
 import { CustomerModel } from '../customers/customer.model';
 import { WorkPopupComponentComponent } from '../schedule/work-popup-component/work-popup-component.component';
 import { SidebarService } from '../services/sidebar.service';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-container',
@@ -25,10 +26,12 @@ export class ContainerComponent implements OnInit, OnDestroy {
   }
   constructor(
     private sideBarService: SidebarService,
+    private userService: UserService,
     private dialog: MatDialog,
   ) {
     this.isMobile = window.innerWidth < this.mobileWidth ? true : false;
-    this.opened = this.isMobile ? false : true;
+    this.opened = this.isMobile && this.userService.loggedUser.tutorialComplete ? false : true;
+    this.sideBarService.opened$.next(this.opened);
     this.sideBarService.open = this.opened;
   }
 

@@ -23,7 +23,7 @@ export class UserService {
   user(): Observable<UserModel> {
     return this.http.get<ResponseModel<UserModel>>(`${environment.apiUrl}/user`).pipe(
       map(res => res.data),
-      tap(user => user.tutorialComplete = false),
+      tap(user => user.tutorialComplete = false), // TODO: get from backend
       tap(user => this.loggedUser = user),
     );
   }

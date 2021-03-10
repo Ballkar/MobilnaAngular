@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OrientationConfiguration, Orientation, TourStep, GuidedTour, GuidedTourService } from 'ngx-guided-tour';
-import { AuthService } from 'src/app/auth/auth.service';
+import { SidebarService } from '../services/sidebar.service';
 import { TutorialService } from '../services/tutorial.service';
 import { UserService } from '../user/user.service';
 
@@ -13,9 +12,10 @@ export class HomepageComponent implements OnInit {
   constructor(
     private authServie: UserService,
     private tutorialService: TutorialService,
+    private sidebarService: SidebarService,
   ) {
     if(!this.authServie.loggedUser.tutorialComplete) {
-      setTimeout(() => this.startTour(), 1000);
+      this.startTour();
     }
   }
 
@@ -23,7 +23,13 @@ export class HomepageComponent implements OnInit {
   }
 
   startTour(): void {
-    this.tutorialService.startBaseTutorial();
+    console.log('opened?', this.sidebarService.open);
+
+    if(!this.sidebarService.open) {
+      // console.log('open');
+      // this.sidebarService.toggle();
+    }
+    setTimeout(() => this.tutorialService.startBaseTutorial(), 1000);
   }
 
 }
