@@ -9,6 +9,7 @@ export class UserModel {
   messageSettings: MessageSettings;
   wallet: WalletModel;
   notificationCount: number;
+  tutorialComplete: boolean;
 }
 
 export class WalletModel {
