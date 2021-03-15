@@ -1,8 +1,8 @@
-name: develop_PR
+name: master_PR
 
 pull_request:
   branches:
-    - develop
+    - master
 
 jobs:
   build:
