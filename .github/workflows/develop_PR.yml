@@ -1,8 +1,8 @@
 name: develop_PR
 
-pull_request:
-  branches:
-    - develop
+on:
+  pull_request:
+    branches: [ develop ]
 
 jobs:
   develop_PR:
