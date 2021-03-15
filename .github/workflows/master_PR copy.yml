@@ -5,7 +5,7 @@ pull_request:
     - master
 
 jobs:
-  build:
+  master_PR:
 
     # Machine environment:
     # https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions#ubuntu-1804-lts
