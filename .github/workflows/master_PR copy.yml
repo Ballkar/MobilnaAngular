@@ -2,7 +2,7 @@ name: master_PR
 
 pull_request:
   branches:
-    - master
+    - main
 
 jobs:
   master_PR:
