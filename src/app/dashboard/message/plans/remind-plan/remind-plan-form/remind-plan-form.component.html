@@ -4,7 +4,10 @@
     <div class="title">Przypomnienie o wizycie</div>
     <mat-slide-toggle class="activeCtrl" [formControl]="activeCtrl" [labelPosition]="'before'">aktywny</mat-slide-toggle>
   </div>
-  <app-schema-body [bodyCtrl]="bodyCtrl"></app-schema-body>
+
+  <div id="schema">
+    <app-schema-body [bodyCtrl]="bodyCtrl"></app-schema-body>
+  </div>
   <mat-checkbox [formControl]="clearDiacriticsCtrl" color="primary" class="diacriticsCtrl">Usuń polskie znaki</mat-checkbox>
 
   <div class="row">

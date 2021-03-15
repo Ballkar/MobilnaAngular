@@ -6,6 +6,8 @@ import { RemindPlanPreviewComponent } from '../remind-plan-preview/remind-plan-p
 import { RemindPlanModel, TIMETYPES } from '../models/remindPlan.model';
 import { filter, map, tap } from 'rxjs/operators';
 import { CustomerModel } from 'src/app/dashboard/customers/customer.model';
+import { UserService } from 'src/app/dashboard/user/user.service';
+import { TutorialService } from 'src/app/dashboard/services/tutorial.service';
 
 @Component({
   selector: 'app-remind-plan-form',
@@ -30,6 +32,8 @@ export class RemindPlanFormComponent implements OnInit {
   constructor(
     private notificationService: SnotifyService,
     private dialog: MatDialog,
+    private authService: UserService,
+    private tutorialService: TutorialService,
   ) { }
 
   ngOnInit() {
@@ -40,8 +44,11 @@ export class RemindPlanFormComponent implements OnInit {
       active: new FormControl(this.plan.active, Validators.required),
       hour: new FormControl(this.plan.hour, Validators.required),
       minute: new FormControl(this.plan.minute, Validators.required),
-
     });
+
+    if(!this.authService.loggedUser.tutorials.includes(this.tutorialService.messageDetailTour.tourId)) {
+      setTimeout(() => this.tutorialService.startMessageDetailTutorial(), 800);
+    }
   }
 
   preview() {

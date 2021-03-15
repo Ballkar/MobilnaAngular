@@ -88,6 +88,36 @@ export class TutorialService {
     completeCallback: () => this.messageTutorialCompleted(),
   }
 
+  messageDetailTour: GuidedTour = {
+    steps: [
+      {
+        title: 'Szczegóły',
+        content: 'Tutaj planujesz sposób realizacji planu',
+        skipStep: false,
+      },
+      {
+        title: 'Schemat',
+        content: 'Określa treść wiadomości',
+        selector: '#schema',
+        skipStep: false,
+      },
+      {
+        title: 'Zmienne',
+        content: 'W treść wiadomości możesz wrzucać zmienne takie jak Imie klientki, a my w to miejsce wrzucimy wartość dla konkretnego przypadku.',
+        selector: '#addVariableTutorial',
+        skipStep: false,
+      },
+      {
+        title: 'Podgląd',
+        content: 'Aby się upewnić zobacz jak wygląda treść wiadomość na przykładzie konkretnej klientki.',
+        selector: '.previewBtn',
+        skipStep: false,
+      },
+    ],
+    tourId: 'message_detail_plans_v1',
+    completeCallback: () => this.messageDetailTutorialCompleted(),
+  }
+
   constructor(
     private guidedTourService: GuidedTourService,
     private http: HttpClient,
@@ -104,12 +134,20 @@ export class TutorialService {
     this.guidedTourService.startTour(this.messageTour);
   }
 
+  startMessageDetailTutorial() {
+    this.guidedTourService.startTour(this.messageDetailTour);
+  }
+
   private baseTutorialCompleted() {
     this.tutorialCompleteHttp(this.baseTour.tourId).subscribe(console.log);
   }
 
   private messageTutorialCompleted() {
     this.tutorialCompleteHttp(this.messageTour.tourId).subscribe(console.log);
+  }
+
+  private messageDetailTutorialCompleted() {
+    this.tutorialCompleteHttp(this.messageDetailTour.tourId).subscribe(console.log);
   }
 
   private tutorialCompleteHttp(tutorial: string): Observable<any> {
