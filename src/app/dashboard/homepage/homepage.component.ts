@@ -17,7 +17,7 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(!this.authServie.loggedUser.tutorials.includes(this.tutorialService.messageTour.tourId)) {
+    if(!this.authServie.loggedUser.tutorials.includes(this.tutorialService.baseTour.tourId)) {
       setTimeout(() => !this.sidebarService.open ? this.sidebarService.toggle() : null, 50);
       this.startTour();
     }
@@ -25,6 +25,6 @@ export class HomepageComponent implements OnInit {
 
   startTour(): void {
     setTimeout(() => this.tutorialService.startBaseTutorial(), 700);
-  }s
+  }
 
 }

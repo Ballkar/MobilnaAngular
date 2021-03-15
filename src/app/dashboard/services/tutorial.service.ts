@@ -118,6 +118,31 @@ export class TutorialService {
     completeCallback: () => this.messageDetailTutorialCompleted(),
   }
 
+  scheduleTour: GuidedTour = {
+    steps: [
+      {
+        title: 'Kalendarz',
+        content: 'Widzisz tutaj wszystkie swoje nadchodzące wizyty oraz ich historie',
+        skipStep: false,
+      },
+      {
+        title: 'Etykiety',
+        content: 'Do każdej wizyty możesz nadać własną etykietę, co pomoże Ci w organizacji pracy.',
+        selector: '#label_tutorial',
+        orientation: Orientation.Bottom,
+        skipStep: false,
+      },
+      {
+        title: 'Wizyty',
+        content: 'Wizyty możesz dodawać poprzez zwykłe kliknięcie w miejsce w puste miejsce w kalendarzu',
+        selector: '#schedule_tutorial',
+        skipStep: false,
+      },
+    ],
+    tourId: 'schedule_v1',
+    completeCallback: () => this.scheduleTutorialCompleted(),
+  }
+
   constructor(
     private guidedTourService: GuidedTourService,
     private http: HttpClient,
@@ -138,16 +163,24 @@ export class TutorialService {
     this.guidedTourService.startTour(this.messageDetailTour);
   }
 
+  startScheduleTutorial() {
+    this.guidedTourService.startTour(this.scheduleTour);
+  }
+
   private baseTutorialCompleted() {
-    this.tutorialCompleteHttp(this.baseTour.tourId).subscribe(console.log);
+    this.tutorialCompleteHttp(this.baseTour.tourId).subscribe();
   }
 
   private messageTutorialCompleted() {
-    this.tutorialCompleteHttp(this.messageTour.tourId).subscribe(console.log);
+    this.tutorialCompleteHttp(this.messageTour.tourId).subscribe();
   }
 
   private messageDetailTutorialCompleted() {
-    this.tutorialCompleteHttp(this.messageDetailTour.tourId).subscribe(console.log);
+    this.tutorialCompleteHttp(this.messageDetailTour.tourId).subscribe();
+  }
+
+  private scheduleTutorialCompleted() {
+    this.tutorialCompleteHttp(this.scheduleTour.tourId).subscribe();
   }
 
   private tutorialCompleteHttp(tutorial: string): Observable<any> {

@@ -16,7 +16,6 @@ import { SidebarService } from '../services/sidebar.service';
 export class ContainerComponent implements OnInit, OnDestroy {
   isMobile: boolean;
   mobileWidth = 667;
-  sub: Subscription;
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -45,6 +44,5 @@ export class ContainerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
   }
 }
