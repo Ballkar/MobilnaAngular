@@ -5,11 +5,10 @@ export class UserModel {
   name: string;
   phone: string;
   email: string;
-  // avatar: string;
+  tutorials: string[];
   messageSettings: MessageSettings;
   wallet: WalletModel;
   notificationCount: number;
-  tutorialComplete: boolean;
 }
 
 export class WalletModel {

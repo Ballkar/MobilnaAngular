@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { SidemenuElement } from '../container/sidebar/SidemenuElement.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SidebarService {
-  open = false;
+  open: boolean;
   opened$: Subject<boolean> = new Subject<boolean>();
   sidemenuElements: SidemenuElement[] = [
     {
@@ -49,10 +49,11 @@ export class SidebarService {
   ];
 
   constructor(
-  ) { }
+  ) {
+    this.opened$.subscribe(res => this.open = res)
+  }
 
   toggle() {
-    this.open = !this.open;
-    this.opened$.next(this.open);
+    this.opened$.next(!this.open);
   }
 }

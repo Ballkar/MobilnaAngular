@@ -1,5 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OrientationConfiguration, Orientation, TourStep, GuidedTour, GuidedTourService } from 'ngx-guided-tour';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { ResponseModel } from 'src/app/shared/model/response.model';
+import { UserModel } from 'src/app/shared/model/user.model';
+import { environment } from 'src/environments/environment';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -53,12 +60,14 @@ export class TutorialService {
         skipStep: false,
       },
     ],
-    tourId: 'base',
+    tourId: 'base_v1',
     completeCallback: () => this.baseTutorialCompleted(),
   }
 
   constructor(
     private guidedTourService: GuidedTourService,
+    private http: HttpClient,
+    private userService: UserService,
   ) {
 
   }
@@ -68,6 +77,13 @@ export class TutorialService {
   }
 
   private baseTutorialCompleted() {
-    console.log('api call base tutorial has been completed!');
+    this.tutorialCompleteHttp(this.baseTour.tourId).subscribe(console.log);
+  }
+
+  private tutorialCompleteHttp(tutorial: string): Observable<any> {
+    return this.http.post<ResponseModel<UserModel>>(`${environment.apiUrl}/user/tutorial`, {tutorial}).pipe(
+      map(res => res.data),
+      tap(user => this.userService.loggedUser = user),
+    );
   }
 }

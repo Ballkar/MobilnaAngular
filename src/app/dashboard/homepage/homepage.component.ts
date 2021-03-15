@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SidebarService } from '../services/sidebar.service';
 import { TutorialService } from '../services/tutorial.service';
 import { UserService } from '../user/user.service';
@@ -14,20 +14,18 @@ export class HomepageComponent implements OnInit {
     private tutorialService: TutorialService,
     private sidebarService: SidebarService,
   ) {
-    if(!this.authServie.loggedUser.tutorialComplete) {
+  }
+
+  ngOnInit(): void {
+    if(!this.authServie.loggedUser.tutorials.includes(this.tutorialService.baseTour.tourId)) {
+
+      setTimeout(() => !this.sidebarService.open ? this.sidebarService.toggle() : null, 50);
       this.startTour();
     }
   }
 
-  ngOnInit(): void {
-  }
-
   startTour(): void {
-    if(!this.sidebarService.open) {
-      // console.log('open');
-      // this.sidebarService.toggle();
-    }
-    setTimeout(() => this.tutorialService.startBaseTutorial(), 1000);
+    setTimeout(() => this.tutorialService.startBaseTutorial(), 700);
   }
 
 }
