@@ -64,6 +64,30 @@ export class TutorialService {
     completeCallback: () => this.baseTutorialCompleted(),
   }
 
+  messageTour: GuidedTour = {
+    steps: [
+      {
+        title: 'Plany SMS',
+        content: 'Tutaj możesz zaplanować w jaki sposób komunikujemy się z Twoimi klientkami',
+        skipStep: false,
+      },
+      {
+        content: 'Każdy plan posiada inne przeznaczenie oraz inne zachowanie',
+        title: 'Plany',
+        selector: '#plansContainer',
+        skipStep: false,
+      },
+      {
+        content: 'Całość zachowania planu zobaczysz w jego szczegółach',
+        title: 'Szczegóły',
+        selector: '.btnsContainer',
+        skipStep: false,
+      },
+    ],
+    tourId: 'message_plans_v1',
+    completeCallback: () => this.messageTutorialCompleted(),
+  }
+
   constructor(
     private guidedTourService: GuidedTourService,
     private http: HttpClient,
@@ -76,8 +100,16 @@ export class TutorialService {
     this.guidedTourService.startTour(this.baseTour);
   }
 
+  startMessageTutorial() {
+    this.guidedTourService.startTour(this.messageTour);
+  }
+
   private baseTutorialCompleted() {
     this.tutorialCompleteHttp(this.baseTour.tourId).subscribe(console.log);
+  }
+
+  private messageTutorialCompleted() {
+    this.tutorialCompleteHttp(this.messageTour.tourId).subscribe(console.log);
   }
 
   private tutorialCompleteHttp(tutorial: string): Observable<any> {
