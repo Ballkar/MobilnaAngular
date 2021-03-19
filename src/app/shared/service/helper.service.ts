@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { PaginationEvent } from '../model/paginationEvent.model';
 import { Pagination } from '../model/response.model';
 
 @Injectable({

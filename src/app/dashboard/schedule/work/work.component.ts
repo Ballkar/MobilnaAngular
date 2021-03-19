@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Data } from '@angular/router';
 import * as moment from 'moment';
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -15,6 +15,9 @@ import { LabelService } from '../label.service';
 import { LabelseEditingPopupComponent } from '../labelse-editing-popup/labelse-editing-popup.component';
 import { LabelChooseComponent } from '../label-choose/label-choose.component';
 import { SnotifyService } from 'ng-snotify';
+import { TutorialService } from '../../services/tutorial.service';
+import { UserService } from '../../user/user.service';
+import { SidebarService } from '../../services/sidebar.service';
 
 @Component({
   selector: 'app-work',
@@ -22,7 +25,7 @@ import { SnotifyService } from 'ng-snotify';
   styleUrls: ['./work.component.scss']
 })
 export class WorkComponent implements OnInit {
-  @ViewChild('labelChoose', {static: false}) labelChooseComponent: LabelChooseComponent;
+  @ViewChild('labelChoose') labelChooseComponent: LabelChooseComponent;
   dataHaveBeenChanged = false;
   dateFormat = 'YYYY-M-D H:m:s';
   workEvents: EventMainCalendar<WorkModel>[];
@@ -35,6 +38,9 @@ export class WorkComponent implements OnInit {
     private labelService: LabelService,
     private workService: WorkService,
     private dialog: MatDialog,
+    private authService: UserService,
+    private tutorialService: TutorialService,
+    private sidebarService: SidebarService,
   ) { }
 
   ngOnInit() {
@@ -43,6 +49,11 @@ export class WorkComponent implements OnInit {
       endDate: moment().set({ hour: 0, minute: 0, second: 0, millisecond: 0 }).add(7, 'days').toDate(),
     };
     this.labelsChosen = this.labelService.labels$.getValue();
+
+    if(!this.authService.loggedUser.tutorials.includes(this.tutorialService.scheduleTour.tourId)) {
+      setTimeout(() => this.sidebarService.open ? this.sidebarService.toggle() : null, 100);
+      setTimeout(() => this.tutorialService.startScheduleTutorial(), 800);
+    }
   }
 
   getWorks(labels: LabelModel[]) {

@@ -1,0 +1,39 @@
+<div class="bodyContainer">
+  <div class="valueContainer" [ngClass]="{invalid: bodyCtrl.invalid}">
+    <div class="title">
+      Schemat wiadomości
+      <button mat-icon-button type="button" [matMenuTriggerFor]="variableAddMenu" id="addVariableTutorial" #triggerNewElement="matMenuTrigger">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div class="elementsContainer">
+      <ng-container *ngFor="let bodyElement of bodyCtrl.value; let i = index">
+        <span *ngIf="bodyElement.type === SCHEMABODYTYPES.VARIABLE" class="element variable" [matMenuTriggerFor]="variableEditMenu" [matMenuTriggerData]="{variable: bodyElement, index: i}" #triggerEditVariable="matMenuTrigger" #valueDisplayer>
+          {{ bodyElement | schemaBody }}
+        </span>
+
+        <span *ngIf="bodyElement.type === SCHEMABODYTYPES.TEXT" class="element text" contenteditable="true" [innerHtml]="bodyElement.text" (blur)="editTextValue(valueDisplayer, i)" #valueDisplayer></span>
+      </ng-container>
+      <span class="element placeholder" (click)="addNewText()"></span>
+    </div>
+    <div [matMenuTriggerFor]="variableAddMenu" #triggerAddVariable="matMenuTrigger"></div>
+  </div>
+</div>
+
+<mat-menu #variableAddMenu="matMenu" xPosition="after">
+  <ng-template matMenuContent>
+    <div class="matMenuBtnsContainer">
+      <button mat-raised-button color="primary" (click)="addNewVariable(attribute)" *ngFor="let attribute of bodyVariablesAvailable">{{attribute.alias}}</button>
+    </div>
+  </ng-template>
+</mat-menu>
+
+<mat-menu #variableEditMenu="matMenu" xPosition="after">
+  <ng-template matMenuContent let-variable="variable" let-index="index">
+    <div class="matMenuBtnsContainer">
+      <button mat-raised-button color="primary" (click)="editVariable(index, attribute)" *ngFor="let attribute of bodyVariablesAvailable">{{attribute.alias}}</button>
+      <button mat-raised-button color="warn" (click)="removeVariable(variable)" *ngIf="variable">Usuń</button>
+    </div>
+  </ng-template>
+</mat-menu>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
-import { DataResponse } from 'src/app/shared/model/response.model';
+import { tap } from 'rxjs/operators';
+import { PaginationEvent } from 'src/app/shared/model/paginationEvent.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
 import { NotificationService } from './notification.service';
 import { NotificationModel } from './NotificationModel.model';

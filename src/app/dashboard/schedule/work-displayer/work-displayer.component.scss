@@ -1,0 +1,47 @@
+  @import 'mixins';
+
+  .container {
+    display: flex;
+    flex-flow: column;
+
+    .titleRow {
+      display: flex;
+      justify-content: space-between;
+
+      .title {
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .status {
+        color: green;
+        &.done {
+          color: saddlebrown;
+        }
+      }
+    }
+
+    .detailsContainer {
+
+      .dateContainer {
+        display: flex;
+        flex-flow: row;
+        @include mobile{
+          flex-flow: column;
+        }
+
+        .label{
+          margin-right: 5px;
+        }
+        .day {
+          margin-right: 5px;
+        }
+
+        .time {
+          margin-right: 5px;
+        }
+      }
+
+      .customer {}
+    }
+  }

@@ -1,0 +1,10 @@
+<mat-card-title class="mainTitle">
+  <button mat-icon-button [routerLink]="['/', 'dashboard', 'message']">
+    <mat-icon>keyboard_backspace</mat-icon>
+  </button>
+  Plany mobilnej kosmetyczki
+</mat-card-title>
+
+<div id="plansContainer">
+  <app-remind-plan [plan]="plans?.remindPlan"></app-remind-plan>
+</div>

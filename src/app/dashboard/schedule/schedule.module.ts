@@ -12,6 +12,7 @@ import { LabelFormComponent } from './label-form/label-form.component';
 import { LabelChooseComponent } from './label-choose/label-choose.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { LabelseEditingPopupComponent } from './labelse-editing-popup/labelse-editing-popup.component';
+import { WorkDisplayerComponent } from './work-displayer/work-displayer.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { LabelseEditingPopupComponent } from './labelse-editing-popup/labelse-ed
     LabelFormComponent,
     LabelChooseComponent,
     LabelseEditingPopupComponent,
+    WorkDisplayerComponent,
   ],
   imports: [
     CommonModule,

@@ -4,9 +4,8 @@ import { Observable } from 'rxjs';
 import { startWith, debounceTime, map, concatMap, tap, finalize } from 'rxjs/operators';
 import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
-import { MessageModel, MessageSchemaModel } from '../message.model';
+import { MessageModel } from '../message.model';
 import { count as smsCount } from 'sms-length';
-import { MessageSchemaService } from '../schemas/messageSchema.service';
 import { MessageService } from '../message.service';
 
 @Component({
@@ -18,7 +17,6 @@ export class InitMessageComponent implements OnInit {
 
   isLocked = false;
   filteredCustomers$: Observable<CustomerModel[]>;
-  filteredSchemas$: Observable<MessageSchemaModel[]>;
   form: FormGroup;
   smsCountData: {
     encoding: any;
@@ -29,21 +27,17 @@ export class InitMessageComponent implements OnInit {
     messages: number;
   };
   get customerCtrl() { return this.form.get('customer') as FormControl; }
-  get schemaCtrl() { return this.form.get('schema') as FormControl; }
   get textCtrl() { return this.form.get('text') as FormControl; }
   @Input() customer: EventEmitter<CustomerModel>;
-  @Input() schema: EventEmitter<MessageSchemaModel>;
   @Output() messageInited: EventEmitter<MessageModel> = new EventEmitter();
   constructor(
     private messageService: MessageService,
     private customerService: CustomersService,
-    private schemaService: MessageSchemaService,
   ) { }
 
   ngOnInit() {
     this.form = new FormGroup({
       customer: new FormControl(this.customer ? this.customer : null, Validators.required),
-      schema: new FormControl(this.schema ? this.schema : null),
       text: new FormControl('', Validators.minLength(3)),
     });
 
@@ -57,15 +51,6 @@ export class InitMessageComponent implements OnInit {
       map(res => res.items)
     );
 
-    this.filteredSchemas$ = this.schemaCtrl.valueChanges.pipe(
-      startWith(''),
-      debounceTime(400),
-      map(value => typeof value === 'string' ? value : value.name),
-      concatMap(name => this.schemaService.getSchemas(null, name)),
-      map(res => res.items)
-    );
-
-
     this.textCtrl.valueChanges.pipe(
       startWith(''),
       tap(res => this.smsCountData = smsCount(res)),
@@ -74,13 +59,8 @@ export class InitMessageComponent implements OnInit {
 
   init() {
     if (this.form.invalid) { return false; }
-    if (!this.schemaCtrl.value && !this.textCtrl.value) {
-      this.form.setErrors({textNeeded: 'Wymagany jest wybór schematu lub wpisanie własnej treści wiadomości.'});
-      return false;
-    }
     this.isLocked = true;
-    this.messageService.initMessage(this.customerCtrl.value.id,
-      this.schemaCtrl.value ? this.schemaCtrl.value.id : null, this.textCtrl.value).pipe(
+    this.messageService.initMessage(this.customerCtrl.value.id, this.textCtrl.value).pipe(
         finalize(() => this.isLocked = false),
       ).subscribe(
         res => this.messageInited.emit(res),
@@ -90,9 +70,5 @@ export class InitMessageComponent implements OnInit {
 
   displayFnCustomer(customer: CustomerModel): string {
     return customer && customer.name ? `${customer.name} ${customer.surname} (${customer.phone})` : '';
-  }
-
-  displayFnMessage(schema: MessageSchemaModel): string {
-    return schema && schema.name ? `${schema.name}` : '';
   }
 }

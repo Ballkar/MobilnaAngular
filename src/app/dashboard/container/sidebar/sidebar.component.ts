@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SidebarService } from '../../services/sidebar.service';
+import { SidemenuElement } from './SidemenuElement.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,59 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-
-  sidemenuElements: SidemenuElement[] = [
-    {
-      icon: 'assignment_ind',
-      navigateTo: ['/', 'dashboard', 'customer'],
-      title: 'Klientki',
-      active: false,
-    },
-    {
-      icon: 'sms',
-      navigateTo: ['/', 'dashboard', 'message'],
-      title: 'Wiadomości',
-      active: false,
-      child: [
-        {
-          icon: 'history',
-          navigateTo: ['/', 'dashboard', 'message', 'history'],
-          title: 'Historia',
-          active: false,
-        },
-        {
-          icon: 'question_answer',
-          navigateTo: ['/', 'dashboard', 'message', 'schema'],
-          title: 'Schematy',
-          active: false,
-        },
-        {
-          icon: 'schedule',
-          navigateTo: ['/', 'dashboard', 'message', 'plan'],
-          title: 'Planowanie',
-          active: false,
-        },
-      ]
-    },
-    {
-      icon: 'work',
-      navigateTo: ['/', 'dashboard', 'work'],
-      title: 'Wizyty',
-      active: false,
-    }
-  ];
-  constructor() { }
+  sidemenuElements: SidemenuElement[];
+  constructor(
+    private sidebarService: SidebarService,
+  ) { }
 
   ngOnInit() {
+    this.sidemenuElements = this.sidebarService.sidemenuElements;
   }
 
 }
 
 
-interface SidemenuElement {
-  icon: string;
-  title: string;
-  navigateTo: string[];
-  active: boolean;
-  child?: SidemenuElement[];
-}
+

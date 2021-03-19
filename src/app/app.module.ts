@@ -12,6 +12,8 @@ import { ErrorIntercecptorService } from './shared/interceptors/error-intercepto
 import { SharedModule } from './shared/shared.module';
 import { SnotifyModule, SnotifyService } from 'ng-snotify';
 import { NotificationConfiguration } from 'src/config/notification.config';
+import { GuidedTourModule, GuidedTourService } from 'ngx-guided-tour';
+import { TutorialService } from './dashboard/services/tutorial.service';
 
 @NgModule({
   declarations: [
@@ -23,10 +25,12 @@ import { NotificationConfiguration } from 'src/config/notification.config';
     BrowserAnimationsModule,
     SharedModule,
     SnotifyModule,
+    GuidedTourModule,
   ],
   providers: [
     GuestGuard,
     AuthGuard,
+    TutorialService,
     { provide: 'SnotifyToastConfig', useValue: NotificationConfiguration},
     SnotifyService,
     {
@@ -39,6 +43,7 @@ import { NotificationConfiguration } from 'src/config/notification.config';
       useClass: ErrorIntercecptorService,
       multi: true
     },
+    GuidedTourService,
   ],
   bootstrap: [AppComponent]
 })

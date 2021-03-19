@@ -33,6 +33,7 @@ import { getPolishPaginatorIntl } from './internationalizations/polish-paginator
 import { ConfirmPopupComponent } from './modal/confirm-popup/confirm-popup.component';
 import { HelpInfoComponent } from './components/help-info/help-info.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 const materialComponents = [
   CommonModule,
@@ -60,6 +61,7 @@ const materialComponents = [
   MatExpansionModule,
   MatBadgeModule,
   MatTooltipModule,
+  MatSlideToggleModule,
 ];
 
 
