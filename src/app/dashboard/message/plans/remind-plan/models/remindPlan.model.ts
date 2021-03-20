@@ -1,10 +1,17 @@
+import { PlanSchema } from "../../models/PlanSchema.model";
+
 export class RemindPlanModel {
+  id: number;
+  schema_id: number;
   active: boolean;
-  body: PlanBodyModelElement[];
+
+
+  schema?: PlanSchema;
+
+
   clear_diacritics: boolean;
   hour: number;
   minute: number;
-  id: number;
   time_type: typeof TIMETYPES;
 }
 
@@ -14,13 +21,3 @@ export const TIMETYPES = {
   dayBefore: '2',
 };
 
-export interface PlanBodyModelElement {
-  variable?: {
-    model: string,
-    name: string,
-  };
-  text?: string;
-  type: PLANBODYTYPES;
-}
-
-export enum PLANBODYTYPES {VARIABLE = 'VARIABLE', TEXT = 'TEXT'}

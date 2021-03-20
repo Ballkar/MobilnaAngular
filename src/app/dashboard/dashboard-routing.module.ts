@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ContainerComponent } from './container/container.component';
 import { DashboardResolver } from './dashboard.resolver';
 import { HomepageComponent } from './homepage/homepage.component';
+import { SchemaResolver } from './message/plans/schema.resolver';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
       {
         path: 'message',
         loadChildren : () => import('./message/message.module').then(m => m.MessageModule),
+        resolve: { schemas: SchemaResolver },
       },
       {
         path: 'customer',

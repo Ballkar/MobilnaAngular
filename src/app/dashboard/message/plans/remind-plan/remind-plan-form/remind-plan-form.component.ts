@@ -38,7 +38,7 @@ export class RemindPlanFormComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({
-      body: new FormControl(this.plan.body, Validators.required),
+      body: new FormControl(this.plan.schema, Validators.required),
       clear_diacritics: new FormControl(this.plan.clear_diacritics || true, Validators.required),
       time_type: new FormControl(this.plan.time_type, Validators.required),
       active: new FormControl(this.plan.active, Validators.required),
