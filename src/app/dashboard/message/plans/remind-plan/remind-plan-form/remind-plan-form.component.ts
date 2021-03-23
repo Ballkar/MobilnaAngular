@@ -3,8 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { SnotifyService } from 'ng-snotify';
 import { RemindPlanPreviewComponent } from '../remind-plan-preview/remind-plan-preview.component';
-import { RemindPlanModel, TIMETYPES } from '../models/remindPlan.model';
-import { filter, map, tap } from 'rxjs/operators';
+import { RemindPlanModel } from '../models/remindPlan.model';
+import { map } from 'rxjs/operators';
 import { CustomerModel } from 'src/app/dashboard/customers/customer.model';
 import { UserService } from 'src/app/dashboard/user/user.service';
 import { TutorialService } from 'src/app/dashboard/services/tutorial.service';
@@ -21,7 +21,6 @@ export class RemindPlanFormComponent implements OnInit {
   @Input() plan: RemindPlanModel;
   @Output() emitPlan: EventEmitter<RemindPlanModel> = new EventEmitter();
   isLocked = false;
-  TIMETYPES = TIMETYPES;
   BodyElementTypes = PlanSchemaBodyTypes;
   form: FormGroup;
   get schemaIdCtrl() { return this.form.get('schema_id') as FormControl; }
@@ -44,10 +43,7 @@ export class RemindPlanFormComponent implements OnInit {
       active: new FormControl(this.plan.active, Validators.required),
     });
 
-    console.log(this.plan);
     this.schemasAvailable = this.schemaService.schemas.filter(schema => schema.type === PLANTYPES.REMIND);
-    console.log(this.schemasAvailable);
-
   }
 
   tutorialLogic() {
@@ -61,7 +57,7 @@ export class RemindPlanFormComponent implements OnInit {
       this.notificationService.error('Błąd w formularzu');
       return;
     }
-    const ref = this.dialog.open(RemindPlanPreviewComponent, { data: { plan: {...this.form.value}, customer: this.customerSelected } });
+    const ref = this.dialog.open(RemindPlanPreviewComponent, { data: { schemaId: this.schemaIdCtrl.value, customer: this.customerSelected } });
 
     ref.afterClosed().pipe(
       map(() => ref.componentInstance.customerCtrl.value),

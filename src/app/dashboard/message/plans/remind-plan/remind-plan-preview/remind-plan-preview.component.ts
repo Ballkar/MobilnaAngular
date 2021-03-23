@@ -27,7 +27,7 @@ export class RemindPlanPreviewComponent implements OnInit, OnDestroy {
     private remindPlanService: RemindPlanService,
     private customerService: CustomersService,
     public dialogRef: MatDialogRef<RemindPlanPreviewComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { plan: RemindPlanModel, customer: CustomerModel },
+    @Inject(MAT_DIALOG_DATA) public data: { schemaId: number, customer: CustomerModel },
   ) { }
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class RemindPlanPreviewComponent implements OnInit, OnDestroy {
   }
 
   getPreview(customer: CustomerModel) {
-    this.remindPlanService.getPreview(customer.id, this.data.plan).pipe(
+    this.remindPlanService.getPreview(customer.id, this.data.schemaId).pipe(
       tap(preview => this.preview = preview),
     ).subscribe();
   }

@@ -31,10 +31,9 @@ export class RemindPlanService {
     );
   }
 
-  getPreview(customerId: number, plan: RemindPlanModel): Observable<RemindPlanPreviewModel> {  // TODO: refactor
-    const { clear_diacritics, schema: body } = plan;
+  getPreview(customerId: number, schemaId: number): Observable<RemindPlanPreviewModel> {  // TODO: refactor
     return this.http.post<ResponseModel<RemindPlanPreviewModel>>(`${environment.apiUrl}/messages/plans/remind/preview`,
-    { customer_id: customerId, body, clear_diacritics }).pipe(
+    { customer_id: customerId, schema_id: schemaId }).pipe(
         map(res => res.data),
         tap(res => res.letterCount = res['letter_count']),
         tap(res => res.smsCount = res['sms_count']),
