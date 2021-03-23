@@ -5,7 +5,7 @@ import { map, tap } from 'rxjs/operators';
 import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model';
 import { environment } from 'src/environments/environment';
 import { RemindPlanModel } from '../remind-plan/models/remindPlan.model';
-import { PlanSchema, PLANTYPES, SCHEMABODYTYPES } from "../models/PlanSchema.model";
+import { PlanSchema, PLANTYPES, PlanSchemaBodyTypes } from "../models/PlanSchema.model";
 
 export interface SchemaResponse {
   remindPlan: RemindPlanModel,
@@ -40,7 +40,7 @@ export class SchemaService {
 
   private mapSchemasFromApi(schemas: PlanSchema[]) {
     schemas.forEach(schema => {
-      schema.body.forEach(bodyEl => bodyEl.type = bodyEl.text ? SCHEMABODYTYPES.TEXT : SCHEMABODYTYPES.VARIABLE);
+      schema.body.forEach(bodyEl => bodyEl.type = bodyEl.text ? PlanSchemaBodyTypes.TEXT : PlanSchemaBodyTypes.VARIABLE);
     });
   }
 }

@@ -9,11 +9,13 @@ import { RemindPlanFormComponent } from './remind-plan/remind-plan-form/remind-p
 import { RemindPlanPopupComponent } from './remind-plan/remind-plan-popup/remind-plan-popup.component';
 import { RemindPlanPreviewComponent } from './remind-plan/remind-plan-preview/remind-plan-preview.component';
 import { MessageModule } from '../message.module';
+import { PlanBodyPipe } from './plan-body.pipe';
 
 
 
 @NgModule({
   declarations: [
+    PlanBodyPipe,
     ContainerComponent,
     RemindPlanComponent,
     RemindPlanFormComponent,
