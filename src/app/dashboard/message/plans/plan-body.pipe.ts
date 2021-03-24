@@ -25,6 +25,9 @@ export class PlanBodyPipe implements PipeTransform {
       case 'work': {
         return this.workModel(element.variable.name);
       }
+      case 'user': {
+        return this.ownerModel(element.variable.name);
+      }
       default: {
         console.error('invalid model in PlanBodyPipe');
         break;
@@ -50,11 +53,26 @@ export class PlanBodyPipe implements PipeTransform {
 
   private workModel(variableName: string): string {
     switch(variableName) {
-      case 'time': {
-        return 'Termin wizyty';
+      case 'start_date': {
+        return 'Data wizyty';
+      }
+      case 'start_hour': {
+        return 'Czas wizyty';
       }
       default: {
         console.error('invalid work variable name in PlanBodyPipe');
+        break;
+      }
+    }
+  }
+
+  private ownerModel(variableName: string): string {
+    switch(variableName) {
+      case 'name': {
+        return 'Nazwa salonu';
+      }
+      default: {
+        console.error('invalid owner variable name in PlanBodyPipe');
         break;
       }
     }

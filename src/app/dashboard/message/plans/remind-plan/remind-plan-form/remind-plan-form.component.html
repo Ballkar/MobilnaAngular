@@ -4,8 +4,8 @@
     <div class="titleContainer">
       <div class="title">Przypomnienie o wizycie</div>
       <div class="description">
-        Wiadomości wysyłane są codziennie dzień przed wizytą o godzinie 17:00.
-        Codziennie sprawdzając Twój kalendarz przypominamy klientkom o wizytach.
+        Wiadomości wysyłane są codziennie dzień przed wizytą o godzinie {{plan.hour|timeLeadingZero}}:{{plan.minute|timeLeadingZero}}.
+        Sprawdzając Twój kalendarz wysyłamy przypomnienia klientkom o nadchodzących wizytach.
       </div>
     </div>
     <mat-slide-toggle class="activeCtrl" [formControl]="activeCtrl" [labelPosition]="'before'">aktywny</mat-slide-toggle>
@@ -15,9 +15,7 @@
     <div class="schemaTitle">Wybierz jeden z dostępnych schematów:</div>
     <mat-radio-group [formControl]="schemaIdCtrl">
       <mat-radio-button [value]="schema.id" *ngFor="let schema of schemasAvailable" >
-        <span class="elements" *ngFor="let element of schema.body" [ngClass]="{variable: element.type === BodyElementTypes.VARIABLE}">
-          {{element | planBody}}
-        </span>
+        <span class="elements" *ngFor="let element of schema.body" [ngClass]="{variable: element.type === BodyElementTypes.VARIABLE}">{{element|planBody}}</span>
       </mat-radio-button>
     </mat-radio-group>
   </div>
