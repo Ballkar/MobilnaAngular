@@ -71,6 +71,9 @@ export class PlanBodyPipe implements PipeTransform {
       case 'name': {
         return 'Nazwa salonu';
       }
+      case 'phone': {
+        return 'Numer kontaktowy';
+      }
       default: {
         console.error('invalid owner variable name in PlanBodyPipe');
         break;

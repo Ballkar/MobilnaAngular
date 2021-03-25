@@ -37,7 +37,7 @@ export class RemindPlanFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tutorialLogic();
+    // this.tutorialLogic();
     this.form = new FormGroup({
       schema_id: new FormControl(this.plan.schema_id, Validators.required),
       active: new FormControl(this.plan.active, Validators.required),
