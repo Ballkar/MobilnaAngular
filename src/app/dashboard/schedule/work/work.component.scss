@@ -34,14 +34,12 @@ mat-spinner{
   z-index: 999999;
   background-color: white;
   padding: 5px;
-
-  @include mobile{
-    top: -27px;
-    padding: 0;
-  }
+  border-bottom: 1px solid #ddd;
 
   @include mobile{
     flex-flow: column;
+    top: -27px;
+    padding: 0;
   }
 
   .title{
