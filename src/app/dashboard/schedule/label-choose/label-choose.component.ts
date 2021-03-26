@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { cloneDeep } from 'lodash';
 import { Subject } from 'rxjs';
-import { first, map, takeUntil, tap } from 'rxjs/operators';
+import { map, takeUntil, tap } from 'rxjs/operators';
 import { LabelModel } from '../label.model';
 import { LabelService } from '../label.service';
 
@@ -12,14 +12,8 @@ import { LabelService } from '../label.service';
 })
 export class LabelChooseComponent implements OnInit, OnDestroy {
   @Input() singleChoose = false;
-  @Input() preventNewLabel = false;
-  @Input() preventEditing = false;
-
   @Input() labelsChoosenIds: number[] = [];
   get isAnyLabelsChoosenOnInit() { return !!this.labelsChoosenIds[0] }
-
-  @Output() newLabelWasClicked: EventEmitter<void> = new EventEmitter();
-  @Output() editLabelsWasClicked: EventEmitter<void> = new EventEmitter();
   @Output() labelsChanged: EventEmitter<LabelModel[]> = new EventEmitter();
 
   allLabel: LabelModel = { id: null, name: 'Wszystkie', color: 'yellow', active: false};
@@ -60,13 +54,13 @@ export class LabelChooseComponent implements OnInit, OnDestroy {
     return labels;
   }
 
-  newLabelClick() {
-    this.newLabelWasClicked.emit();
-  }
+  // newLabelClick() {
+  //   this.newLabelWasClicked.emit();
+  // }
 
-  editClick() {
-    this.editLabelsWasClicked.emit();
-  }
+  // editClick() {
+  //   this.editLabelsWasClicked.emit();
+  // }
 
   changeLabelState(label: LabelModel) {
     this.allLabel.active = false;

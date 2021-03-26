@@ -4,6 +4,12 @@ mat-spinner{
   margin: 0 auto;
 }
 
+.mainTitle{
+  .labelEdit{
+    margin-left: auto;
+  }
+}
+
 .controlButtonsContainer{
   position: fixed;
   bottom: 80px;
@@ -21,4 +27,28 @@ mat-spinner{
   display: flex;
   flex-flow: row;
   align-items: center;
+  margin-bottom: 10px;
+  position: sticky;
+  position: -webkit-sticky;
+  top: -1px;
+  z-index: 999999;
+  background-color: white;
+  padding: 5px;
+
+  @include mobile{
+    top: -27px;
+    padding: 0;
+  }
+
+  @include mobile{
+    flex-flow: column;
+  }
+
+  .title{
+    font-size: 18px;
+    font-weight: 500;
+    @include mobile{
+      margin-bottom: 5px;
+    }
+  }
 }

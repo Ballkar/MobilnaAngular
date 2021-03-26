@@ -1,30 +1,57 @@
 <div class="container">
   <mat-card-title class="mainTitle">
-    <button mat-icon-button [routerLink]="['/', 'dashboard']">
+    <button
+      mat-icon-button
+      [routerLink]="['/', 'dashboard']"
+    >
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
     Kalendarz
+    <button
+      mat-raised-button
+      color="primary"
+      class="labelEdit"
+      (click)="openEditLabels()"
+    >Edytuj Etykiety
+    </button>
   </mat-card-title>
 
-  <app-label-choose #labelChoose id="label_tutorial"
-    (editLabelsWasClicked)="openEditLabels()"
-    (labelsChanged)="catchChangeLabels($event)"
-    [preventNewLabel]="true">
-  </app-label-choose>
+  <div class="labelsContainer">
+    <div class="title">Wyświetlane etykiety</div>
+    <app-label-choose
+      #labelChoose
+      id="label_tutorial"
+      (labelsChanged)="catchChangeLabels($event)"
+    >
+    </app-label-choose>
+  </div>
 
-  <app-main-calendar id="schedule_tutorial"
+  <app-main-calendar
+    id="schedule_tutorial"
     [disableDateDisplayedChange]="dataHaveBeenChanged"
     [eventsData]="workEvents"
     [updatingState$]="isUpdating$"
     (dateDisplayedChanged)="changeDateDisplayed($event)"
     (emptyHourClicked)="addWorkOnDate($event)"
     (eventTimeChanged)="changeTimeOfWork($event)"
-    (eventClicked)="workClicked($event)">
+    (eventClicked)="workClicked($event)"
+  >
   </app-main-calendar>
 </div>
 
 
-<div class="controlButtonsContainer" *ngIf="dataHaveBeenChanged">
-  <button mat-raised-button color="primary" (click)="saveActualWorks()">Zapisz</button>
-  <button mat-raised-button color="warn" (click)="resetActualWorks()">Przywróć</button>
+<div
+  class="controlButtonsContainer"
+  *ngIf="dataHaveBeenChanged"
+>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="saveActualWorks()"
+  >Zapisz</button>
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="resetActualWorks()"
+  >Przywróć</button>
 </div>

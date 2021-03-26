@@ -1,4 +1,4 @@
-<div class="labelsContainer">
+<!-- <div class="labelsContainer">
   <div class="titleContainer">
     <div class="newLabelButton" (click)="editClick()" *ngIf="!preventEditing">
       <mat-icon class="icon">edit</mat-icon>
@@ -9,15 +9,16 @@
       <mat-icon class="icon">add</mat-icon>
       Nowa etykieta?
     </div>
+  </div> -->
+<!-- </div> -->
+
+<div class="labels">
+  <div class="label" [ngClass]="{inactive: !allLabel.active}" (click)="setAllLabel()" *ngIf="!singleChoose">
+    <!-- <div class="buttonElement" [ngStyle]="{backgroundColor: allLabel.color}"></div> -->
+    <div class="name main">{{allLabel.name}}</div>
   </div>
-  <div class="labels">
-    <div class="label" [ngClass]="{inactive: !allLabel.active}" (click)="setAllLabel()" *ngIf="!singleChoose">
-      <div class="buttonElement" [ngStyle]="{backgroundColor: allLabel.color}"></div>
-      <div class="name">{{allLabel.name}}</div>
-    </div>
-    <div class="label" *ngFor="let label of labels" [ngClass]="{inactive: !label.active}" (click)="changeLabelState(label)">
-      <div class="buttonElement" [ngStyle]="{backgroundColor: label.color}"></div>
-      <div class="name">{{label.name}}</div>
-    </div>
+  <div class="label" *ngFor="let label of labels" [ngClass]="{inactive: !label.active}" (click)="changeLabelState(label)">
+    <div class="buttonElement" [ngStyle]="{backgroundColor: label.color}"></div>
+    <div class="name">{{label.name}}</div>
   </div>
 </div>

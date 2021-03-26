@@ -1,72 +1,84 @@
 @import 'mixins';
 
-.labelsContainer {
+// .labelsContainer {
+//   display: flex;
+//   flex-flow: row;
+//   margin-bottom: 10px;
+
+//   .titleContainer{
+//     .title {
+//       font-size: 16px;
+//       font-weight: 500;
+//     }
+
+//     .newLabelButton{
+//       display: flex;
+//       align-items: center;
+//       font-size: 13px;
+//       color: #02bec9;
+//       cursor: pointer;
+//       margin-left: auto;
+
+//       .icon{
+//         color: #02bec9;
+//         width: 13px;
+//         height: 13px;
+//         font-size: 13px;
+//       }
+//     }
+//   }
+
+.labels {
   display: flex;
-  flex-flow: row;
-  margin-bottom: 10px;
+  flex-flow: row wrap;
 
-  .titleContainer{
-    .title {
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    .newLabelButton{
-      display: flex;
-      align-items: center;
-      font-size: 13px;
-      color: #02bec9;
-      cursor: pointer;
-      margin-left: auto;
-
-      .icon{
-        color: #02bec9;
-        width: 13px;
-        height: 13px;
-        font-size: 13px;
-      }
-    }
-  }
-
-  .labels{
+  .label {
+    margin-left: 10px;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 17px;
 
-    .label {
-      margin-left: 10px;
-      display: flex;
-      flex-flow: row;
-      align-items: center;
-      cursor: pointer;
-      font-weight: 500;
-      &:hover{
-        &.inactive{
-          opacity: 0.6;
-        }
-        .buttonElement{
-          box-shadow: 0 0 4px;
-        }
-      }
-
-      &.inactive{
-        opacity: 0.3;
+    &:hover {
+      &.inactive {
+        opacity: 0.6;
       }
 
       .buttonElement {
-        width: 13px;
-        height: 13px;
-        border-radius: 50%;
-        margin-right: 5px;
-        border: 1px solid black;
+        box-shadow: 0 0 4px;
       }
-      .name {
+    }
+
+    &.inactive {
+      opacity: 0.3;
+    }
+
+    @include mobile{
+      margin-bottom: 5px;
+    }
+
+    .buttonElement {
+      $size: 15px;
+      width: $size;
+      height: $size;
+      border-radius: 50%;
+      margin-right: 5px;
+      border: 1px solid black;
+    }
+
+    .name {
+
+      &.main {
+        text-decoration: underline;
       }
     }
   }
 }
 
-.buttonsContainer{
-  margin-left: auto;
-}
+// }
 
-
+// .buttonsContainer{
+//   margin-left: auto;
+// }
