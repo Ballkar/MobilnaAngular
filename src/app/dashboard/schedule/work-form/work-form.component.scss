@@ -57,8 +57,15 @@
   }
 }
 
-.removeBtnContainer {
+.titleContainer {
   display: flex;
-  justify-content: flex-end;
+  flex-flow: row;
+  justify-content: space-between;
   margin-bottom: 20px;
+  align-items: flex-start;
+
+  .title {
+    font-size: 18px;
+    font-weight: 500;
+  }
 }

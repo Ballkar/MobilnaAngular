@@ -1,5 +1,6 @@
-<div class="removeBtnContainer" *ngIf="ableToRemove">
-  <button mat-raised-button color="warn" type="button" (click)="remove()">Usuń</button>
+<div class="titleContainer">
+  <div class="title">{{work && work.id ? 'Edycja wizyty' : 'Dodawanie wizyty'}}</div>
+  <button mat-raised-button color="warn" type="button" (click)="remove()" *ngIf="ableToRemove">Usuń</button>
 </div>
 
 <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
