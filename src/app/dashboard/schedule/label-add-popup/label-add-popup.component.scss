@@ -11,15 +11,19 @@
     display: flex;
     flex-flow: row;
     align-items: center;
+
+    button{
+      margin-left: auto;
+    }
   }
 }
 
-.buttonsContainer{
-  margin: 25px;
-  margin-top: 0;
-  display: flex;
-  justify-content: flex-end;
-}
+// .buttonsContainer{
+//   margin: 25px;
+//   margin-top: 0;
+//   display: flex;
+//   justify-content: flex-end;
+// }
 
 
 .labelContainer{

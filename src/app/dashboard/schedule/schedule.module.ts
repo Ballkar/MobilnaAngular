@@ -11,8 +11,9 @@ import { CustomersModule } from '../customers/customers.module';
 import { LabelFormComponent } from './label-form/label-form.component';
 import { LabelChooseComponent } from './label-choose/label-choose.component';
 import { ColorPickerModule } from 'ngx-color-picker';
-import { LabelseEditingPopupComponent } from './labelse-editing-popup/labelse-editing-popup.component';
+import { LabelEditingPopupComponent } from './label-editing-popup/label-editing-popup.component';
 import { WorkDisplayerComponent } from './work-displayer/work-displayer.component';
+import { LabelAddPopupComponent } from './label-add-popup/label-add-popup.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { WorkDisplayerComponent } from './work-displayer/work-displayer.componen
     WorkPopupComponentComponent,
     LabelFormComponent,
     LabelChooseComponent,
-    LabelseEditingPopupComponent,
+    LabelEditingPopupComponent,
+    LabelAddPopupComponent,
     WorkDisplayerComponent,
   ],
   imports: [
@@ -34,7 +36,8 @@ import { WorkDisplayerComponent } from './work-displayer/work-displayer.componen
   ],
   entryComponents: [
     WorkPopupComponentComponent,
-    LabelseEditingPopupComponent,
+    LabelEditingPopupComponent,
+    LabelAddPopupComponent,
   ]
 })
 export class ScheduleModule { }

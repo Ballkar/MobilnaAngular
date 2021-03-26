@@ -2,10 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface ConfirmPopupComponentData {
-  text: string,
-  subtitle: string,
-  confirm: string,
-  cancel: string,
+  text: string;
+  subtitle: string;
+  confirm?: string;
+  cancel?: string;
 }
 
 @Component({
@@ -20,6 +20,8 @@ export class ConfirmPopupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.data.confirm = this.data.confirm ? this.data.confirm : 'Tak';
+    this.data.cancel = this.data.cancel ? this.data.cancel : 'Nie';
   }
 
   agree() {
