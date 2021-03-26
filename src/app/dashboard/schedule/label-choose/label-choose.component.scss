@@ -30,12 +30,7 @@
 
   .labels{
     display: flex;
-    flex-flow: row;
-    flex-flow: wrap;
-    @include mobile {
-      flex: 1;
-      flex-flow: column;
-    }
+    flex-flow: row wrap;
 
     .label {
       margin-left: 10px;

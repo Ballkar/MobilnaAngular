@@ -10,7 +10,6 @@ import { PlanService, PlansResponse } from '../services/plan.service';
   styleUrls: ['./container.component.scss']
 })
 export class ContainerComponent implements OnInit {
-
   plans: PlansResponse;
   constructor(
     private planService: PlanService,
@@ -21,11 +20,13 @@ export class ContainerComponent implements OnInit {
 
   ngOnInit() {
     this.planService.getPlans().subscribe(res => this.plans = res);
+    this.tutorialLogic();
+  }
 
+  tutorialLogic() {
     if(!this.authService.loggedUser.tutorials.includes(this.tutorialService.messageTour.tourId)) {
       setTimeout(() => this.sidebarService.open ? this.sidebarService.toggle() : null, 100);
       setTimeout(() => this.tutorialService.startMessageTutorial(), 800);
     }
   }
-
 }
