@@ -46,8 +46,11 @@
     margin-bottom: 15px;
 
     .title {
-      text-align: center;
       margin-bottom: 5px;
+
+      @include mobile {
+        text-align: center;
+      }
     }
   }
 
