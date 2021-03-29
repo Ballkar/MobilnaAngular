@@ -1,5 +1,6 @@
-<div class="removeBtnContainer" *ngIf="ableToRemove">
-  <button mat-raised-button color="warn" type="button" (click)="remove()">Usuń</button>
+<div class="titleContainer">
+  <div class="title">{{work && work.id ? 'Edycja wizyty' : 'Dodawanie wizyty'}}</div>
+  <button mat-raised-button color="warn" type="button" (click)="remove()" *ngIf="ableToRemove">Usuń</button>
 </div>
 
 <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
@@ -50,15 +51,19 @@
     <span class="infoB" (click)="newCustomer($event)">Nowa Klientka?</span>
   </mat-form-field>
 
-  <app-label-choose #labelChoose
-    [singleChoose]="true"
-    [preventEditing]="true"
-    [labelsChoosenIds]="labelCtrl.value ? [labelCtrl.value.id] : []"
-    (newLabelWasClicked)="newLabelOpenned = !newLabelOpenned"
-    (labelsChanged)="catchLabelChange($event[0])">
-  </app-label-choose>
+  <div class="labels">
+    <div class="title">Wybór etykiety</div>
+    <app-label-choose #labelChoose
+      [singleChoose]="true"
+      [labelsChoosenIds]="labelCtrl.value ? [labelCtrl.value.id] : []"
+      (labelsChanged)="catchLabelChange($event[0])">
+    </app-label-choose>
+  </div>
 
-  <app-label-form *ngIf="newLabelOpenned" (labelSaved)="catchLabelSave($event)"></app-label-form>
+  <!-- [preventEditing]="true"
+  (newLabelWasClicked)="newLabelOpenned = !newLabelOpenned" -->
+
+  <!-- <app-label-form *ngIf="newLabelOpenned" (labelSaved)="catchLabelSave($event)"></app-label-form> -->
 
   <div class="buttonContainer">
     <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Zapisz wizyte</button>

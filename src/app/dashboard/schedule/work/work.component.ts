@@ -12,7 +12,7 @@ import { WorkService } from '../work.service';
 import { cloneDeep, differenceWith, isEqual } from 'lodash';
 import { LabelModel } from '../label.model';
 import { LabelService } from '../label.service';
-import { LabelseEditingPopupComponent } from '../labelse-editing-popup/labelse-editing-popup.component';
+import { LabelEditingPopupComponent } from '../label-editing-popup/label-editing-popup.component';
 import { LabelChooseComponent } from '../label-choose/label-choose.component';
 import { SnotifyService } from 'ng-snotify';
 import { TutorialService } from '../../services/tutorial.service';
@@ -83,7 +83,7 @@ export class WorkComponent implements OnInit {
   }
 
   openEditLabels() {
-    this.dialog.open(LabelseEditingPopupComponent, {data: this.labelService} );
+    this.dialog.open(LabelEditingPopupComponent, {data: this.labelService} );
   }
 
   workClicked(event: EventMainCalendar<WorkModel>) {
