@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { EmailConfirmComponent } from './email-confirm/email-confirm.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 const routes: Routes = [
@@ -31,7 +32,11 @@ const routes: Routes = [
       },
       {
         path: 'forgot',
-        component: ForgotPasswordComponent
+        component: ForgotPasswordComponent,
+      },
+      {
+        path: 'password-reset',
+        component: ResetPasswordComponent,
       }
     ]
   },

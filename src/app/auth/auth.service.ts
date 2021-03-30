@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError, Subject } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { UserModel } from '../shared/model/user.model';
 import { tap, map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -42,6 +42,25 @@ export class AuthService {
 
   resendConfirmEmail(email: string): Observable<void> {
     return this.http.get<void>(`${environment.apiUrl}/email/resend?email=${email}`).pipe();
+  }
+
+  sendPasswordEmail(email: string, phone: string): Observable<void> {
+    let params = new HttpParams();
+    if(email) {
+      params = params.append('email', email);
+    }
+    if(phone) {
+      params = params.append('phone', phone);
+    }
+    return this.http.get<void>(`${environment.apiUrl}/password/resend`, {params}).pipe();
+  }
+
+  changePassword(password: string, token: string): Observable<void> {
+    return this.http.post<void>(`${environment.apiUrl}/password/reset`, {
+      password,
+      'password_confirmation': password,
+      token,
+    }).pipe();
   }
 
   logout() {
