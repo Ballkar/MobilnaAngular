@@ -14,6 +14,9 @@ export class GuestGuard implements CanActivate {
   canActivate( route: ActivatedRouteSnapshot,
                state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
+    if (state.url.substring(1, 12) === 'auth/verify') {
+      return true;
+    }
     if (!localStorage.getItem('token')) {
       return true;
     } else {

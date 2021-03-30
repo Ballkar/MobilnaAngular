@@ -1,0 +1,39 @@
+<div class="container">
+
+  <div class="title">Potwierdzenie adresu email</div>
+
+  <div class="statusContainer">
+    <mat-spinner *ngIf="!error && !success"></mat-spinner>
+    <div
+      *ngIf="success"
+      class="success"
+    >
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        [routerLink]="['/', 'auth', 'login']"
+      >Wróć do aplikacji</button>
+    </div>
+
+    <div *ngIf="error" class="error">
+      <div class="text">
+        Błąd podczas potwierdzania adresu.
+      </div>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Email"
+          [formControl]="emailCtrl"
+        >
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        [disabled]="locked"
+        (click)="resend()"
+      >Wyślij ponownie</button>
+    </div>
+  </div>
+</div>

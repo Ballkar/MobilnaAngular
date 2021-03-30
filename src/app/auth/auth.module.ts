@@ -6,6 +6,7 @@ import { ContainerComponent } from './container/container.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { EmailConfirmComponent } from './email-confirm/email-confirm.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     ContainerComponent,
     LoginComponent,
     RegisterComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    EmailConfirmComponent,
   ],
   imports: [
     AuthRoutingModule,

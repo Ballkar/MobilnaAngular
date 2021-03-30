@@ -35,6 +35,15 @@ export class AuthService {
     );
   }
 
+
+  confirmEmail(token: string): Observable<void> {
+    return this.http.get<void>(`${environment.apiUrl}/email/verify?token=${token}`).pipe();
+  }
+
+  resendConfirmEmail(email: string): Observable<void> {
+    return this.http.get<void>(`${environment.apiUrl}/email/resend?email=${email}`).pipe();
+  }
+
   logout() {
 
   }
