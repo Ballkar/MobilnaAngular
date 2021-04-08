@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { WorkersResolver } from '../workers/workers.resolver';
-import { WorkComponent } from './work/work.component';
+import { ListComponent } from './list/list.component';
 
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: WorkComponent,
-    resolve: {
-      workers: WorkersResolver
-    }
-  }
+    redirectTo: 'list',
+  },
+  {
+    path: 'list',
+    component: ListComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ScheduleRoutingModule { }
+export class WorkersRoutingModule { }

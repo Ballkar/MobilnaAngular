@@ -1,5 +1,5 @@
 import { CustomerModel } from '../customers/customer.model';
-import { WorkerModel } from './worker.model';
+import { WorkerModel } from '../workers/worker.model';
 
 export interface WorkModel {
   id: number;

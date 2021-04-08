@@ -5,7 +5,7 @@ import { SnotifyService } from 'ng-snotify';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { ConfirmPopupComponent, ConfirmPopupComponentData } from 'src/app/shared/modal/confirm-popup/confirm-popup.component';
-import { WorkerAddPopupComponent } from '../worker-add-popup/worker-add-popup.component';
+import { WorkerAddPopupComponent } from '../worker-popup/worker-popup.component';
 import { WorkerFormComponent } from '../worker-form/worker-form.component';
 import { WorkerModel } from '../worker.model';
 import { WorkerService } from '../worker.service';

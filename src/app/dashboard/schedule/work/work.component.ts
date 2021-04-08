@@ -10,14 +10,14 @@ import { WorkPopupComponentComponent } from '../work-popup-component/work-popup-
 import { WorkModel } from '../work.model';
 import { WorkService } from '../work.service';
 import { cloneDeep, differenceWith, isEqual } from 'lodash';
-import { WorkerModel } from '../worker.model';
-import { WorkerService } from '../worker.service';
-import { WorkerEditingPopupComponent } from '../worker-editing-popup/worker-editing-popup.component';
-import { WorkerChooseComponent } from '../worker-choose/worker-choose.component';
+import { WorkerModel } from '../../workers/worker.model';
 import { SnotifyService } from 'ng-snotify';
 import { TutorialService } from '../../services/tutorial.service';
 import { UserService } from '../../user/user.service';
 import { SidebarService } from '../../services/sidebar.service';
+import { WorkerChooseComponent } from '../../workers/worker-choose/worker-choose.component';
+import { WorkerEditingPopupComponent } from '../../workers/worker-editing-popup/worker-editing-popup.component';
+import { WorkerService } from '../../workers/worker.service';
 
 @Component({
   selector: 'app-work',

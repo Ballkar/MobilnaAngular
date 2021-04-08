@@ -2,16 +2,14 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
-import { SnotifyService } from 'ng-snotify';
 import { Observable, Subject } from 'rxjs';
-import { concatMap, debounceTime, filter, finalize, map, startWith, takeUntil, tap } from 'rxjs/operators';
+import { concatMap, debounceTime, filter, map, startWith } from 'rxjs/operators';
 import { CustomerPopupComponent } from '../../customers/customer-popup/customer-popup.component';
 import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
-import { WorkerChooseComponent } from '../worker-choose/worker-choose.component';
-import { WorkerModel } from '../worker.model';
+import { WorkerChooseComponent } from '../../workers/worker-choose/worker-choose.component';
+import { WorkerModel } from '../../workers/worker.model';
 import { WorkModel } from '../work.model';
-import { WorkService } from '../work.service';
 
 @Component({
   selector: 'app-work-form',

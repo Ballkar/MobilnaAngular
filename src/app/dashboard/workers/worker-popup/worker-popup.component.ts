@@ -6,9 +6,9 @@ import { WorkerModel } from '../worker.model';
 import { WorkerService } from '../worker.service';
 
 @Component({
-  selector: 'app-worker-add-popup',
-  templateUrl: './worker-add-popup.component.html',
-  styleUrls: ['./worker-add-popup.component.scss']
+  selector: 'app-worker-popup',
+  templateUrl: './worker-popup.component.html',
+  styleUrls: ['./worker-popup.component.scss']
 })
 export class WorkerAddPopupComponent implements OnInit, OnDestroy {
   private onDestroy$: Subject<void> = new Subject();

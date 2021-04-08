@@ -1,0 +1,19 @@
+<div class="container">
+  <mat-card-title class="mainTitle">
+    <button mat-icon-button [routerLink]="['/', 'dashboard']">
+      <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+    Lista Pracowników
+    <button mat-raised-button color="primary" class="addBtn" (click)="addWorker()">Dodaj Pracownika</button>
+  </mat-card-title>
+
+  <mat-list>
+    <mat-list-item *ngFor="let worker of workers" (click)="clicked($event, worker)">
+      <mat-icon matListAvatar>person</mat-icon>
+      <div class="name" matLine>{{worker.name}}</div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+
+  </mat-list>
+
+</div>

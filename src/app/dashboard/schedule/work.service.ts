@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model';
 import { environment } from 'src/environments/environment';
-import { WorkerModel } from './worker.model';
+import { WorkerModel } from '../workers/worker.model';
 import { WorkModel } from './work.model';
 
 @Injectable({

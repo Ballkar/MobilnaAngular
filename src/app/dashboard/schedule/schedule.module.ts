@@ -8,22 +8,14 @@ import { MainCalendarModule } from '../main-calendar/main-calendar.module';
 import { WorkFormComponent } from './work-form/work-form.component';
 import { WorkPopupComponentComponent } from './work-popup-component/work-popup-component.component';
 import { CustomersModule } from '../customers/customers.module';
-import { WorkerFormComponent } from './worker-form/worker-form.component';
-import { WorkerChooseComponent } from './worker-choose/worker-choose.component';
-import { ColorPickerModule } from 'ngx-color-picker';
-import { WorkerEditingPopupComponent } from './worker-editing-popup/worker-editing-popup.component';
 import { WorkDisplayerComponent } from './work-displayer/work-displayer.component';
-import { WorkerAddPopupComponent } from './worker-add-popup/worker-add-popup.component';
+import { WorkersModule } from '../workers/workers.module';
 
 @NgModule({
   declarations: [
     WorkComponent,
     WorkFormComponent,
     WorkPopupComponentComponent,
-    WorkerFormComponent,
-    WorkerChooseComponent,
-    WorkerEditingPopupComponent,
-    WorkerAddPopupComponent,
     WorkDisplayerComponent,
   ],
   imports: [
@@ -32,12 +24,10 @@ import { WorkerAddPopupComponent } from './worker-add-popup/worker-add-popup.com
     SharedModule,
     CustomersModule,
     MainCalendarModule,
-    ColorPickerModule,
+    WorkersModule,
   ],
   entryComponents: [
-    WorkPopupComponentComponent,
-    WorkerEditingPopupComponent,
-    WorkerAddPopupComponent,
+    WorkPopupComponentComponent
   ]
 })
 export class ScheduleModule { }
