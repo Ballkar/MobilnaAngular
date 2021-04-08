@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { SnotifyService } from 'ng-snotify';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { filter, takeUntil, tap } from 'rxjs/operators';
+import { ConfirmPopupComponent, ConfirmPopupComponentData } from 'src/app/shared/modal/confirm-popup/confirm-popup.component';
 import { WorkerModel } from '../worker.model';
 import { WorkerService } from '../worker.service';
 
@@ -16,6 +18,7 @@ export class WorkerFormComponent implements OnInit, OnDestroy {
   @Input() worker: WorkerModel;
   @Output() workerChanged: EventEmitter<WorkerModel> = new EventEmitter();
   @Output() workerSaved: EventEmitter<WorkerModel> = new EventEmitter();
+  @Output() workerRemoved: EventEmitter<WorkerModel> = new EventEmitter();
   form: FormGroup;
   onDestroy$: Subject<void> = new Subject();
   get nameCtrl() { return this.form.get('name') as FormControl; }
@@ -24,6 +27,7 @@ export class WorkerFormComponent implements OnInit, OnDestroy {
   constructor(
     private workerService: WorkerService,
     private notifyService: SnotifyService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -69,6 +73,29 @@ export class WorkerFormComponent implements OnInit, OnDestroy {
     }
 
     request.subscribe(worker => this.workerSaved.emit(worker));
+  }
+
+  initRemove() {
+    const data: ConfirmPopupComponentData = {
+      confirm: 'tak',
+      cancel: 'nie',
+      text: 'Czy napewno chcesz usunąć tego Pracownika?',
+      subtitle: `Spowoduje to usunięcie go z wszystkich spotkań.
+      Wszystkie wizyty przypisane do tego pracownika będą istniały bez pracownika.`
+    };
+    const ref = this.dialog.open(ConfirmPopupComponent, { data });
+    ref.afterClosed().pipe(
+      filter((data: boolean) => !!data)
+    ).subscribe(() => this.remove());
+  }
+
+  private remove() {
+    this.workerService.removeWorker(this.worker).pipe(
+      tap(() => this.workerRemoved.emit(this.worker)),
+    ).subscribe(
+      () => this.notifyService.success('Pracownik został usunięty!'),
+      () => this.notifyService.error('Problem podczas usuwania pracownika!'),
+    );
   }
 
   ngOnDestroy(): void {
