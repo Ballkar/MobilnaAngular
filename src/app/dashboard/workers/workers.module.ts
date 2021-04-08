@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { WorkersRoutingModule } from './workers-routing.module';
 import { WorkerChooseComponent } from './worker-choose/worker-choose.component';
-import { WorkerEditingPopupComponent } from './worker-editing-popup/worker-editing-popup.component';
 import { WorkerFormComponent } from './worker-form/worker-form.component';
 import { WorkerPopupComponent } from './worker-popup/worker-popup.component';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -15,7 +14,6 @@ import { ListComponent } from './list/list.component';
   declarations: [
     WorkerFormComponent,
     WorkerChooseComponent,
-    WorkerEditingPopupComponent,
     WorkerPopupComponent,
     ListComponent,
   ],
@@ -28,11 +26,9 @@ import { ListComponent } from './list/list.component';
   exports: [
     WorkerFormComponent,
     WorkerChooseComponent,
-    WorkerEditingPopupComponent,
     WorkerPopupComponent,
   ],
   entryComponents: [
-    WorkerEditingPopupComponent,
     WorkerPopupComponent,
   ]
 })

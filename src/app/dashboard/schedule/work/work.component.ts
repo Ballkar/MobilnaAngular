@@ -16,7 +16,6 @@ import { TutorialService } from '../../services/tutorial.service';
 import { UserService } from '../../user/user.service';
 import { SidebarService } from '../../services/sidebar.service';
 import { WorkerChooseComponent } from '../../workers/worker-choose/worker-choose.component';
-import { WorkerEditingPopupComponent } from '../../workers/worker-editing-popup/worker-editing-popup.component';
 import { WorkerService } from '../../workers/worker.service';
 
 @Component({
@@ -80,10 +79,6 @@ export class WorkComponent implements OnInit {
       filter(data => !!data),
       switchMap(data => this.reactOnWorkFormClosed(data.work, data.state)),
     ).subscribe();
-  }
-
-  openEditWorkers() {
-    this.dialog.open(WorkerEditingPopupComponent, {data: this.workerService} );
   }
 
   workClicked(event: EventMainCalendar<WorkModel>) {

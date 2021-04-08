@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SnotifyService } from 'ng-snotify';
 import { Observable, Subject } from 'rxjs';
 import { WorkerModel } from '../worker.model';
-import { WorkerService } from '../worker.service';
 
 @Component({
   selector: 'app-worker-popup',
