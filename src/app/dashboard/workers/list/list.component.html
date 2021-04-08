@@ -4,9 +4,9 @@
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
     Lista Pracowników
-    <button mat-raised-button color="primary" class="addBtn" (click)="addWorker()">Dodaj Pracownika</button>
   </mat-card-title>
 
+  <button mat-raised-button color="primary" class="addBtn" (click)="addWorker()">Dodaj Pracownika</button>
   <mat-list>
     <mat-list-item *ngFor="let worker of workers" (click)="clicked(worker)">
       <mat-icon matListAvatar>person</mat-icon>

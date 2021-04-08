@@ -29,7 +29,7 @@ export class WorkerFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.form = new FormGroup({
       name: new FormControl(this.worker ? this.worker.name : '', Validators.required),
-      color: new FormControl(this.worker ? this.worker.color : 'white', Validators.required),
+      color: new FormControl(this.worker ? this.worker.color : '#d1e8ff', Validators.required),
     });
     this.form.valueChanges.pipe(
       takeUntil(this.onDestroy$),
@@ -38,7 +38,7 @@ export class WorkerFormComponent implements OnInit, OnDestroy {
 
   saveWorker() {
     return this.workerService.saveWorker(this.form.value).pipe(
-      tap(() => this.notifyService.success('Etykieta została dodana!')),
+      tap(() => this.notifyService.success('Pracownik został dodany!')),
     );
   }
 
@@ -48,13 +48,13 @@ export class WorkerFormComponent implements OnInit, OnDestroy {
       color: this.colorCtrl.value,
       name: this.nameCtrl.value,
     }).pipe(
-      tap(() => this.notifyService.success('Etykieta została zaktualizowana!')),
+      tap(() => this.notifyService.success('Pracownik została zaktualizowany!')),
     );
   }
 
   clearValue() {
     this.form.reset();
-    this.colorCtrl.setValue('white');
+    this.colorCtrl.setValue('#d1e8ff');
     this.nameCtrl.markAsUntouched();
     this.nameCtrl.updateValueAndValidity();
   }

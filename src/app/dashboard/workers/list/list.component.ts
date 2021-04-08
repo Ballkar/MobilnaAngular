@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { tap } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { WorkerPopupComponent } from '../worker-popup/worker-popup.component';
 import { WorkerModel } from '../worker.model';
 import { WorkerService } from '../worker.service';
@@ -25,14 +25,23 @@ export class ListComponent implements OnInit {
   getWorkers() {
     this.workersService.getWorkers().pipe(
       tap(workers => console.log(workers)),
+      filter(worker => !!worker),
     ).subscribe(workers => this.workers = workers);
   }
 
   addWorker() {
-    this.dialog.open(WorkerPopupComponent, { data: null });
+    const ref = this.dialog.open(WorkerPopupComponent, { data: null });
+
+    ref.afterClosed().pipe(
+      filter(worker => !!worker),
+    ).subscribe(() => this.getWorkers());
   }
 
   clicked(worker: WorkerModel) {
-    this.dialog.open(WorkerPopupComponent, { data: worker });
+    const ref = this.dialog.open(WorkerPopupComponent, { data: worker });
+
+    ref.afterClosed().pipe(
+      filter(worker => !!worker),
+    ).subscribe(() => this.getWorkers());
   }
 }

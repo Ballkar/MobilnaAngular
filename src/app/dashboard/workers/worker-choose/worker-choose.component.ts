@@ -16,7 +16,7 @@ export class WorkerChooseComponent implements OnInit, OnDestroy {
   get isAnyworkersChoosenOnInit() { return !!this.workersChoosenIds[0] }
   @Output() workersChanged: EventEmitter<WorkerModel[]> = new EventEmitter();
 
-  allWorker: WorkerModel = { id: null, name: 'Wszystkie', color: 'yellow', active: false};
+  allWorker: WorkerModel = { id: null, name: 'Wszyscy', color: 'yellow', active: false};
   workers: WorkerModel[];
 
   onDestroy$: Subject<void> = new Subject();
