@@ -1,6 +1,6 @@
 @import 'mixins';
 
-// .labelsContainer {
+// .workersContainer {
 //   display: flex;
 //   flex-flow: row;
 //   margin-bottom: 10px;
@@ -11,7 +11,7 @@
 //       font-weight: 500;
 //     }
 
-//     .newLabelButton{
+//     .newWorkerButton{
 //       display: flex;
 //       align-items: center;
 //       font-size: 13px;
@@ -28,11 +28,11 @@
 //     }
 //   }
 
-.labels {
+.workers {
   display: flex;
   flex-flow: row wrap;
 
-  .label {
+  .worker {
     margin-left: 10px;
     display: flex;
     flex-flow: row;

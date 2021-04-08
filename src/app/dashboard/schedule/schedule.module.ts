@@ -8,22 +8,22 @@ import { MainCalendarModule } from '../main-calendar/main-calendar.module';
 import { WorkFormComponent } from './work-form/work-form.component';
 import { WorkPopupComponentComponent } from './work-popup-component/work-popup-component.component';
 import { CustomersModule } from '../customers/customers.module';
-import { LabelFormComponent } from './label-form/label-form.component';
-import { LabelChooseComponent } from './label-choose/label-choose.component';
+import { WorkerFormComponent } from './worker-form/worker-form.component';
+import { WorkerChooseComponent } from './worker-choose/worker-choose.component';
 import { ColorPickerModule } from 'ngx-color-picker';
-import { LabelEditingPopupComponent } from './label-editing-popup/label-editing-popup.component';
+import { WorkerEditingPopupComponent } from './worker-editing-popup/worker-editing-popup.component';
 import { WorkDisplayerComponent } from './work-displayer/work-displayer.component';
-import { LabelAddPopupComponent } from './label-add-popup/label-add-popup.component';
+import { WorkerAddPopupComponent } from './worker-add-popup/worker-add-popup.component';
 
 @NgModule({
   declarations: [
     WorkComponent,
     WorkFormComponent,
     WorkPopupComponentComponent,
-    LabelFormComponent,
-    LabelChooseComponent,
-    LabelEditingPopupComponent,
-    LabelAddPopupComponent,
+    WorkerFormComponent,
+    WorkerChooseComponent,
+    WorkerEditingPopupComponent,
+    WorkerAddPopupComponent,
     WorkDisplayerComponent,
   ],
   imports: [
@@ -36,8 +36,8 @@ import { LabelAddPopupComponent } from './label-add-popup/label-add-popup.compon
   ],
   entryComponents: [
     WorkPopupComponentComponent,
-    LabelEditingPopupComponent,
-    LabelAddPopupComponent,
+    WorkerEditingPopupComponent,
+    WorkerAddPopupComponent,
   ]
 })
 export class ScheduleModule { }

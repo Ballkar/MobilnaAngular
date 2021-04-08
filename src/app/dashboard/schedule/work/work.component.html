@@ -10,20 +10,20 @@
     <button
       mat-raised-button
       color="primary"
-      class="labelEdit"
-      (click)="openEditLabels()"
-    >Edytuj Etykiety
+      class="workerEdit"
+      (click)="openEditWorkers()"
+    >Edytuj Pracowników
     </button>
   </mat-card-title>
 
-  <div class="labelsContainer">
-    <div class="title">Wyświetlane etykiety</div>
-    <app-label-choose
-      #labelChoose
-      id="label_tutorial"
-      (labelsChanged)="catchChangeLabels($event)"
+  <div class="workersContainer">
+    <div class="title">Wyświetlani pracownicy</div>
+    <app-worker-choose
+      #workerChoose
+      id="worker_tutorial"
+      (workersChanged)="catchChangeWorkers($event)"
     >
-    </app-label-choose>
+    </app-worker-choose>
   </div>
 
   <app-main-calendar

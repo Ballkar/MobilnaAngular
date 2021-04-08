@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LabelsResolver } from './labels.resolver';
+import { WorkersResolver } from './works.resolver';
 import { WorkComponent } from './work/work.component';
 
 
@@ -10,7 +10,7 @@ const routes: Routes = [
     pathMatch: 'full',
     component: WorkComponent,
     resolve: {
-      labels: LabelsResolver
+      workers: WorkersResolver
     }
   }
 ];

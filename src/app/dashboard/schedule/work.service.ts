@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model';
 import { environment } from 'src/environments/environment';
-import { LabelModel } from './label.model';
+import { WorkerModel } from './worker.model';
 import { WorkModel } from './work.model';
 
 @Injectable({
@@ -16,12 +16,12 @@ export class WorkService {
     private httpClient: HttpClient,
   ) { }
 
-  getWorks(startDate: Date, endDate: Date, labels: LabelModel[] = []): Observable<WorkModel[]> {
+  getWorks(startDate: Date, endDate: Date, workers: WorkerModel[] = []): Observable<WorkModel[]> {
     const start = moment(startDate).format('YYYY-M-D H:m:s');
     const stop = moment(endDate).format('YYYY-M-D H:m:s');
     // tslint:disable-next-line: variable-name
-    const label_ids = labels.map(label => label.id);
-    const params = { start, stop, label_ids };
+    const workers_ids = workers.map(worker => worker.id);
+    const params = { start, stop, workers_ids };
     return this.httpClient.post<ResponseModel<DataResponse<WorkModel>>>(`${environment.apiUrl}/calendar/works/calendar`, params).pipe(
       map(res => res.data.items),
     );
@@ -31,7 +31,7 @@ export class WorkService {
     return this.httpClient.put<ResponseModel<WorkModel>>(`${environment.apiUrl}/calendar/works/${work.id}`, {
       ...work,
       customer_id: work.customer.id,
-      label_id: work.label ? work.label.id : null,
+      worker_id: work.worker ? work.worker.id : null,
     }).pipe(
       map(res => res.data)
     );
@@ -41,7 +41,7 @@ export class WorkService {
     return this.httpClient.post<ResponseModel<WorkModel>>(`${environment.apiUrl}/calendar/works`, {
       ...work,
       customer_id: work.customer.id,
-      label_id: work.label ? work.label.id : null,
+      worker_id: work.worker ? work.worker.id : null,
     }).pipe(
       map(res => res.data)
     );
@@ -49,9 +49,9 @@ export class WorkService {
 
   saveManyWorks(works: WorkModel[]): Observable<WorkModel[]> {
     works.forEach(work => work.customer_id = work.customer.id);
-    works.forEach(work => work.label_id = work.label ? work.label.id : null);
+    works.forEach(work => work.worker_id = work.worker ? work.worker.id : null);
     works.forEach(work => delete work.customer);
-    works.forEach(work => delete work.label);
+    works.forEach(work => delete work.worker);
     return this.httpClient.post<ResponseModel<WorkModel[]>>(`${environment.apiUrl}/calendar/works/mass-update`, {works}).pipe(
       map(res => res.data)
     );

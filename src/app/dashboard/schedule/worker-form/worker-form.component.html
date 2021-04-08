@@ -1,5 +1,5 @@
 <div class="container">
-  <form class="label" [formGroup]="form" (ngSubmit)="submit()">
+  <form class="worker" [formGroup]="form" (ngSubmit)="submit()">
     <div class="infoContainer">
       <div class="buttonElement"
            cpAlphaChannel="disabled"
@@ -14,6 +14,6 @@
       </mat-form-field>
     </div>
 
-    <button mat-raised-button color="primary" class="submitBtn" type="submit" *ngIf="!label">Dodaj</button>
+    <button mat-raised-button color="primary" class="submitBtn" type="submit" *ngIf="!worker">Dodaj</button>
   </form>
 </div>

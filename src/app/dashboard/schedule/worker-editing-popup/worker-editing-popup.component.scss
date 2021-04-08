@@ -37,7 +37,7 @@
   }
 }
 
-.labelContainer {
+.workersContainer {
   display: flex;
   flex-flow: row;
   align-items: center;
@@ -50,7 +50,7 @@
       margin-bottom: 10px;
     }
 
-    app-label-form {
+    app-worker-form {
       width: 100%;
       margin: 0 5px;
     }
@@ -63,7 +63,7 @@
   }
 
 
-  app-label-form {
+  app-worker-form {
     flex: 1;
   }
 }

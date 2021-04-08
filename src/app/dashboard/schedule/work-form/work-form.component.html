@@ -51,19 +51,14 @@
     <span class="infoB" (click)="newCustomer($event)">Nowa Klientka?</span>
   </mat-form-field>
 
-  <div class="labels">
+  <div class="workers">
     <div class="title">Wybór etykiety</div>
-    <app-label-choose #labelChoose
+    <app-worker-choose #workerChoose
       [singleChoose]="true"
-      [labelsChoosenIds]="labelCtrl.value ? [labelCtrl.value.id] : []"
-      (labelsChanged)="catchLabelChange($event[0])">
-    </app-label-choose>
+      [workersChoosenIds]="workerCtrl.value ? [workerCtrl.value.id] : []"
+      (workersChanged)="catchWorkerChange($event[0])">
+    </app-worker-choose>
   </div>
-
-  <!-- [preventEditing]="true"
-  (newLabelWasClicked)="newLabelOpenned = !newLabelOpenned" -->
-
-  <!-- <app-label-form *ngIf="newLabelOpenned" (labelSaved)="catchLabelSave($event)"></app-label-form> -->
 
   <div class="buttonContainer">
     <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Zapisz wizyte</button>

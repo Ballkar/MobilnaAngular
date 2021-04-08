@@ -8,8 +8,8 @@ import { concatMap, debounceTime, filter, finalize, map, startWith, takeUntil, t
 import { CustomerPopupComponent } from '../../customers/customer-popup/customer-popup.component';
 import { CustomerModel } from '../../customers/customer.model';
 import { CustomersService } from '../../customers/customers.service';
-import { LabelChooseComponent } from '../label-choose/label-choose.component';
-import { LabelModel } from '../label.model';
+import { WorkerChooseComponent } from '../worker-choose/worker-choose.component';
+import { WorkerModel } from '../worker.model';
 import { WorkModel } from '../work.model';
 import { WorkService } from '../work.service';
 
@@ -20,8 +20,8 @@ import { WorkService } from '../work.service';
 })
 export class WorkFormComponent implements OnInit, OnDestroy {
 
-  @ViewChild('labelChoose') labelChooseComponent: LabelChooseComponent;
-  newLabelOpenned = false;
+  @ViewChild('workerChoose') workerChooseComponent: WorkerChooseComponent;
+  newWorkerOpenned = false;
   isLocked = false;
   form: FormGroup;
   filteredCustomers$: Observable<CustomerModel[]>;
@@ -30,7 +30,7 @@ export class WorkFormComponent implements OnInit, OnDestroy {
   private onDestroy$ = new Subject<void>();
   get startCtrl() { return this.form.get('start') as FormControl; }
   get stopCtrl() { return this.form.get('stop') as FormControl; }
-  get labelCtrl() { return this.form.get('label') as FormControl; }
+  get workerCtrl() { return this.form.get('worker') as FormControl; }
   get customerCtrl() { return this.form.get('customer') as FormControl; }
   @Input() work: WorkModel;
   @Input() ableToRemove: boolean;
@@ -46,7 +46,7 @@ export class WorkFormComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       start: new FormControl(this.work ? moment(this.work.start, 'YYYY-M-D H:m:s').toDate() : this.actualDate, Validators.required),
       stop: new FormControl(this.work ? moment(this.work.stop, 'YYYY-M-D H:m:s').toDate() : '', Validators.required),
-      label: new FormControl(this.work ? this.work.label : null),
+      worker: new FormControl(this.work ? this.work.worker : null),
       customer: new FormControl(this.work ? this.work.customer : null, Validators.required),
     });
 
@@ -63,14 +63,14 @@ export class WorkFormComponent implements OnInit, OnDestroy {
     return customer && customer.name ? `${customer.name} ${customer.surname} (${customer.phone})` : '';
   }
 
-  catchLabelChange(label: LabelModel) {
-    this.labelCtrl.setValue(label);
-    this.newLabelOpenned = false;
+  catchWorkerChange(worker: WorkerModel) {
+    this.workerCtrl.setValue(worker);
+    this.newWorkerOpenned = false;
   }
 
-  catchLabelSave(label: LabelModel) {
-    this.labelChooseComponent.setNewLabelsActive([label]);
-    this.catchLabelChange(label);
+  catchWorkerSave(worker: WorkerModel) {
+    this.workerChooseComponent.setNewWorkersActive([worker]);
+    this.catchWorkerChange(worker);
   }
 
   newCustomer(event: MouseEvent) {
@@ -96,7 +96,7 @@ export class WorkFormComponent implements OnInit, OnDestroy {
       start: moment(this.startCtrl.value).format('YYYY-M-D H:m:s'),
       stop: moment(this.stopCtrl.value).format('YYYY-M-D H:m:s'),
       customer: this.customerCtrl.value,
-      label: this.labelCtrl.value,
+      worker: this.workerCtrl.value,
     };
 
     this.workSubmitted.emit(work);
