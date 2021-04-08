@@ -1,19 +1,27 @@
 <div class="container">
-  <form class="worker" [formGroup]="form" (ngSubmit)="submit()">
-    <div class="infoContainer">
-      <div class="buttonElement"
-           cpAlphaChannel="disabled"
-           [colorPicker]="colorCtrl.value"
-           (colorPickerChange)="colorCtrl.setValue($event)"
-           [ngStyle]="{backgroundColor: colorCtrl.value}">
+  <div class="header">
+    <mat-card-title class="mainTitle">{{worker ? 'Dodaj pracownika' : 'Edytuj pracownika'}}</mat-card-title>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="details">
+      <div class="row">
+        <div class="colorLabel" (click)="colorInput.click()">Wybierz kolor pracownika: </div>
+        <div class="buttonElement"
+              #colorInput
+             cpAlphaChannel="disabled"
+             [colorPicker]="colorCtrl.value"
+             (colorPickerChange)="colorCtrl.setValue($event)"
+             [ngStyle]="{backgroundColor: colorCtrl.value}">
+        </div>
       </div>
 
       <mat-form-field>
-        <mat-label>Nazwa etykiety</mat-label>
+        <mat-label>Imie pracownika</mat-label>
         <input matInput placeholder="Nazwa" [formControl]="nameCtrl" autocomplete="off">
       </mat-form-field>
     </div>
 
     <button mat-raised-button color="primary" class="submitBtn" type="submit" *ngIf="!worker">Dodaj</button>
+    <button mat-raised-button color="primary" class="submitBtn" type="submit" *ngIf="worker">Edytuj</button>
   </form>
 </div>
