@@ -10,15 +10,12 @@ import { WorkerService } from '../worker.service';
   templateUrl: './worker-popup.component.html',
   styleUrls: ['./worker-popup.component.scss']
 })
-export class WorkerAddPopupComponent implements OnInit, OnDestroy {
+export class WorkerPopupComponent implements OnInit, OnDestroy {
   private onDestroy$: Subject<void> = new Subject();
-  loadingState$: Subject<boolean> = new Subject();
-  workers: WorkerModel[];
-  workers$: Observable<WorkerModel[]>;
   constructor(
     private notifyService: SnotifyService,
-    private dialogRef: MatDialogRef<WorkerAddPopupComponent>,
-    @Inject(MAT_DIALOG_DATA) private workerService: WorkerService,
+    private dialogRef: MatDialogRef<WorkerPopupComponent>,
+    @Inject(MAT_DIALOG_DATA) public worker: WorkerModel,
   ) { }
 
   ngOnInit() {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { tap } from 'rxjs/operators';
+import { WorkerPopupComponent } from '../worker-popup/worker-popup.component';
 import { WorkerModel } from '../worker.model';
 import { WorkerService } from '../worker.service';
 
@@ -28,10 +29,10 @@ export class ListComponent implements OnInit {
   }
 
   addWorker() {
-
+    this.dialog.open(WorkerPopupComponent, { data: null });
   }
 
-  clicked() {
-
+  clicked(worker: WorkerModel) {
+    this.dialog.open(WorkerPopupComponent, { data: worker });
   }
 }

@@ -8,7 +8,7 @@
   </mat-card-title>
 
   <mat-list>
-    <mat-list-item *ngFor="let worker of workers" (click)="clicked($event, worker)">
+    <mat-list-item *ngFor="let worker of workers" (click)="clicked(worker)">
       <mat-icon matListAvatar>person</mat-icon>
       <div class="name" matLine>{{worker.name}}</div>
       <mat-divider></mat-divider>

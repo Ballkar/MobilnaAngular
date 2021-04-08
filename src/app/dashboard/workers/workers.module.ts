@@ -5,7 +5,7 @@ import { WorkersRoutingModule } from './workers-routing.module';
 import { WorkerChooseComponent } from './worker-choose/worker-choose.component';
 import { WorkerEditingPopupComponent } from './worker-editing-popup/worker-editing-popup.component';
 import { WorkerFormComponent } from './worker-form/worker-form.component';
-import { WorkerAddPopupComponent } from './worker-popup/worker-popup.component';
+import { WorkerPopupComponent } from './worker-popup/worker-popup.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ListComponent } from './list/list.component';
@@ -16,7 +16,7 @@ import { ListComponent } from './list/list.component';
     WorkerFormComponent,
     WorkerChooseComponent,
     WorkerEditingPopupComponent,
-    WorkerAddPopupComponent,
+    WorkerPopupComponent,
     ListComponent,
   ],
   imports: [
@@ -29,11 +29,11 @@ import { ListComponent } from './list/list.component';
     WorkerFormComponent,
     WorkerChooseComponent,
     WorkerEditingPopupComponent,
-    WorkerAddPopupComponent,
+    WorkerPopupComponent,
   ],
   entryComponents: [
     WorkerEditingPopupComponent,
-    WorkerAddPopupComponent,
+    WorkerPopupComponent,
   ]
 })
 export class WorkersModule { }
