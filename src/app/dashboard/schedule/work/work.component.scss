@@ -5,7 +5,7 @@ mat-spinner{
 }
 
 .mainTitle{
-  .labelEdit{
+  .workerEdit{
     margin-left: auto;
   }
 }
@@ -23,7 +23,7 @@ mat-spinner{
   }
 }
 
-.labelsContainer{
+.workersContainer{
   display: flex;
   flex-flow: row;
   align-items: center;
@@ -45,6 +45,7 @@ mat-spinner{
   .title{
     font-size: 18px;
     font-weight: 500;
+    min-width: 220px;
     @include mobile{
       margin-bottom: 5px;
     }

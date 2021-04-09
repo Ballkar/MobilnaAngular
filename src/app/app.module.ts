@@ -17,7 +17,7 @@ import { TutorialService } from './dashboard/services/tutorial.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

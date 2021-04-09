@@ -1,0 +1,19 @@
+.addBtn{
+  margin-left: auto;
+}
+
+mat-list{
+
+  mat-list-item{
+    cursor: pointer;
+    &:hover{
+      background-color: #eee;
+    }
+  }
+
+  mat-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

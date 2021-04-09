@@ -45,6 +45,13 @@ export class SidebarService {
       navigateTo: ['/', 'dashboard', 'work'],
       title: 'Wizyty',
       active: false,
+    },
+    {
+      id: 'workers',
+      icon: 'people',
+      navigateTo: ['/', 'dashboard', 'workers'],
+      title: 'Pracownicy',
+      active: false,
     }
   ];
 

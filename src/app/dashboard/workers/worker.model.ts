@@ -1,4 +1,4 @@
-export interface LabelModel {
+export interface WorkerModel {
   id: number;
   color: string;
   name: string;

@@ -1,0 +1,24 @@
+<!-- <div class="workersContainer">
+  <div class="titleContainer">
+    <div class="newWorkerButton" (click)="editClick()" *ngIf="!preventEditing">
+      <mat-icon class="icon">edit</mat-icon>
+      Edytuj
+    </div>
+    <div class="title">Etykiety</div>
+    <div class="newWorkerButton" *ngIf="!preventNewWorker" (click)="newWorkerClick()">
+      <mat-icon class="icon">add</mat-icon>
+      Nowa etykieta?
+    </div>
+  </div> -->
+<!-- </div> -->
+
+<div class="workers">
+  <div class="worker" [ngClass]="{inactive: !allWorker.active}" (click)="setAllWorkers()" *ngIf="!singleChoose">
+    <!-- <div class="buttonElement" [ngStyle]="{backgroundColor: allWorker.color}"></div> -->
+    <div class="name main">{{allWorker.name}}</div>
+  </div>
+  <div class="worker" *ngFor="let worker of workers" [ngClass]="{inactive: !worker.active}" (click)="changeWorkerState(worker)">
+    <div class="buttonElement" [ngStyle]="{backgroundColor: worker.color}"></div>
+    <div class="name">{{worker.name}}</div>
+  </div>
+</div>
