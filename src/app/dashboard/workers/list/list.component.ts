@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { filter, tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { WorkerPopupComponent } from '../worker-popup/worker-popup.component';
 import { WorkerModel } from '../worker.model';
 import { WorkerService } from '../worker.service';
@@ -25,7 +25,7 @@ export class ListComponent implements OnInit {
   getWorkers() {
     this.workersService.getWorkers().pipe(
       tap(workers => console.log(workers)),
-      filter(worker => !!worker),
+      map(worker => worker.filter(worker => worker.id)),
     ).subscribe(workers => this.workers = workers);
   }
 
