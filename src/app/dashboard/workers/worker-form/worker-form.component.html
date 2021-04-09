@@ -4,6 +4,7 @@
   </div>
   <form [formGroup]="form" (ngSubmit)="submit()" cdkTrapFocusAutoCapture="true">
     <div class="details">
+      <button mat-raised-button color="warn" class="removeBtn" (click)="initRemove()" type="button" *ngIf="worker">Usuń pracownika</button>
       <div class="row">
         <div class="colorLabel" (click)="colorInput.click()">Wybierz kolor pracownika: </div>
         <div class="buttonElement"
@@ -13,7 +14,6 @@
              (colorPickerChange)="colorCtrl.setValue($event)"
              [ngStyle]="{backgroundColor: colorCtrl.value}">
         </div>
-        <button mat-raised-button color="warn" class="removeBtn" (click)="initRemove()" type="button" *ngIf="worker">Usuń pracownika</button>
       </div>
 
       <mat-form-field>

@@ -9,7 +9,6 @@ form {
     display: flex;
     flex-flow: column;
     flex: 1;
-    margin: 0 15px;
     @include mobile {
       width: 100%;
       flex: none;
@@ -57,6 +56,11 @@ form {
 
   .removeBtn {
     margin-left: auto;
+    @include mobile {
+      margin: 0;
+      margin-bottom: 20px;
+      margin-right: auto;
+    }
   }
 
 }

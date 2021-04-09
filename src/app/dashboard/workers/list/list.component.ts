@@ -24,7 +24,6 @@ export class ListComponent implements OnInit {
 
   getWorkers() {
     this.workersService.getWorkers().pipe(
-      tap(workers => console.log(workers)),
       map(worker => worker.filter(worker => worker.id)),
     ).subscribe(workers => this.workers = workers);
   }
