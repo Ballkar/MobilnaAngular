@@ -47,10 +47,16 @@ form {
     }
   }
 
-  .submitBtn{
+  .submitBtn {
+    margin-top: 20px;
+
     @include mobile {
       width: 100%;
     }
+  }
+
+  .removeBtn {
+    margin-left: auto;
   }
 
 }

@@ -1,3 +1,3 @@
 <div class="container">
-  <app-worker-form [worker]="worker" (workerSaved)="close($event)" (workerRemoved)="close(true)"></app-worker-form>
+  <app-worker-form [worker]="worker" (workerSaved)="close($event)" (workerRemoved)="closeAfterRemove()"></app-worker-form>
 </div>

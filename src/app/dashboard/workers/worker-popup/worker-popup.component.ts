@@ -28,6 +28,10 @@ export class WorkerPopupComponent implements OnInit, OnDestroy {
     this.dialogRef.close(worker);
   }
 
+  closeAfterRemove() {
+    this.dialogRef.close(true);
+  }
+
   ngOnDestroy(): void {
     this.onDestroy$.next();
   }
