@@ -50,6 +50,7 @@ export class WorkComponent implements OnInit {
     this.workersChosen = this.workerService.workers$.getValue();
 
     if(!this.authService.loggedUser.tutorials.includes(this.tutorialService.scheduleTour.tourId)) {
+      document.querySelector('mat-sidenav-content').scrollTop = 1500;
       setTimeout(() => this.sidebarService.open ? this.sidebarService.toggle() : null, 100);
       setTimeout(() => this.tutorialService.startScheduleTutorial(), 800);
     }

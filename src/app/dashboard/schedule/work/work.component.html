@@ -9,11 +9,10 @@
     Kalendarz
   </mat-card-title>
 
-  <div class="workersContainer">
+  <div class="workersContainer" id="worker_tutorial">
     <div class="title">Wyświetlani pracownicy</div>
     <app-worker-choose
       #workerChoose
-      id="worker_tutorial"
       (workersChanged)="catchChangeWorkers($event)"
     >
     </app-worker-choose>

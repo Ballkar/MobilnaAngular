@@ -46,6 +46,12 @@ export class TutorialService {
         skipStep: false,
       },
       {
+        content: 'Tutaj możesz zarządzać swoimi pracownikami',
+        title: 'Pracownicy',
+        selector: '#workers',
+        skipStep: false,
+      },
+      {
         content: `W tym miejscu widzisz swój aktualną ilość pieniędzy w portfelu. <br> Pamiętaj że jeżeli stan konta spadnie poniżej zera smsy nie zostaną wysłane`,
         title: 'Stan konta',
         selector: '#navTutorial',
@@ -126,9 +132,9 @@ export class TutorialService {
         skipStep: false,
       },
       {
-        title: 'Etykiety',
-        content: 'Do każdej wizyty możesz nadać własną etykietę, co pomoże Ci w organizacji pracy.',
-        selector: '#label_tutorial',
+        title: 'Pracownicy',
+        content: 'Do każdej wizyty możesz przypisać pracownika, co pomoże Ci w organizacji pracy.',
+        selector: '#worker_tutorial',
         orientation: Orientation.Bottom,
         skipStep: false,
       },
@@ -164,6 +170,8 @@ export class TutorialService {
   }
 
   startScheduleTutorial() {
+    document.querySelector('#worker_tutorial').scrollTo(0,0);
+    document.querySelector('body').scrollTo(0,0);
     this.guidedTourService.startTour(this.scheduleTour);
   }
 
