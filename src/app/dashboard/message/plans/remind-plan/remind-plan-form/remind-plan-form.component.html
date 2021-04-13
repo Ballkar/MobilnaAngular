@@ -14,7 +14,7 @@
   <div id="schemaContainer">
     <div class="schemaTitle">Wybierz jeden z dostępnych schematów:</div>
     <mat-radio-group [formControl]="schemaIdCtrl">
-      <mat-radio-button [value]="schema.id" *ngFor="let schema of schemasAvailable" >
+      <mat-radio-button [value]="schema.id" *ngFor="let schema of schemasAvailable" [ngClass]="{inactive: schemaIdCtrl.value !== schema.id }">
         <span class="elements" *ngFor="let element of schema.body" [ngClass]="{variable: element.type === BodyElementTypes.VARIABLE}">{{element|planBody}}</span>
       </mat-radio-button>
     </mat-radio-group>
