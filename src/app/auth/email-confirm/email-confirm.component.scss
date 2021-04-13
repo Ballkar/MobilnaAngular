@@ -1,0 +1,41 @@
+.container {
+  width: 300px;
+
+  .title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+
+  .statusContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+  }
+}
+
+
+.error,
+.success {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    margin-top: 15px;
+  }
+}
+
+.error{
+  .text{
+    color: #f34336;
+  }
+  mat-form-field, button{
+    width: 100%;
+    margin-top: 0;
+  }
+}

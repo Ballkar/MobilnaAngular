@@ -10,20 +10,31 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthIntercecptorService } from './shared/interceptors/auth-interceptor.service';
 import { ErrorIntercecptorService } from './shared/interceptors/error-interceptor.service';
 import { SharedModule } from './shared/shared.module';
+import { SnotifyModule, SnotifyService } from 'ng-snotify';
+import { NotificationConfiguration } from 'src/config/notification.config';
+import { GuidedTourModule, GuidedTourService } from 'ngx-guided-tour';
+import { TutorialService } from './dashboard/services/tutorial.service';
+import { CanDeactivateGuard } from './shared/guards/can-deactivate-guard.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
+    SnotifyModule,
+    GuidedTourModule,
   ],
   providers: [
     GuestGuard,
     AuthGuard,
+    CanDeactivateGuard,
+    TutorialService,
+    { provide: 'SnotifyToastConfig', useValue: NotificationConfiguration},
+    SnotifyService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthIntercecptorService,
@@ -34,6 +45,7 @@ import { SharedModule } from './shared/shared.module';
       useClass: ErrorIntercecptorService,
       multi: true
     },
+    GuidedTourService,
   ],
   bootstrap: [AppComponent]
 })

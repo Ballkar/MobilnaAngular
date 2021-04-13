@@ -1,0 +1,18 @@
+<div class="container" [ngClass]="{loadingState: isLoading}">
+  <div class="title">
+    Przypomnienie
+    <mat-spinner [diameter]="20" *ngIf="isLoading"></mat-spinner>
+
+  </div>
+  <div class="details" *ngIf="plan; else loader">
+
+    <div class="btnsContainer">
+      <button mat-raised-button color="primary" [disabled]="isLoading" (click)="openDetails()">Szczegóły</button>
+      <mat-slide-toggle [ngModel]="plan.active" [labelPosition]="'before'" (toggleChange)="changeActivness()">aktywny</mat-slide-toggle>
+    </div>
+  </div>
+</div>
+
+<ng-template #loader>
+  <mat-spinner [diameter]="20"></mat-spinner>
+</ng-template>

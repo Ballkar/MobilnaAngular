@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
-import { DataResponse } from 'src/app/shared/model/response.model';
+import { tap } from 'rxjs/operators';
+import { PaginationEvent } from 'src/app/shared/model/paginationEvent.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
 import { NotificationService } from './notification.service';
 import { NotificationModel } from './NotificationModel.model';
@@ -28,8 +28,6 @@ export class NotificationMenuComponent implements OnInit {
   getNotification(pagination?: PaginationEvent) {
     this.isLoading$.next(true);
     this.notificationService.getNotifications(pagination).pipe(
-      delay(1000),
-      tap((re) => console.log(re)),
       tap(() => this.isLoading$.next(false)),
       tap(res => this.pagination = this.helperService.mapApiPaginationToMaterialEvent(res.pagination)),
     ).subscribe(res => this.notifications = [...this.notifications, ...res.items]);

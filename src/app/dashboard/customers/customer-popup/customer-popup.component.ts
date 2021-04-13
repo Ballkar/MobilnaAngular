@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CustomerModel } from '../customer.model';
 
 @Component({
@@ -19,5 +19,9 @@ export class CustomerPopupComponent implements OnInit {
 
   catchCustomer(customer: CustomerModel) {
     this.dialogRef.close(customer);
+  }
+
+  close() {
+    this.dialogRef.close(true);
   }
 }

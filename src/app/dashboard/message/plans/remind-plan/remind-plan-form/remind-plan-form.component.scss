@@ -1,0 +1,82 @@
+@import 'mixins';
+
+.form {
+  display: flex;
+  flex-flow: column;
+}
+
+.header {
+  flex: 1;
+  display: flex;
+  flex-flow: row;
+  align-items: flex-start;
+  margin-bottom: 20px;
+
+  @include mobile {
+    flex-flow: column;
+
+    mat-form-field {
+      margin: 0 !important;
+    }
+  }
+
+  .titleContainer {
+
+    .title {
+      font-size: 18px;
+      font-weight: 500;
+
+      @include mobile {
+        margin-bottom: 10px;
+      }
+    }
+
+    .description {
+      padding-right: 5px;
+      font-size: 16px;
+      font-weight: normal;
+      color: #bbb;
+    }
+  }
+
+  .activeCtrl {
+    margin-left: auto;
+  }
+}
+
+#schemaContainer {
+  margin-bottom: 20px;
+
+  .schemaTitle {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+
+  mat-radio-group {
+    display: flex;
+    flex-flow: column;
+
+    mat-radio-button {
+      margin-bottom: 10px;
+      &.inactive{
+        opacity: 0.6;
+      }
+
+      .variable {
+        color: green;
+      }
+    }
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  align-items: center;
+
+  .previewBtn {
+    margin-right: 5px;
+  }
+}

@@ -1,4 +1,5 @@
 <div class="walletContainer">
+  <mat-card-title>Portfel</mat-card-title>
 
   <ng-container *ngIf="transactions">
 
@@ -18,17 +19,17 @@
     </mat-action-list>
 
     <mat-paginator
-      [length]="pagination.length"
-      [pageSize]="pagination.pageSize"
-      [pageSizeOptions]="[2, 5, 10]"
-      [pageIndex]="pagination.pageIndex"
-      (page)="changePage($event)">
+                   [length]="pagination.length"
+                   [pageSize]="pagination.pageSize"
+                   [pageSizeOptions]="[2, 5, 10]"
+                   [pageIndex]="pagination.pageIndex"
+                   (page)="changePage($event)">
     </mat-paginator>
   </ng-container>
 </div>
 
 <ng-template #empty>
   <div class="emptyContainer">
-    <div class="title">Brak danych</div>
+    <div class="title">Brak Transakcji</div>
   </div>
 </ng-template>

@@ -1,11 +1,10 @@
 <div class="container">
   <div class="titleContainer">
-    <mat-spinner *ngIf="updatingState$|async" class="updatingStateLoader" [diameter]="25" mode="indeterminate">
-    </mat-spinner>
     <div class="btnContainer">
       <button mat-raised-button
               color="primary"
               mwlCalendarPreviousView view="day"
+              [disabled]="disableDateDisplayedChange"
               [(viewDate)]="configData.actualDate"
               (viewDateChange)="changeDateDisplayed()">Wstecz
       </button>
@@ -16,6 +15,7 @@
               type="submit"
               mwlCalendarNextView
               view="day"
+              [disabled]="disableDateDisplayedChange"
               [(viewDate)]="configData.actualDate"
               (viewDateChange)="changeDateDisplayed()">Dalej
       </button>
@@ -41,5 +41,9 @@
                             (eventClicked)="onEventClicked($event)"
                             (eventTimesChanged)="onChangeEventTime($event)">
     </mwl-calendar-week-view>
+    <div class="loaderContainer" *ngIf="updatingState$|async">
+      <mat-spinner class="updatingStateLoader" [diameter]="40" mode="indeterminate"></mat-spinner>
+    </div>
   </div>
 </div>
+

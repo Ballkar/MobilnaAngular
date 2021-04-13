@@ -1,0 +1,39 @@
+<div class="previewContainer">
+  <div class="row">
+    <div class="title" cdkFocusRegionStart>Podgląd</div>
+
+    <mat-form-field>
+      <mat-label>Klientka</mat-label>
+      <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption [displayWith]="displayFnCustomer">
+        <mat-option *ngFor="let customer of filteredCustomers$|async" [value]="customer">
+          {{customer.name}} {{customer.surname}} ({{customer.phone}})
+        </mat-option>
+      </mat-autocomplete>
+      <input matInput placeholder="Imie" [formControl]="customerCtrl" [matAutocomplete]="auto" >
+    </mat-form-field>
+  </div>
+  <ng-container *ngIf="customerCtrl.value && customerCtrl.value.id; else emptyCustomer">
+    <app-message-mobile-preview *ngIf="preview; else loader"
+      [from]="preview.from"
+      [to]="customerCtrl.value.phone"
+      [text]="preview.preview"
+      [smsCount]="preview.smsCount"
+      [letterCount]="preview.letterCount"
+      [letterNextLimit]="preview.letterNextLimit"
+      (backClicked)="close()"
+    ></app-message-mobile-preview>
+  </ng-container>
+</div>
+
+
+<ng-template #loader>
+  <div class="preview">
+    <mat-spinner diameter="45"></mat-spinner>
+  </div>
+</ng-template>
+
+<ng-template #emptyCustomer>
+  <div class="preview center">
+    Prosze wybrać klientkę aby wyświelić podgląd wiadomości na jej przykładzie.
+  </div>
+</ng-template>

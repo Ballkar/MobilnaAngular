@@ -1,20 +1,21 @@
 @import 'mixins';
 
-.form{
+.form {
   display: flex;
   flex-flow: column;
 
-  .datesContainer{
+  .datesContainer {
     display: flex;
-    flex-flow:row;
+    flex-flow: row;
 
     @include mobile {
       flex-flow: column;
     }
 
-    mat-form-field{
-      &:first-of-type{
+    mat-form-field {
+      &:first-of-type {
         margin-right: 10px;
+
         @include mobile {
           margin: 0;
         }
@@ -23,14 +24,14 @@
     }
   }
 
-  mat-form-field{
+  mat-form-field {
     position: relative;
 
-    &.customer{
+    &.customer {
       margin-bottom: 20px;
     }
 
-    .infoB{
+    .infoB {
       position: absolute;
       left: 0;
       bottom: -22px;
@@ -41,14 +42,33 @@
     }
   }
 
-  .buttonContainer{
+  .workers {
+    margin-bottom: 15px;
+
+    .title {
+      margin-bottom: 5px;
+
+      @include mobile {
+        text-align: center;
+      }
+    }
+  }
+
+  .buttonContainer {
     display: flex;
     justify-content: flex-end;
   }
 }
 
-.removeBtnContainer{
+.titleContainer {
   display: flex;
-  justify-content: flex-end;
+  flex-flow: row;
+  justify-content: space-between;
   margin-bottom: 20px;
+  align-items: flex-start;
+
+  .title {
+    font-size: 18px;
+    font-weight: 500;
+  }
 }

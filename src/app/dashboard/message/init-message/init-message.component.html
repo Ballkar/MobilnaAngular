@@ -17,30 +17,19 @@
     <!-- <span class="infoB" (click)="newCustomer($event)">Nowa Klientka?</span> -->
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Schemat wiadomości</mat-label>
-    <mat-autocomplete #schemaAutoComplete="matAutocomplete" autoActiveFirstOption [displayWith]="displayFnMessage">
-      <mat-option *ngFor="let schema of filteredSchemas$|async" [value]="schema">
-        {{schema.name}}
-      </mat-option>
-    </mat-autocomplete>
-    <input matInput placeholder="nazwa" [formControl]="schemaCtrl" [matAutocomplete]="schemaAutoComplete" >
+  <mat-form-field class="textarea">
+    <mat-label>treść wiadomości</mat-label>
+    <textarea matInput [formControl]="textCtrl"
+              cdkTextareaAutosize
+              #autosize="cdkTextareaAutosize"
+              cdkAutosizeMinRows="4"
+              cdkAutosizeMaxRows="5"></textarea>
+
+    <div class="smsCounter" [ngClass]="{invalid: textCtrl.invalid}">Pozostało znaków: {{smsCountData.remaining}} ({{smsCountData.messages}} wiadomość)</div>
+    <mat-error *ngIf="textCtrl.errors && textCtrl.errors['minlength']">
+      wiadomość zbyt krótka
+    </mat-error>
   </mat-form-field>
-
-
-    <mat-form-field class="textarea">
-      <mat-label>treść wiadomości</mat-label>
-      <textarea matInput [formControl]="textCtrl"
-                cdkTextareaAutosize
-                #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="4"
-                cdkAutosizeMaxRows="5"></textarea>
-
-      <div class="smsCounter" [ngClass]="{invalid: textCtrl.invalid}">Pozostało znaków: {{smsCountData.remaining}} ({{smsCountData.messages}} wiadomość)</div>
-      <mat-error *ngIf="textCtrl.errors && textCtrl.errors['minlength']">
-        wiadomość zbyt krótka
-      </mat-error>
-    </mat-form-field>
 
   <div class="buttonContainer">
     <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Wyślij</button>

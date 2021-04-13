@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { PaginationEvent } from 'src/app/shared/model/paginationEvent.model';
 import { DataResponse, ResponseModel } from 'src/app/shared/model/response.model';
 import { PhonePipe } from 'src/app/shared/pipes/phone.pipe';
 import { HelperService } from 'src/app/shared/service/helper.service';
@@ -51,8 +52,8 @@ export class CustomersService {
     );
   }
 
-  deleteCustomer(id: number): Observable<null> {
-    return this.http.delete<null>(`${environment.apiUrl}/customers/${id}`);
+  deleteCustomer(id: number): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/customers/${id}`);
   }
 
   private mapCustomerForApi(customer: CustomerModel) {

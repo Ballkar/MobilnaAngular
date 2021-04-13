@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize, tap } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { SnotifyService } from 'ng-snotify';
+import { filter, finalize, tap } from 'rxjs/operators';
+import { ConfirmPopupComponent, ConfirmPopupComponentData } from 'src/app/shared/modal/confirm-popup/confirm-popup.component';
 import { CustomerModel } from '../customer.model';
 import { CustomersService } from '../customers.service';
 
@@ -23,8 +26,11 @@ export class CustomerFormComponent implements OnInit {
   @Input() customer: CustomerModel;
   @Input() ableToRemove: boolean;
   @Output() customerEmitted: EventEmitter<CustomerModel> = new EventEmitter();
+  @Output() customerRemoved: EventEmitter<void> = new EventEmitter();
   constructor(
     private customerService: CustomersService,
+    private notifyService: SnotifyService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -38,8 +44,27 @@ export class CustomerFormComponent implements OnInit {
     });
   }
 
-  remove() {
+  initRemove() {
+    const data: ConfirmPopupComponentData = {
+      confirm: 'tak',
+      cancel: 'nie',
+      text: 'Czy napewno chcesz usunąć tego klienta?',
+      subtitle: `Spowoduje to usunięcie jego przyszłych wizyt.
+      Zachowamy natomiast wizyty oraz całą historię spotkań z tą osobą.`
+    };
+    const ref = this.dialog.open(ConfirmPopupComponent, { data });
+    ref.afterClosed().pipe(
+      filter((data: CustomerModel) => !!data)
+    ).subscribe(() => this.remove());
+  }
 
+  private remove() {
+    this.isLocked = true;
+    this.customerService.deleteCustomer(this.customer.id).pipe(
+      tap(() => this.customerRemoved.emit()),
+    ).subscribe(
+      () => this.notifyService.success('Klientka została usunięta!')
+    );
   }
 
   onSubmit() {
@@ -50,12 +75,16 @@ export class CustomerFormComponent implements OnInit {
       this.customerService.saveCustomer({...this.form.value}).pipe(
         finalize(() => this.isLocked = false),
         tap(customer => this.customerEmitted.emit(customer)),
-      ).subscribe();
+      ).subscribe(
+        () => this.notifyService.success('Klientka została dodana!')
+      );
     } else {
       this.customerService.editCustomer({...this.form.value, id: this.customer.id}).pipe(
         finalize(() => this.isLocked = false),
         tap(customer => this.customerEmitted.emit(customer)),
-      ).subscribe();
+      ).subscribe(
+        () => this.notifyService.success('Klientka została zaktualizowana!')
+      );
     }
   }
 }

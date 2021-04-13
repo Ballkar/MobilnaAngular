@@ -7,6 +7,9 @@
 
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import './parts/lists.scss';
+@import './parts/tour.scss';
+
+@import "~ng-snotify/styles/material";
 
 
 $custom-typography: mat-typography-config(
@@ -22,3 +25,4 @@ $custom-typography: mat-typography-config(
   display: block;
 
 }
+

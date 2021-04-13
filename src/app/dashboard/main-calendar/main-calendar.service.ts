@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CalendarEvent, DAYS_OF_WEEK } from 'angular-calendar';
 import * as moment from 'moment';
-import { EventModel } from './event.model';
+import { EventMainCalendar } from './eventMainCalendar.model';
 import { ItemModel } from './item.model';
 
 @Injectable({
@@ -39,32 +39,37 @@ export class MainCalendarService {
 
   constructor() { }
 
-  mapEventsToInnerModel(event: EventModel<ItemModel>): CalendarEvent<ItemModel> {
+  mapEventsToInnerModel(event: EventMainCalendar<ItemModel>): CalendarEvent<ItemModel> {
+    const draggable = event.draggable;
     return {
       start: moment(event.start, this.dateFormat).toDate(),
       end: moment(event.stop, this.dateFormat).toDate(),
       title: event.title,
       meta: event.data,
-      color: event.state,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
+      color: {
+        primary: event.color,
+        secondary: event.color,
       },
-      draggable: true,
-    }
+      resizable: {
+        beforeStart: draggable,
+        afterEnd: draggable,
+      },
+      draggable: draggable,
+    };
   }
 
-  mapEventsToOutputModel(event: CalendarEvent<ItemModel>): EventModel<ItemModel> {
+  mapEventsToOutputModel(event: CalendarEvent<ItemModel>): EventMainCalendar<ItemModel> {
     const start = moment(event.start, this.dateFormat).format(this.dateFormat);
-    const end = moment(event.start, this.dateFormat).format(this.dateFormat);
+    const end = moment(event.end, this.dateFormat).format(this.dateFormat);
 
     return {
       data: event.meta,
-      start: start,
+      start,
       stop: end,
       title: event.title,
-      state: event.color,
-    }
+      color: event.color.primary,
+      draggable: event.draggable
+    };
   }
 }
 

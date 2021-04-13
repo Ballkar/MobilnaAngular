@@ -1,0 +1,27 @@
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" cdkFocusRegionStart autocomplete="off">
+
+  <div class="header">
+    <div class="titleContainer">
+      <div class="title">Przypomnienie o wizycie</div>
+      <div class="description">
+        Wiadomości wysyłane są codziennie dzień przed wizytą o godzinie {{plan.hour|timeLeadingZero}}:{{plan.minute|timeLeadingZero}}.
+        Sprawdzając Twój kalendarz wysyłamy przypomnienia klientkom o nadchodzących wizytach.
+      </div>
+    </div>
+    <mat-slide-toggle class="activeCtrl" [formControl]="activeCtrl" [labelPosition]="'before'">aktywny</mat-slide-toggle>
+  </div>
+
+  <div id="schemaContainer">
+    <div class="schemaTitle">Wybierz jeden z dostępnych schematów:</div>
+    <mat-radio-group [formControl]="schemaIdCtrl">
+      <mat-radio-button [value]="schema.id" *ngFor="let schema of schemasAvailable" [ngClass]="{inactive: schemaIdCtrl.value !== schema.id }">
+        <span class="elements" *ngFor="let element of schema.body" [ngClass]="{variable: element.type === BodyElementTypes.VARIABLE}">{{element|planBody}}</span>
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="buttonContainer">
+    <button mat-raised-button class="previewBtn" type="button" [disabled]="isLocked" (click)="preview()">Podgląd wiadomości</button>
+    <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Zapisz</button>
+  </div>
+</form>

@@ -3,6 +3,8 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { AuthService } from 'src/app/auth/auth.service';
 import { PasswordValidation } from 'src/app/shared/validators/password-validation.service';
 import { Router } from '@angular/router';
+import { ErrorResponseModel } from 'src/app/shared/model/response.model';
+import { SnotifyService } from 'ng-snotify';
 
 @Component({
   selector: 'app-register',
@@ -21,6 +23,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private notificationService: SnotifyService,
     private router: Router
   ) { }
 
@@ -40,24 +43,24 @@ export class RegisterComponent implements OnInit {
     this.regs.markAsTouched();
 
     if (this.form.valid) {
-      const {email, password, password_confirmation, name, regs} = this;
-      // this.authService.register(email.value, password.value, password_confirmation.value, name.value)
-      // .subscribe(
-      //   user => {
-      //     // console.log(this.authService.authUser);
-      //     this.router.navigate(['/dashboard']);
-      //   },
-      //   (response: ErrorResponseModel) => {
-      //     Object.keys(response.errors).forEach(prop => {
-      //       const formControl = this.form.get(prop);
-      //       if (formControl) {
-      //         formControl.setErrors({
-      //           serverError: response.errors[prop]
-      //         });
-      //       }
-      //     });
-      //   }
-      // );
+      const {email, password, name, regs} = this;
+      this.authService.register(email.value, password.value, name.value, regs.value)
+      .subscribe(
+        () => {
+          this.notificationService.success('Konto zostało założone');
+          this.router.navigate(['/dashboard']);
+        },
+        (response: ErrorResponseModel) => {
+          Object.keys(response.errors).forEach(prop => {
+            const formControl = this.form.get(prop);
+            if (formControl) {
+              formControl.setErrors({
+                serverError: response.errors[prop]
+              });
+            }
+          });
+        }
+      );
     }
   }
 }

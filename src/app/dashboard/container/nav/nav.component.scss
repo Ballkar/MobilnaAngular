@@ -19,6 +19,9 @@
       img{
         height: 40px;
         margin-top: 3px;
+        @include mobile{
+          height: 30px;
+        }
       }
     }
   }
@@ -43,12 +46,17 @@
       outline: none;
 
       @include mobile{
-        display: none;
+        .label{
+          display: none;
+        }
       }
     }
 
     button{
       margin-left: 20px;
+      @include mobile{
+        margin-left: 10px!important;
+      }
     }
   }
 

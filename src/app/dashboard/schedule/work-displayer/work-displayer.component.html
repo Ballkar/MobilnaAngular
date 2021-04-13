@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="titleRow">
+    <div class="title">Wizyta</div>
+    <div class="status" [ngClass]="{done: old}">{{old ? 'Wizyta odbyta' : 'Wizyta zaplanowana'}}</div>
+  </div>
+
+  <div class="detailsContainer">
+    <div class="customer">Klient - {{work.customer.name}} {{work.customer.surname}} ({{work.customer.phone}})</div>
+    <div class="dateContainer">
+      <div class="label">Termin wizyty:</div>
+      <div class="time">{{work.start|date: 'hh:mm'}} - {{work.stop|date: 'hh:mm'}}</div>
+      <div class="day">({{work.start|date: 'dd-MM'}})</div>
+    </div>
+
+  </div>
+
+</div>

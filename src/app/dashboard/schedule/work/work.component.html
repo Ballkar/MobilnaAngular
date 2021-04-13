@@ -1,21 +1,49 @@
 <div class="container">
   <mat-card-title class="mainTitle">
-    <button mat-icon-button [routerLink]="['/', 'dashboard']">
+    <button
+      mat-icon-button
+      [routerLink]="['/', 'dashboard']"
+    >
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
     Kalendarz
   </mat-card-title>
 
-  <app-main-calendar *ngIf="events"
-    [eventsData]="events"
+  <div class="workersContainer" id="worker_tutorial">
+    <div class="title">Wyświetlani pracownicy</div>
+    <app-worker-choose
+      #workerChoose
+      (workersChanged)="catchChangeWorkers($event)"
+    >
+    </app-worker-choose>
+  </div>
+
+  <app-main-calendar
+    id="schedule_tutorial"
+    [disableDateDisplayedChange]="dataHaveBeenChanged"
+    [eventsData]="workEvents"
     [updatingState$]="isUpdating$"
-    (changeDate)="changeDate($event)"
+    (dateDisplayedChanged)="changeDateDisplayed($event)"
     (emptyHourClicked)="addWorkOnDate($event)"
     (eventTimeChanged)="changeTimeOfWork($event)"
-    (eventClicked)="workClicked($event)">
+    (eventClicked)="workClicked($event)"
+  >
   </app-main-calendar>
+</div>
 
-  <ng-container *ngIf="isLoading$|async">
-    <mat-spinner></mat-spinner>
-  </ng-container>
+
+<div
+  class="controlButtonsContainer"
+  *ngIf="dataHaveBeenChanged"
+>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="saveActualWorks()"
+  >Zapisz</button>
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="resetActualWorks()"
+  >Przywróć</button>
 </div>

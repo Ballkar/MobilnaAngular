@@ -1,5 +1,5 @@
 <form id="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="title">Register to App!</div>
+    <div class="title">Załóż konto!</div>
     <mat-form-field>
       <input matInput placeholder="Email" required [formControl]="email">
       <mat-error *ngIf="email.errors && email.errors['serverError']">
@@ -8,31 +8,32 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Name" required [formControl]="name">
+      <input matInput placeholder="Nazwa salonu" required [formControl]="name">
       <mat-error *ngIf="name.errors && name.errors['serverError']">
         {{name.errors['serverError']}}
       </mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="password" placeholder="Password" required [formControl]="password">
+      <input matInput type="password" placeholder="Hasło" required [formControl]="password">
       <mat-error *ngIf="password.errors && password.errors['serverError']">
         {{password.errors['serverError']}}
       </mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="password" placeholder="Repeat password" required [formControl]="password_confirmation">
+      <input matInput type="password" placeholder="Powtórz hasło" required [formControl]="password_confirmation">
       <mat-error *ngIf="password_confirmation.errors && password_confirmation.errors['serverError']">
         {{password_confirmation.errors['serverError']}}
       </mat-error>
     </mat-form-field>
 
     <mat-checkbox color="primary" [formControl]="regs" required>
-      I accept the terms and conditions
+      Akceptuje zasady serwisu
     </mat-checkbox>
 
-    <button mat-raised-button color="primary" type="submit" id="submit">Register</button>
+    <button mat-raised-button color="primary" type="submit" id="submit">Rejestruj</button>
 
-    <div class="text">You have an account? <span class="highlighted" routerLink="/">Login</span></div>
+    <div class="text">Posiadasz konto? <span class="highlighted" routerLink="/">Zaloguj</span></div>
+    <div class="text">Nie pamiętasz hasła? <span class="highlighted" routerLink="/auth/forgot">Przypomnij hasło!</span></div>
 </form>

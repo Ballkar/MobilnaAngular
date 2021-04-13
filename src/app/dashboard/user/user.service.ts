@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { PaginationEvent } from 'src/app/shared/model/paginationEvent.model';
 import { ResponseModel, DataResponse } from 'src/app/shared/model/response.model';
 import { UserModel } from 'src/app/shared/model/user.model';
 import { HelperService } from 'src/app/shared/service/helper.service';

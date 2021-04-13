@@ -1,5 +1,6 @@
-<div class="removeBtnContainer" *ngIf="ableToRemove">
-  <button mat-raised-button color="warn" type="button" (click)="remove()">Usuń</button>
+<div class="titleContainer">
+  <div class="title">{{work && work.id ? 'Edycja wizyty' : 'Dodawanie wizyty'}}</div>
+  <button mat-raised-button color="warn" type="button" (click)="remove()" *ngIf="ableToRemove">Usuń</button>
 </div>
 
 <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
@@ -7,7 +8,7 @@
   <div class="datesContainer">
 
     <mat-form-field cdkFocusRegionstart class="dateCtrl">
-      <input matInput [ngxMatDatetimePicker]="picker" type="text" placeholder="Data początku" [formControl]="startCtrl" [max]="stopCtrl" name="startCtrl">
+      <input matInput [ngxMatDatetimePicker]="picker" type="text" placeholder="Data początku" [formControl]="startCtrl" [min]="actualDate" name="startCtrl">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <ngx-mat-datetime-picker #picker
         [showSpinners]="true"
@@ -23,7 +24,7 @@
     </mat-form-field>
 
     <mat-form-field  class="dateCtrl">
-      <input matInput [ngxMatDatetimePicker]="pickerStop" type="text" placeholder="Data końca" [formControl]="stopCtrl" [min]="startCtrl" name="stopCtrl">
+      <input matInput [ngxMatDatetimePicker]="pickerStop" type="text" placeholder="Data końca" [formControl]="stopCtrl" [min]="startCtrl.value" name="stopCtrl">
       <mat-datepicker-toggle matSuffix [for]="pickerStop"></mat-datepicker-toggle>
       <ngx-mat-datetime-picker #pickerStop
         [showSpinners]="true"
@@ -50,7 +51,16 @@
     <span class="infoB" (click)="newCustomer($event)">Nowa Klientka?</span>
   </mat-form-field>
 
+  <div class="workers">
+    <div class="title">Wybór Pracownika</div>
+    <app-worker-choose #workerChoose
+      [singleChoose]="true"
+      [workersChoosenIds]="workerCtrl.value ? [workerCtrl.value.id] : []"
+      (workersChanged)="catchWorkerChange($event[0])">
+    </app-worker-choose>
+  </div>
+
   <div class="buttonContainer">
-    <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Zapisz</button>
+    <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked">Zapisz wizyte</button>
   </div>
 </form>

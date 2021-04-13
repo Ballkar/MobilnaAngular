@@ -27,9 +27,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { TimeLeadingZeroPipe } from './pipes/timeLeadingZero.pipe';
 import { MatChipsModule } from '@angular/material/chips';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatBadgeModule } from '@angular/material/badge';
 import { getPolishPaginatorIntl } from './internationalizations/polish-paginator-intl';
+import { ConfirmPopupComponent } from './modal/confirm-popup/confirm-popup.component';
+import { HelpInfoComponent } from './components/help-info/help-info.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 const materialComponents = [
   CommonModule,
@@ -56,6 +60,8 @@ const materialComponents = [
   MatChipsModule,
   MatExpansionModule,
   MatBadgeModule,
+  MatTooltipModule,
+  MatSlideToggleModule,
 ];
 
 
@@ -66,6 +72,8 @@ const materialComponents = [
     PhonePipe,
     PhoneMaskDirective,
     TimeLeadingZeroPipe,
+    ConfirmPopupComponent,
+    HelpInfoComponent,
   ],
   imports: [
     CommonModule,
@@ -83,8 +91,11 @@ const materialComponents = [
     PhonePipe,
     PhoneMaskDirective,
     TimeLeadingZeroPipe,
+    ConfirmPopupComponent,
+    HelpInfoComponent,
   ],
   entryComponents: [
+    ConfirmPopupComponent,
   ],
   providers: [
     { provide: MatPaginatorIntl, useValue: getPolishPaginatorIntl() }

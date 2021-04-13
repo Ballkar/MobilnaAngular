@@ -1,8 +1,8 @@
 <div class="container">
   <div class="removeBtnContainer" *ngIf="ableToRemove">
-    <button mat-raised-button color="warn" type="button" (click)="remove()">Usuń</button>
+    <button mat-raised-button color="warn" type="button" (click)="initRemove()">Usuń</button>
   </div>
-  <mat-card-title class="mainTitle">Edytuj klientkę</mat-card-title>
+  <mat-card-title class="mainTitle">{{state === 'add' ? 'Dodaj klientkę' : 'Edytuj klientkę'}}</mat-card-title>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
     <mat-form-field class="name">
@@ -19,11 +19,12 @@
     </mat-form-field>
     <mat-form-field class="info">
       <mat-label>Dodatkowe informacje</mat-label>
-      <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" [formControl]="additionalInfoCtrl" tabindex="3"
+      <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" [formControl]="additionalInfoCtrl" tabindex="4"
         cdkAutosizeMinRows="4" cdkAutosizeMaxRows="8"></textarea>
     </mat-form-field>
 
     <div class="buttonContainer">
+      <button mat-raised-button color="warn" class="removeBtn" type="button" [disabled]="isLocked" tabindex="-1" *ngIf="state === 'edit'" (click)="initRemove()">Usuń</button>
       <button mat-raised-button color="primary" class="addBtn" type="submit" [disabled]="isLocked" tabindex="5">Zapisz</button>
     </div>
   </form>
