@@ -150,6 +150,14 @@ export class WorkComponent implements OnInit {
     }
   }
 
+  canDeactivate(): Observable<boolean> | boolean {
+      if (this.dataHaveBeenChanged) {
+        const result = window.confirm('Masz nie zapisane zmiany, czy napewno chcesz opuścić kalendarz?');
+        return of(result);
+      }
+      return true;
+  }
+
   private replaceElement(newWork: WorkModel) {
     this.dataHaveBeenChanged = true;
     const index = this.workEvents.map(e => e.data.id).indexOf(newWork.id);

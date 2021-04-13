@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './shared/guards/auth.guard.service';
+import { CanDeactivateGuard } from './shared/guards/can-deactivate-guard.service';
 import { GuestGuard } from './shared/guards/quest.guard.service';
 
 const routes: Routes = [
@@ -23,6 +24,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

@@ -14,6 +14,7 @@ import { SnotifyModule, SnotifyService } from 'ng-snotify';
 import { NotificationConfiguration } from 'src/config/notification.config';
 import { GuidedTourModule, GuidedTourService } from 'ngx-guided-tour';
 import { TutorialService } from './dashboard/services/tutorial.service';
+import { CanDeactivateGuard } from './shared/guards/can-deactivate-guard.service';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { TutorialService } from './dashboard/services/tutorial.service';
   providers: [
     GuestGuard,
     AuthGuard,
+    CanDeactivateGuard,
     TutorialService,
     { provide: 'SnotifyToastConfig', useValue: NotificationConfiguration},
     SnotifyService,

@@ -28,6 +28,6 @@ import { WorkersModule } from '../workers/workers.module';
   ],
   entryComponents: [
     WorkPopupComponentComponent
-  ]
+  ],
 })
 export class ScheduleModule { }
