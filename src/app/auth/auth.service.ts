@@ -35,6 +35,11 @@ export class AuthService {
     );
   }
 
+  loginAdmin(email: string, password: string): Observable<string> {
+    return this.http.post<{data: {token: string}}>(`${environment.apiUrl}/login`, {email, password, acc_type: 1}).pipe(
+      map(res => res.data.token),
+    );
+  }
 
   confirmEmail(token: string): Observable<void> {
     return this.http.get<void>(`${environment.apiUrl}/email/verify?token=${token}`).pipe();

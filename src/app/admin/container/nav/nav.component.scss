@@ -1,0 +1,79 @@
+@import 'mixins';
+
+.navBarContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .brandContainer{
+    display: flex;
+
+    .menuHamburger{
+      margin-right: 10px;
+    }
+
+    .navbarBrand{
+      display: flex;
+      align-items: center;
+
+      img{
+        height: 40px;
+        margin-top: 3px;
+        @include mobile{
+          height: 30px;
+        }
+      }
+    }
+  }
+
+  .iconsContainer{
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+
+    .label{
+      font-size: 14px;
+    }
+
+    .notificationBtn{
+      margin-left: 20px;
+      cursor: pointer;
+    }
+
+    .walllet{
+      font-size: 16px;
+      cursor: pointer;
+      outline: none;
+
+      @include mobile{
+        .label{
+          display: none;
+        }
+      }
+    }
+
+    button{
+      margin-left: 20px;
+      @include mobile{
+        margin-left: 10px!important;
+      }
+    }
+  }
+
+}
+
+
+.accountInformation{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  padding-bottom: 10px;
+
+  .name{
+
+  }
+  .email{
+    font-size: 12px;
+  }
+}

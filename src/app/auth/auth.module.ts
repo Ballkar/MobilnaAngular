@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { EmailConfirmComponent } from './email-confirm/email-confirm.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ForgotPasswordComponent,
     EmailConfirmComponent,
     ResetPasswordComponent,
+    AdminLoginComponent,
   ],
   imports: [
     AuthRoutingModule,

@@ -1,0 +1,29 @@
+<div class="notificationMenu">
+  <div class="title">Powiadomienia</div>
+
+  <mat-spinner diameter="20" *ngIf="notifications && (isLoading$|async); else notificationContainer"></mat-spinner>
+</div>
+
+
+<ng-template #notificationContainer>
+  <div class="notifications" *ngIf="notifications[0]; else empty">
+    <div class="notification" *ngFor="let notification of notifications">
+      <div class="titleRow">
+        <div class="title">{{notification.title}}</div>
+        <div class="date">{{notification.created_at|date: 'dd/MM HH:mm:ss'}}</div>
+      </div>
+      <div class="message">{{notification.message}}</div>
+      <div class="readedDot" *ngIf="!notification.is_read"></div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #empty>
+  <div class="empty">
+    Brak powiadomień
+  </div>
+</ng-template>
+
+<ng-template #loader>
+  <mat-spinner diameter="20"></mat-spinner>
+</ng-template>

@@ -1,0 +1,46 @@
+@import "variables";
+#form {
+  display: flex;
+  flex-flow: column;
+  max-width: 400px;
+  min-width: 300px;
+  font-size: 16px;
+
+  .title{
+    font-size: 18px;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  mat-form-field{
+    margin-bottom: 7px;
+  }
+  // mat-checkbox.ng-invalid.ng-touched {
+  //   color: #e91e63;
+  // }
+
+
+  .row{
+    display: flex;
+    justify-content: space-between;
+
+    .forgotPassword{
+      cursor: pointer;
+      &:hover{
+        color: $blue;
+      }
+    }
+  }
+
+  .text{
+    text-align: center;
+    .highlighted{
+      color: $blue;
+      cursor: pointer;
+    }
+  }
+
+  #submit{
+    margin: 20px 0;
+  }
+}

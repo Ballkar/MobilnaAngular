@@ -1,0 +1,30 @@
+<div class="mainContainer">
+  <app-nav></app-nav>
+
+  <mat-sidenav-container>
+
+    <mat-sidenav mode="side" [opened]="(sideBarService.opened$|async)" [mode]="isMobile ? 'over' : 'side'">
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+
+      <div class="container">
+        <mat-card>
+          <mat-card-content class="column">
+            <router-outlet #o="outlet"></router-outlet>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+
+      <mat-menu #quickMenu="matMenu" class="quickMenu" xPosition="before">
+      </mat-menu>
+
+      <button mat-fab color="primary" class="quickFunctionButton" [matMenuTriggerFor]="quickMenu">
+        <mat-icon class="icon">add</mat-icon>
+      </button>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

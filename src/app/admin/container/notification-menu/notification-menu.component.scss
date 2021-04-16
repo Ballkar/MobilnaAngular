@@ -1,0 +1,44 @@
+.notificationMenu{
+  padding: 0 10px;
+
+  .title{
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 15px;
+  }
+
+  .empty{
+    text-align: center;
+  }
+}
+
+.notifications{
+  display: flex;
+  flex-flow: column;
+
+  .notification{
+    display: flex;
+    flex-flow: column;
+
+    .titleRow{
+      display: flex;
+      flex-flow: row;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      .title{
+
+      }
+      .date{
+        display: flex;
+        align-items: center;
+        font-size: 11px;
+        white-space: nowrap;
+      }
+    }
+    .message{
+
+    }
+
+  }
+}
