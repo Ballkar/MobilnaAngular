@@ -23,7 +23,7 @@ export class NavComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.user = this.route.snapshot.data.user;
+    this.user = this.authService.authUser;
     this.authService.authUser$.pipe(
       takeUntil(this.onDestroy$)
     ).subscribe(user => this.user = user);

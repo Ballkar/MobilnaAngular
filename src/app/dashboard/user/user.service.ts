@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { AuthService } from 'src/app/auth/auth.service';
 import { PaginationEvent } from 'src/app/shared/model/paginationEvent.model';
 import { ResponseModel, DataResponse } from 'src/app/shared/model/response.model';
 import { UserModel } from 'src/app/shared/model/user.model';
@@ -18,12 +19,14 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private helperService: HelperService,
+    public authService: AuthService,
   ) { }
 
   user(): Observable<UserModel> {
     return this.http.get<ResponseModel<UserModel>>(`${environment.apiUrl}/user`).pipe(
       map(res => res.data),
       tap(user => this.loggedUser = user),
+      tap(user => this.authService.authUser$.next(user)),
     );
   }
 

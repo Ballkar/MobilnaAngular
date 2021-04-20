@@ -15,7 +15,6 @@ import { NavComponent } from './container/nav/nav.component';
     SidebarComponent,
     NotificationMenuComponent,
     NavComponent,
-
   ],
   imports: [
     CommonModule,

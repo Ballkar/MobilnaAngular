@@ -2,6 +2,7 @@ import { MessageSettings } from '../../dashboard/message/MessageSettings.model';
 
 export class UserModel {
   id: number;
+  role_id: number;
   name: string;
   phone: string;
   email: string;

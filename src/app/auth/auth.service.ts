@@ -5,6 +5,7 @@ import { UserModel } from '../shared/model/user.model';
 import { tap, map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { userRoleTypes } from '../shared/enum/userRoleTypes';
 
 @Injectable({
   providedIn: 'root'
@@ -18,25 +19,21 @@ export class AuthService {
     private router: Router,
   ) {
 
-    this.authUser$.subscribe(
+    this.authUser$.pipe(
+      tap(user => this.authUser = user),
+    ).subscribe(
       user => localStorage.setItem('user', JSON.stringify(user))
     );
   }
 
 
   register(email: string, password: string, name: string, reg: boolean) {
-    return this.http.post<void>(`${environment.apiUrl}/register`, {email, password, acc_type: 2, reg, name}).pipe(
+    return this.http.post<void>(`${environment.apiUrl}/register`, {email, password, acc_type: userRoleTypes.user, reg, name}).pipe(
     );
   }
 
   login(email: string, password: string): Observable<string> {
-    return this.http.post<{data: {token: string}}>(`${environment.apiUrl}/login`, {email, password, acc_type: 2}).pipe(
-      map(res => res.data.token),
-    );
-  }
-
-  loginAdmin(email: string, password: string): Observable<string> {
-    return this.http.post<{data: {token: string}}>(`${environment.apiUrl}/login`, {email, password, acc_type: 1}).pipe(
+    return this.http.post<{data: {token: string}}>(`${environment.apiUrl}/login`, { email, password }).pipe(
       map(res => res.data.token),
     );
   }
