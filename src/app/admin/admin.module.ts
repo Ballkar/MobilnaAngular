@@ -7,6 +7,8 @@ import { ContainerComponent } from './container/container.component';
 import { SidebarComponent } from './container/sidebar/sidebar.component';
 import { NotificationMenuComponent } from './container/notification-menu/notification-menu.component';
 import { NavComponent } from './container/nav/nav.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { UsersComponent } from './users/users.component';
 
 
 @NgModule({
@@ -15,6 +17,8 @@ import { NavComponent } from './container/nav/nav.component';
     SidebarComponent,
     NotificationMenuComponent,
     NavComponent,
+    AdminDashboardComponent,
+    UsersComponent,
   ],
   imports: [
     CommonModule,

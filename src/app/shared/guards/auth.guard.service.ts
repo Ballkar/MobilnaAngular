@@ -21,8 +21,6 @@ export class AuthGuard implements CanActivate {
       const isAdminRoute = route.url[0].path === 'admin';
 
       return this.userService.user().pipe(
-        tap(u => console.log(u.role_id)),
-        tap(() => console.log(isAdminRoute)),
         map(user => this.matchDashboard(isAdminRoute, user)),
         catchError(() => of(this.router.parseUrl('/'))),
       );
