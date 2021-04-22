@@ -1,1 +1,22 @@
-<p>users works!</p>
+<div class="container">
+  <mat-card-title class="mainTitle">
+    Lista Userów
+  </mat-card-title>
+
+  <button mat-raised-button color="primary" class="addBtn" (click)="addUser()">Nowy user</button>
+  <mat-list *ngIf="users && users[0]; else empty">
+    <mat-list-item *ngFor="let user of users" (click)="clicked(user)">
+      <mat-icon matListAvatar>person</mat-icon>
+      <div class="name" matLine>{{user.name}}</div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+
+  </mat-list>
+
+</div>
+
+<ng-template #empty>
+  <div class="emptyContainer">
+    <div class="title">Brak Userów</div>
+  </div>
+</ng-template>

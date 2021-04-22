@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="header">
+    <mat-card-title class="mainTitle">{{user ? 'Dodaj Usera' : 'Edytuj Usera'}}</mat-card-title>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()" cdkTrapFocusAutoCapture="true">
+    <div class="details">
+      <mat-form-field>
+        <mat-label>Imie Usera</mat-label>
+        <input matInput placeholder="Nazwa" [formControl]="nameCtrl" autocomplete="off" cdkFocusInitial>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" class="submitBtn" type="submit" *ngIf="!user">Dodaj</button>
+    <button mat-raised-button color="primary" class="submitBtn" type="submit" *ngIf="user">Edytuj</button>
+  </form>
+</div>

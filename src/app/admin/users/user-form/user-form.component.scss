@@ -1,0 +1,66 @@
+@import 'mixins';
+
+form {
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 10px;
+
+  .details{
+    display: flex;
+    flex-flow: column;
+    flex: 1;
+    @include mobile {
+      width: 100%;
+      flex: none;
+    }
+
+    .row{
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .colorLabel{
+      cursor: pointer;
+    }
+
+    .buttonElement {
+      width: 20px;
+      height: 20px;
+      border: 1px solid black;
+      border-radius: 10%;
+      cursor: pointer;
+      margin-left: 10px;
+      @include mobile {
+        width: 20px;
+        height: 20px;
+        margin-right: 15px;
+      }
+    }
+
+    mat-form-field {
+      @include mobile {
+        margin: 0;
+      }
+    }
+  }
+
+  .submitBtn {
+    margin-top: 20px;
+
+    @include mobile {
+      width: 100%;
+    }
+  }
+
+  .removeBtn {
+    margin-left: auto;
+    @include mobile {
+      margin: 0;
+      margin-bottom: 20px;
+      margin-right: auto;
+    }
+  }
+
+}

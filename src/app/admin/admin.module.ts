@@ -9,6 +9,9 @@ import { NotificationMenuComponent } from './container/notification-menu/notific
 import { NavComponent } from './container/nav/nav.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { UsersComponent } from './users/users.component';
+import { UserFormComponent } from './users/user-form/user-form.component';
+import { UserPopupComponent } from './users/user-popup/user-popup.component';
+import { UserDisplayComponent } from './users/user-display/user-display.component';
 
 
 @NgModule({
@@ -19,11 +22,17 @@ import { UsersComponent } from './users/users.component';
     NavComponent,
     AdminDashboardComponent,
     UsersComponent,
+    UserFormComponent,
+    UserPopupComponent,
+    UserDisplayComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+  ],
+  entryComponents: [
+    UserPopupComponent
   ]
 })
 export class AdminModule { }
