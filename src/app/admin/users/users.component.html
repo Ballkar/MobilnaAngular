@@ -12,6 +12,13 @@
     </mat-list-item>
 
   </mat-list>
+  <mat-paginator *ngIf="pagination"
+    [length]="pagination.length"
+    [pageSize]="pagination.pageSize"
+    [pageSizeOptions]="[2, 5, 10]"
+    [pageIndex]="pagination.pageIndex"
+    (page)="changePage($event)">
+  </mat-paginator>
 
 </div>
 

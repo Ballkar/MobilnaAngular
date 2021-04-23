@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -14,10 +14,12 @@ export class UsersService {
     private http: HttpClient,
   ) { }
 
-  usersList(): Observable<UserModel[]> {
-    return this.http.get<ResponseModel<DataResponse<UserModel>>>(`${environment.apiUrl}/admin/users`).pipe(
-      map(res => res.data.items),
-      tap(console.log),
+  usersList(page: number, perPage: number): Observable<DataResponse<UserModel>> {
+    let params = new HttpParams();
+    params = page ? params.set('page', page.toString()) : params;
+    params = perPage ? params.set('limit', perPage.toString()) : params;
+    return this.http.get<ResponseModel<DataResponse<UserModel>>>(`${environment.apiUrl}/admin/users`, { params }).pipe(
+      map(res => res.data),
     );
   }
 
