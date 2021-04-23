@@ -24,8 +24,8 @@ export class UserPopupComponent implements OnInit, OnDestroy {
 
   }
 
-  close(user: UserModel) {
-    this.dialogRef.close(user);
+  close(res: any) {
+    this.dialogRef.close(res);
   }
 
   closeAfterRemove() {
