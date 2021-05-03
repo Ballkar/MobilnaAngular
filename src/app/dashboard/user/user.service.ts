@@ -8,7 +8,7 @@ import { ResponseModel, DataResponse } from 'src/app/shared/model/response.model
 import { UserModel } from 'src/app/shared/model/user.model';
 import { HelperService } from 'src/app/shared/service/helper.service';
 import { environment } from 'src/environments/environment';
-import { WalletTransaction } from './WalletTransaction';
+import { WalletTransaction, WalletTransactionTypes } from './WalletTransaction';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +34,12 @@ export class UserService {
     let params = new HttpParams();
     params = this.helperService.returnParamsWithPaginationAdded(pagination, params);
     return this.http.get<ResponseModel<DataResponse<WalletTransaction>>>(`${environment.apiUrl}/user/wallet`, {params}).pipe(
+      map(res => res.data),
+    );
+  }
+
+  addWalletTransaction(money: number, userId: number): Observable<WalletTransaction> {
+    return this.http.post<ResponseModel<WalletTransaction>>(`${environment.apiUrl}/admin/wallet`, {money: money * 100, type: WalletTransactionTypes.ADD, user_id: userId}).pipe(
       map(res => res.data),
     );
   }

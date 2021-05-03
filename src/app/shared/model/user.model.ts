@@ -10,6 +10,8 @@ export class UserModel {
   messageSettings: MessageSettings;
   wallet: WalletModel;
   notificationCount: number;
+  created_at: string;
+  email_verified: string;
 }
 
 export class WalletModel {

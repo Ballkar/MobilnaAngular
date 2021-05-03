@@ -7,7 +7,9 @@
   <mat-list *ngIf="users && users[0]; else empty">
     <mat-list-item *ngFor="let user of users" (click)="clicked(user)">
       <mat-icon matListAvatar>person</mat-icon>
-      <div class="name" matLine>{{user.name}}</div>
+      <div class="name" matLine>{{user.name}} ({{user.email}})</div>
+      <div class="name" matLine>{{user.created_at | date: 'MM-dd HH:mm:ss'}}</div>
+      <div class="isVerified" [ngClass]="{verified : user.email_verified_at}"></div>
       <mat-divider></mat-divider>
     </mat-list-item>
 

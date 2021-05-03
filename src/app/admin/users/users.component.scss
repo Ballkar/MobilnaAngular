@@ -9,6 +9,18 @@ mat-list{
     &:hover{
       background-color: #eee;
     }
+
+    .isVerified{
+      display: block;
+      width: 15px;
+      height: 15px;
+      padding: 8px;
+      background-color: red;
+
+      &.verified{
+        background-color: red;
+      }
+    }
   }
 
   mat-icon{

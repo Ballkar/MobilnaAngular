@@ -1,1 +1,31 @@
-<p>user-display works!</p>
+<div class="container">
+
+  <div class="row">
+    <div class="label">nazwa</div>
+    <div class="value">{{user.name}}</div>
+  </div>
+
+  <div class="row">
+    <div class="label">telefon</div>
+    <div class="value">{{user.phone | phone}}</div>
+  </div>
+
+  <div class="row">
+    <div class="label">data rejestracji</div>
+    <div class="value">{{user.created_at | date: 'MM-dd HH:mm:ss'}}</div>
+  </div>
+
+
+  <div class="row">
+    <div class="label">email zweryfikowany</div>
+    <div class="value">{{user.email_verified ? 'tak' : 'nie'}}</div>
+  </div>
+
+  <div class="row">
+    <div class="label">stan konta</div>
+    <div class="value">{{user.wallet.money }} zł</div>
+  </div>
+
+
+  <button mat-raised-button color="primary" type="button" (click)="addTransaction()">Dodaj środki</button>
+</div>

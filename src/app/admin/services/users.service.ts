@@ -24,6 +24,12 @@ export class UsersService {
     );
   }
 
+  getUser(id: number): Observable<UserModel> {
+
+    return this.http.get<ResponseModel<UserModel>>(`${environment.apiUrl}/admin/users/${id}`).pipe(
+      map(res => res.data),
+    );
+  }
 
   addUser(user: UserModel): Observable<void> {
     return this.http.post<void>(`${environment.apiUrl}/admin/users`, {...user, acc_type: userRoleTypes.user, reg: true}).pipe(

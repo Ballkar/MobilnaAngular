@@ -16,12 +16,10 @@ import { UsersService } from '../../services/users.service';
 })
 
 export class UserFormComponent implements OnInit, OnDestroy {
-  @Input() user: UserModel;
   @Output() userChanged: EventEmitter<UserModel> = new EventEmitter();
   @Output() userSaved: EventEmitter<UserModel> = new EventEmitter();
-  @Output() userRemoved: EventEmitter<UserModel> = new EventEmitter();
   form: FormGroup;
-  onDestroy$: Subject<void> = new Subject();
+  private onDestroy$: Subject<void> = new Subject();
 
   get emailCtrl() { return this.form.get('email') as FormControl; }
   get nameCtrl() { return this.form.get('name') as FormControl; }

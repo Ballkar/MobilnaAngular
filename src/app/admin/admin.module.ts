@@ -12,6 +12,8 @@ import { UsersComponent } from './users/users.component';
 import { UserFormComponent } from './users/user-form/user-form.component';
 import { UserPopupComponent } from './users/user-popup/user-popup.component';
 import { UserDisplayComponent } from './users/user-display/user-display.component';
+import { AddTransactionFormComponent } from './users/add-transaction-form/add-transaction-form.component';
+import { AddTransactionFormPopupComponent } from './users/add-transaction-form-popup/add-transaction-form-popup.component';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { UserDisplayComponent } from './users/user-display/user-display.componen
     UserFormComponent,
     UserPopupComponent,
     UserDisplayComponent,
+    AddTransactionFormComponent,
+    AddTransactionFormPopupComponent,
   ],
   imports: [
     CommonModule,
