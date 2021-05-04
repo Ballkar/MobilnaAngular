@@ -1,21 +1,41 @@
 <mat-card-title>Lista modułów</mat-card-title>
 
-<div class="cubesContainer">
+<mat-grid-list cols="6" rowHeight="100px">
 
-  <div class="moduleCube" [routerLink]="['/', 'dashboard', 'customer']">
-    <mat-icon>assignment_ind</mat-icon>
-    <div class="title">Klientki</div>
-  </div>
-  <div class="moduleCube" [routerLink]="['/', 'dashboard', 'message']">
-    <mat-icon>phonelink_setup</mat-icon>
-    <div class="title">Wiadomości</div>
-  </div>
-  <div class="moduleCube" [routerLink]="['/', 'dashboard', 'work']">
-    <mat-icon>work</mat-icon>
-    <div class="title">wizyty</div>
-  </div>
-  <div class="moduleCube" [routerLink]="['/', 'dashboard', 'workers']">
-    <mat-icon>people</mat-icon>
-    <div class="title">Pracownicy</div>
-  </div>
-</div>
+  <mat-grid-tile
+      [colspan]="6"
+      [rowspan]="1">
+    <app-welcome-cube></app-welcome-cube>
+  </mat-grid-tile>
+
+
+  <mat-grid-tile
+      [colspan]="4"
+      [rowspan]="1">
+    <app-schedule-cube></app-schedule-cube>
+  </mat-grid-tile>
+
+  <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="1">
+    <app-customers-cube></app-customers-cube>
+  </mat-grid-tile>
+
+  <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="1">
+    <app-message-cube></app-message-cube>
+  </mat-grid-tile>
+
+  <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="1">
+    <app-worker-cube></app-worker-cube>
+  </mat-grid-tile>
+
+  <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="1">
+    elo
+  </mat-grid-tile>
+</mat-grid-list>

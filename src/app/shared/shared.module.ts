@@ -34,6 +34,7 @@ import { ConfirmPopupComponent } from './modal/confirm-popup/confirm-popup.compo
 import { HelpInfoComponent } from './components/help-info/help-info.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 const materialComponents = [
   CommonModule,
@@ -49,6 +50,7 @@ const materialComponents = [
   MatPaginatorModule,
   MatProgressSpinnerModule,
   MatDialogModule,
+  MatGridListModule,
   NgxMatDatetimePickerModule,
   NgxMatNativeDateModule,
   NgxMatTimepickerModule,
