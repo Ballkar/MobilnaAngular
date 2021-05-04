@@ -16,30 +16,48 @@
       align-items: center;
       flex: 1;
       .navbarBrand {
-        padding: 10px;
-        padding-top: 15px;
+        padding-top: 5px;
+        padding-left: 5px;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
   }
 }
+mat-list-item{
 
-.link{
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  mat-icon{
-    margin-right: 5px;
+  &:hover{
+    $color: #f44336;
+    .link{
+      color: $color;
+      transition: color .2s;
+      mat-icon{
+        color: $color;
+        transition: color .2s;
+      }
+    }
   }
-  &.child {
-    padding-left: 35px;
+
+  .link{
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    mat-icon{
+      margin-right: 5px;
+    }
+    &.child {
+      padding-left: 35px;
+    }
   }
 }
 
 .active {
-  color: #02bec9;
+  color: #f44336;
   position: relative;
   &::after {
-    border-right: 17px solid $blue;
+    border-right: 17px solid #f44336;
     border-top: 17px solid transparent;
     border-bottom: 17px solid transparent;
     content: "";
