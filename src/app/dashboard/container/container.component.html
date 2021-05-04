@@ -3,7 +3,7 @@
 
   <mat-sidenav-container>
 
-    <mat-sidenav mode="side" [opened]="(sideBarService.opened$|async)" [mode]="isMobile ? 'over' : 'side'">
+    <mat-sidenav mode="side" [opened]="(sideBarService.opened$|async)" [mode]="isMobile ? 'over' : 'side'" [fixedInViewport]="true">
       <app-sidebar></app-sidebar>
     </mat-sidenav>
 

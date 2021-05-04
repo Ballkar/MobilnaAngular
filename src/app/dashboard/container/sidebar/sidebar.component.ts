@@ -10,7 +10,7 @@ import { SidemenuElement } from './SidemenuElement.model';
 export class SidebarComponent implements OnInit {
   sidemenuElements: SidemenuElement[];
   constructor(
-    private sidebarService: SidebarService,
+    public sidebarService: SidebarService,
   ) { }
 
   ngOnInit() {

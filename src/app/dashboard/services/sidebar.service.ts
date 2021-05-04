@@ -12,7 +12,7 @@ export class SidebarService {
     {
       id: 'customer',
       icon: 'assignment_ind',
-      navigateTo: ['/', 'dashboard', 'customer'],
+      navigateTo: ['/', 'dashboard', 'customer', 'list'],
       title: 'Klientki',
       active: false,
     },
@@ -49,7 +49,7 @@ export class SidebarService {
     {
       id: 'workers',
       icon: 'people',
-      navigateTo: ['/', 'dashboard', 'workers'],
+      navigateTo: ['/', 'dashboard', 'workers', 'list'],
       title: 'Pracownicy',
       active: false,
     }

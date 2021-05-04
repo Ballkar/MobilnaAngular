@@ -1,21 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 @import "./global";
 @import "./mixins";
 @import "./variables";
-@import '~@angular/material/theming';
 
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import './parts/lists.scss';
 @import './parts/tour.scss';
 
 @import "~ng-snotify/styles/material";
 
-
-$custom-typography: mat-typography-config(
-  $font-family: 'Poppins'
-);
-@include mat-core($custom-typography);
 
 .mat-dialog-container{
   padding: 0!important;

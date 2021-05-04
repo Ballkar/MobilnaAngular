@@ -1,23 +1,27 @@
 <div class="container">
 
+  <div class="header">
+
+    <div class="brandContainer">
+      <a class="navbarBrand" routerLink="/">
+        <img src="assets/logo-black.png" class="logo" alt="homepage">
+      </a>
+      <button mat-icon-button (click)="sidebarService.toggle()" class="menuHamburger">
+          <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+  </div>
+
 
 
   <div class="content">
     <mat-nav-list>
-      <!-- <mat-list-item *ngFor="let link of sidemenuElements">
-         <a matLine [routerLinkActive]="'active'" [routerLink]="link.navigateTo">{{ link.title }}</a>
-         <button mat-icon-button >
-            <mat-icon>info</mat-icon>
-         </button>
-      </mat-list-item> -->
 
       <ng-container *ngFor="let link of sidemenuElements">
-        <mat-list-item [routerLinkActive]="'active'" [routerLink]="link.navigateTo" (click)="link.active = true" [id]="link.id">
+        <mat-list-item [routerLinkActive]="'active'" [routerLink]="link.navigateTo"  [routerLinkActiveOptions]="{exact: true}" (click)="link.active = true" [id]="link.id">
           <a class="link">
             <mat-icon class="icon">{{ link.icon }}</mat-icon>
             {{ link.title }}
-            <!-- <mat-icon class="arrow_icon" #arrowProduct [ngClass]="{'down': link.active}" *ngIf="link.child">keyboard_arrow_right</mat-icon> -->
-
           </a>
         </mat-list-item>
 
