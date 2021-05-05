@@ -10,30 +10,34 @@
   </div>
 
 
+  <div class="profileContainer">
+    <mat-icon class="avatar">account_circle</mat-icon>
+    <div class="name">{{user.name}}</div>
+    <!-- <div class="">{{user.name}}</div>     -->
+  </div>
 
-  <div class="content">
-    <mat-nav-list>
 
-      <ng-container *ngFor="let link of sidemenuElements">
-        <mat-list-item [routerLinkActive]="'active'" [routerLink]="link.navigateTo"  [routerLinkActiveOptions]="{exact: true}" (click)="link.active = true" [id]="link.id">
-          <a class="link">
-            <mat-icon class="icon">{{ link.icon }}</mat-icon>
-            {{ link.title }}
+  <mat-nav-list>
+
+    <ng-container *ngFor="let link of sidemenuElements">
+      <mat-list-item [routerLinkActive]="'active'" [routerLink]="link.navigateTo"  [routerLinkActiveOptions]="{exact: true}" (click)="link.active = true" [id]="link.id">
+        <a class="link">
+          <mat-icon class="icon">{{ link.icon }}</mat-icon>
+          {{ link.title }}
+        </a>
+      </mat-list-item>
+
+      <ng-container *ngIf="link.child">
+        <mat-list-item [routerLinkActive]="'active'" [routerLink]="childLink.navigateTo" *ngFor="let childLink of link.child"  (click)="link.active = true"  [id]="childLink.id">
+          <a class="link child">
+            <mat-icon class="icon">{{ childLink.icon }}</mat-icon>
+            {{ childLink.title }}
           </a>
         </mat-list-item>
-
-        <ng-container *ngIf="link.child">
-          <mat-list-item [routerLinkActive]="'active'" [routerLink]="childLink.navigateTo" *ngFor="let childLink of link.child"  (click)="link.active = true"  [id]="childLink.id">
-            <a class="link child">
-              <mat-icon class="icon">{{ childLink.icon }}</mat-icon>
-              {{ childLink.title }}
-            </a>
-          </mat-list-item>
-        </ng-container>
-
       </ng-container>
 
+    </ng-container>
 
-    </mat-nav-list>
-  </div>
+
+  </mat-nav-list>
 </div>

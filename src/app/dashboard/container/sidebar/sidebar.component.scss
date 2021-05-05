@@ -16,6 +16,8 @@
       justify-content: space-between;
       align-items: center;
       flex: 1;
+      height: $menuheight - 1px;
+      border-bottom: 1px solid #ddd;
       .navbarBrand {
         padding-top: 5px;
         padding-left: 5px;
@@ -26,51 +28,72 @@
       }
     }
   }
-}
-mat-list-item{
 
-  &:hover{
-    $color: $primary;
-    .link{
-      color: $color;
-      transition: color .2s;
-      mat-icon{
+  .profileContainer {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    padding: 20px 0;
+
+    .avatar {
+      $size: 60px;
+      display: block;
+      width: $size;
+      height: $size;
+      font-size: $size;
+      cursor: pointer;
+    }
+    .name {
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+}
+mat-nav-list{
+  padding-top: 0;
+  mat-list-item {
+    padding-top: 0;
+
+    &:hover{
+      $color: $primary;
+      .link{
         color: $color;
         transition: color .2s;
+        mat-icon{
+          color: $color;
+          transition: color .2s;
+        }
+      }
+    }
+
+    &.active {
+      color: $primary;
+      position: relative;
+      &::after {
+        border-right: 17px solid $primary;
+        border-top: 17px solid transparent;
+        border-bottom: 17px solid transparent;
+        content: "";
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        opacity: 1;
+        top: 7px;
+        transition: opacity 150ms ease-in;
+      }
+    }
+
+    .link{
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      mat-icon{
+        margin-right: 5px;
+      }
+      &.child {
+        padding-left: 35px;
       }
     }
   }
-
-  .link{
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-    mat-icon{
-      margin-right: 5px;
-    }
-    &.child {
-      padding-left: 35px;
-    }
-  }
-}
-
-.active {
-  color: $primary;
-  position: relative;
-  &::after {
-    border-right: 17px solid $primary;
-    border-top: 17px solid transparent;
-    border-bottom: 17px solid transparent;
-    content: "";
-    display: inline-block;
-    position: absolute;
-    right: 0;
-    opacity: 1;
-    top: 7px;
-    transition: opacity 150ms ease-in;
-  }
-}
-
-.arrow_icon{
-  @include arrowAnimation;
 }

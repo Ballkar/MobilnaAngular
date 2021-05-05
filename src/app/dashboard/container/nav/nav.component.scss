@@ -7,8 +7,9 @@
   align-items: center;
   background-color: $primary!important;
   box-shadow: $box-shadow-default;
-  border-bottom: 1px solid #ddd;
-  padding: 8px;
+  border-bottom: 1px solid $grayBorderColor;
+  padding: 0 10px;
+  height: $menuheight;
 
   .brandContainer{
     display: flex;
