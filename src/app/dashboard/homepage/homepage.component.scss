@@ -9,8 +9,20 @@
     flex: 1;
     display: flex;
     flex-flow: row;
+    margin: 10px 0;
+    flex-wrap: wrap;
+
+    @include mobile{
+      flex-flow: column;
+      margin: 0;
+      *{
+        margin: 10px!important;
+      }
+    }
+
     *{
       flex: 1;
+      margin: 0 10px;
     }
   }
 }

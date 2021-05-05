@@ -1,9 +1,9 @@
 @import '~@angular/material/theming';
 @import './themeVariables.scss';
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
 
 $custom-typography: mat-typography-config(
-  $font-family: 'Roboto'
+  $font-family: 'Poppins'
 );
 @include mat-core($custom-typography);
 
