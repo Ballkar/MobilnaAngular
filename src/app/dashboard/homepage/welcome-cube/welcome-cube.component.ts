@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { UserModel } from 'src/app/shared/model/user.model';
+import { UserService } from '../../user/user.service';
 
 @Component({
   selector: 'app-welcome-cube',
@@ -7,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeCubeComponent implements OnInit {
 
-  constructor() { }
+  user: UserModel = this.authServie.loggedUser;
+  constructor(
+    private authServie: UserService,
+  ) { }
 
   ngOnInit(): void {
   }

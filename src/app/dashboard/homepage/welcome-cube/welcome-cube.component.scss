@@ -1,1 +1,18 @@
-@import 'parts/homePageCube'
+@import 'parts/homePageCube';
+@import 'variables';
+
+.container {
+  background-color: white;
+  padding: 20px 5px;
+  box-shadow: $box-shadow-default;
+
+  .header {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .content {
+    font-size: 14px;
+    margin: 5px 0 0 8px;
+  }
+}

@@ -1,0 +1,8 @@
+@import '~@angular/material/theming';
+
+$myTheme-primary: mat-palette($mat-pink);
+$myTheme-accent:  mat-palette($mat-pink, A200, A100, A400);
+$myTheme-warn:    mat-palette($mat-red);
+
+$background-color: map_get($mat-blue-grey, 50);
+

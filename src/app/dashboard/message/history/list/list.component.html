@@ -1,56 +1,62 @@
-<div class="container">
-  <mat-card-title class="mainTitle">
-    <button mat-icon-button [routerLink]="['/', 'dashboard', 'message']">
-      <mat-icon>keyboard_backspace</mat-icon>
-    </button>
-    Historia Wiadomości
-  </mat-card-title>
 
-  <form [formGroup]="searchForm" autocomplete="off">
-    <mat-form-field class="searchInput">
-      <mat-label>Wyszukaj wiadomość w historii</mat-label>
-      <input matInput placeholder="Dane klientki lub numer" name="search" [formControl]="searchCtrl">
-    </mat-form-field>
-  </form>
-
-  <mat-spinner class="listSpinner" *ngIf="isLoading$|async"></mat-spinner>
-  <ng-container *ngIf="(messages$|async) as messages">
-
-    <mat-action-list class="messages" *ngIf="messages.items[0]; else empty">
-
-      <div class="item" *ngFor="let message of messages.items">
-
-        <button mat-list-item (click)="select(message)">
-
-          <div class="onlyDesktop">
-            <div class="content">
-              <div class="name">{{message.name}} - ({{message.customer.name}} {{message.customer.surname}} / {{message.customer.phone}})</div>
-              <span class="date">{{message.created_at|date: 'HH:mm dd-MM-yyyy'}}</span>
-            </div>
-          </div>
-
-          <div class="onlyMobile">
-            <div class="content">
-              <div class="name">{{message.customer.name}} {{message.customer.surname}} / {{message.customer.phone}}</div>
-              <span class="date">{{message.created_at|date: 'dd-MM-yyyy'}}</span>
-            </div>
-          </div>
+<mat-card>
+  <mat-card-content class="column">
+    <div class="container">
+      <mat-card-title class="mainTitle">
+        <button mat-icon-button [routerLink]="['/', 'dashboard', 'message']">
+          <mat-icon>keyboard_backspace</mat-icon>
         </button>
-      </div>
+        Historia Wiadomości
+      </mat-card-title>
 
-    </mat-action-list>
+      <form [formGroup]="searchForm" autocomplete="off">
+        <mat-form-field class="searchInput">
+          <mat-label>Wyszukaj wiadomość w historii</mat-label>
+          <input matInput placeholder="Dane klientki lub numer" name="search" [formControl]="searchCtrl">
+        </mat-form-field>
+      </form>
 
-    <mat-paginator
-      [length]="pagination.length"
-      [pageSize]="pagination.pageSize"
-      [pageSizeOptions]="[2, 5, 10]"
-      [pageIndex]="pagination.pageIndex"
-      (page)="changePage($event)">
-    </mat-paginator>
-  </ng-container>
-</div>
+      <mat-spinner class="listSpinner" *ngIf="isLoading$|async"></mat-spinner>
+      <ng-container *ngIf="(messages$|async) as messages">
 
-<button mat-raised-button color="primary" class="addBtn" (click)="initChat()">Wyślij wiadomość</button>
+        <mat-action-list class="messages" *ngIf="messages.items[0]; else empty">
+
+          <div class="item" *ngFor="let message of messages.items">
+
+            <button mat-list-item (click)="select(message)">
+
+              <div class="onlyDesktop">
+                <div class="content">
+                  <div class="name">{{message.name}} - ({{message.customer.name}} {{message.customer.surname}} / {{message.customer.phone}})</div>
+                  <span class="date">{{message.created_at|date: 'HH:mm dd-MM-yyyy'}}</span>
+                </div>
+              </div>
+
+              <div class="onlyMobile">
+                <div class="content">
+                  <div class="name">{{message.customer.name}} {{message.customer.surname}} / {{message.customer.phone}}</div>
+                  <span class="date">{{message.created_at|date: 'dd-MM-yyyy'}}</span>
+                </div>
+              </div>
+            </button>
+          </div>
+
+        </mat-action-list>
+
+        <mat-paginator
+          [length]="pagination.length"
+          [pageSize]="pagination.pageSize"
+          [pageSizeOptions]="[2, 5, 10]"
+          [pageIndex]="pagination.pageIndex"
+          (page)="changePage($event)">
+        </mat-paginator>
+      </ng-container>
+    </div>
+
+    <button mat-raised-button color="primary" class="addBtn" (click)="initChat()">Wyślij wiadomość</button>
+
+  </mat-card-content>
+</mat-card>
 
 
 <ng-template #empty>

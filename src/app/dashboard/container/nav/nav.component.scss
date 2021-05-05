@@ -1,11 +1,12 @@
 @import 'mixins';
+@import 'variables';
 
 .navBarContainer{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: transparent!important;
-  box-shadow: none;
+  background-color: $primary!important;
+  box-shadow: $box-shadow-default;
   border-bottom: 1px solid #ddd;
   padding: 8px;
 

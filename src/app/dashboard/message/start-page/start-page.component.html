@@ -1,17 +1,23 @@
-<mat-card-title class="mainTitle">
-  <button mat-icon-button [routerLink]="['/', 'dashboard']">
-    <mat-icon>keyboard_backspace</mat-icon>
-  </button>
-  Moduł wiadomości
-</mat-card-title>
-<div class="cubesContainer">
 
-  <div class="moduleCube" [routerLink]="['plans']">
-    <mat-icon>sms</mat-icon>
-    <div class="title">Plany Sms</div>
-  </div>
-  <div class="moduleCube" [routerLink]="['history']">
-    <mat-icon>history</mat-icon>
-    <div class="title">Historia wiadomości</div>
-  </div>
-</div>
+<mat-card>
+  <mat-card-content class="column">
+    <mat-card-title class="mainTitle">
+      <button mat-icon-button [routerLink]="['/', 'dashboard']">
+        <mat-icon>keyboard_backspace</mat-icon>
+      </button>
+      Moduł wiadomości
+    </mat-card-title>
+    <div class="cubesContainer">
+
+      <div class="moduleCube" [routerLink]="['plans']">
+        <mat-icon>sms</mat-icon>
+        <div class="title">Plany Sms</div>
+      </div>
+      <div class="moduleCube" [routerLink]="['history']">
+        <mat-icon>history</mat-icon>
+        <div class="title">Historia wiadomości</div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+
