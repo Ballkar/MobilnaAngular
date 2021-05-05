@@ -1,12 +1,9 @@
 @import 'mixins';
+@import 'variables';
 
 .container{
   position: relative;
-  // padding: 15px;
-  height: calc(100vh - 64px);
-  @include tablet{
-    height: calc(100vh - 56px);
-  }
+  height: calc(100vh - #{$menuheight});
 }
 
 .quickFunctionButton{

@@ -2,6 +2,9 @@
 @import 'mixins';
 
 .container {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
   background-color: white;
   padding: 25px;
   box-shadow: $box-shadow-default;
@@ -10,10 +13,6 @@
 
   .header{
     margin-bottom: 10px;
-    min-height: 80px;
-    @include mobile{
-      min-height: 0 !important;
-    }
     .title {
       font-weight: 500;
       font-size: 18px;
@@ -35,6 +34,11 @@
   .content {
     display: flex;
     flex-flow: column;
+    min-height: 80px;
+    justify-content: flex-end;
+    @include mobile{
+      min-height: 0 !important;
+    }
 
     .action {
       cursor: pointer;
