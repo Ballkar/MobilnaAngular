@@ -6,17 +6,34 @@
   justify-content: space-between;
   align-items: center;
   background-color: $primary!important;
-  box-shadow: $box-shadow-default;
-  border-bottom: 1px solid $grayBorderColor;
   padding: 0 10px;
   height: $menuheight;
 
   .brandContainer{
     display: flex;
+    width: 250px;
 
     .menuHamburger{
       margin-right: 10px;
       color: $menuContentColor;
+    }
+  }
+
+  #homeIcon {
+    background-color: #fce4ec; // TODO: get from variables
+    width: 60px;
+    height: 40px;
+    align-self: flex-end;
+    border-radius: 20px 20px 0 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    .smallIcon {
+      width: 35px;
+      height: auto;
     }
   }
 
