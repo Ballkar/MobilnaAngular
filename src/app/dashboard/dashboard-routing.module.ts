@@ -3,12 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { ContainerComponent } from './container/container.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { SchemaResolver } from './message/plans/schema.resolver';
+import { WorkersResolver } from './workers/workers.resolver';
 
 
 const routes: Routes = [
   {
     path: '',
     component: ContainerComponent,
+    resolve: {
+      workers: WorkersResolver
+    },
     children: [
       {
         path: '',

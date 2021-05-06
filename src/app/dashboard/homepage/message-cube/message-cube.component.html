@@ -5,8 +5,8 @@
   </div>
 
   <div class="content">
-    <div class="action">Plany wiadomości</div>
-    <div class="action">Wyślij SMS</div>
-    <div class="action">Sprawdź historie wiadomości</div>
+    <div class="action" (click)="sendMessage()">Wyślij SMS</div>
+    <div class="action" [routerLink]="['/', 'dashboard', 'message', 'plans']">Plany wiadomości</div>
+    <div class="action" [routerLink]="['/', 'dashboard', 'message', 'history']">Historia wiadomości</div>
   </div>
 </div>

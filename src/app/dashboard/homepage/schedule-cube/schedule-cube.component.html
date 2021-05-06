@@ -5,7 +5,7 @@
   </div>
 
   <div class="content">
-    <div class="action">Dodaj nową wizytę</div>
-    <div class="action">Przeglądaj kalendarz</div>
+    <div class="action" (click)="addWork()">Dodaj nową wizytę</div>
+    <div class="action" [routerLink]="['/', 'dashboard', 'work']">Przeglądaj kalendarz</div>
   </div>
 </div>
