@@ -11,8 +11,8 @@
 
 
   <div class="profileContainer">
-    <mat-icon class="avatar">account_circle</mat-icon>
-    <div class="name">{{user.name}}</div>
+    <mat-icon class="avatar" [routerLink]="['/', 'dashboard', 'profile']">account_circle</mat-icon>
+    <div class="name" [routerLink]="['/', 'dashboard', 'profile']">{{user.name}}</div>
     <!-- <div class="">{{user.name}}</div>     -->
   </div>
 
