@@ -1,0 +1,11 @@
+<div class="pathContainer">
+  <div class="path">
+    <div class="element" [routerLink]="[basePath.url]">{{basePath.name}}</div>
+  </div>
+  <div class="path" *ngIf="path && path[0]">
+    <ng-container *ngFor="let pa of path">
+      <mat-icon class="divider">arrow_forward_ios</mat-icon>
+      <div class="element" [routerLink]="[pa.url]">{{pa.name}}</div>
+    </ng-container>
+  </div>
+</div>

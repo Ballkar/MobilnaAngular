@@ -16,6 +16,7 @@ import { ScheduleCubeComponent } from './homepage/schedule-cube/schedule-cube.co
 import { CustomersCubeComponent } from './homepage/customers-cube/customers-cube.component';
 import { WelcomeCubeComponent } from './homepage/welcome-cube/welcome-cube.component';
 import { ProfileCubeComponent } from './homepage/profile-cube/profile-cube.component';
+import { PathBarComponent } from './container/path-bar/path-bar.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ProfileCubeComponent } from './homepage/profile-cube/profile-cube.compo
     CustomersCubeComponent,
     WelcomeCubeComponent,
     ProfileCubeComponent,
+    PathBarComponent,
   ],
   imports: [
     CommonModule,
