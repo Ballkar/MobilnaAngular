@@ -1,22 +1,31 @@
-<form id="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="title">Witaj!</div>
-    <mat-error *ngIf="form.errors && form.errors['invalidCredentials']">
-      {{form.errors['invalidCredentials']}}
-    </mat-error>
+<div class="container">
+  <!-- <div class="infoContainer">
+    <div class="header">
+      Witaj w serwisie Mobilna Kosmetyczka
+    </div>
 
-    <mat-form-field>
-      <input matInput placeholder="Email" type="email" required [formControl]="email">
-    </mat-form-field>
+  </div> -->
 
-    <mat-form-field>
-      <input matInput type="password" placeholder="Hasło" required [formControl]="password">
-    </mat-form-field>
+  <form id="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <!-- <div class="title">Witaj!</div> -->
+      <mat-error *ngIf="form.errors && form.errors['invalidCredentials']">
+        {{form.errors['invalidCredentials']}}
+      </mat-error>
 
-    <!-- <div class="row">
-      <div class="forgotPassword">Forgot password?</div>
-    </div> -->
+      <mat-form-field>
+        <input matInput placeholder="Email" type="email" required [formControl]="email">
+      </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit" id="submit">Zaloguj się</button>
-    <div class="text">Nie posiadasz konta? <span class="highlighted" routerLink="/auth/register">Zarejestruj się!</span></div>
-    <div class="text">Nie pamiętasz hasła? <span class="highlighted" routerLink="/auth/forgot">Przypomnij hasło!</span></div>
-</form>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Hasło" required [formControl]="password">
+      </mat-form-field>
+
+      <!-- <div class="row">
+        <div class="forgotPassword">Forgot password?</div>
+      </div> -->
+
+      <button mat-raised-button color="primary" type="submit" id="submit">Zaloguj się</button>
+      <div class="text">Nie posiadasz konta? <span class="highlighted" routerLink="/auth/register">Zarejestruj się!</span></div>
+      <div class="text">Nie pamiętasz hasła? <span class="highlighted" routerLink="/auth/forgot">Przypomnij hasło!</span></div>
+  </form>
+</div>

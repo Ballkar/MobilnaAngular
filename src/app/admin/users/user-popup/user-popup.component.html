@@ -1,0 +1,4 @@
+<div class="container">
+  <app-user-form *ngIf="!user" (userSaved)="close(true)"></app-user-form>
+  <app-user-display *ngIf="user" [user]="user"></app-user-display>
+</div>

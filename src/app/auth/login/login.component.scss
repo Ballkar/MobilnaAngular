@@ -1,4 +1,13 @@
 @import "variables";
+// .container{
+//   display: flex;
+//   flex-flow: row;
+
+//   .infoContainer {
+//     background-color: $primary;
+//   }
+// }
+
 #form {
   display: flex;
   flex-flow: column;
@@ -27,7 +36,7 @@
     .forgotPassword{
       cursor: pointer;
       &:hover{
-        color: $blue;
+        color: $primary;
       }
     }
   }
@@ -35,7 +44,7 @@
   .text{
     text-align: center;
     .highlighted{
-      color: $blue;
+      color: $primary;
       cursor: pointer;
     }
   }

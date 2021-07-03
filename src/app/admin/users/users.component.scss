@@ -1,0 +1,31 @@
+.addBtn{
+  margin-left: auto;
+}
+
+mat-list{
+
+  mat-list-item{
+    cursor: pointer;
+    &:hover{
+      background-color: #eee;
+    }
+
+    .isVerified{
+      display: block;
+      width: 15px;
+      height: 15px;
+      padding: 8px;
+      background-color: red;
+
+      &.verified{
+        background-color: red;
+      }
+    }
+  }
+
+  mat-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

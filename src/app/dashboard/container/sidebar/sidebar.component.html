@@ -1,38 +1,43 @@
 <div class="container">
 
+  <div class="header">
+
+    <div class="brandContainer">
+      <a class="navbarBrand" routerLink="/">
+        <img src="assets/logo-black.svg" class="logo" alt="homepage">
+      </a>
+    </div>
+  </div>
 
 
-  <div class="content">
-    <mat-nav-list>
-      <!-- <mat-list-item *ngFor="let link of sidemenuElements">
-         <a matLine [routerLinkActive]="'active'" [routerLink]="link.navigateTo">{{ link.title }}</a>
-         <button mat-icon-button >
-            <mat-icon>info</mat-icon>
-         </button>
-      </mat-list-item> -->
+  <div class="profileContainer">
+    <mat-icon class="avatar" [routerLink]="['/', 'dashboard', 'profile']">account_circle</mat-icon>
+    <div class="name" [routerLink]="['/', 'dashboard', 'profile']">{{user.name}}</div>
+    <!-- <div class="">{{user.name}}</div>     -->
+  </div>
 
-      <ng-container *ngFor="let link of sidemenuElements">
-        <mat-list-item [routerLinkActive]="'active'" [routerLink]="link.navigateTo" (click)="link.active = true" [id]="link.id">
-          <a class="link">
-            <mat-icon class="icon">{{ link.icon }}</mat-icon>
-            {{ link.title }}
-            <!-- <mat-icon class="arrow_icon" #arrowProduct [ngClass]="{'down': link.active}" *ngIf="link.child">keyboard_arrow_right</mat-icon> -->
 
+  <mat-nav-list>
+
+    <ng-container *ngFor="let link of sidemenuElements">
+      <mat-list-item [routerLinkActive]="'active'" [routerLink]="link.navigateTo"  [routerLinkActiveOptions]="{exact: true}" (click)="link.active = true" [id]="link.id">
+        <a class="link">
+          <mat-icon class="icon">{{ link.icon }}</mat-icon>
+          {{ link.title }}
+        </a>
+      </mat-list-item>
+
+      <ng-container *ngIf="link.child">
+        <mat-list-item [routerLinkActive]="'active'" [routerLink]="childLink.navigateTo" *ngFor="let childLink of link.child"  (click)="link.active = true"  [id]="childLink.id">
+          <a class="link child">
+            <mat-icon class="icon">{{ childLink.icon }}</mat-icon>
+            {{ childLink.title }}
           </a>
         </mat-list-item>
-
-        <ng-container *ngIf="link.child">
-          <mat-list-item [routerLinkActive]="'active'" [routerLink]="childLink.navigateTo" *ngFor="let childLink of link.child"  (click)="link.active = true"  [id]="childLink.id">
-            <a class="link child">
-              <mat-icon class="icon">{{ childLink.icon }}</mat-icon>
-              {{ childLink.title }}
-            </a>
-          </mat-list-item>
-        </ng-container>
-
       </ng-container>
 
+    </ng-container>
 
-    </mat-nav-list>
-  </div>
+
+  </mat-nav-list>
 </div>

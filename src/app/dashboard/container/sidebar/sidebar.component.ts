@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/auth.service';
+import { UserModel } from 'src/app/shared/model/user.model';
 import { SidebarService } from '../../services/sidebar.service';
 import { SidemenuElement } from './SidemenuElement.model';
 
@@ -9,12 +11,15 @@ import { SidemenuElement } from './SidemenuElement.model';
 })
 export class SidebarComponent implements OnInit {
   sidemenuElements: SidemenuElement[];
+  user: UserModel;
   constructor(
-    private sidebarService: SidebarService,
+    public sidebarService: SidebarService,
+    public authService: AuthService,
   ) { }
 
   ngOnInit() {
     this.sidemenuElements = this.sidebarService.sidemenuElements;
+    this.user = this.authService.authUser;
   }
 
 }

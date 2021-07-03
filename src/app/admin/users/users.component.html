@@ -1,0 +1,31 @@
+<div class="container">
+  <mat-card-title class="mainTitle">
+    Lista Userów
+  </mat-card-title>
+
+  <button mat-raised-button color="primary" class="addBtn" (click)="addUser()">Nowy user</button>
+  <mat-list *ngIf="users && users[0]; else empty">
+    <mat-list-item *ngFor="let user of users" (click)="clicked(user)">
+      <mat-icon matListAvatar>person</mat-icon>
+      <div class="name" matLine>{{user.name}} ({{user.email}})</div>
+      <div class="name" matLine>{{user.created_at | date: 'MM-dd HH:mm:ss'}}</div>
+      <div class="isVerified" [ngClass]="{verified : user.email_verified_at}"></div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+
+  </mat-list>
+  <mat-paginator *ngIf="pagination"
+    [length]="pagination.length"
+    [pageSize]="pagination.pageSize"
+    [pageSizeOptions]="[2, 5, 10]"
+    [pageIndex]="pagination.pageIndex"
+    (page)="changePage($event)">
+  </mat-paginator>
+
+</div>
+
+<ng-template #empty>
+  <div class="emptyContainer">
+    <div class="title">Brak Userów</div>
+  </div>
+</ng-template>

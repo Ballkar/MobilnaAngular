@@ -1,0 +1,16 @@
+@import '~@angular/material/theming';
+@import './themeVariables.scss';
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+
+$custom-typography: mat-typography-config(
+  $font-family: 'Poppins'
+);
+@include mat-core($custom-typography);
+
+$myTheme: mat-light-theme($myTheme-primary, $myTheme-accent, $myTheme-warn);
+
+$background: map-get($myTheme, background);
+$background: map_merge($background, (background: $background-color));
+$myTheme: map_merge($myTheme, (background: $background));
+
+@include angular-material-theme($myTheme);

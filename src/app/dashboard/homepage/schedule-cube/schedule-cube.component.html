@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="header">
+    <div class="title">Wizyty</div>
+    <div class="subtitle">Zarządzaj wizytami swojego salonu</div>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="content">
+    <div class="action" (click)="addWork()">Dodaj nową wizytę</div>
+    <div class="action" [routerLink]="['/', 'dashboard', 'work']">Przeglądaj kalendarz</div>
+  </div>
+</div>

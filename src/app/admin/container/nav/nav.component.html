@@ -1,0 +1,42 @@
+<mat-toolbar color="primary" class="navBarContainer">
+
+
+  <div class="brandContainer">
+    <button mat-icon-button (click)="sidebarService.toggle()" class="menuHamburger">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <a class="navbarBrand" routerLink="/">
+      <img src="assets/logo.svg" class="logo" alt="homepage">
+    </a>
+  </div>
+
+
+
+  <div class="iconsContainer"  id="navTutorial">
+
+    <mat-icon [matMenuTriggerFor]="notificationMenu" #triggerNewElement="matMenuTrigger" [matBadge]="user.notificationCount" class="notificationBtn" matBadgeColor="warn">mail</mat-icon>
+
+    <button mat-icon-button  [matMenuTriggerFor]="profileMenu" #triggerNewElement="matMenuTrigger">
+      <mat-icon>settings</mat-icon>
+    </button>
+
+    <mat-menu #profileMenu="matMenu" class="profileMenu">
+      <div class="accountInformation" (click)="clickOnProfileMenu($event)">
+        <span class="name">{{user.name}}</span>
+        <span class="email">{{user.email}}</span>
+      </div>
+      <!-- <button mat-menu-item [routerLink]="['/', 'admin', 'profile']">
+        <mat-icon>edit</mat-icon> Edytuj profil
+      </button> -->
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon> Wyloguj
+      </button>
+    </mat-menu>
+
+    <mat-menu #notificationMenu="matMenu" class="notificationMenu">
+      <ng-template matMenuContent>
+        <app-notification-menu></app-notification-menu>
+      </ng-template>
+    </mat-menu>
+  </div>
+</mat-toolbar>

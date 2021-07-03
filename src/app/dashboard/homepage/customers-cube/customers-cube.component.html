@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="header">
+    <div class="title">Klienci</div>
+    <div class="subtitle">Gromadź informacje o swoich klientach w jednym miejscu.</div>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="content">
+    <div class="action" (click)="addCustomer()">Nowy klient</div>
+    <div class="action" [routerLink]="['/', 'dashboard', 'customer', 'list']">Baza klientów</div>
+  </div>
+</div>

@@ -1,28 +1,22 @@
 @import 'mixins';
+@import 'variables';
 
 .navBarContainer{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: $primary!important;
+  box-shadow: $box-shadow-default;
+  border-bottom: 1px solid $grayBorderColor;
+  padding: 0 10px;
+  height: $menuHeight;
 
   .brandContainer{
     display: flex;
 
     .menuHamburger{
       margin-right: 10px;
-    }
-
-    .navbarBrand{
-      display: flex;
-      align-items: center;
-
-      img{
-        height: 40px;
-        margin-top: 3px;
-        @include mobile{
-          height: 30px;
-        }
-      }
+      color: $menuContentColor;
     }
   }
 
@@ -30,6 +24,7 @@
     display: flex;
     flex-flow: row;
     align-items: center;
+    color: $menuContentColor;
 
     .label{
       font-size: 14px;

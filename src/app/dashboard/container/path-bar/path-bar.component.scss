@@ -1,0 +1,39 @@
+@import 'variables';
+
+.pathContainer {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  background-color: white;
+  padding: 0 20px;
+  margin-bottom: 15px;
+  height: $pathHeight;
+  box-shadow: $box-shadow-default;
+
+  div.path{
+    display: flex;
+    align-items: center;
+    &:last-of-type{
+      div.element{
+        color: $primary;
+      }
+    }
+
+    .divider {
+      $size: 14px;
+      height: $size;
+      width: $size;
+      font-size: $size;
+      margin: 0 5px;
+      cursor: default;
+    }
+    div.element {
+      cursor: pointer;
+      transition: color .3s;
+      &:hover{
+        color: $primary;
+      }
+    }
+  }
+
+}

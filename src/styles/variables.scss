@@ -1,2 +1,19 @@
+@import './theme/themeVariables.scss';
 
 $blue: #02bec9;
+
+// --------------------------------------------------- MATERIAL ---------------------------------------------------
+
+$primary: mat-color($myTheme-primary);
+$accent: mat-color($myTheme-accent);
+$warn: mat-color($myTheme-warn);
+
+// --------------------------------------------------- MENU ---------------------------------------------------
+$menuContentColor: white;
+$menuHeight: 60px;
+$pathHeight: 60px;
+
+
+// --------------------------------------------------- CUSTOM ---------------------------------------------------
+$box-shadow-default: 1px 0 5px rgb(0 0 0 / 20%);
+$grayBorderColor: #ddd;

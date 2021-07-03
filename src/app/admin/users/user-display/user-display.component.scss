@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-flow: column;
+
+  .row {
+    display: flex;
+    flex-flow: row;
+    margin-bottom: 15px;
+
+    .label {
+      color: #bbb;
+    }
+
+    .value {
+      margin-left: 10px;
+    }
+  }
+}
