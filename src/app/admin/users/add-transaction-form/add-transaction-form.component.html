@@ -1,0 +1,10 @@
+<form class="formContainer" (submit)="submit()" [formGroup]="form">
+  <mat-form-field>
+    <input matInput type="number" placeholder="Kwota" required [formControl]="moneyCtrl">
+    <!-- <mat-error *ngIf="password_confirmationCtrl.errors && password_confirmationCtrl.errors['serverError']">
+      {{password_confirmationCtrl.errors['serverError']}}
+    </mat-error> -->
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" class="submitBtn" type="submit">Dodaj</button>
+</form>

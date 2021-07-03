@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="header">
+    <mat-card-title class="mainTitle">Dodaj Usera</mat-card-title>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="submit()" cdkTrapFocusAutoCapture="true">
+    <mat-form-field>
+      <input matInput placeholder="Email" required [formControl]="emailCtrl">
+      <mat-error *ngIf="emailCtrl.errors && emailCtrl.errors['serverError']">
+        {{emailCtrl.errors['serverError']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Nazwa salonu" required [formControl]="nameCtrl">
+      <mat-error *ngIf="nameCtrl.errors && nameCtrl.errors['serverError']">
+        {{nameCtrl.errors['serverError']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="password" placeholder="Hasło" required [formControl]="passwordCtrl">
+      <mat-error *ngIf="passwordCtrl.errors && passwordCtrl.errors['serverError']">
+        {{passwordCtrl.errors['serverError']}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="password" placeholder="Powtórz hasło" required [formControl]="password_confirmationCtrl">
+      <mat-error *ngIf="password_confirmationCtrl.errors && password_confirmationCtrl.errors['serverError']">
+        {{password_confirmationCtrl.errors['serverError']}}
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="submitBtn" type="submit">Dodaj</button>
+  </form>
+</div>
