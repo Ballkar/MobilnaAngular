@@ -3,7 +3,7 @@
 
 .container{
   position: relative;
-  height: calc(100vh - #{$menuheight});
+  height: calc(100vh - #{$menuHeight} - 60px);
 }
 
 .quickFunctionButton{
